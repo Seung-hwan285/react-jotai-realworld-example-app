@@ -1,0 +1,33 @@
+.Login__Container{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    position: absolute;
+    top:50%;
+    left:50%;
+    transform: translate(-50%, -90%);
+}
+.Login__Container .sign-in-box{
+    display: flex;
+    flex-direction: column;
+
+}
+
+.Login__Container .sign-in-title h2{
+    text-align: center;
+    font-size: 30px;
+}
+
+.Login__Container .sign-in-title p{
+    color: green;
+}
+
+.Login__Container .form .sign-in-box  input{
+    margin-bottom: 20px;
+    font-size: 30px;
+    width: 500px;
+    border-radius: 3px;
+    border: 1px solid rgba(0, 0, 0, 0.3);
+}
+

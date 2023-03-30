@@ -1,0 +1,14 @@
+@import "login/login.css";
+
+
+html, body, ul, li {
+    margin: 0;
+    padding: 0;
+}
+::placeholder{
+    font-size: 20px;
+    color: rgba(0,0,0,0.5);
+}
+input:focus{
+    outline: none;
+}
