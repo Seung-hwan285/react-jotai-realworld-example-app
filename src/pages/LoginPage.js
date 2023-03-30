@@ -16,11 +16,12 @@ function LoginPage(target){
     LoginContainer.appendChild(LoginFormBox);
 
     target.appendChild(LoginContainer);
-    
+
     const render=()=>{
         LoginFormTitle(LoginWrapper);
         LoginInput(LoginFormBox);
     }
+    // test
 
     render();
 
