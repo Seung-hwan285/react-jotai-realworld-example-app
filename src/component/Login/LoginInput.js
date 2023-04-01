@@ -1,4 +1,4 @@
-function LoginInput(LoginFormBox){
+function LoginFormInput(LoginFormBox){
 
     const render=()=>{
         LoginFormBox.innerHTML=`
@@ -7,9 +7,11 @@ function LoginInput(LoginFormBox){
                 <input type="text" placeholder="Email">
                 <input type="text" placeholder="Password">                       
                 </div>
+                
+                <button class="form-button" type="submit">Sign in</button>
             </form>
         `
     }
     render();
 }
-export default LoginInput;
+export default LoginFormInput;

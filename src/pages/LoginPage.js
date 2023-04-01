@@ -1,5 +1,6 @@
-import LoginInput from "../component/Login/LoginInput.js";
+import LoginFormInput from "../component/Login/LoginInput.js";
 import LoginFormTitle from "../component/Login/LoginFormTitle.js";
+import Header from "../layout/header.js";
 
 function LoginPage(target){
 
@@ -19,9 +20,9 @@ function LoginPage(target){
 
     const render=()=>{
         LoginFormTitle(LoginWrapper);
-        LoginInput(LoginFormBox);
+        LoginFormInput(LoginFormBox);
     }
-    // test
+
 
     render();
 
