@@ -5,6 +5,7 @@ import {initRouter} from "./utils/routes.js";
 
 function App({target}){
 
+    Header(target);
     const routes=()=>{
 
         const {pathname} = window.location;

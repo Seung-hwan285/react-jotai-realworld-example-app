@@ -26,8 +26,13 @@ function HomePage(target){
     }
 
     const render=()=>{
-        Header(target);
+        const Login = document.querySelector('.Login__Container');
 
+        if(Login){
+            console.log(Login);
+            Login.innerHTML='';
+            Login.remove();
+        }
 
         homeWrapper.innerHTML=`
      
