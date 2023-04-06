@@ -19,6 +19,9 @@ function LoginPage(target){
     target.appendChild(LoginContainer);
 
     const render=()=>{
+        const Banner = document.querySelector('.Banner__Container');
+        Banner.innerHTML=''
+        Banner.remove();
         LoginFormTitle(LoginWrapper);
         LoginFormInput(LoginFormBox);
     }
