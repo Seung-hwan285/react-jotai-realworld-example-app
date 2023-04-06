@@ -4,7 +4,6 @@ import HomePage from "./pages/HomePage.js";
 import {initRouter} from "./utils/routes.js";
 
 function App({target}){
-
     Header(target);
     const routes=()=>{
 
@@ -26,7 +25,11 @@ function App({target}){
         routes();
     }
 
+
     render();
 
+
 }
+
+
 export default App;
