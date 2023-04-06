@@ -1,0 +1,31 @@
+.Banner__Container{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: absolute;
+    top:30%;
+    left:50%;
+    width: 100%;
+    height: 23%;
+    background-color: green;
+    color: white;
+    transform: translate(-50%, -90%);
+}
+
+.Banner__Wrapper{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+
+}
+
+
+.Banner__Wrapper .banner-title{
+    font-size: 45px;
+    height: 5vh;
+    margin-bottom: 10px;
+}
+.Banner__Wrapper .banner-content{
+    font-size: 20px;
+}
