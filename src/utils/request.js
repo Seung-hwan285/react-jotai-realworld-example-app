@@ -1,5 +1,4 @@
 export const request={
-
     userLogin:async (email,password)=>{
         try{
             const response = await fetch('https://api.realworld.io/api/users/login', {
@@ -13,7 +12,6 @@ export const request={
                         password: password
                 }})
             });
-
             const data = await response.json();
 
             if (response.ok) {
@@ -26,16 +24,6 @@ export const request={
             console.error(error);
         }
     },
-    // userRegister:async ()=>{
-    //     try{
-    //         const response = await fetch(`https://api.realworld.io/api/users`,{
-    //             method :'POST',
-    //             headers:{
-    //                 'Content-Type': 'application/json'
-    //             },
-    //         });
-    //     }
-    //
-    // }
+
 
 }
