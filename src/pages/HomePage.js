@@ -1,6 +1,3 @@
-import Header from "../layout/header.js";
-import {route} from "../utils/routes.js";
-
 function HomePage(target){
 
     const homeContainer=document.createElement('div');
