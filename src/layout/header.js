@@ -57,6 +57,10 @@ function Header(target){
     }
 
     render();
+    return{
+        render,
+    }
+
 }
 
 
