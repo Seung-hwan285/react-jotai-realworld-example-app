@@ -3,12 +3,7 @@ import {route} from "../utils/routes.js";
 import {getLocalStroage} from "../utils/storage.js";
 
 function Header(target){
-    console.log(target);
-    const $nav = document.querySelector('nav');
-
-
     const nav = document.createElement('nav');
-
     const HeaderContainer =document.createElement('div');
     HeaderContainer.className='container';
 
@@ -17,30 +12,21 @@ function Header(target){
     LogoElement.className='navbar-brand';
     LogoElement.setAttribute('data-link',"/");
 
-        nav.appendChild(LogoElement);
-        nav.appendChild(HeaderContainer);
+    nav.appendChild(LogoElement);
+    nav.appendChild(HeaderContainer);
+    target.appendChild(nav);
 
-            target.appendChild(nav);
-
+    const handleLinkClick=(e)=>{
+        const link = e.target.dataset.link;
+        route(link);
+    }
 
     const handleClick=()=>{
         const ul = document.querySelector('.container-ul');
         const navbarLogo = document.querySelector('.navbar-brand');
-
-        navbarLogo.addEventListener('click',(e)=>{
-            const link = e.target.dataset.link;
-            route(link);
-        })
-
-        ul.addEventListener('click',(e)=>{
-            const li = e.target;
-            const link = li.dataset.link;
-            route(link);
-        });
+        navbarLogo.addEventListener('click',handleLinkClick);
+        ul.addEventListener('click',handleLinkClick);
     }
-
-    // 메인페이지로 이동시 토큰값이 null이 나오고 있네?
-
 
     const render=()=>{
         const authData = getLocalStroage('token');
@@ -55,12 +41,11 @@ function Header(target){
         `
         handleClick();
     }
-
     render();
+
     return{
         render,
     }
-
 }
 
 
