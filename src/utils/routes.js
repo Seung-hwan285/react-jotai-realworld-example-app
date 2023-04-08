@@ -17,8 +17,6 @@ export const initRouter = (onRoute) => {
 // 그리고 detail로 값을 전달
 export const route = (nextUrl) => {
     if (nextUrl) {
-
-        console.log(nextUrl);
         window.dispatchEvent(
             new CustomEvent(ROUTE_CHANGE_EVENT, {
                 detail: {

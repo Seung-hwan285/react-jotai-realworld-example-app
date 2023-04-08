@@ -7,13 +7,9 @@ export const setLocalStroage=(key,value)=>{
 }
 export const getLocalStroage=(key)=>{
     try {
-        console.log(key);
         const value = window.localStorage.getItem(key);
-
-        console.log(value);
         return value=== null ? null :JSON.parse(value);
     } catch (err) {
         console.error(err);
-        return null;
     }
 };

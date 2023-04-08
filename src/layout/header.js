@@ -3,26 +3,25 @@ import {route} from "../utils/routes.js";
 import {getLocalStroage} from "../utils/storage.js";
 
 function Header(target){
-
+    console.log(target);
     const $nav = document.querySelector('nav');
+
 
     const nav = document.createElement('nav');
 
-    const headerContainer =document.createElement('div');
-    headerContainer.className='container';
+    const HeaderContainer =document.createElement('div');
+    HeaderContainer.className='container';
 
-    const logoElement = document.createElement('a');
-    logoElement.innerText=`conduit`;
-    logoElement.className='navbar-brand';
-    logoElement.setAttribute('data-link',"/");
+    const LogoElement = document.createElement('a');
+    LogoElement.innerText=`conduit`;
+    LogoElement.className='navbar-brand';
+    LogoElement.setAttribute('data-link',"/");
 
-    if(!$nav){
-        nav.appendChild(logoElement);
-        nav.appendChild(headerContainer);
+        nav.appendChild(LogoElement);
+        nav.appendChild(HeaderContainer);
 
-        target.appendChild(nav);
+            target.appendChild(nav);
 
-    }
 
     const handleClick=()=>{
         const ul = document.querySelector('.container-ul');
@@ -44,11 +43,10 @@ function Header(target){
 
 
     const render=()=>{
-
         const authData = getLocalStroage('token');
-        console.log(authData);
 
-        headerContainer.innerHTML=`
+        console.log(authData);
+        HeaderContainer.innerHTML=`
            <ul class="container-ul">
             <li data-link="/">Home</li>
             <li data-link="login">Sing in</li>

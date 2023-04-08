@@ -18,10 +18,7 @@ function HomePage(target){
 
     const render=()=>{
         const Login = document.querySelector('.Login__Container');
-
-
         if(Login){
-            console.log(Login);
             Login.remove();
         }
 

@@ -6,16 +6,15 @@ import {initRouter} from "./utils/routes.js";
 function App({target}){
 
     const routes=()=>{
-        // header 컴포넌트가 계속 실행이 되고 있는다.
 
         const {pathname} = window.location;
-        console.log(pathname);
 
         if(pathname==='/'){
-            HomePage(target);
+
+           new HomePage(target);
         }
         else if(pathname ==='/login'){
-            LoginPage(target);
+            new LoginPage(target);
         }
     }
 
@@ -23,11 +22,9 @@ function App({target}){
 
     const render=()=>{
         Header(target);
-
-        initRouter(()=>routes());
+        initRouter(() => routes());
         routes();
     }
-
 
     render();
 }
