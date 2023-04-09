@@ -1,11 +1,6 @@
 import LoginFormInput from "../component/Login/LoginInput.js";
 import LoginFormTitle from "../component/Login/LoginFormTitle.js";
 
-// TODO 로그인 성공시 토큰 반환하고 메인페이지로 이동
-// [] 사용자는 로그인을 한다.
-// [] 로그인 성공시 200을 보내고 메인 페이지로 이동한다.
-// [] 로그인 성공시 헤더를 변경한다.
-
 function LoginPage(target){
 
     const LoginContainer = document.createElement('div');
@@ -29,12 +24,19 @@ function LoginPage(target){
     target.appendChild(LoginContainer);
 
 
+    // register에서 로그인 페이지로 이동하면 Register가 렌더링 되는게 아니고 Login이 새로 추가된다.
+
     const render=()=>{
         const Banner = document.querySelector('.Banner__Container');
+        const registerBox = document.querySelector('.Register__Container');
 
+        console.log(registerBox);
         if(Banner){
             Banner.innerHTML=''
             Banner.remove();
+        }
+        if(registerBox){
+            registerBox.remove();
         }
 
         LoginFormTitle(LoginWrapper);

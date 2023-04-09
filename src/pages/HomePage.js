@@ -18,7 +18,16 @@ function HomePage(target){
 
     const render=()=>{
         const Login = document.querySelector('.Login__Container');
+        const registerBox = document.querySelector('.Register__Container');
+
+
+        if(registerBox){
+            registerBox.innerHTML='';
+            registerBox.remove();
+        }
+
         if(Login){
+            Login.innerHTML='';
             Login.remove();
         }
 
