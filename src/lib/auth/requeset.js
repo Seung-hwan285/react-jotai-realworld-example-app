@@ -35,12 +35,12 @@ export const auth_request={
                     Authorization : `Token ${encodeURIComponent(token)}`
                 },
             });
+            const data = await response.json();
 
             if(response.ok){
-                const data = await response.json();
-                return  data;
+                return data;
             }else {
-                throw new Error(response.errors);
+                throw new Error(data.errors);
             }
 
         }catch (err){

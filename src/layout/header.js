@@ -1,7 +1,7 @@
 
 import {route} from "../utils/routes.js";
 import {getLocalStroage} from "../utils/storage.js";
-import {auth_request} from "../lib/auth/requeset.js";
+import {fetchAuthUserInfo} from "../utils/helper/loginHelper.js";
 
 function Header(target){
     const nav = document.createElement('nav');
@@ -31,17 +31,10 @@ function Header(target){
         ul.addEventListener('click',handleLinkClick);
     }
 
-    const fetchAuthUserInfo=async (authToken)=>{
-        if(authToken){
-            const data =await auth_request.getUserInfo(authToken);
-            return data.user;
-        }
-    }
 
     const render=async ()=>{
         const authToken = getLocalStroage('token');
         const user = await fetchAuthUserInfo(authToken);
-        console.log(user);
 
         if(authToken){
             HeaderContainer.innerHTML=`
