@@ -1,4 +1,5 @@
-export const request={
+
+export const auth_request={
     userLogin:async (email,password)=>{
         try{
             const response = await fetch('https://api.realworld.io/api/users/login', {
@@ -10,7 +11,7 @@ export const request={
 
                     user:{    email: email,
                         password: password
-                }})
+                    }})
             });
             const data = await response.json();
 
@@ -25,5 +26,25 @@ export const request={
         }
     },
 
+    getUserInfo : async (token) =>{
+        try{
+            const response =  await fetch(`https://api.realworld.io/api/user`,{
+                method : 'GET',
+                headers:{
+                    'Content-Type' : 'application/json',
+                    Authorization : `Token ${encodeURIComponent(token)}`
+                },
+            });
 
+            if(response.ok){
+                const data = await response.json();
+                return  data;
+            }else {
+                throw new Error(response.errors);
+            }
+
+        }catch (err){
+            console.error(err);
+        }
+    }
 }

@@ -1,6 +1,6 @@
-import {request} from "../../utils/request.js";
 import {route} from "../../utils/routes.js";
 import {setLocalStroage} from "../../utils/storage.js";
+import {auth_request} from "../../lib/auth/requeset.js";
 
 function LoginFormInput(LoginFormBox){
 
@@ -14,7 +14,7 @@ function LoginFormInput(LoginFormBox){
             const email = document.querySelector('.email').value;
             const password = document.querySelector('.password').value;
 
-            const token = await request.userLogin(email,password);
+            const token = await auth_request.userLogin(email,password);
             setLocalStroage('token',token);
             if(token){
                 route("/");
