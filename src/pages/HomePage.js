@@ -1,3 +1,5 @@
+import {cleanHTML} from "../utils/helper/cleanHTML.js";
+
 function HomePage(target){
 
     const HomeContainer=document.createElement('div');
@@ -17,20 +19,7 @@ function HomePage(target){
 
 
     const render=()=>{
-        const Login = document.querySelector('.Login__Container');
-        const registerBox = document.querySelector('.Register__Container');
-
-
-        if(registerBox){
-            registerBox.innerHTML='';
-            registerBox.remove();
-        }
-
-        if(Login){
-            Login.innerHTML='';
-            Login.remove();
-        }
-
+        cleanHTML.HomePage();
         HomeWrapper.innerHTML=`
             <h1 class="banner-title">conduit</h1>
             <p class="banner-content">A place to share your hnwledge.</p>

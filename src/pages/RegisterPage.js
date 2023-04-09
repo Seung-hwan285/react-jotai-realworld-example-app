@@ -1,4 +1,4 @@
-import RegisterInput from "../component/Register/RegisterInput.js";
+import {cleanHTML} from "../utils/helper/cleanHTML.js";
 
 function RegisterPage(target){
 
@@ -25,17 +25,7 @@ function RegisterPage(target){
 
 
     const render=()=>{
-
-        const Banner = document.querySelector('.Banner__Container');
-        const Login = document.querySelector('.Login__Container');
-        if(Login){
-            Login.innerHTML='';
-            Login.remove();
-        }
-        if(Banner){
-            Banner.innerHTML='';
-            Banner.remove();
-        }
+        cleanHTML.RegisterPage();
 
     }
     render();

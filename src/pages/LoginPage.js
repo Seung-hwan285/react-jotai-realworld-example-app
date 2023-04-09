@@ -1,5 +1,6 @@
 import LoginFormInput from "../component/Login/LoginInput.js";
 import LoginFormTitle from "../component/Login/LoginFormTitle.js";
+import {cleanHTML} from "../utils/helper/cleanHTML.js";
 
 function LoginPage(target){
 
@@ -27,18 +28,7 @@ function LoginPage(target){
     // register에서 로그인 페이지로 이동하면 Register가 렌더링 되는게 아니고 Login이 새로 추가된다.
 
     const render=()=>{
-        const Banner = document.querySelector('.Banner__Container');
-        const registerBox = document.querySelector('.Register__Container');
-
-        console.log(registerBox);
-        if(Banner){
-            Banner.innerHTML=''
-            Banner.remove();
-        }
-        if(registerBox){
-            registerBox.remove();
-        }
-
+        cleanHTML.LoginPage();
         LoginFormTitle(LoginWrapper);
         LoginFormInput(LoginFormBox);
     }
