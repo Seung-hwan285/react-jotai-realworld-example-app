@@ -1,4 +1,5 @@
 import {cleanHTML} from "../utils/helper/cleanHTML.js";
+import RegisterInput from "../component/Register/RegisterInput.js";
 
 function RegisterPage(target){
 
@@ -26,6 +27,7 @@ function RegisterPage(target){
 
     const render=()=>{
         cleanHTML.RegisterPage();
+        RegisterInput(RegisterFormBox);
 
     }
     render();

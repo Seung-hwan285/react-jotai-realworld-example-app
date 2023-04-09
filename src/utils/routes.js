@@ -1,6 +1,7 @@
 const ROUTE_CHANGE_EVENT = 'ROUTE_CHANGE'
 
 export const initRouter = (onRoute) => {
+    window.addEventListener('popstate', onRoute);
     window.addEventListener(ROUTE_CHANGE_EVENT, (e) => {
         const { nextUrl } = e.detail;
 
