@@ -45,4 +45,12 @@ export const cleanHTML = {
       Banner.remove();
     }
   },
+  SettingPage: () => {
+    const Banner = document.querySelector('.Banner__Container');
+
+    if (Banner) {
+      Banner.innerHTML = '';
+      Banner.remove();
+    }
+  },
 };
