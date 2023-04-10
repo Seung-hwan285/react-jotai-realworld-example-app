@@ -1,0 +1,41 @@
+.Register__Container {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -70%);
+}
+
+.Register__Container .register-box{
+    display: flex;
+    flex-direction: column;
+}
+
+
+
+.Register__Container .register-in-title h2{
+    text-align: center;
+    font-size: 30px;
+}
+.Register__Container .register-in-title p{
+    color: green;
+}
+.Register__Container .form .register-box input{
+    margin: 10px 20px;
+    font-size: 30px;
+    width: 500px;
+    border-radius: 3px;
+    border: 1px solid rgba(0,0,0,0.3);
+}
+
+.Register__Container .form button{
+    float: right;
+    background-color: green;
+    border-radius: 5px;
+    padding: 10px 15px;
+    color: white;
+    border: none;
+}

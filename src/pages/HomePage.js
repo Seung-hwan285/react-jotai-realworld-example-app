@@ -18,13 +18,16 @@ function HomePage(target){
 
 
 
-    const render=()=>{
-        cleanHTML.HomePage();
+    const paintBanner=()=>{
         HomeWrapper.innerHTML=`
             <h1 class="banner-title">conduit</h1>
             <p class="banner-content">A place to share your hnwledge.</p>
         `
+    }
 
+    const render=()=>{
+        cleanHTML.HomePage();
+        paintBanner();
     }
 
     render();

@@ -2,10 +2,10 @@
 export const cleanHTML={
     HomePage : ()=>{
         const LoginBox = document.querySelector('.Login__Container');
-        const registerBox = document.querySelector('.Register__Container');
-        if(registerBox){
-            registerBox.innerHTML='';
-            registerBox.remove();
+        const RegisterBox = document.querySelector('.Register__Container');
+        if(RegisterBox){
+            RegisterBox.innerHTML='';
+            RegisterBox.remove();
         }
 
         if(LoginBox){

@@ -1,7 +1,7 @@
 
 import {route} from "../utils/routes.js";
 import {getLocalStroage} from "../utils/storage.js";
-import {fetchAuthUserInfo} from "../utils/helper/authHelper.js";
+import {fetchAuthUserInfo} from "../utils/helper/fetchAuth.js";
 
 function Header(target){
     const nav = document.createElement('nav');

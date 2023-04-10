@@ -1,6 +1,7 @@
 @import "login/login.css";
 @import "layout/header.css";
 @import "home/home.css";
+@import "register/register.css";
 
 html, body, ul, li {
     margin: 0;
