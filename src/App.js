@@ -14,14 +14,17 @@ function App({ target }) {
   const routes = () => {
     const { pathname } = window.location;
 
-    if (pathname === '/') {
-      new HomePage(target);
-    } else if (pathname === '/login') {
-      new LoginPage(target);
-    } else if (pathname === '/register') {
-      new RegisterPage(target);
-    } else if (pathname === '/setting') {
-      new SettingPage(target);
+    const pages = [
+      { path: '/', component: HomePage },
+      { path: '/login', component: LoginPage },
+      { path: '/register', component: RegisterPage },
+      { path: '/setting', component: SettingPage },
+    ];
+
+    const page = pages.find((page) => page.path === pathname);
+
+    if (page) {
+      new page.component(target);
     }
   };
 
