@@ -75,4 +75,6 @@ export const auth_request = {
       console.error(err);
     }
   },
+
+  userLogout: () => {},
 };

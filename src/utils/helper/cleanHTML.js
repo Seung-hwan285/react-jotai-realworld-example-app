@@ -1,12 +1,21 @@
+import { getLocalStroage } from '../storage.js';
+
 export const cleanHTML = {
   HomePage: () => {
     const LoginBox = document.querySelector('.Login__Container');
     const RegisterBox = document.querySelector('.Register__Container');
+    const SettingContainer = document.querySelector('.Setting__Container');
+
+    const token = getLocalStroage('token');
+    if (SettingContainer && token) {
+      SettingContainer.innerHTML = '';
+      SettingContainer.remove();
+    }
+
     if (RegisterBox) {
       RegisterBox.innerHTML = '';
       RegisterBox.remove();
     }
-
     if (LoginBox) {
       LoginBox.innerHTML = '';
       LoginBox.remove();
