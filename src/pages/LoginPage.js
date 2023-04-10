@@ -1,40 +1,35 @@
-import LoginFormInput from "../component/Login/LoginInput.js";
-import LoginFormTitle from "../component/Login/LoginFormTitle.js";
-import {cleanHTML} from "../utils/helper/cleanHTML.js";
+import LoginFormInput from '../component/Login/LoginInput.js';
+import LoginFormTitle from '../component/Login/LoginFormTitle.js';
+import { cleanHTML } from '../utils/helper/cleanHTML.js';
 
-function LoginPage(target){
+function LoginPage(target) {
+  const LoginContainer = document.createElement('div');
+  LoginContainer.className = 'Login__Container';
 
-    const LoginContainer = document.createElement('div');
-    LoginContainer.className="Login__Container";
+  const container = document.querySelector('.Login__Container');
+  if (container) {
+    return;
+  }
 
+  const LoginWrapper = document.createElement('div');
+  LoginWrapper.className = 'Login__Wrapper';
 
-    const container = document.querySelector('.Login__Container');
-    if(container){
-        return;
-    }
+  const LoginFormBox = document.createElement('div');
+  LoginFormBox.className = 'Login__Box';
 
-    const LoginWrapper = document.createElement('div');
-    LoginWrapper.className="Login__Wrapper";
+  LoginContainer.appendChild(LoginWrapper);
+  LoginContainer.appendChild(LoginFormBox);
 
-    const LoginFormBox = document.createElement('div');
-    LoginFormBox.className="Login__Box";
+  target.appendChild(LoginContainer);
 
-    LoginContainer.appendChild(LoginWrapper);
-    LoginContainer.appendChild(LoginFormBox);
+  // register에서 로그인 페이지로 이동하면 Register가 렌더링 되는게 아니고 Login이 새로 추가된다.
 
-    target.appendChild(LoginContainer);
+  const render = () => {
+    cleanHTML.LoginPage();
+    LoginFormTitle(LoginWrapper);
+    LoginFormInput(LoginFormBox);
+  };
 
-
-    // register에서 로그인 페이지로 이동하면 Register가 렌더링 되는게 아니고 Login이 새로 추가된다.
-
-    const render=()=>{
-        cleanHTML.LoginPage();
-        LoginFormTitle(LoginWrapper);
-        LoginFormInput(LoginFormBox);
-    }
-
-
-    render();
-
+  render();
 }
 export default LoginPage;
