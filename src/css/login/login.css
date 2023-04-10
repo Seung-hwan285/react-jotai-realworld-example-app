@@ -31,7 +31,7 @@
     border: 1px solid rgba(0, 0, 0, 0.3);
 }
 
-.Login__Container .form  button{
+.Login__Container .form-button{
     background-color: green;
     padding: 10px 15px;
     border-radius: 5px;

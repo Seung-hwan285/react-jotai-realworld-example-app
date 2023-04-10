@@ -6,12 +6,14 @@
     position: absolute;
     top: 50%;
     left: 50%;
+
     transform: translate(-50%, -70%);
 }
 
 .Register__Container .register-box{
     display: flex;
     flex-direction: column;
+
 }
 
 
@@ -31,11 +33,13 @@
     border: 1px solid rgba(0,0,0,0.3);
 }
 
-.Register__Container .form button{
-    float: right;
+.Register__Container .form-button{
     background-color: green;
-    border-radius: 5px;
     padding: 10px 15px;
+    border-radius: 5px;
+    margin-right: 20px;
+    margin-top: 10px;
     color: white;
     border: none;
+    float : right;
 }

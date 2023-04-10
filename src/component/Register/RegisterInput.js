@@ -9,7 +9,7 @@ function RegisterInput(RegisterFormBox){
                   
                 </div>
                 
-                <button class="form-button" type="submit">Sign in</button>
+                <button class="form-button" type="submit">Sign up</button>
             </form>
         `
     }
