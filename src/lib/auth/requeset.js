@@ -1,3 +1,7 @@
+import { removeStroage } from '../../utils/storage.js';
+import { route } from '../../utils/routes.js';
+import { cleanHTML } from '../../utils/helper/cleanHTML.js';
+
 export const auth_request = {
   userLogin: async (email, password) => {
     try {
@@ -76,5 +80,15 @@ export const auth_request = {
     }
   },
 
-  userLogout: () => {},
+  userLogout: (key) => {
+    const user = removeStroage(key);
+    if (user === undefined) {
+      const SettingContainer = document.querySelector('.Setting__Container');
+      if (SettingContainer) {
+        SettingContainer.innerHTML = '';
+        SettingContainer.remove();
+      }
+      route('/');
+    }
+  },
 };

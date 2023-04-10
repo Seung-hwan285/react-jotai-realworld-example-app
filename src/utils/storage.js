@@ -13,3 +13,10 @@ export const getLocalStroage = (key) => {
     console.error(err);
   }
 };
+export const removeStroage = (key) => {
+  try {
+    return window.localStorage.removeItem(key);
+  } catch (err) {
+    console.error(err);
+  }
+};
