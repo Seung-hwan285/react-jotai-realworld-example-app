@@ -1,16 +1,19 @@
-@import "login/login.css";
-@import "layout/header.css";
-@import "home/home.css";
-@import "register/register.css";
+@import 'login/login.css';
+@import 'layout/header.css';
+@import 'home/home.css';
+@import 'register/register.css';
 
-html, body, ul, li {
-    margin: 0;
-    padding: 0;
+html,
+body,
+ul,
+li {
+  margin: 0;
+  padding: 0;
 }
-::placeholder{
-    font-size: 20px;
-    color: rgba(0,0,0,0.5);
+::placeholder {
+  font-size: 20px;
+  color: rgba(0, 0, 0, 0.5);
 }
-input:focus{
-    outline: none;
+input:focus {
+  outline: none;
 }

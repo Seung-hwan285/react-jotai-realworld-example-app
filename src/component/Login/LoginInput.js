@@ -6,7 +6,7 @@ function LoginFormInput(LoginFormBox) {
   const handleUserSubmit = () => {
     const form = document.querySelector('.form');
 
-    form.addEventListener('submit', async e => {
+    form.addEventListener('submit', async (e) => {
       e.preventDefault();
       const email = document.querySelector('.email').value;
       const password = document.querySelector('.password').value;
@@ -21,8 +21,8 @@ function LoginFormInput(LoginFormBox) {
 
   const render = () => {
     LoginFormBox.innerHTML = `
-                <form class="form">
-                    <div class="sign-in-box">
+                    <form class="form">
+                        <div class="sign-in-box">
                     <input  class="email" type="text" placeholder="Email">
                     <input class="password" type="text" placeholder="Password">      
                    

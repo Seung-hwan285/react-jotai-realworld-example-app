@@ -28,18 +28,23 @@ export const auth_request = {
 
   userRegister: async (username, email, password) => {
     try {
-      const response = fetch(`https://api.realworld.io/api/users/`, {
+      const response = await fetch(`https://api.realworld.io/api/users/`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
         },
         body: JSON.stringify({
-          username: username,
-          email: email,
-          password: password,
+          user: {
+            username: username,
+            email: email,
+            password: password,
+          },
         }),
       });
+
       const data = await response.json();
+      console.log(data);
+
       if (response.ok) {
         return data;
       } else {
@@ -50,7 +55,7 @@ export const auth_request = {
     }
   },
 
-  getUserInfo: async token => {
+  getUserInfo: async (token) => {
     try {
       const response = await fetch(`https://api.realworld.io/api/user`, {
         method: 'GET',
