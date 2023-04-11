@@ -2,18 +2,18 @@ import { getLocalStroage } from '../../utils/storage.js';
 import { fetchAuthUserInfo } from '../../utils/helper/fetchAuth.js';
 
 function SettingInput(SettingFormBox) {
-  // const SettingContainer = document.createElement('div');
-  // SettingContainer.className = 'Setting__Container';
-  //
-  // const SettingWrapper = document.createElement('div');
-  // SettingWrapper.className = 'Setting__Wrapper';
-
   const render = async () => {
     const authToken = getLocalStroage('token');
     const user = await fetchAuthUserInfo(authToken);
-    console.log(user);
 
     SettingFormBox.innerHTML = `
+      <div class="spinner"></div>
+    `;
+
+    const spinner = document.querySelector('.spinner');
+    spinner.style.backgroundImage = 'url("/src/public/spinner.gif")';
+
+    const paintSettingPage = `
 <h2>Your Profile</h2>
       <form class="form">
         
@@ -31,6 +31,9 @@ function SettingInput(SettingFormBox) {
       
 </form>
     `;
+    setTimeout(() => {
+      SettingFormBox.innerHTML = paintSettingPage;
+    }, 3000);
   };
   render();
 }
