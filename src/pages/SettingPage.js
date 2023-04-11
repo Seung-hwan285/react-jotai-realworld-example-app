@@ -1,6 +1,5 @@
 import { cleanHTML } from '../utils/helper/cleanHTML.js';
-import { auth_request } from '../lib/auth/requeset.js';
-import { getLocalStroage } from '../utils/storage.js';
+import SettingInput from '../component/Setting/SettingInput.js';
 
 function SettingPage(target) {
   const container = document.querySelector('.Setting__Container');
@@ -12,22 +11,18 @@ function SettingPage(target) {
 
   const SettingWrapper = document.createElement('div');
   SettingWrapper.className = 'Setting__Wrapper';
-  SettingWrapper.innerHTML = `<button class="logout">로그아웃</button>`;
+
+  const SettingFormBox = document.createElement('div');
+  SettingFormBox.className = 'Setting__Box';
 
   SettingContainer.appendChild(SettingWrapper);
+  SettingContainer.appendChild(SettingFormBox);
 
   target.appendChild(SettingContainer);
 
-  const handleLogoutClick = () => {
-    const button = document.querySelector('.logout');
-    button.addEventListener('click', (e) => {
-      auth_request.userLogout('token');
-    });
-  };
-
   const render = () => {
     cleanHTML.SettingPage();
-    handleLogoutClick();
+    SettingInput(SettingFormBox);
   };
 
   render();

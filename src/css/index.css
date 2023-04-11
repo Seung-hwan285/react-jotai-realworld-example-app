@@ -2,6 +2,7 @@
 @import 'layout/header.css';
 @import 'home/home.css';
 @import 'register/register.css';
+@import 'setting/setting.css';
 
 html,
 body,
