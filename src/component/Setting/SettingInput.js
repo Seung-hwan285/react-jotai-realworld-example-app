@@ -1,17 +1,39 @@
 import { getLocalStroage } from '../../utils/storage.js';
 import { fetchAuthUserInfo } from '../../utils/helper/fetchAuth.js';
+import { auth_request } from '../../lib/auth/requeset.js';
+import { route } from '../../utils/routes.js';
 
 function SettingInput(SettingFormBox) {
-  const render = async () => {
-    const authToken = getLocalStroage('token');
-    const user = await fetchAuthUserInfo(authToken);
-
-    SettingFormBox.innerHTML = `
+  SettingFormBox.innerHTML = `
       <div class="spinner"></div>
     `;
+  const authToken = getLocalStroage('token');
 
-    const spinner = document.querySelector('.spinner');
-    spinner.style.backgroundImage = 'url("/src/public/spinner.gif")';
+  const spinner = document.querySelector('.spinner');
+  spinner.style.backgroundImage = 'url("/src/public/spinner.gif")';
+
+  const handleUpdateUserSubmit = () => {
+    const form = document.querySelector('.form');
+
+    form.addEventListener('submit', (e) => {
+      e.preventDefault();
+      const email = document.querySelector('.email').value;
+      const bio = document.querySelector('.form-control-lg').value;
+      const image = document.querySelector('.image');
+      const imageValue = image.value.trim() === '' ? null : image.value;
+
+      const data = auth_request.userUpdate(authToken, email, bio, imageValue);
+
+      console.log(data);
+
+      if (data) {
+        route('/');
+      }
+    });
+  };
+
+  const render = async () => {
+    const user = await fetchAuthUserInfo(authToken);
 
     const paintSettingPage = `
 <h2>Your Profile</h2>
@@ -23,7 +45,7 @@ function SettingInput(SettingFormBox) {
             <input class="username" type="text" value="${user.username}">
            <textarea class="form-control-lg"
                 rows="10"
-            placeholder="Short bio about you">${user.bio === null ? '' : user.bio}</textarea>
+            placeholder="Short bio about you">${user.bio}</textarea>
             <input class="email" type="text" value="${user.email}">
             <input class="password" type="text"  placeholder="New Password">
         </div>
@@ -33,7 +55,8 @@ function SettingInput(SettingFormBox) {
     `;
     setTimeout(() => {
       SettingFormBox.innerHTML = paintSettingPage;
-    }, 2500);
+      handleUpdateUserSubmit();
+    }, 2000);
   };
   render();
 }

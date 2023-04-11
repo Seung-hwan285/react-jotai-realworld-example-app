@@ -1,6 +1,5 @@
 import { removeStroage } from '../../utils/storage.js';
 import { route } from '../../utils/routes.js';
-import { cleanHTML } from '../../utils/helper/cleanHTML.js';
 
 export const auth_request = {
   userLogin: async (email, password) => {
@@ -68,12 +67,44 @@ export const auth_request = {
           Authorization: `Token ${encodeURIComponent(token)}`,
         },
       });
+
+      console.log(response);
       const data = await response.json();
+
+      console.log(data);
 
       if (response.ok) {
         return data;
       } else {
         throw new Error(data.errors);
+      }
+    } catch (err) {
+      console.error(err);
+    }
+  },
+
+  userUpdate: async (token, email, bio, image) => {
+    try {
+      const response = await fetch(`https://api.realworld.io/api/user`, {
+        method: 'PUT',
+        headers: {
+          'Content-Type': 'application/json',
+          Authorization: `Token ${encodeURIComponent(token)}`,
+        },
+        body: JSON.stringify({
+          user: {
+            email: email,
+            bio: bio,
+            image: image,
+          },
+        }),
+      });
+      const data = await response.json();
+      console.log(data);
+      if (response.ok) {
+        return data;
+      } else {
+        throw new Error(data.error);
       }
     } catch (err) {
       console.error(err);
