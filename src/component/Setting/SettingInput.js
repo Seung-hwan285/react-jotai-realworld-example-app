@@ -33,7 +33,7 @@ function SettingInput(SettingFormBox) {
     `;
     setTimeout(() => {
       SettingFormBox.innerHTML = paintSettingPage;
-    }, 3000);
+    }, 2500);
   };
   render();
 }
