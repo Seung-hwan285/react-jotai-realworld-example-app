@@ -32,28 +32,40 @@ function Header(target) {
     ul.addEventListener('click', handleLinkClick);
   };
 
+  const renderHeader = (authToken, user) => {
+    const menuList = [
+      { text: 'Home', link: '/' },
+      ...(authToken
+        ? [
+            { text: 'New Article', link: 'new-article' },
+            { text: 'Settings', link: 'setting' },
+            { text: 'Profile', link: 'profile' },
+          ]
+        : [
+            { text: 'Sign in', link: 'login' },
+            { text: 'Sign up', link: 'register' },
+          ]),
+    ];
+
+    const container = document.createElement('ul');
+    container.className = 'container-ul';
+
+    menuList.forEach((menu) => {
+      const menuItem = document.createElement('li');
+      menuItem.setAttribute('data-link', menu.link);
+      menuItem.innerText = menu.text;
+      container.appendChild(menuItem);
+    });
+
+    HeaderContainer.appendChild(container);
+  };
+
   const render = async () => {
     const authToken = getLocalStroage('token');
     const user = await fetchAuthUserInfo(authToken);
 
-    if (authToken) {
-      HeaderContainer.innerHTML = `
-                <ul class="container-ul">
-                    <li data-link="/">Home</li>
-                    <li data-link="new-article">New Article</li>
-                    <li data-link="setting">Settings</li>
-                    <li data-link="profile">${user.username}</li>
-                </ul>
-            `;
-    } else {
-      HeaderContainer.innerHTML = `
-           <ul class="container-ul">
-            <li data-link="/">Home</li>
-            <li data-link="login">Sing in</li>
-            <li data-link="register">Sing up</li>
-           </ul>
-        `;
-    }
+    HeaderContainer.innerHTML = '';
+    renderHeader(authToken, user);
     // 이 함수는 렌더에서 계속 호출하는데 이전에는 매번 render를 호출할때마다 handleClick 함수가 등록되었다.
     // 그래서 로고버튼을 클릭하면 계속 Header 컴포넌트가 렌더링되는게 아니라 생성이 되서 중첩현상이 일어남
     // 하지만 hadndleClick 함수를 최상위 스코프로 이동시켜서 한번만 등록되므로 중복 문제가 해결

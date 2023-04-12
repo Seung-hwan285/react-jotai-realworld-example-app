@@ -10,7 +10,7 @@ function HomeRow(HomeContainer) {
   RowContainer.append(Col1);
   HomeContainer.append(RowContainer);
 
-  const fetchArticle = async () => {
+  const fetchAllArticle = async () => {
     const req = await article_request.getAllArticles();
   };
 
@@ -25,7 +25,7 @@ function HomeRow(HomeContainer) {
       </div>
     `;
   };
-  fetchArticle();
+  fetchAllArticle();
   render();
 }
 export default HomeRow;
