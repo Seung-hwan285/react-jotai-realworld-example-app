@@ -2,6 +2,7 @@ import { route } from '../../utils/routes.js';
 import { setLocalStroage } from '../../utils/storage.js';
 import { auth_request } from '../../lib/auth/requeset.js';
 import Input from '../../common/Input.js';
+import Button from '../../common/Button.js';
 
 function LoginForm(LoginFormBox) {
   const handleUserSubmit = () => {
@@ -35,7 +36,12 @@ function LoginForm(LoginFormBox) {
                           className: 'password',
                         })}                  
                     </div>
-                    <button class="form-button" type="submit">Sign in</button>
+                    
+                        ${Button({
+                          className: 'form-button',
+                          type: 'submit',
+                          text: 'Sign in',
+                        })};
                 </form>
             `;
 

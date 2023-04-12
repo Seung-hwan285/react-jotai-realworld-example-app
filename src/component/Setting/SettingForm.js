@@ -3,6 +3,7 @@ import { fetchAuthUserInfo } from '../../utils/helper/fetchAuth.js';
 import { auth_request } from '../../lib/auth/requeset.js';
 import { route } from '../../utils/routes.js';
 import Input from '../../common/Input.js';
+import Button from '../../common/Button.js';
 
 function SettingForm(SettingFormBox) {
   SettingFormBox.innerHTML = `
@@ -55,7 +56,7 @@ function SettingForm(SettingFormBox) {
             type: 'text',
             className: 'username',
           })}
-             <textarea class="form-control-lg"
+          <textarea class="form-control-lg"
                   rows="10"
               placeholder="Short bio about you">${user.bio}</textarea>
           ${Input({
@@ -71,7 +72,11 @@ function SettingForm(SettingFormBox) {
           })}
    
           </div>
-          <button class="form-button" type="submit">Update Settings</button> 
+          ${Button({
+            className: 'form-button',
+            type: 'submit',
+            text: 'Update Settings',
+          })};
         </form>
 
 <button class="logout">Logout</button>

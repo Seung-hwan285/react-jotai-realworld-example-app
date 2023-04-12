@@ -1,6 +1,7 @@
 import { auth_request } from '../../lib/auth/requeset.js';
 import { route } from '../../utils/routes.js';
 import Input from '../../common/Input.js';
+import Button from '../../common/Button.js';
 
 function RegisterForm(RegisterFormBox) {
   const handleRegisterSubmit = () => {
@@ -40,8 +41,12 @@ function RegisterForm(RegisterFormBox) {
                                className: 'password',
                              })}     
                             </div>
+                               ${Button({
+                                 className: 'form-button',
+                                 type: 'submit',
+                                 text: 'Sign up',
+                               })};
                             
-                            <button class="form-button" type="submit">Sign up</button>
                         </form>
                     `;
     handleRegisterSubmit();
