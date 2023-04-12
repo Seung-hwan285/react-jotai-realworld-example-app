@@ -1,6 +1,6 @@
 .Row__Container {
   position: absolute;
-  top: 50%;
+  top: 20%;
   transform: translate(-50%, 150%);
   width: 50%;
   left: 20%;
@@ -12,14 +12,28 @@
 }
 
 .Row__Container .nav-item {
-  border-bottom: 2px solid #5cb85c !important;
   list-style: none;
-  float: left;
+  position: relative;
+  margin-bottom: 20px;
 }
 
 .Row__Container .outline-active {
   position: absolute;
-  bottom: -2px;
   width: 100%;
-  border-bottom: 1px solid #373a3c;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.2);
+}
+
+.Row__Container .nav-link {
+  padding: 5px 10px;
+  color: #5cb85c;
+  font-size: 20px;
+}
+
+.outline-active::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 20%;
+  border-bottom: 1px solid #5cb85c !important;
 }

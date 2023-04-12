@@ -9,23 +9,23 @@ function HomeRow(HomeContainer) {
 
   RowContainer.append(Col1);
   HomeContainer.append(RowContainer);
-  const fetch = async () => {
+
+  const fetchArticle = async () => {
     const req = await article_request.getAllArticles();
   };
 
-  const render = async () => {
+  const render = () => {
     Col1.innerHTML = `
       <div class="feed-toggle"> 
         <ul class="outline-active">
-        <li class="nav-item">
-        <a class="nav-link">Global Feed</a>
-</li>
-</ul>
-      
-</div>
+          <li class="nav-item">
+              <a class="nav-link">Global Feed</a>
+          </li>
+        </ul>     
+      </div>
     `;
   };
-  fetch();
+  fetchArticle();
   render();
 }
 export default HomeRow;
