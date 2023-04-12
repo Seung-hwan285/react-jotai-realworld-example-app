@@ -7,29 +7,27 @@ import Button from '../../common/Button.js';
 
 function SettingForm(SettingFormBox) {
   SettingFormBox.innerHTML = `
-      <div class="spinner"></div>
-    `;
+    <div class="spinner" style="background-image: url('/src/public/spinner.gif')"></div>
+  `;
   const authToken = getLocalStroage('token');
 
-  const spinner = document.querySelector('.spinner');
-  spinner.style.backgroundImage = 'url("/src/public/spinner.gif")';
+  const handleUpdateUserSubmit = async (e) => {
+    e.preventDefault();
+    const email = document.querySelector('.email').value;
+    const bio = document.querySelector('.form-control-lg').value;
+    const image = document.querySelector('.image');
+    const imageValue = image.value.trim() === '' ? null : image.value;
 
-  const handleUpdateUserSubmit = () => {
-    const form = document.querySelector('.form');
+    const data = await auth_request.userUpdate(
+      authToken,
+      email,
+      bio,
+      imageValue
+    );
 
-    form.addEventListener('submit', (e) => {
-      e.preventDefault();
-      const email = document.querySelector('.email').value;
-      const bio = document.querySelector('.form-control-lg').value;
-      const image = document.querySelector('.image');
-      const imageValue = image.value.trim() === '' ? null : image.value;
-
-      const data = auth_request.userUpdate(authToken, email, bio, imageValue);
-
-      if (data) {
-        route('/');
-      }
-    });
+    if (data) {
+      route('/');
+    }
   };
 
   const handleLogoutClick = () => {
@@ -45,7 +43,7 @@ function SettingForm(SettingFormBox) {
 
   const render = async () => {
     const user = await fetchAuthUserInfo(authToken);
-    const paintSettingPage = `
+    SettingFormBox.innerHTML = `
     <div>
         <h2>Your Profile</h2>
         <form class="form">   
@@ -84,11 +82,12 @@ function SettingForm(SettingFormBox) {
           })}
 </div>
     `;
-    setTimeout(() => {
-      SettingFormBox.innerHTML = paintSettingPage;
-      handleUpdateUserSubmit();
-      handleLogoutClick();
-    }, 2000);
+
+    const form = document.querySelector('.form');
+    form.addEventListener('submit', handleUpdateUserSubmit);
+
+    const button = document.querySelector('.logout');
+    button.addEventListener('click', handleLogoutClick);
   };
   render();
 }
