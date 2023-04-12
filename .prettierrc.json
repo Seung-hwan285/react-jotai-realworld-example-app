@@ -3,6 +3,5 @@
   "semi": true,
   "tabWidth": 2,
   "vueIndentScriptAndStyle": true,
-  "printWidth": 120,
   "arrowParens": "always"
 }

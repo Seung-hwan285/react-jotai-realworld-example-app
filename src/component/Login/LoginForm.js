@@ -1,8 +1,9 @@
 import { route } from '../../utils/routes.js';
 import { setLocalStroage } from '../../utils/storage.js';
 import { auth_request } from '../../lib/auth/requeset.js';
+import Input from '../../common/Input.js';
 
-function LoginFormInput(LoginFormBox) {
+function LoginForm(LoginFormBox) {
   const handleUserSubmit = () => {
     const form = document.querySelector('.form');
 
@@ -23,11 +24,17 @@ function LoginFormInput(LoginFormBox) {
     LoginFormBox.innerHTML = `
                     <form class="form">
                         <div class="sign-in-box">
-                    <input  class="email" type="text" placeholder="Email">
-                    <input class="password" type="text" placeholder="Password">      
-                   
+                        ${Input({
+                          placeholder: 'Email',
+                          type: 'text',
+                          className: 'email',
+                        })}
+                        ${Input({
+                          placeholder: 'Password',
+                          type: 'password',
+                          className: 'password',
+                        })}                  
                     </div>
-                    
                     <button class="form-button" type="submit">Sign in</button>
                 </form>
             `;
@@ -37,4 +44,4 @@ function LoginFormInput(LoginFormBox) {
 
   render();
 }
-export default LoginFormInput;
+export default LoginForm;

@@ -1,5 +1,5 @@
 import { cleanHTML } from '../utils/helper/cleanHTML.js';
-import SettingInput from '../component/Setting/SettingInput.js';
+import SettingForm from '../component/Setting/SettingForm.js';
 
 function SettingPage(target) {
   const container = document.querySelector('.Setting__Container');
@@ -22,7 +22,7 @@ function SettingPage(target) {
 
   const render = () => {
     cleanHTML.SettingPage();
-    SettingInput(SettingFormBox);
+    SettingForm(SettingFormBox);
   };
 
   render();

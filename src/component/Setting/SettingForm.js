@@ -2,8 +2,9 @@ import { getLocalStroage } from '../../utils/storage.js';
 import { fetchAuthUserInfo } from '../../utils/helper/fetchAuth.js';
 import { auth_request } from '../../lib/auth/requeset.js';
 import { route } from '../../utils/routes.js';
+import Input from '../../common/Input.js';
 
-function SettingInput(SettingFormBox) {
+function SettingForm(SettingFormBox) {
   SettingFormBox.innerHTML = `
       <div class="spinner"></div>
     `;
@@ -44,22 +45,34 @@ function SettingInput(SettingFormBox) {
   const render = async () => {
     const user = await fetchAuthUserInfo(authToken);
     const paintSettingPage = `
-<div>
-<h2>Your Profile</h2>
-      <form class="form">
-        
-        <div class="setting-in-box">
-            <input class="image" type="text" value="${user.image}">
-               
-            <input class="username" type="text" value="${user.username}">
-           <textarea class="form-control-lg"
-                rows="10"
-            placeholder="Short bio about you">${user.bio}</textarea>
-            <input class="email" type="text" value="${user.email === null ? '' : user.email}">
-            <input class="password" type="text"  placeholder="New Password">
-        </div>
-        <button class="form-button" type="submit">Update Settings</button> 
-</form>
+    <div>
+        <h2>Your Profile</h2>
+        <form class="form">   
+          <div class="setting-in-box">
+          ${Input({ value: user.image, type: 'text', className: 'image' })}
+          ${Input({
+            value: user.username,
+            type: 'text',
+            className: 'username',
+          })}
+             <textarea class="form-control-lg"
+                  rows="10"
+              placeholder="Short bio about you">${user.bio}</textarea>
+          ${Input({
+            value: user.email === null ? '' : user.email,
+            type: 'text',
+            className: 'email',
+          })}
+          ${Input({
+            value: '',
+            placeholder: 'New Password',
+            type: 'password',
+            className: 'password',
+          })}
+   
+          </div>
+          <button class="form-button" type="submit">Update Settings</button> 
+        </form>
 
 <button class="logout">Logout</button>
 </div>
@@ -72,4 +85,4 @@ function SettingInput(SettingFormBox) {
   };
   render();
 }
-export default SettingInput;
+export default SettingForm;

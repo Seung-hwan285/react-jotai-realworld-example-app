@@ -54,6 +54,7 @@
   color: white;
   border: none;
   float: right;
+  cursor: pointer;
 }
 
 .Setting__Container .logout {

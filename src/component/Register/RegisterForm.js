@@ -1,7 +1,8 @@
 import { auth_request } from '../../lib/auth/requeset.js';
 import { route } from '../../utils/routes.js';
+import Input from '../../common/Input.js';
 
-function RegisterInput(RegisterFormBox) {
+function RegisterForm(RegisterFormBox) {
   const handleRegisterSubmit = () => {
     const form = document.querySelector('.form');
     form.addEventListener('submit', (e) => {
@@ -23,9 +24,21 @@ function RegisterInput(RegisterFormBox) {
     RegisterFormBox.innerHTML = `
                     <form class="form">
                             <div class="register-box">
-                                <input  class="username" type="text" placeholder="username">
-                                <input  class="email" type="text" placeholder="Email">
-                                <input  class="password" type="text" placeholder="Password">       
+                             ${Input({
+                               placeholder: 'Username',
+                               type: 'text',
+                               className: 'username',
+                             })}
+                             ${Input({
+                               placeholder: 'Email',
+                               type: 'text',
+                               className: 'email',
+                             })}
+                             ${Input({
+                               placeholder: 'Password',
+                               type: 'password',
+                               className: 'password',
+                             })}     
                             </div>
                             
                             <button class="form-button" type="submit">Sign up</button>
@@ -35,4 +48,4 @@ function RegisterInput(RegisterFormBox) {
   };
   render();
 }
-export default RegisterInput;
+export default RegisterForm;

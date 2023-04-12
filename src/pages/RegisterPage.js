@@ -1,5 +1,5 @@
 import { cleanHTML } from '../utils/helper/cleanHTML.js';
-import RegisterInput from '../component/Register/RegisterInput.js';
+import RegisterForm from '../component/Register/RegisterForm.js';
 import RegisterFormTitle from '../component/Register/RegisterFormTitle.js';
 
 function RegisterPage(target) {
@@ -26,7 +26,7 @@ function RegisterPage(target) {
   const render = () => {
     cleanHTML.RegisterPage();
     RegisterFormTitle(RegisterWrapper);
-    RegisterInput(RegisterFormBox);
+    RegisterForm(RegisterFormBox);
   };
   render();
 }

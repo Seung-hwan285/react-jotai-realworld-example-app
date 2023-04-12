@@ -1,4 +1,4 @@
-import LoginFormInput from '../component/Login/LoginInput.js';
+import LoginForm from '../component/Login/LoginForm.js';
 import LoginFormTitle from '../component/Login/LoginFormTitle.js';
 import { cleanHTML } from '../utils/helper/cleanHTML.js';
 
@@ -27,7 +27,7 @@ function LoginPage(target) {
   const render = () => {
     cleanHTML.LoginPage();
     LoginFormTitle(LoginWrapper);
-    LoginFormInput(LoginFormBox);
+    LoginForm(LoginFormBox);
   };
 
   render();
