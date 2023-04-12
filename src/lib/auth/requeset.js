@@ -1,10 +1,11 @@
 import { removeStroage } from '../../utils/storage.js';
 import { route } from '../../utils/routes.js';
+import { API_END_POINT } from '../../url.js';
 
 export const auth_request = {
   userLogin: async (email, password) => {
     try {
-      const response = await fetch('https://api.realworld.io/api/users/login', {
+      const response = await fetch(`${API_END_POINT}/api/users/login`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -31,7 +32,7 @@ export const auth_request = {
 
   userRegister: async (username, email, password) => {
     try {
-      const response = await fetch(`https://api.realworld.io/api/users/`, {
+      const response = await fetch(`${API_END_POINT}/api/users/`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -60,7 +61,7 @@ export const auth_request = {
 
   getUserInfo: async (authToken) => {
     try {
-      const response = await fetch(`https://api.realworld.io/api/user`, {
+      const response = await fetch(`${API_END_POINT}/api/user`, {
         method: 'GET',
         headers: {
           'Content-Type': 'application/json',
@@ -82,7 +83,7 @@ export const auth_request = {
 
   userUpdate: async (authToken, email, bio, imageValue) => {
     try {
-      const response = await fetch(`https://api.realworld.io/api/user`, {
+      const response = await fetch(`${API_END_POINT}/api/user`, {
         method: 'PUT',
         headers: {
           'Content-Type': 'application/json',
