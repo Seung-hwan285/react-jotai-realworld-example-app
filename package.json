@@ -4,7 +4,6 @@
     "express": "^4.18.2"
   },
   "devDependencies": {
-    "nodemon": "^2.0.22",
-    "vercel": "^28.18.5"
+    "nodemon": "^2.0.22"
   }
 }
