@@ -76,10 +76,12 @@ function SettingForm(SettingFormBox) {
             className: 'form-button',
             type: 'submit',
             text: 'Update Settings',
-          })};
+          })}
         </form>
-
-<button class="logout">Logout</button>
+          ${Button({
+            className: 'logout',
+            text: 'Logout',
+          })}
 </div>
     `;
     setTimeout(() => {
