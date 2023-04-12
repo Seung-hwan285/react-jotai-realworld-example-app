@@ -4,21 +4,18 @@ import Input from '../../common/Input.js';
 import Button from '../../common/Button.js';
 
 function RegisterForm(RegisterFormBox) {
-  const handleRegisterSubmit = () => {
-    const form = document.querySelector('.form');
-    form.addEventListener('submit', (e) => {
-      e.preventDefault();
+  const handleRegisterSubmit = async (e) => {
+    e.preventDefault();
 
-      const username = document.querySelector('.username').value;
-      const email = document.querySelector('.email').value;
-      const password = document.querySelector('.password').value;
+    const username = document.querySelector('.username').value;
+    const email = document.querySelector('.email').value;
+    const password = document.querySelector('.password').value;
 
-      const user = auth_request.userRegister(username, email, password);
+    const user = auth_request.userRegister(username, email, password);
 
-      if (user) {
-        route('/');
-      }
-    });
+    if (user) {
+      route('/');
+    }
   };
 
   const render = () => {
@@ -49,7 +46,9 @@ function RegisterForm(RegisterFormBox) {
                             
                         </form>
                     `;
-    handleRegisterSubmit();
+
+    const form = document.querySelector('.form');
+    form.addEventListener('submit', handleRegisterSubmit);
   };
   render();
 }

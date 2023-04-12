@@ -5,20 +5,16 @@ import Input from '../../common/Input.js';
 import Button from '../../common/Button.js';
 
 function LoginForm(LoginFormBox) {
-  const handleUserSubmit = () => {
-    const form = document.querySelector('.form');
+  const handleUserSubmit = async (e) => {
+    e.preventDefault();
+    const email = document.querySelector('.email').value;
+    const password = document.querySelector('.password').value;
 
-    form.addEventListener('submit', async (e) => {
-      e.preventDefault();
-      const email = document.querySelector('.email').value;
-      const password = document.querySelector('.password').value;
-
-      const token = await auth_request.userLogin(email, password);
-      setLocalStroage('token', token);
-      if (token) {
-        route('/');
-      }
-    });
+    const token = await auth_request.userLogin(email, password);
+    setLocalStroage('token', token);
+    if (token) {
+      route('/');
+    }
   };
 
   const render = () => {
@@ -45,7 +41,8 @@ function LoginForm(LoginFormBox) {
                 </form>
             `;
 
-    handleUserSubmit();
+    const form = document.querySelector('.form');
+    form.addEventListener('submit', handleUserSubmit);
   };
 
   render();
