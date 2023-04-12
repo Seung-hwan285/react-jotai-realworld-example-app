@@ -22,35 +22,35 @@ export const cleanHTML = {
     }
   },
   LoginPage: () => {
-    const Banner = document.querySelector('.Banner__Container');
+    const Home = document.querySelector('.Home__Container');
     const registerBox = document.querySelector('.Register__Container');
-    if (Banner) {
-      Banner.innerHTML = '';
-      Banner.remove();
+    if (Home) {
+      Home.innerHTML = '';
+      Home.remove();
     }
     if (registerBox) {
       registerBox.remove();
     }
   },
   RegisterPage: () => {
-    const Banner = document.querySelector('.Banner__Container');
+    const Home = document.querySelector('.Home__Container');
     const Login = document.querySelector('.Login__Container');
 
     if (Login) {
       Login.innerHTML = '';
       Login.remove();
     }
-    if (Banner) {
-      Banner.innerHTML = '';
-      Banner.remove();
+    if (Home) {
+      Home.innerHTML = '';
+      Home.remove();
     }
   },
   SettingPage: () => {
-    const Banner = document.querySelector('.Banner__Container');
+    const Home = document.querySelector('.Home__Container');
 
-    if (Banner) {
-      Banner.innerHTML = '';
-      Banner.remove();
+    if (Home) {
+      Home.innerHTML = '';
+      Home.remove();
     }
   },
 };

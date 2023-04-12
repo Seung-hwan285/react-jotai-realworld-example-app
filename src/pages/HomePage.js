@@ -1,24 +1,30 @@
 import { cleanHTML } from '../utils/helper/cleanHTML.js';
 import HomeBanner from '../component/Home/HomeBanner.js';
+import HomeRow from '../component/Home/HomeRow.js';
 
 function HomePage(target) {
   const HomeContainer = document.createElement('div');
-  HomeContainer.className = 'Banner__Container';
+  HomeContainer.className = 'Home__Container';
+  const BannerContainer = document.createElement('div');
+  BannerContainer.className = 'Banner__Container';
+
   const container = document.querySelector('.Banner__Wrapper');
 
   if (container) {
     return;
   }
 
-  const HomeWrapper = document.createElement('div');
-  HomeWrapper.className = 'Banner__Wrapper';
+  const BannerWrapper = document.createElement('div');
+  BannerWrapper.className = 'Banner__Wrapper';
 
-  HomeContainer.appendChild(HomeWrapper);
+  BannerContainer.appendChild(BannerWrapper);
+  HomeContainer.appendChild(BannerContainer);
   target.appendChild(HomeContainer);
 
   const render = () => {
     cleanHTML.HomePage();
-    HomeBanner(HomeWrapper);
+    HomeBanner(BannerWrapper);
+    HomeRow(HomeContainer);
   };
 
   render();

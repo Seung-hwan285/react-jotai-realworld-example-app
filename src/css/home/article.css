@@ -1,0 +1,25 @@
+.Row__Container {
+  position: absolute;
+  top: 50%;
+  transform: translate(-50%, 150%);
+  width: 50%;
+  left: 20%;
+  height: 50%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: black;
+}
+
+.Row__Container .nav-item {
+  border-bottom: 2px solid #5cb85c !important;
+  list-style: none;
+  float: left;
+}
+
+.Row__Container .outline-active {
+  position: absolute;
+  bottom: -2px;
+  width: 100%;
+  border-bottom: 1px solid #373a3c;
+}
