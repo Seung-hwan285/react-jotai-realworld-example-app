@@ -16,7 +16,7 @@
       "dest": "src/index.html"
     }
   ],
-  "files": [
+  "static": [
     "public/**/*",
     "src/url.js"
   ]
