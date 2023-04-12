@@ -58,20 +58,17 @@ export const auth_request = {
     }
   },
 
-  getUserInfo: async (token) => {
+  getUserInfo: async (authToken) => {
     try {
       const response = await fetch(`https://api.realworld.io/api/user`, {
         method: 'GET',
         headers: {
           'Content-Type': 'application/json',
-          Authorization: `Token ${encodeURIComponent(token)}`,
+          Authorization: `Token ${encodeURIComponent(authToken)}`,
         },
       });
 
-      console.log(response);
       const data = await response.json();
-
-      console.log(data);
 
       if (response.ok) {
         return data;
@@ -83,24 +80,23 @@ export const auth_request = {
     }
   },
 
-  userUpdate: async (token, email, bio, image) => {
+  userUpdate: async (authToken, email, bio, imageValue) => {
     try {
       const response = await fetch(`https://api.realworld.io/api/user`, {
         method: 'PUT',
         headers: {
           'Content-Type': 'application/json',
-          Authorization: `Token ${encodeURIComponent(token)}`,
+          Authorization: `Token ${encodeURIComponent(authToken)}`,
         },
         body: JSON.stringify({
           user: {
             email: email,
             bio: bio,
-            image: image,
+            image: imageValue,
           },
         }),
       });
       const data = await response.json();
-      console.log(data);
       if (response.ok) {
         return data;
       } else {

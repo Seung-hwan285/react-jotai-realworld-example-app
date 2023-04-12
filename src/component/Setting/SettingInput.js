@@ -24,9 +24,18 @@ function SettingInput(SettingFormBox) {
 
       const data = auth_request.userUpdate(authToken, email, bio, imageValue);
 
-      console.log(data);
-
       if (data) {
+        route('/');
+      }
+    });
+  };
+
+  const handleLogoutClick = () => {
+    const button = document.querySelector('.logout');
+
+    button.addEventListener('click', async (e) => {
+      const result = await auth_request.userLogout('token');
+      if (result) {
         route('/');
       }
     });
@@ -34,8 +43,8 @@ function SettingInput(SettingFormBox) {
 
   const render = async () => {
     const user = await fetchAuthUserInfo(authToken);
-
     const paintSettingPage = `
+<div>
 <h2>Your Profile</h2>
       <form class="form">
         
@@ -46,16 +55,19 @@ function SettingInput(SettingFormBox) {
            <textarea class="form-control-lg"
                 rows="10"
             placeholder="Short bio about you">${user.bio}</textarea>
-            <input class="email" type="text" value="${user.email}">
+            <input class="email" type="text" value="${user.email === null ? '' : user.email}">
             <input class="password" type="text"  placeholder="New Password">
         </div>
-        <button class="form-button" type="submit">Update Settings</button>
-      
+        <button class="form-button" type="submit">Update Settings</button> 
 </form>
+
+<button class="logout">Logout</button>
+</div>
     `;
     setTimeout(() => {
       SettingFormBox.innerHTML = paintSettingPage;
       handleUpdateUserSubmit();
+      handleLogoutClick();
     }, 2000);
   };
   render();

@@ -1,4 +1,5 @@
 import { cleanHTML } from '../utils/helper/cleanHTML.js';
+import HomeBanner from '../component/Home/HomeBanner.js';
 
 function HomePage(target) {
   const HomeContainer = document.createElement('div');
@@ -15,16 +16,9 @@ function HomePage(target) {
   HomeContainer.appendChild(HomeWrapper);
   target.appendChild(HomeContainer);
 
-  const paintBanner = () => {
-    HomeWrapper.innerHTML = `
-                <h1 class="banner-title">conduit</h1>
-                <p class="banner-content">A place to share your hnwledge.</p>
-        `;
-  };
-
   const render = () => {
     cleanHTML.HomePage();
-    paintBanner();
+    HomeBanner(HomeWrapper);
   };
 
   render();

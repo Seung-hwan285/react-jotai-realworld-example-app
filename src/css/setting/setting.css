@@ -55,3 +55,21 @@
   border: none;
   float: right;
 }
+
+.Setting__Container .logout {
+  padding: 10px 20px;
+  background-color: #ffffff;
+  border-radius: 5px;
+  color: #b85c5c;
+  margin-top: 10px;
+  border: 1px solid #b85c5c;
+  margin-left: 20px;
+  float: left;
+}
+
+.Setting__Container .logout:hover {
+  cursor: pointer;
+  background-color: #b85c5c;
+  color: #ffffff;
+  border: 1px solid #b85c5c;
+}
