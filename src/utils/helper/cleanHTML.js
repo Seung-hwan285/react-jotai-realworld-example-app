@@ -2,8 +2,8 @@ import { getLocalStroage } from '../storage.js';
 
 export const cleanHTML = {
   HomePage: () => {
-    const LoginBox = document.querySelector('.Login__Container');
-    const RegisterBox = document.querySelector('.Register__Container');
+    document.querySelector('.Login__Container')?.remove();
+    document.querySelector('.Register__Container')?.remove();
     const SettingContainer = document.querySelector('.Setting__Container');
 
     const token = getLocalStroage('token');
@@ -11,46 +11,16 @@ export const cleanHTML = {
       SettingContainer.innerHTML = '';
       SettingContainer.remove();
     }
-
-    if (RegisterBox) {
-      RegisterBox.innerHTML = '';
-      RegisterBox.remove();
-    }
-    if (LoginBox) {
-      LoginBox.innerHTML = '';
-      LoginBox.remove();
-    }
   },
   LoginPage: () => {
-    const Home = document.querySelector('.Home__Container');
-    const registerBox = document.querySelector('.Register__Container');
-    if (Home) {
-      Home.innerHTML = '';
-      Home.remove();
-    }
-    if (registerBox) {
-      registerBox.remove();
-    }
+    document.querySelector('.Home__Container')?.remove();
+    document.querySelector('.Register__Container')?.remove();
   },
   RegisterPage: () => {
-    const Home = document.querySelector('.Home__Container');
-    const Login = document.querySelector('.Login__Container');
-
-    if (Login) {
-      Login.innerHTML = '';
-      Login.remove();
-    }
-    if (Home) {
-      Home.innerHTML = '';
-      Home.remove();
-    }
+    document.querySelector('.Home__Container')?.remove();
+    document.querySelector('.Login__Container')?.remove();
   },
   SettingPage: () => {
-    const Home = document.querySelector('.Home__Container');
-
-    if (Home) {
-      Home.innerHTML = '';
-      Home.remove();
-    }
+    document.querySelector('.Home__Container')?.remove();
   },
 };

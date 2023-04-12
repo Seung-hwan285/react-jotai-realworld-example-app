@@ -30,15 +30,11 @@ function SettingForm(SettingFormBox) {
     }
   };
 
-  const handleLogoutClick = () => {
-    const button = document.querySelector('.logout');
-
-    button.addEventListener('click', async (e) => {
-      const result = await auth_request.userLogout('token');
-      if (result) {
-        route('/');
-      }
-    });
+  const handleLogoutClick = async () => {
+    const result = await auth_request.userLogout('token');
+    if (result) {
+      route('/');
+    }
   };
 
   const render = async () => {
