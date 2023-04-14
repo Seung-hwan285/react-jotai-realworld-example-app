@@ -4,26 +4,26 @@ import HomeRow from '../component/Home/HomeRow.js';
 
 function HomePage(target) {
   const HomeContainer = document.createElement('div');
-  HomeContainer.className = 'Home__Container';
+  HomeContainer.className = 'home-page';
   const BannerContainer = document.createElement('div');
-  BannerContainer.className = 'Banner__Container';
+  BannerContainer.className = 'banner';
 
-  const container = document.querySelector('.Banner__Wrapper');
+  const BannerWrpper = document.createElement('div');
+  BannerWrpper.className = 'container';
+
+  const container = document.querySelector('.banner');
 
   if (container) {
     return;
   }
 
-  const BannerWrapper = document.createElement('div');
-  BannerWrapper.className = 'Banner__Wrapper';
-
-  BannerContainer.appendChild(BannerWrapper);
+  BannerContainer.appendChild(BannerWrpper);
   HomeContainer.appendChild(BannerContainer);
   target.appendChild(HomeContainer);
 
   const render = () => {
     cleanHTML.HomePage();
-    HomeBanner(BannerWrapper);
+    HomeBanner(BannerWrpper);
     HomeRow(HomeContainer);
   };
 

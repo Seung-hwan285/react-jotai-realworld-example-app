@@ -1,10 +1,12 @@
 function LoginFormTitle(LoginWrapper) {
   const render = () => {
     LoginWrapper.innerHTML = `
-      <div class="sign-in-title">
-         <h2>Sign In</h2>
-         <p>Need an account?</p>
-      </div>`;
+
+         <h2 class="text-xs-center">Sign in</h2>
+         <p class="text-xs-center">
+          <a href="">Have an account?</a>
+        </p>
+        `;
   };
   render();
 }

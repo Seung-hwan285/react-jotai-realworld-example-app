@@ -2,8 +2,8 @@ import { getLocalStroage } from '../storage.js';
 
 export const cleanHTML = {
   HomePage: () => {
-    document.querySelector('.Login__Container')?.remove();
-    document.querySelector('.Register__Container')?.remove();
+    document.querySelector('.auth-page')?.remove();
+    document.querySelector('.container-page')?.remove();
     const SettingContainer = document.querySelector('.Setting__Container');
 
     const token = getLocalStroage('token');
@@ -13,12 +13,12 @@ export const cleanHTML = {
     }
   },
   LoginPage: () => {
-    document.querySelector('.Home__Container')?.remove();
-    document.querySelector('.Register__Container')?.remove();
+    document.querySelector('.home-page')?.remove();
+    document.querySelector('.auth-page')?.remove();
   },
   RegisterPage: () => {
-    document.querySelector('.Home__Container')?.remove();
-    document.querySelector('.Login__Container')?.remove();
+    document.querySelector('.home-page')?.remove();
+    document.querySelector('.auth-page')?.remove();
   },
   SettingPage: () => {
     document.querySelector('.Home__Container')?.remove();

@@ -3,31 +3,36 @@ import LoginFormTitle from '../component/Login/LoginFormTitle.js';
 import { cleanHTML } from '../utils/helper/cleanHTML.js';
 
 function LoginPage(target) {
-  const LoginContainer = document.createElement('div');
-  LoginContainer.className = 'Login__Container';
+  cleanHTML.LoginPage();
 
-  const container = document.querySelector('.Login__Container');
+  const LoginContainer = document.createElement('div');
+  LoginContainer.className = 'auth-page';
+
+  const LoginWrapper = document.createElement('div');
+  LoginWrapper.className = 'container page';
+
+  const row = document.createElement('div');
+  row.className = 'row';
+
+  const col = document.createElement('div');
+  col.className = 'col-md-6 offset-md-3 col-xs-12';
+
+  const container = document.querySelector('.auth-page');
   if (container) {
     return;
   }
 
-  const LoginWrapper = document.createElement('div');
-  LoginWrapper.className = 'Login__Wrapper';
-
-  const LoginFormBox = document.createElement('div');
-  LoginFormBox.className = 'Login__Box';
-
+  row.appendChild(col);
+  LoginWrapper.appendChild(row);
   LoginContainer.appendChild(LoginWrapper);
-  LoginContainer.appendChild(LoginFormBox);
 
   target.appendChild(LoginContainer);
 
   // register에서 로그인 페이지로 이동하면 Register가 렌더링 되는게 아니고 Login이 새로 추가된다.
 
   const render = () => {
-    cleanHTML.LoginPage();
-    LoginFormTitle(LoginWrapper);
-    LoginForm(LoginFormBox);
+    LoginFormTitle(col);
+    LoginForm(col);
   };
 
   render();

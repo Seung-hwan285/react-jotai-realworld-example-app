@@ -1,10 +1,10 @@
 function RegisterFormTitle(RegisterWrapper) {
   const render = () => {
     RegisterWrapper.innerHTML = `
-                <div class="register-in-title">
-                <h2>Sign Up</h2>
-                <p>Need an account?</p>
-                </div>
+         <h2 class="text-xs-center">Sign up</h2>
+         <p class="text-xs-center">
+          <a href="">Have an account?</a>
+        </p>
             `;
   };
   render();

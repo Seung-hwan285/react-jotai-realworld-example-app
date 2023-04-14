@@ -3,13 +3,18 @@ import { route } from '../../utils/routes.js';
 import Input from '../../common/Input.js';
 import Button from '../../common/Button.js';
 
-function RegisterForm(RegisterFormBox) {
+function RegisterForm(target) {
+  const RegisterForm = document.createElement('form');
+  RegisterForm.className = 'form';
+
+  target.appendChild(RegisterForm);
+
   const handleRegisterSubmit = async (e) => {
     e.preventDefault();
 
-    const username = document.querySelector('.username').value;
-    const email = document.querySelector('.email').value;
-    const password = document.querySelector('.password').value;
+    const username = document.querySelector('#username').value;
+    const email = document.querySelector('#email').value;
+    const password = document.querySelector('#password').value;
 
     const user = auth_request.userRegister(username, email, password);
 
@@ -19,32 +24,41 @@ function RegisterForm(RegisterFormBox) {
   };
 
   const render = () => {
-    RegisterFormBox.innerHTML = `
-                    <form class="form">
-                            <div class="register-box">
+    RegisterForm.innerHTML = `
+                    
+                    <fieldset class="form-group">
                              ${Input({
                                placeholder: 'Username',
                                type: 'text',
-                               className: 'username',
+                               id: 'username',
+                               className: 'form-control form-control-lg',
                              })}
+                             </fieldset>
+                             
+                                  <fieldset class="form-group">
                              ${Input({
                                placeholder: 'Email',
+                               id: 'email',
                                type: 'text',
-                               className: 'email',
+                               className: 'form-control form-control-lg',
                              })}
+                             </fieldset>
+                             
+                                  <fieldset class="form-group">
                              ${Input({
                                placeholder: 'Password',
+                               id: 'password',
                                type: 'password',
-                               className: 'password',
-                             })}     
-                            </div>
+                               className: 'form-control form-control-lg',
+                             })}    
+                             </fieldset> 
                                ${Button({
-                                 className: 'form-button',
+                                 className:
+                                   'btn btn-lg btn-primary pull-xs-right',
                                  type: 'submit',
                                  text: 'Sign up',
                                })};
                             
-                        </form>
                     `;
 
     const form = document.querySelector('.form');

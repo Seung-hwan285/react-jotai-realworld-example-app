@@ -4,12 +4,19 @@ import { auth_request } from '../../lib/auth/requeset.js';
 import Input from '../../common/Input.js';
 import Button from '../../common/Button.js';
 
-function LoginForm(LoginFormBox) {
+function LoginForm(target) {
+  const LoginFormBox = document.createElement('form');
+  LoginFormBox.className = 'form';
+
+  target.appendChild(LoginFormBox);
+  console.log(target);
+
   const handleUserSubmit = async (e) => {
     e.preventDefault();
-    const email = document.querySelector('.email').value;
-    const password = document.querySelector('.password').value;
+    const email = document.querySelector('#email').value;
+    const password = document.querySelector('#password').value;
 
+    console.log(email);
     const token = await auth_request.userLogin(email, password);
     setLocalStroage('token', token);
     if (token) {
@@ -19,26 +26,28 @@ function LoginForm(LoginFormBox) {
 
   const render = () => {
     LoginFormBox.innerHTML = `
-                    <form class="form">
-                        <div class="sign-in-box">
+                    <fieldset class="form-group">
                         ${Input({
                           placeholder: 'Email',
                           type: 'text',
-                          className: 'email',
+                          id: 'email',
+                          className: 'form-control form-control-lg',
                         })}
+                    </fieldset>
+                    <fieldset class="form-group">
                         ${Input({
                           placeholder: 'Password',
                           type: 'password',
-                          className: 'password',
+                          id: 'password',
+                          className: 'form-control form-control-lg',
                         })}                  
-                    </div>
-                    
+                    </fieldset>
                         ${Button({
-                          className: 'form-button',
+                          className: 'btn btn-lg btn-primary pull-xs-right',
                           type: 'submit',
                           text: 'Sign in',
-                        })};
-                </form>
+                        })}
+       
             `;
 
     const form = document.querySelector('.form');
