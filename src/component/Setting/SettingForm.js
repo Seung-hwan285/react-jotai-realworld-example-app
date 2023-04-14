@@ -6,9 +6,6 @@ import Input from '../../common/Input.js';
 import Button from '../../common/Button.js';
 
 function SettingForm(SettingFormBox) {
-  SettingFormBox.innerHTML = `
-    <div class="spinner" style="background-image: url('/src/public/spinner.gif')"></div>
-  `;
   const authToken = getLocalStroage('token');
 
   const handleUpdateUserSubmit = async (e) => {
@@ -37,8 +34,13 @@ function SettingForm(SettingFormBox) {
     }
   };
 
-  const render = async () => {
+  const fetchUser = async () => {
     const user = await fetchAuthUserInfo(authToken);
+    return user;
+  };
+
+  const render = async () => {
+    const user = fetchUser();
     SettingFormBox.innerHTML = `
     <div>
         <h2>Your Profile</h2>

@@ -21,6 +21,6 @@ export const cleanHTML = {
     document.querySelector('.auth-page')?.remove();
   },
   SettingPage: () => {
-    document.querySelector('.Home__Container')?.remove();
+    document.querySelector('.home-page')?.remove();
   },
 };
