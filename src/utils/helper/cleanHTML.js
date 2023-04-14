@@ -1,26 +1,31 @@
 import { getLocalStroage } from '../storage.js';
 
+const removeElement = (selector) => {
+  const element = document.querySelector(selector);
+  if (element) {
+    element.remove();
+  }
+};
+
 export const cleanHTML = {
   HomePage: () => {
-    document.querySelector('.auth-page')?.remove();
-    document.querySelector('.container-page')?.remove();
-    const SettingContainer = document.querySelector('.Setting__Container');
+    removeElement('.auth-page');
+    removeElement('.container-page');
 
     const token = getLocalStroage('token');
-    if (SettingContainer && token) {
-      SettingContainer.innerHTML = '';
-      SettingContainer.remove();
+    if (token) {
+      removeElement('.Setting__Container');
     }
   },
   LoginPage: () => {
-    document.querySelector('.home-page')?.remove();
-    document.querySelector('.auth-page')?.remove();
+    removeElement('.home-page');
+    removeElement('.auth-page');
   },
   RegisterPage: () => {
-    document.querySelector('.home-page')?.remove();
-    document.querySelector('.auth-page')?.remove();
+    removeElement('.home-page');
+    removeElement('.auth-page');
   },
   SettingPage: () => {
-    document.querySelector('.home-page')?.remove();
+    removeElement('.home-page');
   },
 };

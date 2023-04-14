@@ -4,7 +4,7 @@ function LoginFormTitle(LoginWrapper) {
 
          <h2 class="text-xs-center">Sign in</h2>
          <p class="text-xs-center">
-          <a href="">Have an account?</a>
+          <a href="">Need an account?</a>
         </p>
         `;
   };
