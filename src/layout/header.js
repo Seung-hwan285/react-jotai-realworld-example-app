@@ -18,7 +18,7 @@ function Header(target) {
 
   target.appendChild(nav);
 
-  const handleLinkClick = (e) => {
+  const handleLinkClick = e => {
     const link = e.target.dataset.link;
     route(link);
   };

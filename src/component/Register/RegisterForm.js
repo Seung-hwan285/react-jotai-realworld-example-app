@@ -1,7 +1,6 @@
 import { auth_request } from '../../lib/auth/requeset.js';
 import { route } from '../../utils/routes.js';
-import Input from '../../common/Input.js';
-import Button from '../../common/Button.js';
+import { button, inputFileds } from '../../utils/helper/authForm.js';
 
 function RegisterForm(target) {
   const RegisterForm = document.createElement('form');
@@ -24,40 +23,30 @@ function RegisterForm(target) {
   };
 
   const render = () => {
-    RegisterForm.innerHTML = /* HTML */ `
-      <fieldset class="form-group">
-        ${Input({
-          placeholder: 'Username',
-          type: 'text',
-          id: 'username',
-          className: 'form-control form-control-lg',
-        })}
-      </fieldset>
+    const inputs = [
+      {
+        placeholder: 'Username',
+        type: 'text',
+        id: 'username',
+        className: 'form-control form-control-lg',
+      },
+      {
+        placeholder: 'Email',
+        id: 'email',
+        type: 'text',
+        className: 'form-control form-control-lg',
+      },
+      {
+        placeholder: 'Password',
+        id: 'password',
+        type: 'password',
+        className: 'form-control form-control-lg',
+      },
+    ];
 
-      <fieldset class="form-group">
-        ${Input({
-          placeholder: 'Email',
-          id: 'email',
-          type: 'text',
-          className: 'form-control form-control-lg',
-        })}
-      </fieldset>
+    const getInputFiled = inputFileds(inputs);
 
-      <fieldset class="form-group">
-        ${Input({
-          placeholder: 'Password',
-          id: 'password',
-          type: 'password',
-          className: 'form-control form-control-lg',
-        })}
-      </fieldset>
-
-      ${Button({
-        className: 'btn btn-lg btn-primary pull-xs-right',
-        type: 'submit',
-        text: 'Sign up',
-      })}
-    `;
+    RegisterForm.innerHTML = getInputFiled + button;
 
     const form = document.querySelector('.form');
     form.addEventListener('submit', handleRegisterSubmit);
