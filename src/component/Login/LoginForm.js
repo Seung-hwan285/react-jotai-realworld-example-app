@@ -9,7 +9,6 @@ function LoginForm(target) {
   LoginFormBox.className = 'form';
 
   target.appendChild(LoginFormBox);
-  console.log(target);
 
   const handleUserSubmit = async (e) => {
     e.preventDefault();

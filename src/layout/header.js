@@ -19,12 +19,8 @@ function Header(target) {
     target.appendChild(nav);
   }
 
-  // 이벤트 함수를 최상위 스코프로 이동시켜서 한번만 등록시켜서 중복 문제가 해결
-  // 이전에는 이 코드가 handleClick 함수안에 있어서 계속 등록이 되었음.
   const handleLinkClick = (e) => {
-    console.log(e.target);
     const link = e.target.dataset.link;
-    console.log(link);
     route(link);
   };
 

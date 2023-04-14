@@ -41,6 +41,7 @@ function SettingForm(SettingFormBox) {
 
   const render = async () => {
     const user = fetchUser();
+    console.log(user);
     SettingFormBox.innerHTML = `
     <div>
         <h2>Your Profile</h2>
