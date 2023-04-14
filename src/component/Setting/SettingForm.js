@@ -42,32 +42,35 @@ function SettingForm(SettingFormBox) {
   const render = async () => {
     const user = fetchUser();
     console.log(user);
-    SettingFormBox.innerHTML = `
-    <div>
+    SettingFormBox.innerHTML = /* HTML */ `
+      <div>
         <h2>Your Profile</h2>
-        <form class="form">   
+        <form class="form">
           <div class="setting-in-box">
-          ${Input({ value: user.image, type: 'text', className: 'image' })}
-          ${Input({
-            value: user.username,
-            type: 'text',
-            className: 'username',
-          })}
-          <textarea class="form-control-lg"
-                  rows="10"
-              placeholder="Short bio about you">${user.bio}</textarea>
-          ${Input({
-            value: user.email === null ? '' : user.email,
-            type: 'text',
-            className: 'email',
-          })}
-          ${Input({
-            value: '',
-            placeholder: 'New Password',
-            type: 'password',
-            className: 'password',
-          })}
-   
+            ${Input({ value: user.image, type: 'text', className: 'image' })}
+            ${Input({
+              value: user.username,
+              type: 'text',
+              className: 'username',
+            })}
+            <textarea
+              class="form-control-lg"
+              rows="10"
+              placeholder="Short bio about you"
+            >
+${user.bio}</textarea
+            >
+            ${Input({
+              value: user.email === null ? '' : user.email,
+              type: 'text',
+              className: 'email',
+            })}
+            ${Input({
+              value: '',
+              placeholder: 'New Password',
+              type: 'password',
+              className: 'password',
+            })}
           </div>
           ${Button({
             className: 'form-button',
@@ -75,11 +78,11 @@ function SettingForm(SettingFormBox) {
             text: 'Update Settings',
           })}
         </form>
-          ${Button({
-            className: 'logout',
-            text: 'Logout',
-          })}
-</div>
+        ${Button({
+          className: 'logout',
+          text: 'Logout',
+        })}
+      </div>
     `;
 
     const form = document.querySelector('.form');

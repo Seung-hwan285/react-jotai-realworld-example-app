@@ -46,36 +46,40 @@ function Header(target) {
     }
 
     if (authToken) {
-      navbar.innerHTML = `
-           <li class="nav-item" >
-              <a class="nav-link active" data-link="/">Home</a>
-                  </li>
-                      <li class="nav-item">
-                        <a class="nav-link" data-link="new-article"> <i class="ion-compose"></i>New Article</a>
-                    </li>
-                      <li class="nav-item">
-                        <a class="nav-link" data-link="setting"><i class="ion-gear-a"></i>Settings</a>
-                    </li>
-                    <li  class="nav-item" data-link="profile"><a class="nav-link active" data-link="/">${user.username}</a></li>
-                `;
+      navbar.innerHTML = /* HTML */ `
+        <li class="nav-item">
+          <a class="nav-link active" data-link="/">Home</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" data-link="new-article">
+            <i class="ion-compose"></i>New Article</a
+          >
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" data-link="setting"
+            ><i class="ion-gear-a"></i>Settings</a
+          >
+        </li>
+        <li class="nav-item" data-link="profile">
+          <a class="nav-link active" data-link="/">${user.username}</a>
+        </li>
+      `;
 
       if (!navElement) {
         HeaderContainer.appendChild(navbar);
       }
     } else {
-      navbar.innerHTML = `
-            
-              <li class="nav-item" >
-                  <a class="nav-link active" data-link="/">Home</a>
-              </li>
-                <li class="nav-item">
-                  <a class="nav-link" data-link="login">Sign in</a>
-              </li>
-                <li class="nav-item">
-                  <a class="nav-link" data-link="register">Sign up</a>
-              </li>
-          
-          `;
+      navbar.innerHTML = /* HTML */ `
+        <li class="nav-item">
+          <a class="nav-link active" data-link="/">Home</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" data-link="login">Sign in</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" data-link="register">Sign up</a>
+        </li>
+      `;
       if (!navElement) {
         HeaderContainer.appendChild(navbar);
       }
