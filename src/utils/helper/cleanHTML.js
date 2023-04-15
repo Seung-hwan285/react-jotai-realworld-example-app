@@ -5,6 +5,7 @@ const removeElement = (selector) => {
   if (element) {
     element.remove();
   }
+  return undefined;
 };
 
 export const cleanHTML = {

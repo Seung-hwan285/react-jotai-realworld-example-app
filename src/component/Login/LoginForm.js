@@ -40,8 +40,6 @@ function LoginForm(target) {
 
     const getInputFiled = inputFileds(inputs);
 
-    console.log(getInputFiled);
-
     LoginFormBox.innerHTML = getInputFiled + button;
 
     const form = document.querySelector('.form');

@@ -1,6 +1,7 @@
 import { route } from '../utils/routes.js';
 import { getLocalStroage } from '../utils/storage.js';
 import { fetchAuthUserInfo } from '../utils/helper/fetchAuth.js';
+import { navbarItems } from '../utils/helper/authForm.js';
 
 function Header(target) {
   const nav = document.createElement('nav');
@@ -18,7 +19,7 @@ function Header(target) {
 
   target.appendChild(nav);
 
-  const handleLinkClick = e => {
+  const handleLinkClick = (e) => {
     const link = e.target.dataset.link;
     route(link);
   };
@@ -34,9 +35,6 @@ function Header(target) {
     const navElement = document.querySelector('.navbar-nav');
     let navbar = document.querySelector('.nav');
 
-    // const navbar = document.createElement('ul');
-    // ul.className = 'nav navbar-nav pull-xs-right';
-
     const authToken = getLocalStroage('token');
     const user = await fetchAuthUserInfo(authToken);
 
@@ -45,41 +43,43 @@ function Header(target) {
       navbar.className = 'nav navbar-nav pull-xs-right';
     }
 
-    if (authToken) {
-      navbar.innerHTML = /* HTML */ `
-        <li class="nav-item">
-          <a class="nav-link active" data-link="/">Home</a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link" data-link="new-article">
-            <i class="ion-compose"></i>New Article</a
-          >
-        </li>
-        <li class="nav-item">
-          <a class="nav-link" data-link="setting"
-            ><i class="ion-gear-a"></i>Settings</a
-          >
-        </li>
-        <li class="nav-item" data-link="profile">
-          <a class="nav-link active" data-link="/">${user.username}</a>
-        </li>
-      `;
+    const items = [
+      { text: 'Home', link: '/' },
+      ...(authToken
+        ? [
+            {
+              text: 'New Article',
+              link: 'new-article',
+            },
+            {
+              text: 'Settings',
+              link: 'setting',
+            },
+            {
+              text: `${user.username}`,
+              link: '/',
+            },
+          ]
+        : [
+            {
+              text: 'Sign in',
+              link: 'login',
+            },
+            {
+              text: 'Sign up',
+              link: 'register',
+            },
+          ]),
+    ];
+    const getNavbar = navbarItems(items, authToken);
 
+    if (authToken) {
+      navbar.innerHTML = getNavbar.join('');
       if (!navElement) {
         HeaderContainer.appendChild(navbar);
       }
     } else {
-      navbar.innerHTML = /* HTML */ `
-        <li class="nav-item">
-          <a class="nav-link active" data-link="/">Home</a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link" data-link="login">Sign in</a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link" data-link="register">Sign up</a>
-        </li>
-      `;
+      navbar.innerHTML = getNavbar.join('');
       if (!navElement) {
         HeaderContainer.appendChild(navbar);
       }

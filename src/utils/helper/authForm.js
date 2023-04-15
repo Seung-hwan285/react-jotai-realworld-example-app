@@ -23,3 +23,24 @@ export const button = Button({
   type: 'submit',
   text: 'Sign in',
 });
+
+export const navbarItems = (items, authToken) => {
+  return items.map(({ text, link }) => {
+    return /* HTML */ `
+      <li class="nav-item">
+        <a
+          class="nav-link ${text === 'Home' ? 'active' : ''}"
+          data-link="${link}"
+        >
+          ${authToken && text === 'New Article'
+            ? '<i class="ion-compose"></i>'
+            : ''}
+          ${authToken && text === 'Settings'
+            ? '<i class="ion-gear-a"></i>'
+            : ''}
+          ${text}
+        </a>
+      </li>
+    `;
+  });
+};
