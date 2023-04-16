@@ -1,5 +1,3 @@
-import { getLocalStroage } from '../../utils/storage.js';
-import { fetchAuthUserInfo } from '../../utils/helper/fetchAuth.js';
 import { toggleActive } from '../../utils/helper/toggleActive.js';
 
 function HomeRow(HomeContainer) {
@@ -15,11 +13,6 @@ function HomeRow(HomeContainer) {
   row.appendChild(col);
   container.appendChild(row);
   HomeContainer.appendChild(container);
-
-  const fetchAuth = async () => {
-    const token = getLocalStroage('token');
-    return await fetchAuthUserInfo(token);
-  };
 
   const handleClick = (e) => {
     // 이벤트 중지시켜야함 a요소의 기본 동작인 페이지 이동이 발생해서 페이지가 다시 로드되기 때문에

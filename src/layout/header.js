@@ -32,15 +32,15 @@ function Header(target) {
   };
 
   const render = async () => {
-    const navElement = document.querySelector('.navbar-nav');
-    let navbar = document.querySelector('.nav');
+    const navbarElement = document.querySelector('.navbar-nav');
+    let navElement = document.querySelector('.nav');
 
     const authToken = getLocalStroage('token');
     const user = await fetchAuthUserInfo(authToken);
 
-    if (!navbar) {
-      navbar = document.createElement('ul');
-      navbar.className = 'nav navbar-nav pull-xs-right';
+    if (!navElement) {
+      navElement = document.createElement('ul');
+      navElement.className = 'nav navbar-nav pull-xs-right';
     }
 
     const items = [
@@ -74,14 +74,14 @@ function Header(target) {
     const getNavbar = navbarItems(items, authToken);
 
     if (authToken) {
-      navbar.innerHTML = getNavbar.join('');
-      if (!navElement) {
-        HeaderContainer.appendChild(navbar);
+      navElement.innerHTML = getNavbar.join('');
+      if (!navbarElement) {
+        HeaderContainer.appendChild(navElement);
       }
     } else {
-      navbar.innerHTML = getNavbar.join('');
-      if (!navElement) {
-        HeaderContainer.appendChild(navbar);
+      navElement.innerHTML = getNavbar.join('');
+      if (!navbarElement) {
+        HeaderContainer.appendChild(navElement);
       }
     }
     // 이 함수는 렌더에서 계속 호출하는데 이전에는 매번 render를 호출할때마다 handleClick 함수가 등록되었다.

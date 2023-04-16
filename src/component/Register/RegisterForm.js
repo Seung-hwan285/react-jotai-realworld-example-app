@@ -1,4 +1,4 @@
-import { auth_request } from '../../lib/auth/requeset.js';
+import { auth_request } from '../../lib/auth/request.js';
 import { route } from '../../utils/routes.js';
 import { button, inputFileds } from '../../utils/helper/authForm.js';
 
