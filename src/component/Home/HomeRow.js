@@ -1,6 +1,6 @@
-import { article_request } from '../../lib/article/request.js';
 import { getLocalStroage } from '../../utils/storage.js';
 import { fetchAuthUserInfo } from '../../utils/helper/fetchAuth.js';
+import { toggleActive } from '../../utils/helper/toggleActive.js';
 
 function HomeRow(HomeContainer) {
   const container = document.createElement('div');
@@ -33,23 +33,15 @@ function HomeRow(HomeContainer) {
       // Your Feed의 부모요소의 다음 요소를 찾고 가장 첫번째 요소를 반환한다.
       const globalFeedDom =
         e.target.parentElement.nextElementSibling.firstElementChild;
-      globalFeedDom.classList.remove('active');
-      globalFeedDom.classList.add('disabled');
-      yourFeedDom.classList.remove('disabled');
-      yourFeedDom.classList.add('active');
+      const setActive = toggleActive(yourFeedDom, globalFeedDom);
+      setActive();
     }
 
     if (textContent === 'Global Feed') {
       const globalFeedDom = e.target;
       const yourFeedDom = document.querySelector('.nav-pills .nav-item a');
-
-      if (!globalFeedDom.classList.contains('active')) {
-        globalFeedDom.classList.remove('disabled');
-        globalFeedDom.classList.add('active');
-
-        yourFeedDom.classList.remove('active');
-        yourFeedDom.classList.add('disabled');
-      }
+      const setActive = toggleActive(globalFeedDom, yourFeedDom);
+      setActive();
     }
   };
 
@@ -68,7 +60,6 @@ function HomeRow(HomeContainer) {
     `;
 
     const feed = document.querySelector('.feed-toggle');
-    console.log(feed);
     feed.addEventListener('click', handleClick);
   };
 
