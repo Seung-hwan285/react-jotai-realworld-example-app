@@ -8,8 +8,8 @@ function HomePage(target) {
   const BannerContainer = document.createElement('div');
   BannerContainer.className = 'banner';
 
-  const BannerWrpper = document.createElement('div');
-  BannerWrpper.className = 'container';
+  const BannerWrapper = document.createElement('div');
+  BannerWrapper.className = 'container';
 
   const container = document.querySelector('.banner');
 
@@ -17,13 +17,13 @@ function HomePage(target) {
     return;
   }
 
-  BannerContainer.appendChild(BannerWrpper);
+  BannerContainer.appendChild(BannerWrapper);
   HomeContainer.appendChild(BannerContainer);
   target.appendChild(HomeContainer);
 
   const render = () => {
     cleanHTML.HomePage();
-    HomeBanner(BannerWrpper);
+    HomeBanner(BannerWrapper);
     HomeRow(HomeContainer);
   };
 
