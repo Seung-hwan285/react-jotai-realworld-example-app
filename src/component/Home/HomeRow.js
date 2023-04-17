@@ -1,6 +1,9 @@
-import { toggleActive } from '../../utils/helper/toggleActive.js';
 import { fetchAuthUserInfo } from '../../utils/helper/fetchAuth.js';
 import { getLocalStroage } from '../../utils/storage.js';
+import {
+  handleGlobalFeedClick,
+  handleYourFeedClick,
+} from '../../utils/helper/feedToggle.js';
 
 function HomeRow(HomeContainer) {
   const container = document.createElement('div');
@@ -16,27 +19,18 @@ function HomeRow(HomeContainer) {
   container.appendChild(row);
   HomeContainer.appendChild(container);
 
-  const handleClick = (e) => {
+  const handleFeedClick = (e) => {
     // 이벤트 중지시켜야함 a요소의 기본 동작인 페이지 이동이 발생해서 페이지가 다시 로드되기 때문에
     // render 함수에서 다시 col 요소에 innerHTML을 추가한다. 그래서 이전에 추가한 HTML이 사라짐
-
     e.preventDefault();
     const { textContent } = e.target;
 
     if (textContent === 'Your Feed') {
-      const yourFeedDom = e.target;
-      // Your Feed의 부모요소의 다음 요소를 찾고 가장 첫번째 요소를 반환한다.
-      const globalFeedDom =
-        e.target.parentElement.nextElementSibling.firstElementChild;
-      const setActive = toggleActive(yourFeedDom, globalFeedDom);
-      setActive();
+      handleYourFeedClick();
     }
 
     if (textContent === 'Global Feed') {
-      const globalFeedDom = e.target;
-      const yourFeedDom = document.querySelector('.nav-pills .nav-item a');
-      const setActive = toggleActive(globalFeedDom, yourFeedDom);
-      setActive();
+      handleGlobalFeedClick();
     }
   };
 
@@ -69,7 +63,7 @@ function HomeRow(HomeContainer) {
     }
 
     const feed = document.querySelector('.feed-toggle');
-    feed.addEventListener('click', handleClick);
+    feed.addEventListener('click', handleFeedClick);
   };
 
   render();
