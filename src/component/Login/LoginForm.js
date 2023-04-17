@@ -1,14 +1,13 @@
 import { route } from '../../utils/routes.js';
 import { setLocalStroage } from '../../utils/storage.js';
 import { auth_request } from '../../lib/auth/request.js';
-import { button, inputFileds } from '../../utils/helper/authForm.js';
+import { buttonLogin, inputFileds } from '../../utils/helper/authForm.js';
 
-function LoginForm(target) {
+function LoginForm(col) {
   const LoginFormBox = document.createElement('form');
   LoginFormBox.className = 'form';
 
-  target.appendChild(LoginFormBox);
-  console.log(target);
+  col.appendChild(LoginFormBox);
 
   const handleUserSubmit = async (e) => {
     e.preventDefault();
@@ -40,7 +39,7 @@ function LoginForm(target) {
 
     const getInputFiled = inputFileds(inputs);
 
-    LoginFormBox.innerHTML = getInputFiled + button;
+    LoginFormBox.innerHTML = getInputFiled + buttonLogin;
 
     const form = document.querySelector('.form');
     form.addEventListener('submit', handleUserSubmit);

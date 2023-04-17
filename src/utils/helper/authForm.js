@@ -18,12 +18,6 @@ export const inputFileds = (inputs) => {
     .join('');
 };
 
-export const button = Button({
-  className: 'btn btn-lg btn-primary pull-xs-right',
-  type: 'submit',
-  text: 'Sign in',
-});
-
 export const navbarItems = (items, authToken) => {
   return items.map(({ text, link }) => {
     return /* HTML */ `
@@ -44,3 +38,15 @@ export const navbarItems = (items, authToken) => {
     `;
   });
 };
+
+export const buttonLogin = Button({
+  className: 'btn btn-lg btn-primary pull-xs-right',
+  type: 'submit',
+  text: 'Sign in',
+});
+
+export const buttonRegister = Button({
+  className: 'btn btn-lg btn-primary pull-xs-right',
+  type: 'submit',
+  text: 'Sign up',
+});

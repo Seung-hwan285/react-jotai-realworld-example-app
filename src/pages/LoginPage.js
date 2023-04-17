@@ -28,8 +28,6 @@ function LoginPage(target) {
 
   target.appendChild(LoginContainer);
 
-  // register에서 로그인 페이지로 이동하면 Register가 렌더링 되는게 아니고 Login이 새로 추가된다.
-
   const render = () => {
     LoginFormTitle(col);
     LoginForm(col);

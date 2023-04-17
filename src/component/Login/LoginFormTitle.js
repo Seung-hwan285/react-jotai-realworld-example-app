@@ -1,6 +1,6 @@
-function LoginFormTitle(LoginWrapper) {
+function LoginFormTitle(col) {
   const render = () => {
-    LoginWrapper.innerHTML = /* HTML */ `
+    col.innerHTML = /* HTML */ `
       <h2 class="text-xs-center">Sign in</h2>
       <p class="text-xs-center">
         <a href="">Need an account?</a>

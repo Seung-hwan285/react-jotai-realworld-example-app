@@ -71,6 +71,7 @@ function Header(target) {
             },
           ]),
     ];
+
     const getNavbar = navbarItems(items, authToken);
 
     if (authToken) {

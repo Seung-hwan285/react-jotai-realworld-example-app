@@ -1,4 +1,6 @@
 import { toggleActive } from '../../utils/helper/toggleActive.js';
+import { fetchAuthUserInfo } from '../../utils/helper/fetchAuth.js';
+import { getLocalStroage } from '../../utils/storage.js';
 
 function HomeRow(HomeContainer) {
   const container = document.createElement('div');
@@ -39,18 +41,32 @@ function HomeRow(HomeContainer) {
   };
 
   const render = async () => {
-    col.innerHTML = /* HTML */ `
-      <div class="feed-toggle">
-        <ul class="nav nav-pills outline-active">
-          <li class="nav-item">
-            <a class="nav-link disabled" href="">Your Feed</a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link active" href="">Global Feed</a>
-          </li>
-        </ul>
-      </div>
-    `;
+    const token = await fetchAuthUserInfo(getLocalStroage('token'));
+
+    if (token) {
+      col.innerHTML = /* HTML */ `
+        <div class="feed-toggle">
+          <ul class="nav nav-pills outline-active">
+            <li class="nav-item">
+              <a class="nav-link disabled" href="">Your Feed</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link active" href="">Global Feed</a>
+            </li>
+          </ul>
+        </div>
+      `;
+    } else {
+      col.innerHTML = /* HTML */ `
+        <div class="feed-toggle">
+          <ul class="nav nav-pills outline-active">
+            <li class="nav-item">
+              <a class="nav-link active" href="">Global Feed</a>
+            </li>
+          </ul>
+        </div>
+      `;
+    }
 
     const feed = document.querySelector('.feed-toggle');
     feed.addEventListener('click', handleClick);

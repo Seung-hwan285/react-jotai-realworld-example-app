@@ -12,9 +12,6 @@ export const initRouter = (onRoute) => {
   });
 };
 
-// 커스텀 이벤트를 사용해서 ROUTE_CHAGNE라는 이벤트를 만들고
-// dispatchEvent로 해당 이벤트를 발생시켜준다.
-// 그리고 detail로 값을 전달
 export const route = (nextUrl) => {
   if (nextUrl) {
     window.dispatchEvent(

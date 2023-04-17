@@ -47,7 +47,6 @@ export const auth_request = {
       });
 
       const data = await response.json();
-      console.log(data);
 
       if (response.ok) {
         return data;
