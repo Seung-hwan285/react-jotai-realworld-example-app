@@ -3,10 +3,10 @@ import { route } from '../../utils/routes.js';
 import { buttonRegister, inputFileds } from '../../utils/helper/authForm.js';
 
 function RegisterForm(target) {
-  const RegisterForm = document.createElement('form');
-  RegisterForm.className = 'form';
+  const RegisterFormBox = document.createElement('form');
+  RegisterFormBox.className = 'form';
 
-  target.appendChild(RegisterForm);
+  target.appendChild(RegisterFormBox);
 
   const handleRegisterSubmit = async (e) => {
     e.preventDefault();
@@ -46,7 +46,7 @@ function RegisterForm(target) {
 
     const getInputFiled = inputFileds(inputs);
 
-    RegisterForm.innerHTML = getInputFiled + buttonRegister;
+    RegisterFormBox.innerHTML = getInputFiled + buttonRegister;
 
     const form = document.querySelector('.form');
     form.addEventListener('submit', handleRegisterSubmit);

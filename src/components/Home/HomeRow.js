@@ -4,8 +4,10 @@ import {
   handleGlobalFeedClick,
   handleYourFeedClick,
 } from '../../utils/helper/feedToggle.js';
+import HomeArticles from './HomeArticles.js';
+import HomeTagList from './HomeTagList.js';
 
-function HomeRow(HomeContainer) {
+function HomeRow(banner) {
   const container = document.createElement('div');
   container.className = 'container page';
 
@@ -17,20 +19,20 @@ function HomeRow(HomeContainer) {
 
   row.appendChild(col);
   container.appendChild(row);
-  HomeContainer.appendChild(container);
+  banner.appendChild(container);
 
   const handleFeedClick = (e) => {
-    // 이벤트 중지시켜야함 a요소의 기본 동작인 페이지 이동이 발생해서 페이지가 다시 로드되기 때문에
-    // render 함수에서 다시 col 요소에 innerHTML을 추가한다. 그래서 이전에 추가한 HTML이 사라짐
     e.preventDefault();
     const { textContent } = e.target;
+    const feeds = [
+      { text: 'Your Feed', click: handleYourFeedClick },
+      { text: 'Global Feed', click: handleGlobalFeedClick },
+    ];
 
-    if (textContent === 'Your Feed') {
-      handleYourFeedClick();
-    }
+    const findEvent = feeds.find((feed) => feed.text === textContent);
 
-    if (textContent === 'Global Feed') {
-      handleGlobalFeedClick();
+    if (findEvent) {
+      findEvent.click();
     }
   };
 
@@ -61,7 +63,8 @@ function HomeRow(HomeContainer) {
         </div>
       `;
     }
-
+    HomeArticles(col);
+    HomeTagList(row);
     const feed = document.querySelector('.feed-toggle');
     feed.addEventListener('click', handleFeedClick);
   };

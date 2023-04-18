@@ -1,5 +1,5 @@
-import Input from '../../common/Input.js';
-import Button from '../../common/Button.js';
+import Input from '../../commons/Input.js';
+import Button from '../../commons/Button.js';
 
 export const inputFileds = (inputs) => {
   return inputs

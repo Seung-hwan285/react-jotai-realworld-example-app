@@ -1,5 +1,5 @@
 import { cleanHTML } from '../utils/helper/cleanHTML.js';
-import SettingForm from '../component/Setting/SettingForm.js';
+import SettingForm from '../components/Setting/SettingForm.js';
 
 function SettingPage(target) {
   const container = document.querySelector('.Setting__Container');

@@ -10,7 +10,7 @@ function Header(target) {
   HeaderContainer.className = 'container';
 
   const LogoElement = document.createElement('a');
-  LogoElement.innerText = `Conduit`;
+  LogoElement.innerText = 'Conduit';
   LogoElement.className = 'navbar-brand';
   LogoElement.setAttribute('data-link', '/');
 
@@ -85,9 +85,7 @@ function Header(target) {
         HeaderContainer.appendChild(navElement);
       }
     }
-    // 이 함수는 렌더에서 계속 호출하는데 이전에는 매번 render를 호출할때마다 handleClick 함수가 등록되었다.
-    // 그래서 로고버튼을 클릭하면 계속 Header 컴포넌트가 렌더링되는게 아니라 생성이 되서 중첩현상이 일어남
-    // 하지만 hadndleClick 함수를 최상위 스코프로 이동시켜서 한번만 등록되므로 중복 문제가 해결
+
     handleClick();
   };
   render();

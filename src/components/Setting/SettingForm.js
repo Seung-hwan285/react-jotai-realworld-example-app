@@ -2,8 +2,8 @@ import { getLocalStroage } from '../../utils/storage.js';
 import { fetchAuthUserInfo } from '../../utils/helper/fetchAuth.js';
 import { auth_request } from '../../lib/auth/request.js';
 import { route } from '../../utils/routes.js';
-import Input from '../../common/Input.js';
-import Button from '../../common/Button.js';
+import Input from '../../commons/Input.js';
+import Button from '../../commons/Button.js';
 
 function SettingForm(SettingFormBox) {
   const authToken = getLocalStroage('token');
@@ -41,7 +41,7 @@ function SettingForm(SettingFormBox) {
 
   const render = async () => {
     const user = fetchUser();
-    console.log(user);
+
     SettingFormBox.innerHTML = /* HTML */ `
       <div>
         <h2>Your Profile</h2>

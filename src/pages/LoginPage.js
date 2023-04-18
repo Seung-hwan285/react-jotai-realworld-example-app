@@ -1,5 +1,5 @@
-import LoginForm from '../component/Login/LoginForm.js';
-import LoginFormTitle from '../component/Login/LoginFormTitle.js';
+import LoginForm from '../components/Login/LoginForm.js';
+import LoginFormTitle from '../components/Login/LoginFormTitle.js';
 import { cleanHTML } from '../utils/helper/cleanHTML.js';
 
 function LoginPage(target) {

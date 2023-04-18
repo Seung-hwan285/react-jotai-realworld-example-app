@@ -1,6 +1,6 @@
 import { cleanHTML } from '../utils/helper/cleanHTML.js';
-import RegisterForm from '../component/Register/RegisterForm.js';
-import RegisterFormTitle from '../component/Register/RegisterFormTitle.js';
+import RegisterForm from '../components/Register/RegisterForm.js';
+import RegisterFormTitle from '../components/Register/RegisterFormTitle.js';
 
 function RegisterPage(target) {
   cleanHTML.RegisterPage();
