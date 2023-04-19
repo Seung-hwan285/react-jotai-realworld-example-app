@@ -1,27 +1,32 @@
+import { tag_request } from '../../lib/tag/request.js';
+
 function HomeTagList(row) {
-  const render = () => {
+  const render = async () => {
+    const { tags } = await tag_request.getTagsList();
     const col = document.createElement('div');
     col.className = 'col-md-3';
 
     col.innerHTML = `
      <div class="sidebar">
           <p>Popular Tags</p>
-
-          <div class="tag-list">
-            <a href="" class="tag-pill tag-default">programming</a>
-            <a href="" class="tag-pill tag-default">javascript</a>
-            <a href="" class="tag-pill tag-default">emberjs</a>
-            <a href="" class="tag-pill tag-default">angularjs</a>
-            <a href="" class="tag-pill tag-default">react</a>
-            <a href="" class="tag-pill tag-default">mean</a>
-            <a href="" class="tag-pill tag-default">node</a>
-            <a href="" class="tag-pill tag-default">rails</a>
+          <div class="tag-list">                         
+               ${
+                 Array.isArray(tags) &&
+                 tags
+                   .map((tag) => {
+                     return /* HTML */ `
+                       <a href="" class="tag-pill tag-default">${tag}</a>
+                     `;
+                   })
+                   .join('')
+               }
           </div>
         </div>
     `;
 
     row.appendChild(col);
   };
+
   render();
 }
 

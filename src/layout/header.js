@@ -3,6 +3,8 @@ import { getLocalStroage } from '../utils/storage.js';
 import { fetchAuthUserInfo } from '../utils/helper/fetchAuth.js';
 import { navbarItems } from '../utils/helper/authForm.js';
 
+// [] Header 토글 버튼 클릭시 안바뀜
+
 function Header(target) {
   const nav = document.createElement('nav');
   nav.className = 'navbar navbar-light';
@@ -75,12 +77,12 @@ function Header(target) {
     const getNavbar = navbarItems(items, authToken);
 
     if (authToken) {
-      navElement.innerHTML = getNavbar.join('');
+      navElement.innerHTML = getNavbar;
       if (!navbarElement) {
         HeaderContainer.appendChild(navElement);
       }
     } else {
-      navElement.innerHTML = getNavbar.join('');
+      navElement.innerHTML = getNavbar;
       if (!navbarElement) {
         HeaderContainer.appendChild(navElement);
       }
