@@ -1,4 +1,5 @@
 import { tag_request } from '../../lib/tag/request.js';
+import LoadingSpinner from '../../commons/LoadingSpinner.js';
 
 function HomeTagList(row) {
   const col = document.createElement('div');
@@ -7,15 +8,14 @@ function HomeTagList(row) {
   col.innerHTML = /* HTML */ `
     <div class="sidebar">
       <p>Popular Tags</p>
-      <div class="tag-list">
-        <div class="spinner-container">
-          <div class="spinner"></div>
-        </div>
-      </div>
+      <div class="tag-list"></div>
     </div>
   `;
-
   row.appendChild(col);
+
+  const tagList = document.querySelector('.tag-list');
+  const spinnerContainer = LoadingSpinner();
+  tagList.appendChild(spinnerContainer);
 
   const render = async () => {
     const { tags } = await tag_request.getTagsList();

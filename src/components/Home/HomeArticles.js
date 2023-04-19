@@ -1,8 +1,14 @@
 import { article_request } from '../../lib/article/request.js';
+import LoadingSpinner from '../../commons/LoadingSpinner.js';
 
-function HomeArticles(HomeContainer) {
+function HomeArticles(col) {
+  const spinnerContainer = LoadingSpinner();
+  col.appendChild(spinnerContainer);
+
   const render = async () => {
     const { articles, articlesCount } = await article_request.getAllArticles();
+    const spinner = document.querySelector('.spinner');
+    spinner.remove();
 
     if (articles && Array.isArray(articles)) {
       articles.map(
@@ -20,7 +26,6 @@ function HomeArticles(HomeContainer) {
         }) => {
           const Article = document.createElement('div');
           Article.className = 'article-preview';
-
           Article.innerHTML = /* HTML */ `
             <div class="article-meta">
               <a href="profile.html"><img src=${author.image} /></a>
@@ -38,7 +43,7 @@ function HomeArticles(HomeContainer) {
               <span>Read more...</span>
             </a>
           `;
-          HomeContainer.appendChild(Article);
+          col.appendChild(Article);
         }
       );
     }

@@ -13,10 +13,6 @@ input:focus {
   outline: none;
 }
 
-.spinner-container {
-  height: 100px;
-}
-
 .spinner {
   background-image: url('/src/public/spinner.gif');
   width: 50px;

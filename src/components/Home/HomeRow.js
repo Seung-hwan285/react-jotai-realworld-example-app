@@ -63,8 +63,10 @@ function HomeRow(banner) {
         </div>
       `;
     }
+
     HomeArticles(col);
     HomeTagList(row);
+
     const feed = document.querySelector('.feed-toggle');
     feed.addEventListener('click', handleFeedClick);
   };
