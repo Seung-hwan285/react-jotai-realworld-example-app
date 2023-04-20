@@ -3,6 +3,8 @@ import { fetchAuthUserInfo } from '../../utils/helper/fetchAuth.js';
 import { auth_request } from '../../lib/auth/request.js';
 import { route } from '../../utils/routes.js';
 import Input from '../../commons/Input.js';
+import { removeCookie } from '../../utils/removeCookie.js';
+import { getCookie } from '../../utils/getCookie.js';
 
 function SettingForm(target) {
   const SettingFormBox = document.createElement('form');
@@ -10,7 +12,7 @@ function SettingForm(target) {
 
   const authToken = getLocalStroage('token');
 
-  const paitSetting = () => {
+  const paintSetting = () => {
     return `
        <hr />
       <button class="btn btn-outline-danger logout">
@@ -19,7 +21,7 @@ function SettingForm(target) {
       `;
   };
   const paintSettingDiv = document.createElement('div');
-  paintSettingDiv.innerHTML = paitSetting();
+  paintSettingDiv.innerHTML = paintSetting();
 
   target.appendChild(SettingFormBox);
   target.appendChild(paintSettingDiv);
@@ -46,11 +48,14 @@ function SettingForm(target) {
   const handleLogoutClick = async () => {
     const result = await auth_request.userLogout('token');
     if (result) {
+      removeCookie('authToken');
       route('/');
     }
   };
 
-  const renderForm = (user) => {
+  const render = () => {
+    const authToken = JSON.parse(getCookie('authToken'));
+
     SettingFormBox.innerHTML = /* HTML */ `
       <fieldset>
         <fieldset class="form-group">
@@ -58,7 +63,7 @@ function SettingForm(target) {
             className: 'form-control',
             type: 'text',
             placeholder: 'URL of profile picture',
-            value: user.image,
+            value: `${authToken.image}`,
           })}
         </fieldset>
         <fieldset class="form-group">
@@ -66,7 +71,7 @@ function SettingForm(target) {
             className: 'form-control form-control-lg',
             type: 'text',
             placeholder: 'Your Name',
-            value: user.username,
+            value: `${authToken.username}`,
           })}
         </fieldset>
         <fieldset class="form-group">
@@ -81,7 +86,7 @@ function SettingForm(target) {
             className: 'form-control form-control-lg email',
             type: 'text',
             placeholder: 'Email',
-            value: user.email,
+            value: `${authToken.email}`,
           })}
         </fieldset>
         <fieldset class="form-group">
@@ -103,13 +108,6 @@ function SettingForm(target) {
     const button = document.querySelector('.logout');
     button.addEventListener('click', handleLogoutClick);
   };
-
-  // 1. 먼저 비동기 데이터를 가져오기 전에 빈값으로 DOM을 렌더링시킨다.
-  renderForm({ username: '', email: '' });
-
-  // 2. 비동기 처리 후 안에 데이터를 채워준다.
-  fetchAuthUserInfo(authToken).then((user) => {
-    renderForm(user);
-  });
+  render();
 }
 export default SettingForm;
