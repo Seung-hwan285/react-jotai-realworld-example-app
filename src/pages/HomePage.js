@@ -1,6 +1,6 @@
 import { cleanHTML } from '../utils/helper/cleanHTML.js';
 import HomeBanner from '../components/Home/HomeBanner.js';
-import HomeRow from '../components/Home/HomeRow.js';
+import HomeMain from '../components/Home/HomeMain.js';
 
 function HomePage(target) {
   const HomeContainer = document.createElement('div');
@@ -24,7 +24,7 @@ function HomePage(target) {
   const render = () => {
     cleanHTML.HomePage();
     HomeBanner(BannerWrapper);
-    HomeRow(HomeContainer);
+    HomeMain(HomeContainer);
   };
 
   render();

@@ -12,11 +12,7 @@ export const cleanHTML = {
   HomePage: () => {
     removeElement('.auth-page');
     removeElement('.container-page');
-
-    const token = getLocalStroage('token');
-    if (token) {
-      removeElement('.Setting__Container');
-    }
+    removeElement('.settings-page');
   },
   LoginPage: () => {
     removeElement('.home-page');

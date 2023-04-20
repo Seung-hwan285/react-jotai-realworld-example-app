@@ -2,11 +2,26 @@ import { getLocalStroage } from '../../utils/storage.js';
 import { fetchAuthUserInfo } from '../../utils/helper/fetchAuth.js';
 import { auth_request } from '../../lib/auth/request.js';
 import { route } from '../../utils/routes.js';
-import Input from '../../commons/Input.js';
-import Button from '../../commons/Button.js';
 
-function SettingForm(SettingFormBox) {
+function SettingForm(target) {
+  const SettingFormBox = document.createElement('form');
+  SettingFormBox.className = 'form';
+
   const authToken = getLocalStroage('token');
+
+  const paitSetting = () => {
+    return `
+       <hr />
+      <button class="btn btn-outline-danger logout">
+        Or click here to logout.
+      </button>
+      `;
+  };
+  const paitSettingDiv = document.createElement('div');
+  paitSettingDiv.innerHTML = paitSetting();
+
+  target.appendChild(SettingFormBox);
+  target.appendChild(paitSettingDiv);
 
   const handleUpdateUserSubmit = async (e) => {
     e.preventDefault();
@@ -43,46 +58,46 @@ function SettingForm(SettingFormBox) {
     const user = fetchUser();
 
     SettingFormBox.innerHTML = /* HTML */ `
-      <div>
-        <h2>Your Profile</h2>
-        <form class="form">
-          <div class="setting-in-box">
-            ${Input({ value: user.image, type: 'text', className: 'image' })}
-            ${Input({
-              value: user.username,
-              type: 'text',
-              className: 'username',
-            })}
-            <textarea
-              class="form-control-lg"
-              rows="10"
-              placeholder="Short bio about you"
-            >
-${user.bio}</textarea
-            >
-            ${Input({
-              value: user.email === null ? '' : user.email,
-              type: 'text',
-              className: 'email',
-            })}
-            ${Input({
-              value: '',
-              placeholder: 'New Password',
-              type: 'password',
-              className: 'password',
-            })}
-          </div>
-          ${Button({
-            className: 'form-button',
-            type: 'submit',
-            text: 'Update Settings',
-          })}
-        </form>
-        ${Button({
-          className: 'logout',
-          text: 'Logout',
-        })}
-      </div>
+      <fieldset>
+        <fieldset class="form-group">
+          <input
+            class="form-control"
+            type="text"
+            placeholder="URL of profile picture"
+          />
+        </fieldset>
+        <fieldset class="form-group">
+          <input
+            class="form-control form-control-lg"
+            type="text"
+            placeholder="Your Name"
+          />
+        </fieldset>
+        <fieldset class="form-group">
+          <textarea
+            class="form-control form-control-lg"
+            rows="8"
+            placeholder="Short bio about you"
+          ></textarea>
+        </fieldset>
+        <fieldset class="form-group">
+          <input
+            class="form-control form-control-lg"
+            type="text"
+            placeholder="Email"
+          />
+        </fieldset>
+        <fieldset class="form-group">
+          <input
+            class="form-control form-control-lg"
+            type="password"
+            placeholder="Password"
+          />
+        </fieldset>
+        <button class="btn btn-lg btn-primary pull-xs-right">
+          Update Settings
+        </button>
+      </fieldset>
     `;
 
     const form = document.querySelector('.form');

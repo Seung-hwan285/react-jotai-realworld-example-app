@@ -1,28 +1,36 @@
 import { cleanHTML } from '../utils/helper/cleanHTML.js';
 import SettingForm from '../components/Setting/SettingForm.js';
+import SettingFormTitle from '../components/Setting/SettingFormTitle.js';
 
 function SettingPage(target) {
-  const container = document.querySelector('.Setting__Container');
+  const container = document.querySelector('.settings-page');
+
   if (container) {
     return;
   }
+
   const SettingContainer = document.createElement('div');
-  SettingContainer.className = 'Setting__Container';
+  SettingContainer.className = 'settings-page';
 
   const SettingWrapper = document.createElement('div');
-  SettingWrapper.className = 'Setting__Wrapper';
+  SettingWrapper.className = 'container page';
 
-  const SettingFormBox = document.createElement('div');
-  SettingFormBox.className = 'Setting__Box';
+  const row = document.createElement('div');
+  row.className = 'row';
 
+  const col = document.createElement('div');
+  col.className = 'col-md-6 offset-md-3 col-xs-12';
+
+  row.appendChild(col);
+  SettingWrapper.appendChild(row);
   SettingContainer.appendChild(SettingWrapper);
-  SettingContainer.appendChild(SettingFormBox);
 
   target.appendChild(SettingContainer);
 
   const render = () => {
     cleanHTML.SettingPage();
-    SettingForm(SettingFormBox);
+    SettingFormTitle(col);
+    SettingForm(col);
   };
 
   render();

@@ -3,17 +3,30 @@ import Button from '../../commons/Button.js';
 
 export const inputFileds = (inputs) => {
   return inputs
-    .map(({ placeholder, type, id, className }) => {
-      return /* HTML */ `
-        <fieldset class="form-group">
-          ${Input({
-            placeholder,
-            type,
-            id,
-            className,
-          })}
-        </fieldset>
-      `;
+    .map(({ placeholder, type, id, className, rows }) => {
+      if (!rows) {
+        return /* HTML */ `
+          <fieldset class="form-group">
+            ${Input({
+              placeholder,
+              type,
+              id,
+              className,
+            })}
+          </fieldset>
+        `;
+      } else {
+        return /* HTML */ `
+          <fieldset class="form-group">
+            <textarea
+              class="${className}"
+              rows="${rows}"
+              placeholder="${placeholder}"
+            >
+            </textarea>
+          </fieldset>
+        `;
+      }
     })
     .join('');
 };
@@ -51,4 +64,10 @@ export const buttonRegister = Button({
   className: 'btn btn-lg btn-primary pull-xs-right',
   type: 'submit',
   text: 'Sign up',
+});
+
+export const buttonSetting = Button({
+  className: 'btn btn-lg btn-primary pull-xs-right',
+  type: 'submit',
+  text: 'Update Settings',
 });

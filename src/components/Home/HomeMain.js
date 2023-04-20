@@ -7,7 +7,7 @@ import {
 import HomeArticles from './HomeArticles.js';
 import HomeTagList from './HomeTagList.js';
 
-function HomeRow(banner) {
+function HomeMain(banner) {
   const container = document.createElement('div');
   container.className = 'container page';
 
@@ -73,4 +73,4 @@ function HomeRow(banner) {
 
   render();
 }
-export default HomeRow;
+export default HomeMain;
