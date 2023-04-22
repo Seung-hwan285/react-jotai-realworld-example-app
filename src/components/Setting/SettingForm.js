@@ -3,8 +3,7 @@ import { fetchAuthUserInfo } from '../../utils/helper/fetchAuth.js';
 import { auth_request } from '../../lib/auth/request.js';
 import { route } from '../../utils/routes.js';
 import Input from '../../commons/Input.js';
-import { removeCookie } from '../../utils/removeCookie.js';
-import { getCookie } from '../../utils/getCookie.js';
+import { getCookie, removeCookie } from '../../utils/cookie.js';
 
 function SettingForm(target) {
   const SettingFormBox = document.createElement('form');
@@ -54,7 +53,7 @@ function SettingForm(target) {
   };
 
   const render = () => {
-    const authToken = JSON.parse(getCookie('authToken'));
+    const authToken = JSON.parse(getCookie('token'));
 
     SettingFormBox.innerHTML = /* HTML */ `
       <fieldset>

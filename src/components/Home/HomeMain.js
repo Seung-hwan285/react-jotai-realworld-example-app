@@ -6,7 +6,7 @@ import {
 } from '../../utils/helper/feedToggle.js';
 import HomeArticles from './HomeArticles.js';
 import HomeTagList from './HomeTagList.js';
-import { setCookie } from '../../utils/setCookie.js';
+import { setCookie } from '../../utils/cookie.js';
 
 function HomeMain(banner) {
   const container = document.createElement('div');
@@ -39,7 +39,7 @@ function HomeMain(banner) {
 
   const render = async () => {
     const token = await fetchAuthUserInfo(getLocalStroage('token'));
-    setCookie('authToken', JSON.stringify(token), 7);
+    setCookie('token', JSON.stringify(token), 7);
 
     if (token) {
       col.innerHTML = /* HTML */ `
