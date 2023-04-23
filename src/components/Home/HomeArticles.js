@@ -13,7 +13,6 @@ function HomeArticles(col) {
     const page = Array.from(document.querySelectorAll('.page-item'));
     const activeItem = page.find((item) => item.classList.contains('active'));
     const { textContent } = e.target;
-
     if (
       textContent !== '<<' &&
       textContent !== '>>' &&
@@ -22,16 +21,53 @@ function HomeArticles(col) {
     ) {
       e.target.parentNode.classList.add('active');
       activeItem.classList.remove('active');
-
       const offset = Number(textContent);
+
       const { articles } = await article_request.getAllArticles(offset);
-
       const artilce = document.querySelectorAll('.article-preview');
-
       artilce.forEach((a) => a.remove());
-
-      // 제거가 되고 나서 아무것도 없으면
       renderData(articles);
+    } else if (textContent === '<<') {
+      const offset = 1;
+      activeItem.classList.remove('active');
+      page[2].classList.add('active');
+      const { articles } = await article_request.getAllArticles(offset);
+      const artilce = document.querySelectorAll('.article-preview');
+      artilce.forEach((a) => a.remove());
+      renderData(articles);
+    } else if (textContent === '<') {
+      const { textContent } = activeItem.querySelector('.page-link');
+      const findIndex = page.findIndex((p) => p.classList.contains('active'));
+      let offset = Number(textContent);
+      if (offset > 1) {
+        page[findIndex - 1].classList.add('active');
+        activeItem.classList.remove('active');
+        offset -= 1;
+      } else {
+        return;
+      }
+      const { articles } = await article_request.getAllArticles(offset);
+      const artilce = document.querySelectorAll('.article-preview');
+      artilce.forEach((a) => a.remove());
+      renderData(articles);
+    } else if (textContent === '>>') {
+      const offset = 10;
+      activeItem.classList.remove('active');
+      page[page.length - 3].classList.add('active');
+      const { articles } = await article_request.getAllArticles(offset);
+      const article = document.querySelectorAll('.article-preview');
+      article.forEach((a) => a.remove());
+      renderData(articles);
+    } else if (textContent === '>') {
+      const findIndex = page.findIndex((p) => p.classList.contains('active'));
+      if (findIndex < 11) {
+        page[findIndex + 1].classList.add('active');
+        activeItem.classList.remove('active');
+        const { articles } = await article_request.getAllArticles(findIndex);
+        const article = document.querySelectorAll('.article-preview');
+        article.forEach((a) => a.remove());
+        renderData(articles);
+      }
     }
   };
 
@@ -147,12 +183,12 @@ function HomeArticles(col) {
       
       
       <li class="page-item">
-        <a class="page-link">>></a>
+        <a class="page-link">></a>
       </li>
       
       
       <li class="page-item">
-        <a class="page-link">></a>
+        <a class="page-link">>></a>
       </li>`;
 
     nav.appendChild(ul);
