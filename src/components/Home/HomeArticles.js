@@ -1,5 +1,10 @@
 import { article_request } from '../../lib/article/request.js';
 import LoadingSpinner from '../../commons/LoadingSpinner.js';
+import {
+  articlesRemove,
+  getActivePageItem,
+  getArticlePreviews,
+} from '../../utils/helper/mainPagination.js';
 function HomeArticles(col) {
   const spinnerContainer = LoadingSpinner();
   col.appendChild(spinnerContainer);
@@ -13,61 +18,75 @@ function HomeArticles(col) {
     const page = Array.from(document.querySelectorAll('.page-item'));
     const activeItem = page.find((item) => item.classList.contains('active'));
     const { textContent } = e.target;
-    if (
-      textContent !== '<<' &&
-      textContent !== '>>' &&
-      textContent !== '<' &&
-      textContent !== '>'
-    ) {
-      e.target.parentNode.classList.add('active');
-      activeItem.classList.remove('active');
-      const offset = Number(textContent);
 
-      const { articles } = await article_request.getAllArticles(offset);
-      const artilce = document.querySelectorAll('.article-preview');
-      artilce.forEach((a) => a.remove());
-      renderData(articles);
-    } else if (textContent === '<<') {
-      const offset = 1;
-      activeItem.classList.remove('active');
-      page[2].classList.add('active');
-      const { articles } = await article_request.getAllArticles(offset);
-      const artilce = document.querySelectorAll('.article-preview');
-      artilce.forEach((a) => a.remove());
-      renderData(articles);
-    } else if (textContent === '<') {
-      const { textContent } = activeItem.querySelector('.page-link');
-      const findIndex = page.findIndex((p) => p.classList.contains('active'));
-      let offset = Number(textContent);
-      if (offset > 1) {
-        page[findIndex - 1].classList.add('active');
+    switch (textContent) {
+      case '<<':
+        const offset1 = 1;
         activeItem.classList.remove('active');
-        offset -= 1;
-      } else {
-        return;
-      }
-      const { articles } = await article_request.getAllArticles(offset);
-      const artilce = document.querySelectorAll('.article-preview');
-      artilce.forEach((a) => a.remove());
-      renderData(articles);
-    } else if (textContent === '>>') {
-      const offset = 10;
-      activeItem.classList.remove('active');
-      page[page.length - 3].classList.add('active');
-      const { articles } = await article_request.getAllArticles(offset);
-      const article = document.querySelectorAll('.article-preview');
-      article.forEach((a) => a.remove());
-      renderData(articles);
-    } else if (textContent === '>') {
-      const findIndex = page.findIndex((p) => p.classList.contains('active'));
-      if (findIndex < 11) {
-        page[findIndex + 1].classList.add('active');
+        page[2].classList.add('active');
+        const { articles: articles1 } = await article_request.getAllArticles(
+          offset1
+        );
+        const articlePreviews1 = getArticlePreviews();
+        articlesRemove(articlePreviews1);
+        renderData(articles1);
+        break;
+
+      case '<':
+        const findIndex = getActivePageItem();
+        console.log(findIndex);
+        if (findIndex > 2) {
+          page[findIndex - 1].classList.add('active');
+
+          activeItem.classList.remove('active');
+        } else {
+          return;
+        }
+        const { articles: articles2 } = await article_request.getAllArticles(
+          findIndex - 2
+        );
+        const articlePreviews2 = getArticlePreviews();
+        articlesRemove(articlePreviews2);
+        renderData(articles2);
+        break;
+
+      case '>>':
+        const offset3 = 10;
         activeItem.classList.remove('active');
-        const { articles } = await article_request.getAllArticles(findIndex);
-        const article = document.querySelectorAll('.article-preview');
-        article.forEach((a) => a.remove());
-        renderData(articles);
-      }
+        page[page.length - 3].classList.add('active');
+        const { articles: articles3 } = await article_request.getAllArticles(
+          offset3
+        );
+        const articlePreviews3 = getArticlePreviews();
+        articlesRemove(articlePreviews3);
+        renderData(articles3);
+        break;
+
+      case '>':
+        const findIndex4 = getActivePageItem();
+        if (findIndex4 < 11) {
+          page[findIndex4 + 1].classList.add('active');
+          activeItem.classList.remove('active');
+          const { articles: articles4 } = await article_request.getAllArticles(
+            findIndex4
+          );
+          const articlePreviews4 = getArticlePreviews();
+          articlesRemove(articlePreviews4);
+          renderData(articles4);
+        }
+        break;
+
+      default:
+        e.target.parentNode.classList.add('active');
+        activeItem.classList.remove('active');
+        const offset5 = Number(textContent);
+        const { articles: articles5 } = await article_request.getAllArticles(
+          offset5
+        );
+        const articlePreviews5 = getArticlePreviews();
+        articlesRemove(articlePreviews5);
+        renderData(articles5);
+        break;
     }
   };
 
