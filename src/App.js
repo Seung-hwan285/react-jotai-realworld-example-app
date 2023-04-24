@@ -26,7 +26,6 @@ function App({ target }) {
 
   const render = () => {
     initRouter(() => {
-      header.render();
       routes();
     });
     routes();

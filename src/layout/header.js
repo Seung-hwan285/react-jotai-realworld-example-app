@@ -3,8 +3,6 @@ import { getLocalStroage } from '../utils/storage.js';
 import { fetchAuthUserInfo } from '../utils/helper/fetchAuth.js';
 import { navbarItems } from '../utils/helper/authForm.js';
 
-// [] Header 토글 버튼 클릭시 안바뀜
-
 function Header(target) {
   const nav = document.createElement('nav');
   nav.className = 'navbar navbar-light';
@@ -22,7 +20,18 @@ function Header(target) {
   target.appendChild(nav);
 
   const handleLinkClick = (e) => {
+    const navbar = document.querySelectorAll('.nav-link');
+
     const link = e.target.dataset.link;
+
+    navbar.forEach((n) => {
+      if (n.classList.contains('active')) {
+        n.classList.remove('active');
+      }
+    });
+
+    e.target.classList.add('active');
+
     route(link);
   };
 
@@ -51,11 +60,11 @@ function Header(target) {
         ? [
             {
               text: 'New Article',
-              link: 'new-article',
+              link: '/new-article',
             },
             {
               text: 'Settings',
-              link: 'setting',
+              link: '/setting',
             },
             {
               text: `${user.username}`,
@@ -65,11 +74,11 @@ function Header(target) {
         : [
             {
               text: 'Sign in',
-              link: 'login',
+              link: '/login',
             },
             {
               text: 'Sign up',
-              link: 'register',
+              link: '/register',
             },
           ]),
     ];
