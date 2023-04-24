@@ -1,5 +1,4 @@
 import { getLocalStroage } from '../../utils/storage.js';
-import { fetchAuthUserInfo } from '../../utils/helper/fetchAuth.js';
 import { auth_request } from '../../lib/auth/request.js';
 import { route } from '../../utils/routes.js';
 import Input from '../../commons/Input.js';
