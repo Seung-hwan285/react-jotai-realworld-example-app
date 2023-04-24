@@ -25,9 +25,9 @@ function HomeArticles(col) {
         break;
 
       case '<':
-        const findIndex = getActivePageItem();
-        if (findIndex > 2) {
-          await setActivePage(findIndex - 1);
+        const previousPageIndex = getActivePageItem();
+        if (previousPageIndex > 2) {
+          await setActivePage(previousPageIndex - 1);
         } else {
           return;
         }
@@ -39,9 +39,9 @@ function HomeArticles(col) {
         break;
 
       case '>':
-        const findIndex4 = getActivePageItem();
-        if (findIndex4 < 11) {
-          await setActivePage(findIndex4 + 1);
+        const nextPageIndex = getActivePageItem();
+        if (nextPageIndex < 11) {
+          await setActivePage(nextPageIndex + 1);
         }
         break;
 
