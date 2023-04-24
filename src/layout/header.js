@@ -17,20 +17,14 @@ function Header(target) {
   HeaderContainer.appendChild(LogoElement);
   nav.appendChild(HeaderContainer);
 
-  target.appendChild(nav);
+  if (target) {
+    target.appendChild(nav);
+  }
 
   const handleLinkClick = (e) => {
     const navbar = document.querySelectorAll('.nav-link');
 
     const link = e.target.dataset.link;
-
-    navbar.forEach((n) => {
-      if (n.classList.contains('active')) {
-        n.classList.remove('active');
-      }
-    });
-
-    e.target.classList.add('active');
 
     route(link);
   };
@@ -95,6 +89,44 @@ function Header(target) {
       if (!navbarElement) {
         HeaderContainer.appendChild(navElement);
       }
+    }
+
+    const currentUrl = window.location.pathname;
+    const navbar = document.querySelectorAll('.nav-link');
+
+    switch (currentUrl) {
+      case '/login':
+        navbar.forEach((n) => {
+          if (n.classList.contains('active')) {
+            n.classList.remove('active');
+          }
+        });
+        navbar[1].classList.add('active');
+        break;
+      case '/register':
+        navbar.forEach((n) => {
+          if (n.classList.contains('active')) {
+            n.classList.remove('active');
+          }
+        });
+        navbar[2].classList.add('active');
+        break;
+      case '/setting':
+        navbar.forEach((n) => {
+          if (n.classList.contains('active')) {
+            n.classList.remove('active');
+          }
+        });
+        navbar[2].classList.add('active');
+        break;
+      case '/new-article':
+        navbar.forEach((n) => {
+          if (n.classList.contains('active')) {
+            n.classList.remove('active');
+          }
+        });
+        navbar[1].classList.add('active');
+        break;
     }
 
     handleClick();
