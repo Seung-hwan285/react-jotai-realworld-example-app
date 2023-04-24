@@ -2,6 +2,7 @@ import { route } from '../utils/routes.js';
 import { getLocalStroage } from '../utils/storage.js';
 import { fetchAuthUserInfo } from '../utils/helper/fetchAuth.js';
 import { navbarItems } from '../utils/helper/authForm.js';
+import { setHeaderActive } from '../utils/helper/headerActive.js';
 
 function Header(target) {
   const nav = document.createElement('nav');
@@ -92,41 +93,22 @@ function Header(target) {
     }
 
     const currentUrl = window.location.pathname;
-    const navbar = document.querySelectorAll('.nav-link');
 
-    switch (currentUrl) {
-      case '/login':
-        navbar.forEach((n) => {
-          if (n.classList.contains('active')) {
-            n.classList.remove('active');
-          }
-        });
-        navbar[1].classList.add('active');
-        break;
-      case '/register':
-        navbar.forEach((n) => {
-          if (n.classList.contains('active')) {
-            n.classList.remove('active');
-          }
-        });
-        navbar[2].classList.add('active');
-        break;
-      case '/setting':
-        navbar.forEach((n) => {
-          if (n.classList.contains('active')) {
-            n.classList.remove('active');
-          }
-        });
-        navbar[2].classList.add('active');
-        break;
-      case '/new-article':
-        navbar.forEach((n) => {
-          if (n.classList.contains('active')) {
-            n.classList.remove('active');
-          }
-        });
-        navbar[1].classList.add('active');
-        break;
+    const url = [
+      {
+        link: '/login',
+      },
+      {
+        link: '/register',
+      },
+      {
+        link: '/setting',
+      },
+    ];
+    const findUrl = url.find((u) => currentUrl === u.link);
+
+    if (findUrl) {
+      setHeaderActive(findUrl);
     }
 
     handleClick();
