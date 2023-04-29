@@ -63,7 +63,9 @@ function HomeArticles(col, tagArticles) {
       RenderData(tagArticles, col, nav);
     } else {
       RenderData(articles, col, nav);
-      ul.innerHTML = `
+    }
+
+    ul.innerHTML = `
       <li class="page-item">
         <a class="page-link"><<</a>
       </li>
@@ -130,7 +132,6 @@ function HomeArticles(col, tagArticles) {
       <li class="page-item">
         <a class="page-link">>></a>
       </li>`;
-    }
 
     nav.appendChild(ul);
     col.appendChild(nav);

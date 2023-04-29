@@ -1,5 +1,8 @@
 import { fetchAuthUserInfo } from './fetchAuth.js';
 import { getLocalStroage } from '../storage.js';
+import HomeArticles from '../../components/Home/HomeArticles.js';
+import { article_request } from '../../lib/article/request.js';
+import { articlesRemove } from './mainPagination.js';
 
 export const toggleActive = (dom1, dom2, dom3, boolean) => () => {
   if (dom3) {
@@ -57,6 +60,7 @@ export const handleGlobalFeedClick = async () => {
       yourFeedElement,
       tagFeedElement
     );
+
     setActive();
   } else {
     const globalFeedElement = document.querySelector(
@@ -67,10 +71,17 @@ export const handleGlobalFeedClick = async () => {
     );
     const setActive = toggleActive(globalFeedElement, tagFeedElement);
     setActive();
+    const { articles } = await article_request.getAllArticles();
+
+    const main = document.querySelector('.main-pagination');
+    main.remove();
+    const col = document.querySelector('.col-md-9');
+    articlesRemove(document.querySelectorAll('.article-preview'));
+    HomeArticles(col, articles);
   }
 };
 
-export const handleTagsFeedClick = () => {
+export const handleTagsFeedClick = async () => {
   const globalFeedElement = document.querySelector(
     '.nav-pills .nav-item:nth-child(2) a'
   );
@@ -86,4 +97,14 @@ export const handleTagsFeedClick = () => {
     true
   );
   setActive();
+
+  const { articles } = await article_request.getTagArticles(
+    getLocalStroage('selectTag')
+  );
+  const col = document.querySelector('.col-md-9');
+  const main = document.querySelector('.main-pagination');
+  main.remove();
+  articlesRemove(document.querySelectorAll('.article-preview'));
+
+  HomeArticles(col, articles);
 };

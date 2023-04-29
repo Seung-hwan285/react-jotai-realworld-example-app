@@ -17,6 +17,8 @@ import { fetchAuthUserInfo } from '../../utils/helper/fetchAuth.js';
 // [x] : #tag 클릭시 토글 안바뀌는 현상
 // [x] : 사용자는 태그에서 클릭하면 태그 값에 해당하는 값을 API 콜요청을 보낸다
 // [x] : 사용자는 API 콜 요청이 화면에 렌더링이 된다.
+// [] : 로고,home 클릭시 데이터 전체 새로고침 강제로
+// [] : tag api call 데이터 이전 데이터가 계속불러와짐. 현재 데이터로 갱신이 안되는 현상
 // [] : 새로고침시 데이터 날라가서 없어지는 현상
 
 function HomeTagList(row) {
@@ -66,13 +68,15 @@ function HomeTagList(row) {
   };
 
   const handleTagClick = async (e) => {
+    e.preventDefault();
+
+    const { textContent } = e.target;
+    setLocalStroage('selectTag', textContent);
     const getTag = getLocalStroage('selectTag');
     const { articles } = await article_request.getTagArticles(getTag);
-    e.preventDefault();
-    const { textContent } = e.target;
 
     console.log(articles);
-    setLocalStroage('selectTag', textContent);
+
     paintTagList(articles);
   };
 

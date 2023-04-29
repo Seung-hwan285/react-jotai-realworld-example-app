@@ -23,10 +23,7 @@ function Header(target) {
   }
 
   const handleLinkClick = (e) => {
-    const navbar = document.querySelectorAll('.nav-link');
-
     const link = e.target.dataset.link;
-
     route(link);
   };
 
@@ -106,7 +103,6 @@ function Header(target) {
       },
     ];
     const findUrl = url.find((u) => currentUrl === u.link);
-
     if (findUrl) {
       setHeaderActive(findUrl);
     }
