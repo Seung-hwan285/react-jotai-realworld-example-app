@@ -8,6 +8,7 @@ import {
 } from '../../utils/helper/feedToggle.js';
 import HomeArticles from './HomeArticles.js';
 import { article_request } from '../../lib/article/request.js';
+import { fetchAuthUserInfo } from '../../utils/helper/fetchAuth.js';
 
 // TODO : 태그 클릭하면 tag 값들이 렌더링 된다.
 // [x] : 사용자는 태그에서 클릭한다.
@@ -75,17 +76,32 @@ function HomeTagList(row) {
     paintTagList(articles);
   };
 
-  const paintTagList = (tagArticles) => {
+  const paintTagList = async (tagArticles) => {
     const tag = getLocalStroage('selectTag');
     const col = document.querySelector('.col-md-9');
 
-    if (tag) {
+    const token = await fetchAuthUserInfo(getLocalStroage('token'));
+
+    if (tag && token) {
       col.innerHTML = /* HTML */ `
         <div class="feed-toggle">
           <ul class="nav nav-pills outline-active">
             <li class="nav-item">
               <a class="nav-link" href="">Your Feed</a>
             </li>
+            <li class="nav-item">
+              <a class="nav-link" href="">Global Feed</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link active" href="">#${tag}</a>
+            </li>
+          </ul>
+        </div>
+      `;
+    } else {
+      col.innerHTML = /* HTML */ `
+        <div class="feed-toggle">
+          <ul class="nav nav-pills outline-active">
             <li class="nav-item">
               <a class="nav-link" href="">Global Feed</a>
             </li>

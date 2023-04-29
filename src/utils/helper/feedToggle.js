@@ -1,3 +1,6 @@
+import { fetchAuthUserInfo } from './fetchAuth.js';
+import { getLocalStroage } from '../storage.js';
+
 export const toggleActive = (dom1, dom2, dom3, boolean) => () => {
   if (dom3) {
     dom1.classList.add('active');
@@ -37,21 +40,34 @@ export const handleYourFeedClick = () => {
   setActive();
 };
 
-export const handleGlobalFeedClick = () => {
-  const globalFeedElement = document.querySelector(
-    '.nav-pills .nav-item:nth-child(2) a'
-  );
-  const yourFeedElement = document.querySelector('.nav-pills .nav-item a');
+export const handleGlobalFeedClick = async () => {
+  const token = await fetchAuthUserInfo(getLocalStroage('token'));
 
-  const tagFeedElement = document.querySelector(
-    '.nav-pills .nav-item:nth-child(3) a'
-  );
-  const setActive = toggleActive(
-    globalFeedElement,
-    yourFeedElement,
-    tagFeedElement
-  );
-  setActive();
+  if (token) {
+    const globalFeedElement = document.querySelector(
+      '.nav-pills .nav-item:nth-child(2) a'
+    );
+    const yourFeedElement = document.querySelector('.nav-pills .nav-item a');
+
+    const tagFeedElement = document.querySelector(
+      '.nav-pills .nav-item:nth-child(3) a'
+    );
+    const setActive = toggleActive(
+      globalFeedElement,
+      yourFeedElement,
+      tagFeedElement
+    );
+    setActive();
+  } else {
+    const globalFeedElement = document.querySelector(
+      '.nav-pills .nav-item:nth-child(1) a'
+    );
+    const tagFeedElement = document.querySelector(
+      '.nav-pills .nav-item:nth-child(2) a'
+    );
+    const setActive = toggleActive(globalFeedElement, tagFeedElement);
+    setActive();
+  }
 };
 
 export const handleTagsFeedClick = () => {
