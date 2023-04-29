@@ -4,7 +4,7 @@ import HomePage from './pages/HomePage.js';
 import { initRouter } from './utils/routes.js';
 import RegisterPage from './pages/RegisterPage.js';
 import SettingPage from './pages/SettingPage.js';
-import { getLocalStroage } from './utils/storage.js';
+
 function App({ target }) {
   const header = new Header(target);
 

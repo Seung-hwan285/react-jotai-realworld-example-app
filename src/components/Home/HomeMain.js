@@ -23,6 +23,7 @@ function HomeMain(banner) {
   banner.appendChild(container);
 
   const handleFeedClick = (e) => {
+    console.log(e.target);
     e.preventDefault();
     const { textContent } = e.target;
     const feeds = [
@@ -46,7 +47,7 @@ function HomeMain(banner) {
         <div class="feed-toggle">
           <ul class="nav nav-pills outline-active">
             <li class="nav-item">
-              <a class="nav-link disabled" href="">Your Feed</a>
+              <a class="nav-link" href="">Your Feed</a>
             </li>
             <li class="nav-item">
               <a class="nav-link active" href="">Global Feed</a>
@@ -72,7 +73,6 @@ function HomeMain(banner) {
     const feed = document.querySelector('.feed-toggle');
     feed.addEventListener('click', handleFeedClick);
   };
-
   render();
 }
 export default HomeMain;

@@ -51,6 +51,12 @@ function HomeArticles(col) {
         break;
     }
   };
+
+  const handleTagClick = (e) => {
+    const { textContent } = e.target;
+    console.log(textContent);
+  };
+
   const render = async () => {
     const { articles, articlesCount } = await article_request.getAllArticles();
 
