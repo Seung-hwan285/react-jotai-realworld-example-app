@@ -62,6 +62,12 @@ export const handleGlobalFeedClick = async () => {
     );
 
     setActive();
+
+    const main = document.querySelector('.main-pagination');
+    main.remove();
+    const col = document.querySelector('.col-md-9');
+    articlesRemove(document.querySelectorAll('.article-preview'));
+    HomeArticles(col);
   } else {
     const globalFeedElement = document.querySelector(
       '.nav-pills .nav-item:nth-child(1) a'
@@ -71,13 +77,12 @@ export const handleGlobalFeedClick = async () => {
     );
     const setActive = toggleActive(globalFeedElement, tagFeedElement);
     setActive();
-    const { articles } = await article_request.getAllArticles();
 
     const main = document.querySelector('.main-pagination');
     main.remove();
     const col = document.querySelector('.col-md-9');
     articlesRemove(document.querySelectorAll('.article-preview'));
-    HomeArticles(col, articles);
+    HomeArticles(col);
   }
 };
 
