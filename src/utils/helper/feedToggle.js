@@ -1,4 +1,4 @@
-export const toggleActive = (dom1, dom2, dom3) => () => {
+export const toggleActive = (dom1, dom2, dom3, boolean) => () => {
   if (dom3) {
     dom1.classList.add('active');
     dom2.classList.remove('active');
@@ -8,11 +8,11 @@ export const toggleActive = (dom1, dom2, dom3) => () => {
       dom1.classList.contains('active')
     ) {
       dom3.classList.remove('active');
-      dom3.addEventListener('click', () => {
+      if (boolean) {
         dom3.classList.add('active');
         dom1.classList.remove('active');
         dom2.classList.remove('active');
-      });
+      }
     }
   } else {
     dom1.classList.add('active');
@@ -64,10 +64,13 @@ export const handleTagsFeedClick = () => {
     '.nav-pills .nav-item:nth-child(3) a'
   );
 
+  console.log(tagFeedElement);
+
   const setActive = toggleActive(
     globalFeedElement,
     yourFeedElement,
-    tagFeedElement
+    tagFeedElement,
+    true
   );
   setActive();
 };

@@ -27,26 +27,3 @@ export const setActivePage = async (pageNumber) => {
   articlesRemove(articlePreviews);
   RenderData(articles, col, nav);
 };
-
-export const paintTagList = () => {
-  const tag = getLocalStroage('selectTag');
-  const col = document.querySelector('.col-md-9');
-
-  if (tag) {
-    col.innerHTML = /* HTML */ `
-      <div class="feed-toggle">
-        <ul class="nav nav-pills outline-active">
-          <li class="nav-item">
-            <a class="nav-link" href="">Your Feed</a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" href="">Global Feed</a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link active" href="">#${tag}</a>
-          </li>
-        </ul>
-      </div>
-    `;
-  }
-};

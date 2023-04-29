@@ -6,7 +6,6 @@ import {
   handleTagsFeedClick,
   handleYourFeedClick,
 } from '../../utils/helper/feedToggle.js';
-import { paintTagList } from '../../utils/helper/mainPagination.js';
 
 // TODO : 태그 클릭하면 tag 값들이 렌더링 된다.
 // [x] : 사용자는 태그에서 클릭한다.
@@ -39,6 +38,8 @@ function HomeTagList(row) {
     e.preventDefault();
     console.log(e.target);
 
+    const getTag = getLocalStroage('selectTag');
+
     const { textContent } = e.target;
     const feeds = [
       {
@@ -49,6 +50,10 @@ function HomeTagList(row) {
         text: 'Global Feed',
         click: handleGlobalFeedClick,
       },
+      {
+        text: `#${getTag}`,
+        click: handleTagsFeedClick,
+      },
     ];
 
     const findEvenet = feeds.find((feed) => feed.text === textContent);
@@ -56,6 +61,14 @@ function HomeTagList(row) {
     if (findEvenet) {
       findEvenet.click();
     }
+  };
+
+  const handleTagClick = (e) => {
+    e.preventDefault();
+    const { textContent } = e.target;
+
+    setLocalStroage('selectTag', textContent);
+    paintTagList();
   };
 
   const paintTagList = () => {
@@ -81,14 +94,6 @@ function HomeTagList(row) {
     }
     const feed = document.querySelector('.feed-toggle');
     feed.addEventListener('click', handleFeedClick);
-  };
-
-  const handleTagClick = (e) => {
-    e.preventDefault();
-    const { textContent } = e.target;
-
-    setLocalStroage('selectTag', textContent);
-    paintTagList();
   };
 
   const render = async () => {
