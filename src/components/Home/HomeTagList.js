@@ -6,16 +6,17 @@ import {
   handleTagsFeedClick,
   handleYourFeedClick,
 } from '../../utils/helper/feedToggle.js';
+import HomeArticles from './HomeArticles.js';
+import { article_request } from '../../lib/article/request.js';
 
 // TODO : 태그 클릭하면 tag 값들이 렌더링 된다.
 // [x] : 사용자는 태그에서 클릭한다.
 // [x] : 메인 화면 Feed에 #태그 값이 추가로 생성되어야한다.
 // [x] : Global Feed 클릭시 새로고침되는 현상.
 // [x] : #tag 클릭시 토글 안바뀌는 현상
+// [x] : 사용자는 태그에서 클릭하면 태그 값에 해당하는 값을 API 콜요청을 보낸다
+// [x] : 사용자는 API 콜 요청이 화면에 렌더링이 된다.
 // [] : 새로고침시 데이터 날라가서 없어지는 현상
-// [] : 사용자는 태그에서 클릭하면 태그 값에 해당하는 값을 API 콜요청을 보낸다
-// [] : 사용자는 API 콜 요청이 화면에 렌더링이 된다.
-// [] : 개수가 몇개 있는지에 따라서 페이지네이션이 보여진다.
 
 function HomeTagList(row) {
   const col = document.createElement('div');
@@ -34,7 +35,7 @@ function HomeTagList(row) {
   const spinnerContainer = LoadingSpinner();
   tagList.appendChild(spinnerContainer);
 
-  const handleFeedClick = (e) => {
+  const handleFeedClick = async (e) => {
     e.preventDefault();
     console.log(e.target);
 
@@ -63,15 +64,18 @@ function HomeTagList(row) {
     }
   };
 
-  const handleTagClick = (e) => {
+  const handleTagClick = async (e) => {
+    const getTag = getLocalStroage('selectTag');
+    const { articles } = await article_request.getTagArticles(getTag);
     e.preventDefault();
     const { textContent } = e.target;
 
+    console.log(articles);
     setLocalStroage('selectTag', textContent);
-    paintTagList();
+    paintTagList(articles);
   };
 
-  const paintTagList = () => {
+  const paintTagList = (tagArticles) => {
     const tag = getLocalStroage('selectTag');
     const col = document.querySelector('.col-md-9');
 
@@ -92,6 +96,8 @@ function HomeTagList(row) {
         </div>
       `;
     }
+
+    HomeArticles(col, tagArticles);
     const feed = document.querySelector('.feed-toggle');
     feed.addEventListener('click', handleFeedClick);
   };

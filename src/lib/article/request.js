@@ -11,6 +11,22 @@ export const article_request = {
       );
 
       const data = await response.json();
+      if (response.ok) {
+        return data;
+      } else {
+        throw new Error(data.error);
+      }
+    } catch (err) {
+      console.error(err);
+    }
+  },
+  getTagArticles: async (tag) => {
+    try {
+      const response = await fetch(`${API_END_POINT}/api/articles?tag=${tag}`, {
+        method: 'GET',
+      });
+
+      const data = await response.json();
       console.log(data);
       if (response.ok) {
         return data;

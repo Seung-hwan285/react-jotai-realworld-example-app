@@ -2,7 +2,6 @@ export const toggleActive = (dom1, dom2, dom3, boolean) => () => {
   if (dom3) {
     dom1.classList.add('active');
     dom2.classList.remove('active');
-
     if (
       dom2.classList.contains('active') ||
       dom1.classList.contains('active')
@@ -63,8 +62,6 @@ export const handleTagsFeedClick = () => {
   const tagFeedElement = document.querySelector(
     '.nav-pills .nav-item:nth-child(3) a'
   );
-
-  console.log(tagFeedElement);
 
   const setActive = toggleActive(
     globalFeedElement,

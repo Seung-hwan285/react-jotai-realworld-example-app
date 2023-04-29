@@ -6,7 +6,7 @@ import {
   setActivePage,
 } from '../../utils/helper/mainPagination.js';
 import RenderData from './HomeArticlesItems.js';
-function HomeArticles(col) {
+function HomeArticles(col, tagArticles) {
   const spinnerContainer = LoadingSpinner();
   col.appendChild(spinnerContainer);
 
@@ -52,11 +52,6 @@ function HomeArticles(col) {
     }
   };
 
-  const handleTagClick = (e) => {
-    const { textContent } = e.target;
-    console.log(textContent);
-  };
-
   const render = async () => {
     const { articles, articlesCount } = await article_request.getAllArticles();
 
@@ -64,9 +59,11 @@ function HomeArticles(col) {
     spinner.remove();
 
     // 초기렌더링
-    RenderData(articles, col, nav);
-
-    ul.innerHTML = `
+    if (tagArticles) {
+      RenderData(tagArticles, col, nav);
+    } else {
+      RenderData(articles, col, nav);
+      ul.innerHTML = `
       <li class="page-item">
         <a class="page-link"><<</a>
       </li>
@@ -133,6 +130,7 @@ function HomeArticles(col) {
       <li class="page-item">
         <a class="page-link">>></a>
       </li>`;
+    }
 
     nav.appendChild(ul);
     col.appendChild(nav);
