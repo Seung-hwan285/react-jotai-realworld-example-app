@@ -4,24 +4,21 @@ import HomeArticles from '../../components/Home/HomeArticles.js';
 import { article_request } from '../../lib/article/request.js';
 import { articlesRemove } from './mainPagination.js';
 
+const addActive = (dom) => dom.classList.add('active');
+const removeActive = (dom) => dom.classList.remove('active');
+const hasActive = (dom) => dom.classList.contains('active');
+
 export const toggleActive = (dom1, dom2, dom3, boolean) => () => {
+  addActive(dom1);
+  removeActive(dom2);
+
   if (dom3) {
-    dom1.classList.add('active');
-    dom2.classList.remove('active');
-    if (
-      dom2.classList.contains('active') ||
-      dom1.classList.contains('active')
-    ) {
-      dom3.classList.remove('active');
-      if (boolean) {
-        dom3.classList.add('active');
-        dom1.classList.remove('active');
-        dom2.classList.remove('active');
-      }
+    removeActive(dom3);
+    if ((hasActive(dom1) || hasActive(dom2)) && boolean) {
+      addActive(dom3);
+      removeActive(dom1);
+      removeActive(dom2);
     }
-  } else {
-    dom1.classList.add('active');
-    dom2.classList.remove('active');
   }
 };
 
@@ -110,6 +107,5 @@ export const handleTagsFeedClick = async () => {
   const main = document.querySelector('.main-pagination');
   main.remove();
   articlesRemove(document.querySelectorAll('.article-preview'));
-
   HomeArticles(col, articles);
 };
