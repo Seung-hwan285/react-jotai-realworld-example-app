@@ -13,7 +13,6 @@ export const toggleActive = (dom1, dom2, dom3, boolean) => () => {
   removeActive(dom2);
 
   if (dom3) {
-    removeActive(dom3);
     if ((hasActive(dom1) || hasActive(dom2)) && boolean) {
       addActive(dom3);
       removeActive(dom1);

@@ -3,6 +3,7 @@ import LoadingSpinner from '../../commons/LoadingSpinner.js';
 import {
   getActivePageItem,
   getPageItems,
+  paintPageLink,
   setActivePage,
 } from '../../utils/helper/mainPagination.js';
 import RenderData from './HomeArticlesItems.js';
@@ -64,76 +65,8 @@ function HomeArticles(col, tagArticles) {
     } else {
       RenderData(articles, col, nav);
     }
-
-    ul.innerHTML = `
-      <li class="page-item">
-        <a class="page-link"><<</a>
-      </li>
-      
-      <li class="page-item">
-        <a class="page-link "><</a>
-      </li>
-      
-      <li class="page-item active">
-        <a class="page-link">1</a>
-      </li>
-      
-      
-      <li class="page-item">
-        <a class="page-link">2</a>
-      </li>
-      
-      
-      <li class="page-item">
-        <a class="page-link">3</a>
-      </li>
-      
-      
-      <li class="page-item">
-        <a class="page-link">4</a>
-      </li>
-      
-      
-      <li class="page-item">
-        <a class="page-link">5</a>
-      </li>
-      
-      
-      <li class="page-item">
-        <a class="page-link">6</a>
-      </li>
-      
-      
-      <li class="page-item">
-        <a class="page-link">7</a>
-      </li>
-      
-      
-      <li class="page-item">
-        <a class="page-link">8</a>
-      </li>
-      
-      
-      <li class="page-item">
-        <a class="page-link">9</a>
-      </li>
-      
-      
-      <li class="page-item">
-        <a class="page-link">10</a>
-      </li>
-      
-      
-      <li class="page-item">
-        <a class="page-link">></a>
-      </li>
-      
-      
-      <li class="page-item">
-        <a class="page-link">>></a>
-      </li>`;
-
     nav.appendChild(ul);
+    paintPageLink();
     col.appendChild(nav);
 
     const page = document.querySelector('.pagination');
