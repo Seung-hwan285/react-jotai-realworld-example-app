@@ -12,7 +12,10 @@ export const toggleActive = (dom1, dom2, dom3, boolean) => () => {
   addActive(dom1);
   removeActive(dom2);
 
+  console.log(dom1);
+  console.log(dom2);
   if (dom3) {
+    removeActive(dom3);
     if ((hasActive(dom1) || hasActive(dom2)) && boolean) {
       addActive(dom3);
       removeActive(dom1);
@@ -51,6 +54,8 @@ export const handleGlobalFeedClick = async () => {
     const tagFeedElement = document.querySelector(
       '.nav-pills .nav-item:nth-child(3) a'
     );
+
+    console.log(globalFeedElement);
     const setActive = toggleActive(
       globalFeedElement,
       yourFeedElement,

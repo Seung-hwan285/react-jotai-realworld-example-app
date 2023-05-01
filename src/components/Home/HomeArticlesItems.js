@@ -13,10 +13,10 @@ function RenderData(articles, col, nav) {
         title,
         updatedAt,
       }) => {
-        const Article = document.createElement('div');
+        const article = document.createElement('div');
 
-        Article.className = 'article-preview';
-        Article.innerHTML = /* HTML */ `
+        article.className = 'article-preview';
+        article.innerHTML = /* HTML */ `
           <div class="article-meta">
             <a href="profile.html"><img src=${author.image} /></a>
             <div class="info">
@@ -34,7 +34,7 @@ function RenderData(articles, col, nav) {
           </a>
         `;
 
-        col.appendChild(Article);
+        col.appendChild(article);
         col.appendChild(nav);
       }
     );

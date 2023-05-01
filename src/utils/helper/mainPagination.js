@@ -1,5 +1,8 @@
 import { article_request } from '../../lib/article/request.js';
 import RenderData from '../../components/Home/HomeArticlesItems.js';
+import { getLocalStroage } from '../storage.js';
+import { fetchAuthUserInfo } from './fetchAuth.js';
+import HomeArticles from '../../components/Home/HomeArticles.js';
 
 export const getPageItems = () =>
   Array.from(document.querySelectorAll('.page-item'));

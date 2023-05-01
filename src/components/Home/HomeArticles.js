@@ -64,9 +64,11 @@ function HomeArticles(col, tagArticles) {
       RenderData(tagArticles, col, nav);
     } else {
       RenderData(articles, col, nav);
+
+      nav.appendChild(ul);
+      paintPageLink();
     }
-    nav.appendChild(ul);
-    paintPageLink();
+
     col.appendChild(nav);
 
     const page = document.querySelector('.pagination');
