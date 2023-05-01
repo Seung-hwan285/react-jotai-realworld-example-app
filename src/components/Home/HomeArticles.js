@@ -7,6 +7,9 @@ import {
   setActivePage,
 } from '../../utils/helper/mainPagination.js';
 import RenderData from './HomeArticlesItems.js';
+import { getLocalStroage, setLocalStroage } from '../../utils/storage.js';
+
+import { fetchAuthUserInfo } from '../../utils/helper/fetchAuth.js';
 function HomeArticles(col, tagArticles) {
   const spinnerContainer = LoadingSpinner();
   col.appendChild(spinnerContainer);
@@ -54,7 +57,7 @@ function HomeArticles(col, tagArticles) {
   };
 
   const render = async () => {
-    const { articles, articlesCount } = await article_request.getAllArticles();
+    const { articles } = await article_request.getAllArticles();
 
     const spinner = document.querySelector('.spinner');
     spinner.remove();

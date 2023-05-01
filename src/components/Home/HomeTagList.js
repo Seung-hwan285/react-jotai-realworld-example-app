@@ -10,16 +10,6 @@ import HomeArticles from './HomeArticles.js';
 import { article_request } from '../../lib/article/request.js';
 import { fetchAuthUserInfo } from '../../utils/helper/fetchAuth.js';
 
-// TODO : 태그 클릭하면 tag 값들이 렌더링 된다.
-// [x] : 사용자는 태그에서 클릭한다.
-// [x] : 메인 화면 Feed에 #태그 값이 추가로 생성되어야한다.
-// [x] : Global Feed 클릭시 새로고침되는 현상.
-// [x] : #tag 클릭시 토글 안바뀌는 현상
-// [x] : 사용자는 태그에서 클릭하면 태그 값에 해당하는 값을 API 콜요청을 보낸다
-// [x] : 사용자는 API 콜 요청이 화면에 렌더링이 된다.
-// [x] : tag api call 데이터 이전 데이터가 계속불러와짐. 현재 데이터로 갱신이 안되는 현상
-// [] : 새로고침시 데이터 날라가서 없어지는 현상
-
 function HomeTagList(row) {
   const col = document.createElement('div');
   col.className = 'col-md-3';
@@ -72,8 +62,11 @@ function HomeTagList(row) {
     const { textContent } = e.target;
     setLocalStroage('selectTag', textContent);
     const getTag = getLocalStroage('selectTag');
-    const { articles } = await article_request.getTagArticles(getTag);
-    paintTagList(articles);
+    const { articles: tagArticles } = await article_request.getTagArticles(
+      getTag
+    );
+
+    paintTagList(tagArticles);
   };
 
   const paintTagList = async (tagArticles) => {
