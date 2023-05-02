@@ -29,11 +29,11 @@ function HomeTagList(row) {
 
   const handleFeedClick = async (e) => {
     e.preventDefault();
-    console.log(e.target);
 
     const getTag = getLocalStroage('selectTag');
 
     const { textContent } = e.target;
+
     const feeds = [
       {
         text: 'Your Feed',
@@ -65,6 +65,8 @@ function HomeTagList(row) {
     const { articles: tagArticles } = await article_request.getTagArticles(
       getTag
     );
+
+    console.log(tagArticles);
 
     paintTagList(tagArticles);
   };

@@ -102,11 +102,12 @@ export const handleTagsFeedClick = async () => {
   );
   setActive();
 
-  const { articles } = await article_request.getTagArticles(
+  const { articles: tagAricles } = await article_request.getTagArticles(
     getLocalStroage('selectTag')
   );
+  console.log(tagAricles);
   const main = document.querySelector('.main-pagination');
   main.remove();
   articlesRemove(document.querySelectorAll('.article-preview'));
-  HomeArticles(articles);
+  HomeArticles(tagAricles);
 };

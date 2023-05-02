@@ -1,5 +1,5 @@
 import { article_request } from '../../lib/article/request.js';
-import RenderData from '../../components/Home/HomeArticlesItems.js';
+import HomeArticlePreview from '../../components/Home/HomeArticlePreview.js';
 
 export const getPageItems = () =>
   Array.from(document.querySelectorAll('.page-item'));
@@ -25,7 +25,7 @@ export const setActivePage = async (pageNumber) => {
 
   const articlePreviews = getArticlePreviews();
   articlesRemove(articlePreviews);
-  RenderData(articles, col, nav);
+  HomeArticlePreview(articles);
 };
 
 export const paintPageLink = (ul) => {

@@ -6,7 +6,7 @@ import {
   paintPageLink,
   setActivePage,
 } from '../../utils/helper/mainPagination.js';
-import RenderData from './HomeArticlesItems.js';
+import HomeArticlePreview from './HomeArticlePreview.js';
 
 function HomeArticles(tagArticles) {
   console.log(tagArticles);
@@ -64,9 +64,9 @@ function HomeArticles(tagArticles) {
 
     // 초기렌더링
     if (tagArticles) {
-      RenderData(tagArticles);
+      HomeArticlePreview(tagArticles);
     } else {
-      RenderData(articles);
+      HomeArticlePreview(articles);
       paintPageLink(ul);
     }
 
