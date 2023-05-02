@@ -55,7 +55,6 @@ export const handleGlobalFeedClick = async () => {
       '.nav-pills .nav-item:nth-child(3) a'
     );
 
-    console.log(globalFeedElement);
     const setActive = toggleActive(
       globalFeedElement,
       yourFeedElement,
@@ -66,9 +65,9 @@ export const handleGlobalFeedClick = async () => {
 
     const main = document.querySelector('.main-pagination');
     main.remove();
-    const col = document.querySelector('.col-md-9');
+
     articlesRemove(document.querySelectorAll('.article-preview'));
-    HomeArticles(col);
+    HomeArticles();
   } else {
     const globalFeedElement = document.querySelector(
       '.nav-pills .nav-item:nth-child(1) a'
@@ -81,9 +80,8 @@ export const handleGlobalFeedClick = async () => {
 
     const main = document.querySelector('.main-pagination');
     main.remove();
-    const col = document.querySelector('.col-md-9');
     articlesRemove(document.querySelectorAll('.article-preview'));
-    HomeArticles(col);
+    HomeArticles();
   }
 };
 
@@ -107,9 +105,8 @@ export const handleTagsFeedClick = async () => {
   const { articles } = await article_request.getTagArticles(
     getLocalStroage('selectTag')
   );
-  const col = document.querySelector('.col-md-9');
   const main = document.querySelector('.main-pagination');
   main.remove();
   articlesRemove(document.querySelectorAll('.article-preview'));
-  HomeArticles(col, articles);
+  HomeArticles(articles);
 };

@@ -67,7 +67,7 @@ function HomeMain(banner) {
       `;
     }
 
-    HomeArticles(col);
+    HomeArticles();
     HomeTagList(row);
 
     const feed = document.querySelector('.feed-toggle');

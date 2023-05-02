@@ -106,7 +106,7 @@ function HomeTagList(row) {
       `;
     }
 
-    HomeArticles(col, tagArticles);
+    HomeArticles(tagArticles);
     const feed = document.querySelector('.feed-toggle');
     feed.addEventListener('click', handleFeedClick);
   };

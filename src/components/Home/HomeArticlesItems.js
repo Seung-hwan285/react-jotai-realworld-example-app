@@ -3,7 +3,9 @@ import { article_request } from '../../lib/article/request.js';
 import { fetchAuthUserInfo } from '../../utils/helper/fetchAuth.js';
 import HomeArticles from './HomeArticles.js';
 
-function RenderData(articles, col, nav) {
+function RenderData(articles) {
+  const col = document.querySelector('.col-md-9');
+
   const handleArticleTagClick = async (e) => {
     e.preventDefault();
 
@@ -19,7 +21,6 @@ function RenderData(articles, col, nav) {
 
   const paintTagList = async (tagArticles) => {
     const tag = getLocalStroage('selectTag');
-    const col = document.querySelector('.col-md-9');
 
     const token = await fetchAuthUserInfo(getLocalStroage('token'));
 
@@ -101,7 +102,6 @@ function RenderData(articles, col, nav) {
         `;
 
         col.appendChild(article);
-        col.appendChild(nav);
 
         const tagListElement = document.querySelectorAll('.preview-link');
         tagListElement.forEach((tagElement) => {
@@ -111,4 +111,5 @@ function RenderData(articles, col, nav) {
     );
   }
 }
+
 export default RenderData;

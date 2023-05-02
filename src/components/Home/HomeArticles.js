@@ -7,19 +7,20 @@ import {
   setActivePage,
 } from '../../utils/helper/mainPagination.js';
 import RenderData from './HomeArticlesItems.js';
-import { getLocalStroage, setLocalStroage } from '../../utils/storage.js';
 
-import { fetchAuthUserInfo } from '../../utils/helper/fetchAuth.js';
-function HomeArticles(col, tagArticles) {
+function HomeArticles(tagArticles) {
+  console.log(tagArticles);
+  const col = document.querySelector('.col-md-9');
+
   const spinnerContainer = LoadingSpinner();
   col.appendChild(spinnerContainer);
-
   const nav = document.createElement('nav');
   nav.className = 'main-pagination';
-
-  const ul = document.createElement('ul');
+  const ul = document.createElement('nav');
   ul.className = 'pagination';
+  nav.appendChild(ul);
 
+  console.log(nav);
   const handleNextPageClick = async (e) => {
     const { textContent } = e.target;
 
@@ -58,22 +59,18 @@ function HomeArticles(col, tagArticles) {
 
   const render = async () => {
     const { articles } = await article_request.getAllArticles();
-
     const spinner = document.querySelector('.spinner');
     spinner.remove();
 
     // 초기렌더링
     if (tagArticles) {
-      RenderData(tagArticles, col, nav);
+      RenderData(tagArticles);
     } else {
-      RenderData(articles, col, nav);
-
-      nav.appendChild(ul);
-      paintPageLink();
+      RenderData(articles);
+      paintPageLink(ul);
     }
 
     col.appendChild(nav);
-
     const page = document.querySelector('.pagination');
     page.addEventListener('click', handleNextPageClick);
   };

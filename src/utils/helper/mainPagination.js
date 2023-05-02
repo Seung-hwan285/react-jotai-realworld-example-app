@@ -22,12 +22,13 @@ export const setActivePage = async (pageNumber) => {
   page[pageNumber].classList.add('active');
 
   const { articles } = await article_request.getAllArticles(pageNumber - 1);
+
   const articlePreviews = getArticlePreviews();
   articlesRemove(articlePreviews);
   RenderData(articles, col, nav);
 };
 
-export const paintPageLink = () => {
+export const paintPageLink = (ul) => {
   const links = [
     '<<',
     '<',
@@ -44,7 +45,6 @@ export const paintPageLink = () => {
     '>',
     '>>',
   ];
-  const ul = document.querySelector('.pagination');
 
   links.forEach((link, idx) => {
     const li = document.createElement('li');
