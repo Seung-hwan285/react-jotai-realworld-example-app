@@ -90,35 +90,6 @@ function HomeTagList() {
   const spinnerContainer = LoadingSpinner();
   tagList.appendChild(spinnerContainer);
 
-  const handleFeedClick = async (e) => {
-    e.preventDefault();
-
-    const getTag = getLocalStroage('selectTag');
-
-    const { textContent } = e.target;
-
-    const feeds = [
-      {
-        text: 'Your Feed',
-        click: handleYourFeedClick,
-      },
-      {
-        text: 'Global Feed',
-        click: handleGlobalFeedClick,
-      },
-      {
-        text: `#${getTag}`,
-        click: handleTagsFeedClick,
-      },
-    ];
-
-    const findEvenet = feeds.find((feed) => feed.text === textContent);
-
-    if (findEvenet) {
-      findEvenet.click();
-    }
-  };
-
   const handleTagClick = async (e) => {
     e.preventDefault();
 

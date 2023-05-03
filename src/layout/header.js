@@ -4,6 +4,8 @@ import { fetchAuthUserInfo } from '../utils/helper/fetchAuth.js';
 import { setHeaderActive } from '../utils/helper/headerActive.js';
 import { createNavbarHtml } from '../utils/helper/authForm.js';
 
+async function renderNavbar() {}
+
 function Header(target) {
   const nav = document.createElement('nav');
   nav.className = 'navbar navbar-light';
