@@ -10,7 +10,7 @@ import {
   handleYourFeedClick,
 } from '../../utils/helper/feedToggle.js';
 
-async function paintTagList(tagArticles) {
+async function renderFeedWithClickEvent(tagArticles) {
   const handleFeedClick = async (e) => {
     e.preventDefault();
     console.log(e.target);
@@ -83,7 +83,7 @@ function HomeArticlePreview(articles) {
     const { articles: tagArticles } = await article_request.getTagArticles(
       getTag
     );
-    paintTagList(tagArticles);
+    renderFeedWithClickEvent(tagArticles);
   };
 
   const render = () => {
