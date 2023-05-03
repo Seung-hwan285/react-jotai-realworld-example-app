@@ -3,13 +3,46 @@ import LoadingSpinner from '../../commons/LoadingSpinner.js';
 import {
   getActivePageItem,
   getPageItems,
-  paintPageLink,
   setActivePage,
 } from '../../utils/helper/mainPagination.js';
 import HomeArticlePreview from './HomeArticlePreview.js';
 
+function renderPageNumberLink(ul) {
+  const links = [
+    '<<',
+    '<',
+    '1',
+    '2',
+    '3',
+    '4',
+    '5',
+    '6',
+    '7',
+    '8',
+    '9',
+    '10',
+    '>',
+    '>>',
+  ];
+
+  links.forEach((link, idx) => {
+    const li = document.createElement('li');
+    li.classList.add('page-item');
+
+    if (idx === 2) {
+      li.classList.add('active');
+    }
+
+    const a = document.createElement('a');
+    a.classList.add('page-link');
+    a.textContent = link;
+
+    li.appendChild(a);
+    ul.appendChild(li);
+  });
+}
+
 function HomeArticles(tagArticles) {
-  console.log(tagArticles);
   const col = document.querySelector('.col-md-9');
 
   const spinnerContainer = LoadingSpinner();
@@ -20,7 +53,6 @@ function HomeArticles(tagArticles) {
   ul.className = 'pagination';
   nav.appendChild(ul);
 
-  console.log(nav);
   const handleNextPageClick = async (e) => {
     const { textContent } = e.target;
 
@@ -67,7 +99,7 @@ function HomeArticles(tagArticles) {
       HomeArticlePreview(tagArticles);
     } else {
       HomeArticlePreview(articles);
-      paintPageLink(ul);
+      renderPageNumberLink(ul);
     }
 
     col.appendChild(nav);

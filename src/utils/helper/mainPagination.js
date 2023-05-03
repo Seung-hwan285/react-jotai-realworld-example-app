@@ -24,38 +24,3 @@ export const setActivePage = async (pageNumber) => {
   articlesRemove(articlePreviews);
   HomeArticlePreview(articles);
 };
-
-export const paintPageLink = (ul) => {
-  const links = [
-    '<<',
-    '<',
-    '1',
-    '2',
-    '3',
-    '4',
-    '5',
-    '6',
-    '7',
-    '8',
-    '9',
-    '10',
-    '>',
-    '>>',
-  ];
-
-  links.forEach((link, idx) => {
-    const li = document.createElement('li');
-    li.classList.add('page-item');
-
-    if (idx === 2) {
-      li.classList.add('active');
-    }
-
-    const a = document.createElement('a');
-    a.classList.add('page-link');
-    a.textContent = link;
-
-    li.appendChild(a);
-    ul.appendChild(li);
-  });
-};
