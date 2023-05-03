@@ -2,26 +2,89 @@ import { tag_request } from '../../lib/tag/request.js';
 import LoadingSpinner from '../../commons/LoadingSpinner.js';
 import { getLocalStroage, setLocalStroage } from '../../utils/storage.js';
 import {
+  createTagNavPillsHtml,
   handleGlobalFeedClick,
   handleTagsFeedClick,
   handleYourFeedClick,
 } from '../../utils/helper/feedToggle.js';
-import HomeArticles from './HomeArticles.js';
+
 import { article_request } from '../../lib/article/request.js';
 import { fetchAuthUserInfo } from '../../utils/helper/fetchAuth.js';
+import HomeArticles from './HomeArticles.js';
 
-function HomeTagList(row) {
-  const col = document.createElement('div');
-  col.className = 'col-md-3';
-
-  col.innerHTML = /* HTML */ `
+function renderSidebar() {
+  const col = document.querySelector('.col-md-3');
+  col.innerHTML = `
     <div class="sidebar">
-      <p>Popular Tags</p>
-      <div class="tag-list"></div>
+        <p>Popular Tags</p>
+        <div class="tag-list"></div>
     </div>
   `;
+}
 
+async function renderFeedWithClickEvent(tagArticles) {
+  const handleFeedClick = async (e) => {
+    e.preventDefault();
+    const getTag = getLocalStroage('selectTag');
+
+    const { textContent } = e.target;
+    const feeds = [
+      {
+        text: 'Your Feed',
+        click: handleYourFeedClick,
+      },
+      {
+        text: 'Global Feed',
+        click: handleGlobalFeedClick,
+      },
+      {
+        text: `#${getTag}`,
+        click: handleTagsFeedClick,
+      },
+    ];
+
+    const findEvenet = feeds.find((feed) => feed.text === textContent);
+
+    if (findEvenet) {
+      findEvenet.click();
+    }
+  };
+
+  const tag = getLocalStroage('selectTag');
+  const col = document.querySelector('.col-md-9');
+  const authToken = await fetchAuthUserInfo(getLocalStroage('token'));
+
+  const items = [
+    ...(authToken
+      ? [{ text: 'Your Feed' }, { text: 'Global Feed' }, { text: `#${tag}` }]
+      : [{ text: 'Global Feed' }, { text: `#${tag}` }]),
+  ];
+
+  const getTagList = createTagNavPillsHtml(items, authToken, tag);
+
+  const FeedContainer = `<div class="feed-toggle">
+    <ul class="nav nav-pills outline-active">
+    ${getTagList}
+</ul>
+</div>`;
+
+  if (tag && authToken) {
+    col.innerHTML = FeedContainer;
+  } else {
+    col.innerHTML = FeedContainer;
+  }
+  HomeArticles(tagArticles);
+  const feed = document.querySelector('.feed-toggle');
+  feed.addEventListener('click', handleFeedClick);
+}
+
+function HomeTagList() {
+  const row = document.querySelector('.row');
+  const col = document.createElement('div');
+  col.className = 'col-md-3';
   row.appendChild(col);
+
+  renderSidebar();
 
   const tagList = document.querySelector('.tag-list');
   const spinnerContainer = LoadingSpinner();
@@ -66,49 +129,7 @@ function HomeTagList(row) {
       getTag
     );
 
-    paintTagList(tagArticles);
-  };
-
-  const paintTagList = async (tagArticles) => {
-    const tag = getLocalStroage('selectTag');
-    const col = document.querySelector('.col-md-9');
-
-    const token = await fetchAuthUserInfo(getLocalStroage('token'));
-
-    if (tag && token) {
-      col.innerHTML = /* HTML */ `
-        <div class="feed-toggle">
-          <ul class="nav nav-pills outline-active">
-            <li class="nav-item">
-              <a class="nav-link" href="">Your Feed</a>
-            </li>
-            <li class="nav-item">
-              <a class="nav-link" href="">Global Feed</a>
-            </li>
-            <li class="nav-item">
-              <a class="nav-link active" href="">#${tag}</a>
-            </li>
-          </ul>
-        </div>
-      `;
-    } else {
-      col.innerHTML = /* HTML */ `
-        <div class="feed-toggle">
-          <ul class="nav nav-pills outline-active">
-            <li class="nav-item">
-              <a class="nav-link" href="">Global Feed</a>
-            </li>
-            <li class="nav-item">
-              <a class="nav-link active" href="">#${tag}</a>
-            </li>
-          </ul>
-        </div>
-      `;
-    }
-
-    HomeArticles(tagArticles);
-    const feed = document.querySelector('.feed-toggle');
-    feed.addEventListener('click', handleFeedClick);
+    renderFeedWithClickEvent(tagArticles);
   };
 
   const render = async () => {

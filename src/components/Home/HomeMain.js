@@ -48,7 +48,7 @@ function HomeMain(banner) {
         : [{ text: 'Global Feed' }]),
     ];
 
-    const getTagList = createNavPillsHtml(items,authToken);
+    const getTagList = createNavPillsHtml(items, authToken);
 
     const FeedToggleContainer = /*HTML */ `<div class="feed-toggle">
         <ul class="nav nav-pills outline-active">
@@ -64,7 +64,7 @@ function HomeMain(banner) {
     }
 
     HomeArticles();
-    HomeTagList(row);
+    HomeTagList();
 
     const feed = document.querySelector('.feed-toggle');
     feed.addEventListener('click', handleFeedClick);

@@ -13,8 +13,6 @@ import {
 async function renderFeedWithClickEvent(tagArticles) {
   const handleFeedClick = async (e) => {
     e.preventDefault();
-    console.log(e.target);
-
     const getTag = getLocalStroage('selectTag');
 
     const { textContent } = e.target;
