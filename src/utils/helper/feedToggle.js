@@ -11,9 +11,6 @@ const hasActive = (dom) => dom.classList.contains('active');
 export const toggleActive = (dom1, dom2, dom3, boolean) => () => {
   addActive(dom1);
   removeActive(dom2);
-
-  console.log(dom1);
-  console.log(dom2);
   if (dom3) {
     removeActive(dom3);
     if ((hasActive(dom1) || hasActive(dom2)) && boolean) {
@@ -105,9 +102,22 @@ export const handleTagsFeedClick = async () => {
   const { articles: tagAricles } = await article_request.getTagArticles(
     getLocalStroage('selectTag')
   );
-  console.log(tagAricles);
   const main = document.querySelector('.main-pagination');
   main.remove();
   articlesRemove(document.querySelectorAll('.article-preview'));
   HomeArticles(tagAricles);
+};
+
+export const createNavPillsHtml = (items, authToken, tag) => {
+  return items
+    .map(({ text }) => {
+      const isActive = text === `#${tag}` ? 'active' : '';
+
+      return `
+      <li class="nav-item">
+        <a class = "nav-link ${isActive}" href="">${text}</a>
+      </li>
+    `;
+    })
+    .join('');
 };

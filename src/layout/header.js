@@ -1,8 +1,8 @@
 import { route } from '../utils/routes.js';
 import { getLocalStroage } from '../utils/storage.js';
 import { fetchAuthUserInfo } from '../utils/helper/fetchAuth.js';
-import { navbarItems } from '../utils/helper/authForm.js';
 import { setHeaderActive } from '../utils/helper/headerActive.js';
+import { createNavbarHtml } from '../utils/helper/authForm.js';
 
 function Header(target) {
   const nav = document.createElement('nav');
@@ -75,7 +75,7 @@ function Header(target) {
           ]),
     ];
 
-    const getNavbar = navbarItems(items, authToken);
+    const getNavbar = createNavbarHtml(items, authToken);
 
     if (authToken) {
       navElement.innerHTML = getNavbar;

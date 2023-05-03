@@ -4,6 +4,7 @@ import { fetchAuthUserInfo } from '../../utils/helper/fetchAuth.js';
 import HomeArticles from './HomeArticles.js';
 import HomeArticleTagList from './HomeArticleTagList.js';
 import {
+  createNavPillsHtml,
   handleGlobalFeedClick,
   handleTagsFeedClick,
   handleYourFeedClick,
@@ -42,40 +43,29 @@ function HomeArticlePreview(articles) {
   };
 
   const paintTagList = async (tagArticles) => {
+    const authToken = await fetchAuthUserInfo(getLocalStroage('token'));
     const tag = getLocalStroage('selectTag');
 
-    const token = await fetchAuthUserInfo(getLocalStroage('token'));
+    const items = [
+      ...(authToken
+        ? [{ text: 'Your Feed' }, { text: 'Global Feed' }, { text: `#${tag}` }]
+        : [{ text: 'Global Feed' }, { text: `#${tag}` }]),
+    ];
 
-    if (tag && token) {
-      col.innerHTML = /* HTML */ `
-        <div class="feed-toggle">
-          <ul class="nav nav-pills outline-active">
-            <li class="nav-item">
-              <a class="nav-link" href="">Your Feed</a>
-            </li>
-            <li class="nav-item">
-              <a class="nav-link" href="">Global Feed</a>
-            </li>
-            <li class="nav-item">
-              <a class="nav-link active" href="">#${tag}</a>
-            </li>
-          </ul>
-        </div>
-      `;
+    const getTagList = createNavPillsHtml(items, authToken, tag);
+
+    const FeedToggleContainer = /* HTML */ ` <div class="feed-toggle">
+      <ul class="nav nav-pills outline-active">
+        ${getTagList}
+      </ul>
+    </div>`;
+
+    if (tag && authToken) {
+      col.innerHTML = FeedToggleContainer;
     } else {
-      col.innerHTML = /* HTML */ `
-        <div class="feed-toggle">
-          <ul class="nav nav-pills outline-active">
-            <li class="nav-item">
-              <a class="nav-link" href="">Global Feed</a>
-            </li>
-            <li class="nav-item">
-              <a class="nav-link active" href="">#${tag}</a>
-            </li>
-          </ul>
-        </div>
-      `;
+      col.innerHTML = FeedToggleContainer;
     }
+
     HomeArticles(tagArticles);
 
     const feed = document.querySelector('.feed-toggle');

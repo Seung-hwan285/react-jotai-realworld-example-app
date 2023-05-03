@@ -31,7 +31,7 @@ export const inputFileds = (inputs) => {
     .join('');
 };
 
-export const navbarItems = (items, authToken) => {
+export const createNavbarHtml = (items, authToken) => {
   return items
     .map(({ text, link }) => {
       return /* HTML */ `
