@@ -4,15 +4,13 @@ import { fetchAuthUserInfo } from '../../utils/helper/fetchAuth.js';
 import HomeArticles from './HomeArticles.js';
 import HomeArticleTagList from './HomeArticleTagList.js';
 import {
-  createNavPillsHtml,
+  createTagNavPillsHtml,
   handleGlobalFeedClick,
   handleTagsFeedClick,
   handleYourFeedClick,
 } from '../../utils/helper/feedToggle.js';
 
-function HomeArticlePreview(articles) {
-  const col = document.querySelector('.col-md-9');
-
+async function paintTagList(tagArticles) {
   const handleFeedClick = async (e) => {
     e.preventDefault();
     console.log(e.target);
@@ -42,35 +40,38 @@ function HomeArticlePreview(articles) {
     }
   };
 
-  const paintTagList = async (tagArticles) => {
-    const authToken = await fetchAuthUserInfo(getLocalStroage('token'));
-    const tag = getLocalStroage('selectTag');
+  const col = document.querySelector('.col-md-9');
+  const authToken = await fetchAuthUserInfo(getLocalStroage('token'));
+  const tag = getLocalStroage('selectTag');
 
-    const items = [
-      ...(authToken
-        ? [{ text: 'Your Feed' }, { text: 'Global Feed' }, { text: `#${tag}` }]
-        : [{ text: 'Global Feed' }, { text: `#${tag}` }]),
-    ];
+  const items = [
+    ...(authToken
+      ? [{ text: 'Your Feed' }, { text: 'Global Feed' }, { text: `#${tag}` }]
+      : [{ text: 'Global Feed' }, { text: `#${tag}` }]),
+  ];
 
-    const getTagList = createNavPillsHtml(items, authToken, tag);
+  const getTagList = createTagNavPillsHtml(items, authToken, tag);
 
-    const FeedToggleContainer = /* HTML */ ` <div class="feed-toggle">
-      <ul class="nav nav-pills outline-active">
-        ${getTagList}
-      </ul>
-    </div>`;
+  const FeedToggleContainer = /* HTML */ ` <div class="feed-toggle">
+    <ul class="nav nav-pills outline-active">
+      ${getTagList}
+    </ul>
+  </div>`;
 
-    if (tag && authToken) {
-      col.innerHTML = FeedToggleContainer;
-    } else {
-      col.innerHTML = FeedToggleContainer;
-    }
+  if (tag && authToken) {
+    col.innerHTML = FeedToggleContainer;
+  } else {
+    col.innerHTML = FeedToggleContainer;
+  }
 
-    HomeArticles(tagArticles);
+  HomeArticles(tagArticles);
 
-    const feed = document.querySelector('.feed-toggle');
-    feed.addEventListener('click', handleFeedClick);
-  };
+  const feed = document.querySelector('.feed-toggle');
+  feed.addEventListener('click', handleFeedClick);
+}
+
+function HomeArticlePreview(articles) {
+  const col = document.querySelector('.col-md-9');
 
   const handleArticleTagClick = async (e) => {
     e.preventDefault();

@@ -66,8 +66,6 @@ function HomeTagList(row) {
       getTag
     );
 
-    console.log(tagArticles);
-
     paintTagList(tagArticles);
   };
 

@@ -8,6 +8,8 @@ const addActive = (dom) => dom.classList.add('active');
 const removeActive = (dom) => dom.classList.remove('active');
 const hasActive = (dom) => dom.classList.contains('active');
 
+const mainRemove = () => document.querySelector('.main-pagination').remove();
+
 export const toggleActive = (dom1, dom2, dom3, boolean) => () => {
   addActive(dom1);
   removeActive(dom2);
@@ -59,10 +61,7 @@ export const handleGlobalFeedClick = async () => {
     );
 
     setActive();
-
-    const main = document.querySelector('.main-pagination');
-    main.remove();
-
+    mainRemove();
     articlesRemove(document.querySelectorAll('.article-preview'));
     HomeArticles();
   } else {
@@ -74,9 +73,7 @@ export const handleGlobalFeedClick = async () => {
     );
     const setActive = toggleActive(globalFeedElement, tagFeedElement);
     setActive();
-
-    const main = document.querySelector('.main-pagination');
-    main.remove();
+    mainRemove();
     articlesRemove(document.querySelectorAll('.article-preview'));
     HomeArticles();
   }
@@ -99,16 +96,15 @@ export const handleTagsFeedClick = async () => {
   );
   setActive();
 
-  const { articles: tagAricles } = await article_request.getTagArticles(
+  const { articles: tagArticles } = await article_request.getTagArticles(
     getLocalStroage('selectTag')
   );
-  const main = document.querySelector('.main-pagination');
-  main.remove();
+  mainRemove();
   articlesRemove(document.querySelectorAll('.article-preview'));
-  HomeArticles(tagAricles);
+  HomeArticles(tagArticles);
 };
 
-export const createNavPillsHtml = (items, authToken, tag) => {
+export const createTagNavPillsHtml = (items, authToken, tag) => {
   return items
     .map(({ text }) => {
       const isActive = text === `#${tag}` ? 'active' : '';
@@ -120,4 +116,20 @@ export const createNavPillsHtml = (items, authToken, tag) => {
     `;
     })
     .join('');
+};
+
+export const createNavPillsHtml = (items, authToken) => {
+  return items.map(({ text }) => {
+    const isActive = text === `#${authToken}` ? `active` : '';
+
+    const isActiveTextContent = text === 'Global Feed' && 'active';
+
+    return `
+      <li class="nav-item">
+        <a class="nav-link ${
+          isActive || isActiveTextContent
+        }" href="">${text}</a>
+      </li>
+    `;
+  });
 };

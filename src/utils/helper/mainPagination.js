@@ -13,9 +13,6 @@ export const getArticlePreviews = () =>
   document.querySelectorAll('.article-preview');
 
 export const setActivePage = async (pageNumber) => {
-  const col = document.querySelector('.col-md-9');
-  const nav = document.querySelector('.main-pagination');
-
   const page = Array.from(document.querySelectorAll('.page-item'));
   const activeItem = page.find((item) => item.classList.contains('active'));
   activeItem.classList.remove('active');

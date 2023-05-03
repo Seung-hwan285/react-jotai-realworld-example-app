@@ -1,6 +1,7 @@
 import { fetchAuthUserInfo } from '../../utils/helper/fetchAuth.js';
 import { getLocalStroage, setLocalStroage } from '../../utils/storage.js';
 import {
+  createNavPillsHtml,
   handleGlobalFeedClick,
   handleYourFeedClick,
 } from '../../utils/helper/feedToggle.js';
@@ -23,7 +24,6 @@ function HomeMain(banner) {
   banner.appendChild(container);
 
   const handleFeedClick = (e) => {
-    console.log(e.target);
     e.preventDefault();
     const { textContent } = e.target;
     const feeds = [
@@ -39,32 +39,28 @@ function HomeMain(banner) {
   };
 
   const render = async () => {
-    const token = await fetchAuthUserInfo(getLocalStroage('token'));
-    setCookie('token', JSON.stringify(token), 7);
+    const authToken = await fetchAuthUserInfo(getLocalStroage('token'));
+    setCookie('token', JSON.stringify(authToken), 7);
 
-    if (token) {
-      col.innerHTML = /* HTML */ `
-        <div class="feed-toggle">
-          <ul class="nav nav-pills outline-active">
-            <li class="nav-item">
-              <a class="nav-link" href="">Your Feed</a>
-            </li>
-            <li class="nav-item">
-              <a class="nav-link active" href="">Global Feed</a>
-            </li>
-          </ul>
-        </div>
-      `;
+    const items = [
+      ...(authToken
+        ? [{ text: 'Your Feed' }, { text: 'Global Feed' }]
+        : [{ text: 'Global Feed' }]),
+    ];
+
+    const getTagList = createNavPillsHtml(items,authToken);
+
+    const FeedToggleContainer = /*HTML */ `<div class="feed-toggle">
+        <ul class="nav nav-pills outline-active">
+        ${getTagList}
+</ul>
+
+</div>`;
+
+    if (authToken) {
+      col.innerHTML = FeedToggleContainer;
     } else {
-      col.innerHTML = /* HTML */ `
-        <div class="feed-toggle">
-          <ul class="nav nav-pills outline-active">
-            <li class="nav-item">
-              <a class="nav-link active" href="">Global Feed</a>
-            </li>
-          </ul>
-        </div>
-      `;
+      col.innerHTML = FeedToggleContainer;
     }
 
     HomeArticles();
