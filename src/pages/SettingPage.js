@@ -9,28 +9,28 @@ function SettingPage(target) {
     return;
   }
 
-  const SettingContainer = document.createElement('div');
-  SettingContainer.className = 'settings-page';
+  const settingContainer = document.createElement('div');
+  settingContainer.className = 'settings-page';
 
-  const SettingWrapper = document.createElement('div');
-  SettingWrapper.className = 'container page';
+  const settingWrapper = document.createElement('div');
+  settingWrapper.className = 'container page';
 
-  const row = document.createElement('div');
-  row.className = 'row';
+  const settingRow = document.createElement('div');
+  settingRow.className = 'row';
 
-  const col = document.createElement('div');
-  col.className = 'col-md-6 offset-md-3 col-xs-12';
+  const settingCol = document.createElement('div');
+  settingCol.className = 'col-md-6 offset-md-3 col-xs-12';
 
-  row.appendChild(col);
-  SettingWrapper.appendChild(row);
-  SettingContainer.appendChild(SettingWrapper);
+  settingRow.appendChild(settingCol);
+  settingWrapper.appendChild(settingRow);
+  settingContainer.appendChild(settingWrapper);
 
-  target.appendChild(SettingContainer);
+  target.appendChild(settingContainer);
 
   const render = () => {
     cleanHTML.SettingPage();
-    SettingFormTitle(col);
-    SettingForm(col);
+    SettingFormTitle(settingCol);
+    SettingForm(settingCol);
   };
 
   render();

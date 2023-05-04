@@ -3,28 +3,28 @@ import HomeBanner from '../components/Home/HomeBanner.js';
 import HomeMain from '../components/Home/HomeMain.js';
 
 function HomePage(target) {
-  const HomeContainer = document.createElement('div');
-  HomeContainer.className = 'home-page';
-  const Banner = document.createElement('div');
-  Banner.className = 'banner';
+  const homeContainer = document.createElement('div');
+  homeContainer.className = 'home-page';
+  const bannerTop = document.createElement('div');
+  bannerTop.className = 'banner';
 
-  const BannerWrapper = document.createElement('div');
-  BannerWrapper.className = 'container';
+  const bannerWrapper = document.createElement('div');
+  bannerWrapper.className = 'container';
 
-  const container = document.querySelector('.banner');
+  const banner = document.querySelector('.banner');
 
-  if (container) {
+  if (banner) {
     return;
   }
 
-  Banner.appendChild(BannerWrapper);
-  HomeContainer.appendChild(Banner);
-  target.appendChild(HomeContainer);
+  bannerTop.appendChild(bannerWrapper);
+  homeContainer.appendChild(bannerTop);
+  target.appendChild(homeContainer);
 
   const render = () => {
     cleanHTML.HomePage();
-    HomeBanner(BannerWrapper);
-    HomeMain(HomeContainer);
+    HomeBanner(bannerWrapper);
+    HomeMain(homeContainer);
   };
 
   render();

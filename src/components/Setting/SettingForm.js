@@ -5,8 +5,8 @@ import Input from '../../commons/Input.js';
 import { getCookie, removeCookie } from '../../utils/cookie.js';
 
 function SettingForm(target) {
-  const SettingFormBox = document.createElement('form');
-  SettingFormBox.className = 'form';
+  const settingFormBox = document.createElement('form');
+  settingFormBox.className = 'form';
 
   const authToken = getLocalStroage('token');
 
@@ -21,7 +21,7 @@ function SettingForm(target) {
   const paintSettingDiv = document.createElement('div');
   paintSettingDiv.innerHTML = paintSetting();
 
-  target.appendChild(SettingFormBox);
+  target.appendChild(settingFormBox);
   target.appendChild(paintSettingDiv);
 
   const handleUpdateUserSubmit = async (e) => {
@@ -54,7 +54,7 @@ function SettingForm(target) {
   const render = () => {
     const authToken = JSON.parse(getCookie('token'));
 
-    SettingFormBox.innerHTML = /* HTML */ `
+    settingFormBox.innerHTML = /* HTML */ `
       <fieldset>
         <fieldset class="form-group">
           ${Input({

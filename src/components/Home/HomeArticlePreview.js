@@ -14,7 +14,6 @@ async function renderFeedWithClickEvent(tagArticles) {
   const handleFeedClick = async (e) => {
     e.preventDefault();
     const getTag = getLocalStroage('selectTag');
-
     const { textContent } = e.target;
     const feeds = [
       {
@@ -126,6 +125,7 @@ function HomeArticlePreview(articles) {
 
           const tagListElement = document.querySelectorAll('.preview-link');
           tagListElement.forEach((tagElement) => {
+            tagElement.removeEventListener('click', handleArticleTagClick);
             tagElement.addEventListener('click', handleArticleTagClick);
           });
         }

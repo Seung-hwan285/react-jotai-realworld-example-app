@@ -2,11 +2,11 @@ import { auth_request } from '../../lib/auth/request.js';
 import { route } from '../../utils/routes.js';
 import { buttonRegister, inputFileds } from '../../utils/helper/authForm.js';
 
-function RegisterForm(target) {
-  const RegisterFormBox = document.createElement('form');
-  RegisterFormBox.className = 'form';
+function RegisterForm(registerCol) {
+  const registerFormBox = document.createElement('form');
+  registerFormBox.className = 'form';
 
-  target.appendChild(RegisterFormBox);
+  registerCol.appendChild(registerFormBox);
 
   const handleRegisterSubmit = async (e) => {
     e.preventDefault();
@@ -46,7 +46,7 @@ function RegisterForm(target) {
 
     const getInputFiled = inputFileds(inputs);
 
-    RegisterFormBox.innerHTML = getInputFiled + buttonRegister;
+    registerFormBox.innerHTML = getInputFiled + buttonRegister;
 
     const form = document.querySelector('.form');
     form.addEventListener('submit', handleRegisterSubmit);

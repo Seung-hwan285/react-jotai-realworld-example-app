@@ -4,10 +4,10 @@ import { auth_request } from '../../lib/auth/request.js';
 import { buttonLogin, inputFileds } from '../../utils/helper/authForm.js';
 
 function LoginForm(col) {
-  const LoginFormBox = document.createElement('form');
-  LoginFormBox.className = 'form';
+  const loginFormBox = document.createElement('form');
+  loginFormBox.className = 'form';
 
-  col.appendChild(LoginFormBox);
+  col.appendChild(loginFormBox);
 
   const handleUserSubmit = async (e) => {
     e.preventDefault();
@@ -39,7 +39,7 @@ function LoginForm(col) {
 
     const getInputFiled = inputFileds(inputs);
 
-    LoginFormBox.innerHTML = getInputFiled + buttonLogin;
+    loginFormBox.innerHTML = getInputFiled + buttonLogin;
 
     const form = document.querySelector('.form');
     form.addEventListener('submit', handleUserSubmit);

@@ -5,32 +5,32 @@ import { cleanHTML } from '../utils/helper/cleanHTML.js';
 function LoginPage(target) {
   cleanHTML.LoginPage();
 
-  const LoginContainer = document.createElement('div');
-  LoginContainer.className = 'auth-page';
+  const loginContainer = document.createElement('div');
+  loginContainer.className = 'auth-page';
 
-  const LoginWrapper = document.createElement('div');
-  LoginWrapper.className = 'container page';
+  const loginWrapper = document.createElement('div');
+  loginWrapper.className = 'container page';
 
-  const row = document.createElement('div');
-  row.className = 'row';
+  const loginRow = document.createElement('div');
+  loginRow.className = 'row';
 
-  const col = document.createElement('div');
-  col.className = 'col-md-6 offset-md-3 col-xs-12';
+  const loginCol = document.createElement('div');
+  loginCol.className = 'col-md-6 offset-md-3 col-xs-12';
 
   const container = document.querySelector('.auth-page');
   if (container) {
     return;
   }
 
-  row.appendChild(col);
-  LoginWrapper.appendChild(row);
-  LoginContainer.appendChild(LoginWrapper);
+  loginRow.appendChild(loginCol);
+  loginWrapper.appendChild(loginRow);
+  loginContainer.appendChild(loginWrapper);
 
-  target.appendChild(LoginContainer);
+  target.appendChild(loginContainer);
 
   const render = () => {
-    LoginFormTitle(col);
-    LoginForm(col);
+    LoginFormTitle(loginCol);
+    LoginForm(loginCol);
   };
 
   render();

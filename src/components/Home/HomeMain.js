@@ -9,7 +9,7 @@ import HomeArticles from './HomeArticles.js';
 import HomeTagList from './HomeTagList.js';
 import { setCookie } from '../../utils/cookie.js';
 
-function HomeMain(banner) {
+function HomeMain(homeContainer) {
   const container = document.createElement('div');
   container.className = 'container page';
 
@@ -21,7 +21,7 @@ function HomeMain(banner) {
 
   row.appendChild(col);
   container.appendChild(row);
-  banner.appendChild(container);
+  homeContainer.appendChild(container);
 
   const handleFeedClick = (e) => {
     e.preventDefault();
@@ -67,6 +67,7 @@ function HomeMain(banner) {
     HomeTagList();
 
     const feed = document.querySelector('.feed-toggle');
+
     feed.addEventListener('click', handleFeedClick);
   };
   render();

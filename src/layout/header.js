@@ -4,9 +4,8 @@ import { fetchAuthUserInfo } from '../utils/helper/fetchAuth.js';
 import { setHeaderActive } from '../utils/helper/headerActive.js';
 import { createNavbarHtml } from '../utils/helper/authForm.js';
 
-async function renderNavbar() {}
-
 function Header(target) {
+  let user = null;
   const nav = document.createElement('nav');
   nav.className = 'navbar navbar-light';
   const HeaderContainer = document.createElement('div');
@@ -23,6 +22,10 @@ function Header(target) {
   if (target) {
     target.appendChild(nav);
   }
+
+  const updateUserData = async (authToken) => {
+    user = await fetchAuthUserInfo(authToken);
+  };
 
   const handleLinkClick = (e) => {
     const link = e.target.dataset.link;
@@ -41,7 +44,10 @@ function Header(target) {
     let navElement = document.querySelector('.nav');
 
     const authToken = getLocalStroage('token');
-    const user = await fetchAuthUserInfo(authToken);
+
+    if (!user) {
+      await updateUserData(authToken);
+    }
 
     if (!navElement) {
       navElement = document.createElement('ul');

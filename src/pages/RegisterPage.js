@@ -5,17 +5,17 @@ import RegisterFormTitle from '../components/Register/RegisterFormTitle.js';
 function RegisterPage(target) {
   cleanHTML.RegisterPage();
 
-  const RegisterContainer = document.createElement('div');
-  RegisterContainer.className = 'auth-page';
+  const registerContainer = document.createElement('div');
+  registerContainer.className = 'auth-page';
 
-  const RegisterWrapper = document.createElement('div');
-  RegisterWrapper.className = 'container page';
+  const registerWrapper = document.createElement('div');
+  registerWrapper.className = 'container page';
 
-  const row = document.createElement('div');
-  row.className = 'row';
+  const registerRow = document.createElement('div');
+  registerRow.className = 'row';
 
-  const col = document.createElement('div');
-  col.className = 'col-md-6 offset-md-3 col-xs-12';
+  const registerCol = document.createElement('div');
+  registerCol.className = 'col-md-6 offset-md-3 col-xs-12';
 
   const container = document.querySelector('.auth-page');
 
@@ -23,15 +23,15 @@ function RegisterPage(target) {
     return;
   }
 
-  row.appendChild(col);
-  RegisterWrapper.appendChild(row);
-  RegisterContainer.appendChild(RegisterWrapper);
+  registerRow.appendChild(registerCol);
+  registerWrapper.appendChild(registerRow);
+  registerContainer.appendChild(registerWrapper);
 
-  target.appendChild(RegisterContainer);
+  target.appendChild(registerContainer);
 
   const render = () => {
-    RegisterFormTitle(col);
-    RegisterForm(col);
+    RegisterFormTitle(registerCol);
+    RegisterForm(registerCol);
   };
   render();
 }
