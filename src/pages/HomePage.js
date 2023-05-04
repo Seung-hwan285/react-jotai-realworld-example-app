@@ -2,7 +2,7 @@ import { cleanHTML } from '../utils/helper/cleanHTML.js';
 import HomeBanner from '../components/Home/HomeBanner.js';
 import HomeMain from '../components/Home/HomeMain.js';
 
-function HomePage(target) {
+function renderHome(target) {
   const homeContainer = document.createElement('div');
   homeContainer.className = 'home-page';
   const bannerTop = document.createElement('div');
@@ -20,11 +20,18 @@ function HomePage(target) {
   bannerTop.appendChild(bannerWrapper);
   homeContainer.appendChild(bannerTop);
   target.appendChild(homeContainer);
+}
+
+function HomePage(target) {
+  cleanHTML.HomePage();
+
+  renderHome(target);
+
+  const bannerWrapper = document.querySelector('.banner .container');
 
   const render = () => {
-    cleanHTML.HomePage();
     HomeBanner(bannerWrapper);
-    HomeMain(homeContainer);
+    HomeMain(bannerWrapper);
   };
 
   render();

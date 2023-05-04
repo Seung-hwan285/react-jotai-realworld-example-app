@@ -2,9 +2,7 @@ import { cleanHTML } from '../utils/helper/cleanHTML.js';
 import RegisterForm from '../components/Register/RegisterForm.js';
 import RegisterFormTitle from '../components/Register/RegisterFormTitle.js';
 
-function RegisterPage(target) {
-  cleanHTML.RegisterPage();
-
+function renderRegister(target) {
   const registerContainer = document.createElement('div');
   registerContainer.className = 'auth-page';
 
@@ -28,6 +26,12 @@ function RegisterPage(target) {
   registerContainer.appendChild(registerWrapper);
 
   target.appendChild(registerContainer);
+}
+
+function RegisterPage(target) {
+  cleanHTML.RegisterPage();
+  renderRegister(target);
+  const registerCol = document.querySelector('.offset-md-3 ');
 
   const render = () => {
     RegisterFormTitle(registerCol);

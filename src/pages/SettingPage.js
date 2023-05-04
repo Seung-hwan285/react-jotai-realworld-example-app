@@ -2,7 +2,7 @@ import { cleanHTML } from '../utils/helper/cleanHTML.js';
 import SettingForm from '../components/Setting/SettingForm.js';
 import SettingFormTitle from '../components/Setting/SettingFormTitle.js';
 
-function SettingPage(target) {
+function renderSetting(target) {
   const container = document.querySelector('.settings-page');
 
   if (container) {
@@ -26,9 +26,15 @@ function SettingPage(target) {
   settingContainer.appendChild(settingWrapper);
 
   target.appendChild(settingContainer);
+}
+
+function SettingPage(target) {
+  cleanHTML.SettingPage();
+
+  renderSetting(target);
+  const settingCol = document.querySelector('.offset-md-3');
 
   const render = () => {
-    cleanHTML.SettingPage();
     SettingFormTitle(settingCol);
     SettingForm(settingCol);
   };

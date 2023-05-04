@@ -9,7 +9,8 @@ import HomeArticles from './HomeArticles.js';
 import HomeTagList from './HomeTagList.js';
 import { setCookie } from '../../utils/cookie.js';
 
-function HomeMain(homeContainer) {
+function renderHomeMain() {
+  const homeContainer = document.querySelector('.home-page');
   const container = document.createElement('div');
   container.className = 'container page';
 
@@ -22,6 +23,12 @@ function HomeMain(homeContainer) {
   row.appendChild(col);
   container.appendChild(row);
   homeContainer.appendChild(container);
+}
+
+function HomeMain() {
+  renderHomeMain();
+
+  const col = document.querySelector('.col-md-9');
 
   const handleFeedClick = (e) => {
     e.preventDefault();

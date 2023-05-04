@@ -25,9 +25,7 @@ function renderHeader(target) {
 
 function Header(target) {
   let user = null;
-
   renderHeader(target);
-
   const headerContainer = document.querySelector('.container');
 
   const updateUserData = async (authToken) => {

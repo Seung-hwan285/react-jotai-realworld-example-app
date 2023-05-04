@@ -2,9 +2,7 @@ import LoginForm from '../components/Login/LoginForm.js';
 import LoginFormTitle from '../components/Login/LoginFormTitle.js';
 import { cleanHTML } from '../utils/helper/cleanHTML.js';
 
-function LoginPage(target) {
-  cleanHTML.LoginPage();
-
+function renderLogin(target) {
   const loginContainer = document.createElement('div');
   loginContainer.className = 'auth-page';
 
@@ -27,6 +25,13 @@ function LoginPage(target) {
   loginContainer.appendChild(loginWrapper);
 
   target.appendChild(loginContainer);
+}
+
+function LoginPage(target) {
+  cleanHTML.LoginPage();
+
+  renderLogin(target);
+  const loginCol = document.querySelector('.offset-md-3');
 
   const render = () => {
     LoginFormTitle(loginCol);
