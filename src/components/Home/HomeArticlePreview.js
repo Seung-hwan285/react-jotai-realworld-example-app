@@ -30,10 +30,10 @@ async function renderFeedWithClickEvent(tagArticles) {
       },
     ];
 
-    const findEvenet = feeds.find((feed) => feed.text === textContent);
+    const findEvent = feeds.find((feed) => feed.text === textContent);
 
-    if (findEvenet) {
-      findEvenet.click();
+    if (findEvent) {
+      findEvent.click();
     }
   };
 
@@ -49,16 +49,16 @@ async function renderFeedWithClickEvent(tagArticles) {
 
   const getTagList = createTagNavPillsHtml(items, authToken, tag);
 
-  const FeedToggleContainer = /* HTML */ ` <div class="feed-toggle">
+  const feedToggleContainer = /* HTML */ ` <div class="feed-toggle">
     <ul class="nav nav-pills outline-active">
       ${getTagList}
     </ul>
   </div>`;
 
   if (tag && authToken) {
-    col.innerHTML = FeedToggleContainer;
+    col.innerHTML = feedToggleContainer;
   } else {
-    col.innerHTML = FeedToggleContainer;
+    col.innerHTML = feedToggleContainer;
   }
 
   HomeArticles(tagArticles);

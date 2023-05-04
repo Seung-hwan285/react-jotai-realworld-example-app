@@ -4,24 +4,31 @@ import { fetchAuthUserInfo } from '../utils/helper/fetchAuth.js';
 import { setHeaderActive } from '../utils/helper/headerActive.js';
 import { createNavbarHtml } from '../utils/helper/authForm.js';
 
-function Header(target) {
-  let user = null;
+function renderHeader(target) {
   const nav = document.createElement('nav');
   nav.className = 'navbar navbar-light';
-  const HeaderContainer = document.createElement('div');
-  HeaderContainer.className = 'container';
+  const headerContainer = document.createElement('div');
+  headerContainer.className = 'container';
 
-  const LogoElement = document.createElement('a');
-  LogoElement.innerText = 'Conduit';
-  LogoElement.className = 'navbar-brand';
-  LogoElement.setAttribute('data-link', '/');
+  const logo = document.createElement('a');
+  logo.textContent = 'Conduit';
+  logo.className = 'navbar-brand';
+  logo.setAttribute('data-link', '/');
 
-  HeaderContainer.appendChild(LogoElement);
-  nav.appendChild(HeaderContainer);
+  headerContainer.appendChild(logo);
+  nav.appendChild(headerContainer);
 
   if (target) {
     target.appendChild(nav);
   }
+}
+
+function Header(target) {
+  let user = null;
+
+  renderHeader(target);
+
+  const headerContainer = document.querySelector('.container');
 
   const updateUserData = async (authToken) => {
     user = await fetchAuthUserInfo(authToken);
@@ -88,12 +95,12 @@ function Header(target) {
     if (authToken) {
       navElement.innerHTML = getNavbar;
       if (!navbarElement) {
-        HeaderContainer.appendChild(navElement);
+        headerContainer.appendChild(navElement);
       }
     } else {
       navElement.innerHTML = getNavbar;
       if (!navbarElement) {
-        HeaderContainer.appendChild(navElement);
+        headerContainer.appendChild(navElement);
       }
     }
 

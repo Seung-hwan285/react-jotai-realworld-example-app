@@ -43,10 +43,10 @@ async function renderFeedWithClickEvent(tagArticles) {
       },
     ];
 
-    const findEvenet = feeds.find((feed) => feed.text === textContent);
+    const findEvent = feeds.find((feed) => feed.text === textContent);
 
-    if (findEvenet) {
-      findEvenet.click();
+    if (findEvent) {
+      findEvent.click();
     }
   };
 

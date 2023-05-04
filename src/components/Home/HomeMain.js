@@ -50,7 +50,7 @@ function HomeMain(homeContainer) {
 
     const getTagList = createNavPillsHtml(items, authToken);
 
-    const FeedToggleContainer = /*HTML */ `<div class="feed-toggle">
+    const feedToggleContainer = /*HTML */ `<div class="feed-toggle">
         <ul class="nav nav-pills outline-active">
         ${getTagList}
 </ul>
@@ -58,9 +58,9 @@ function HomeMain(homeContainer) {
 </div>`;
 
     if (authToken) {
-      col.innerHTML = FeedToggleContainer;
+      col.innerHTML = feedToggleContainer;
     } else {
-      col.innerHTML = FeedToggleContainer;
+      col.innerHTML = feedToggleContainer;
     }
 
     HomeArticles();
