@@ -112,6 +112,9 @@ function Header(target) {
         link: '/register',
       },
       {
+        link: '/new-article',
+      },
+      {
         link: '/setting',
       },
     ];

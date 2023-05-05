@@ -4,6 +4,7 @@ import HomePage from './pages/HomePage.js';
 import { initRouter } from './utils/routes.js';
 import RegisterPage from './pages/RegisterPage.js';
 import SettingPage from './pages/SettingPage.js';
+import NewArticlePage from './pages/NewArticlePage.js';
 
 function App({ target }) {
   const header = new Header(target);
@@ -16,6 +17,7 @@ function App({ target }) {
       { path: '/login', component: LoginPage },
       { path: '/register', component: RegisterPage },
       { path: '/setting', component: SettingPage },
+      { path: '/new-article', component: NewArticlePage },
     ];
 
     const page = pages.find((page) => page.path === pathname);

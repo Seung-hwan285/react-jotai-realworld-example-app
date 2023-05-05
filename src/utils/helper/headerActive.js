@@ -16,11 +16,11 @@ export const setHeaderActive = (currentUrl) => {
     case '/register':
       navbar[2].classList.add('active');
       break;
-    case '/setting':
-      navbar[2].classList.add('active');
-      break;
     case '/new-article':
       navbar[1].classList.add('active');
+      break;
+    case '/setting':
+      navbar[2].classList.add('active');
       break;
   }
 };
