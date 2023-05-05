@@ -29,13 +29,18 @@ function HomeMain() {
   renderHomeMain();
 
   const col = document.querySelector('.col-md-9');
-
-  const handleFeedClick = (e) => {
+  const handleFeedClick = async (e) => {
     e.preventDefault();
     const { textContent } = e.target;
     const feeds = [
-      { text: 'Your Feed', click: handleYourFeedClick },
-      { text: 'Global Feed', click: handleGlobalFeedClick },
+      {
+        text: 'Your Feed',
+        click: handleYourFeedClick,
+      },
+      {
+        text: 'Global Feed',
+        click: handleGlobalFeedClick,
+      },
     ];
 
     const findEvent = feeds.find((feed) => feed.text === textContent);

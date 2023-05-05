@@ -62,16 +62,16 @@ async function renderFeedWithClickEvent(tagArticles) {
 
   const getTagList = createTagNavPillsHtml(items, authToken, tag);
 
-  const FeedContainer = `<div class="feed-toggle">
+  const feedToggleContainer = `<div class="feed-toggle">
     <ul class="nav nav-pills outline-active">
     ${getTagList}
 </ul>
 </div>`;
 
   if (tag && authToken) {
-    col.innerHTML = FeedContainer;
+    col.innerHTML = feedToggleContainer;
   } else {
-    col.innerHTML = FeedContainer;
+    col.innerHTML = feedToggleContainer;
   }
   HomeArticles(tagArticles);
   const feed = document.querySelector('.feed-toggle');

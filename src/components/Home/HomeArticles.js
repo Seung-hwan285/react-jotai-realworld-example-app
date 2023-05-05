@@ -91,13 +91,15 @@ function HomeArticles(tagArticles) {
 
   const render = async () => {
     const { articles } = await article_request.getAllArticles();
+
     const spinner = document.querySelector('.spinner');
-    spinner.remove();
 
     // 초기렌더링
     if (tagArticles) {
+      spinner.remove();
       HomeArticlePreview(tagArticles);
     } else {
+      spinner.remove();
       HomeArticlePreview(articles);
       renderPageNumberLink(ul);
     }

@@ -7,6 +7,7 @@ import { articlesRemove } from './mainPagination.js';
 const addActive = (dom) => dom.classList.add('active');
 const removeActive = (dom) => dom.classList.remove('active');
 const hasActive = (dom) => dom.classList.contains('active');
+const mainRemove = () => document.querySelector('.main-pagination').remove();
 
 export const toggleActive = (dom1, dom2, dom3, boolean) => () => {
   addActive(dom1);
@@ -37,6 +38,17 @@ export const handleYourFeedClick = () => {
     tagFeedElement
   );
   setActive();
+
+  const col = document.querySelector('.col-md-9');
+
+  if (yourFeedElement.classList.contains('active')) {
+    const noArticle = document.createElement('div');
+    noArticle.textContent = 'no article are here... yet.';
+    noArticle.className = 'article-preview';
+    articlesRemove(document.querySelectorAll('.article-preview'));
+    mainRemove();
+    col.appendChild(noArticle);
+  }
 };
 
 export const handleGlobalFeedClick = async () => {
@@ -47,11 +59,9 @@ export const handleGlobalFeedClick = async () => {
       '.nav-pills .nav-item:nth-child(2) a'
     );
     const yourFeedElement = document.querySelector('.nav-pills .nav-item a');
-
     const tagFeedElement = document.querySelector(
       '.nav-pills .nav-item:nth-child(3) a'
     );
-
     const setActive = toggleActive(
       globalFeedElement,
       yourFeedElement,
@@ -60,8 +70,7 @@ export const handleGlobalFeedClick = async () => {
 
     setActive();
 
-    const main = document.querySelector('.main-pagination');
-    main.remove();
+    if (document.querySelector('.main-pagination')) mainRemove();
 
     articlesRemove(document.querySelectorAll('.article-preview'));
     HomeArticles();
@@ -72,11 +81,10 @@ export const handleGlobalFeedClick = async () => {
     const tagFeedElement = document.querySelector(
       '.nav-pills .nav-item:nth-child(2) a'
     );
+
     const setActive = toggleActive(globalFeedElement, tagFeedElement);
     setActive();
-
-    const main = document.querySelector('.main-pagination');
-    main.remove();
+    mainRemove();
     articlesRemove(document.querySelectorAll('.article-preview'));
     HomeArticles();
   }
@@ -102,8 +110,8 @@ export const handleTagsFeedClick = async () => {
   const { articles: tagAricles } = await article_request.getTagArticles(
     getLocalStroage('selectTag')
   );
-  const main = document.querySelector('.main-pagination');
-  main.remove();
+  if (document.querySelector('.main-pagination')) mainRemove();
+
   articlesRemove(document.querySelectorAll('.article-preview'));
   HomeArticles(tagAricles);
 };
@@ -124,14 +132,15 @@ export const createTagNavPillsHtml = (items, authToken, tag) => {
 
 export const createNavPillsHtml = (items, authToken) => {
   return items.map(({ text }) => {
-    const isActiveYourTextContent =
-      text === 'Your Feed' && authToken ? 'active' : '';
-    const isActiveGlobalTextContent =
-      text === 'Global Feed' && !authToken ? 'active' : '';
-    const activeClass = isActiveGlobalTextContent || isActiveYourTextContent;
+    const isActive = text === `#${authToken}` ? `active` : '';
+
+    const isActiveTextContent = text === 'Global Feed' && 'active';
+
     return `
       <li class="nav-item">
-        <a class="nav-link ${activeClass}" href="">${text}</a>
+        <a class="nav-link ${
+          isActive || isActiveTextContent
+        }" href="">${text}</a>
       </li>
     `;
   });

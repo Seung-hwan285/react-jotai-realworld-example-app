@@ -26,3 +26,7 @@ input:focus {
   left: 0;
   right: 0;
 }
+.no-article {
+  position: absolute;
+  left: 0;
+}
