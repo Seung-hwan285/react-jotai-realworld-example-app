@@ -1,10 +1,10 @@
 function NewArticleForm(col) {
-  const createArticleBox = document.createElement('form');
-  createArticleBox.className = 'form';
+  const newArticleBox = document.createElement('form');
+  newArticleBox.className = 'form';
 
-  col.appendChild(createArticleBox);
+  col.appendChild(newArticleBox);
   const render = () => {
-    createArticleBox.innerHTML = `
+    newArticleBox.innerHTML = `
               <fieldset>
             <fieldset class="form-group">
               <input type="text" class="form-control form-control-lg" placeholder="Article Title" />
