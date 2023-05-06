@@ -123,7 +123,6 @@ function HomeTagList() {
           </div>
         </div>
     `;
-    row.appendChild(col);
 
     const sidebar = document.querySelector('.sidebar');
     sidebar.addEventListener('click', handleTagClick);
