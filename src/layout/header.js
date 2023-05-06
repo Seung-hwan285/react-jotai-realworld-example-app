@@ -34,6 +34,10 @@ function Header(target) {
 
   const handleLinkClick = (e) => {
     const link = e.target.dataset.link;
+
+    if (link === '/login' || link === '/register') {
+      updateUserData(getLocalStroage('token'));
+    }
     route(link);
   };
 

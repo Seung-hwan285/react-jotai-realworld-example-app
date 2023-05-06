@@ -31,7 +31,8 @@ export const auth_request = {
     }
   },
 
-  userRegister: async (username, email, password) => {
+  userRegister: async (registerData) => {
+    const { username, email, password } = registerData;
     try {
       const response = await fetch(`${API_END_POINT}/api/users/`, {
         method: 'POST',

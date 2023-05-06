@@ -8,14 +8,29 @@ function RegisterForm(registerCol) {
 
   registerCol.appendChild(registerFormBox);
 
+  const initialState = {
+    username: '',
+    email: '',
+    password: '',
+  };
+
+  const updateState = (key, value) => {
+    state[key] = value;
+  };
+
+  const handleChange = (e) => {
+    const { name, value } = e.target;
+    updateState(name, value);
+  };
+
   const handleRegisterSubmit = async (e) => {
     e.preventDefault();
 
-    const username = document.querySelector('#username').value;
-    const email = document.querySelector('#email').value;
-    const password = document.querySelector('#password').value;
+    const registerData = {
+      ...state,
+    };
 
-    const user = auth_request.userRegister(username, email, password);
+    const user = auth_request.userRegister(registerData);
 
     if (user) {
       route('/');
@@ -23,34 +38,43 @@ function RegisterForm(registerCol) {
   };
 
   const render = () => {
-    const inputs = [
+    const items = [
       {
         placeholder: 'Username',
+        name: 'username',
         type: 'text',
         id: 'username',
         className: 'form-control form-control-lg',
       },
       {
         placeholder: 'Email',
+        name: 'email',
         id: 'email',
         type: 'text',
         className: 'form-control form-control-lg',
       },
       {
         placeholder: 'Password',
+        name: 'password',
         id: 'password',
         type: 'password',
         className: 'form-control form-control-lg',
       },
     ];
 
-    const getInputFiled = inputFileds(inputs);
+    const getInputFiled = inputFileds(items);
 
     registerFormBox.innerHTML = getInputFiled + buttonRegister;
+
+    const inputs = document.querySelectorAll('input');
+    inputs.forEach((input) => {
+      input.addEventListener('change', handleChange);
+    });
 
     const form = document.querySelector('.form');
     form.addEventListener('submit', handleRegisterSubmit);
   };
+  const state = initialState;
   render();
 }
 export default RegisterForm;
