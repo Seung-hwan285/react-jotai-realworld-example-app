@@ -36,6 +36,40 @@ export const article_request = {
       console.error(err);
     }
   },
+  createArticle: async (articleData) => {
+    const { title, description, body, tag, authToken } = articleData;
+    console.log(authToken);
+
+    try {
+      const response = await fetch(`${API_END_POINT}/api/articles`, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          Authorization: `Token ${encodeURIComponent(authToken)}`,
+        },
+        body: JSON.stringify({
+          article: {
+            title: title,
+            description: description,
+            body: body,
+            tag: tag,
+          },
+        }),
+      });
+
+      const data = await response.json();
+
+      console.log(data);
+
+      if (response.ok) {
+        return data;
+      } else {
+        throw new Error(data.error);
+      }
+    } catch (err) {
+      console.error(err);
+    }
+  },
   getUserFeedArticles: async (authToken) => {
     try {
       const response = await fetch(`${API_END_POINT}/api/articles/feed`, {
