@@ -3,12 +3,13 @@ import Button from '../../commons/Button.js';
 
 export const inputFileds = (inputs) => {
   return inputs
-    .map(({ placeholder, type, id, className, rows }) => {
+    .map(({ placeholder, name, type, id, className, rows }) => {
       if (!rows) {
         return /* HTML */ `
           <fieldset class="form-group">
             ${Input({
               placeholder,
+              name,
               type,
               id,
               className,

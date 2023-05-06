@@ -9,12 +9,28 @@ function LoginForm(col) {
 
   col.appendChild(loginFormBox);
 
-  const handleUserSubmit = async (e) => {
-    e.preventDefault();
-    const email = document.querySelector('#email').value;
-    const password = document.querySelector('#password').value;
+  const initialState = {
+    email: '',
+    password: '',
+  };
 
-    const token = await auth_request.userLogin(email, password);
+  const updateState = (key, value) => {
+    state[key] = value;
+  };
+
+  const handleLoginChange = (e) => {
+    const { name, value } = e.target;
+    updateState(name, value);
+  };
+
+  const handleLoginSubmit = async (e) => {
+    e.preventDefault();
+
+    const loginDate = {
+      ...state,
+    };
+
+    const token = await auth_request.userLogin(loginDate);
     setLocalStroage('token', token);
     if (token) {
       route('/');
@@ -22,29 +38,37 @@ function LoginForm(col) {
   };
 
   const render = () => {
-    const inputs = [
+    const items = [
       {
         placeholder: 'Email',
+        name: 'email',
         type: 'text',
         id: 'email',
         className: 'form-control form-control-lg',
       },
       {
         placeholder: 'Password',
+        name: 'password',
         type: 'password',
         id: 'password',
         className: 'form-control form-control-lg',
       },
     ];
 
-    const getInputFiled = inputFileds(inputs);
+    const getInputFiled = inputFileds(items);
 
     loginFormBox.innerHTML = getInputFiled + buttonLogin;
 
+    const inputs = document.querySelectorAll('input');
+    inputs.forEach((input) => {
+      input.addEventListener('change', handleLoginChange);
+    });
+
     const form = document.querySelector('.form');
-    form.addEventListener('submit', handleUserSubmit);
+    form.addEventListener('submit', handleLoginSubmit);
   };
 
+  const state = initialState;
   render();
 }
 export default LoginForm;

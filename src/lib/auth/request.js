@@ -3,7 +3,8 @@ import { route } from '../../utils/routes.js';
 import { API_END_POINT } from '../../url.js';
 
 export const auth_request = {
-  userLogin: async (email, password) => {
+  userLogin: async (loginData) => {
+    const { email, password } = loginData;
     try {
       const response = await fetch(`${API_END_POINT}/api/users/login`, {
         method: 'POST',
