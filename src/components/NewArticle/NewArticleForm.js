@@ -1,5 +1,4 @@
 import { article_request } from '../../lib/article/request.js';
-import { fetchAuthUserInfo } from '../../utils/helper/fetchAuth.js';
 import { getLocalStroage } from '../../utils/storage.js';
 import { route } from '../../utils/routes.js';
 
@@ -13,7 +12,7 @@ function NewArticleForm(col) {
     title: '',
     description: '',
     body: '',
-    tag: '',
+    tagList: [],
   };
 
   const updateState = (key, value) => {
@@ -28,9 +27,8 @@ function NewArticleForm(col) {
       authToken: getLocalStroage('token'),
     };
 
-    console.log(articleData);
-
     const data = article_request.createArticle(articleData);
+
     if (data) {
       route('/');
     }
@@ -43,7 +41,13 @@ function NewArticleForm(col) {
 
   const handleTagSubmit = (e) => {
     if (e.key === 'Enter') {
-      console.log(e.target.value);
+      updateState('tagList', [...state.tagList, e.target.value]);
+
+      const tagList = document.querySelector('.tag-list');
+
+      tagList.innerHTML = state.tagList
+        .map((tag) => `<span class="tag-pill tag-default">>${tag}</span>`)
+        .join('');
     }
   };
 

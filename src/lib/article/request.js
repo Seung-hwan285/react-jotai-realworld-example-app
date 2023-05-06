@@ -37,8 +37,7 @@ export const article_request = {
     }
   },
   createArticle: async (articleData) => {
-    const { title, description, body, tag, authToken } = articleData;
-    console.log(authToken);
+    const { title, description, body, tagList, authToken } = articleData;
 
     try {
       const response = await fetch(`${API_END_POINT}/api/articles`, {
@@ -52,7 +51,7 @@ export const article_request = {
             title: title,
             description: description,
             body: body,
-            tag: tag,
+            tagList: tagList,
           },
         }),
       });
