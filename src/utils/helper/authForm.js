@@ -1,9 +1,9 @@
 import Input from '../../commons/Input.js';
 import Button from '../../commons/Button.js';
 
-export const inputFileds = (inputs) => {
+export const createInputFields = (inputs) => {
   return inputs
-    .map(({ placeholder, name, type, id, className, rows }) => {
+    .map(({ placeholder, name, type, id, className, rows, value }) => {
       if (!rows) {
         return /* HTML */ `
           <fieldset class="form-group">
@@ -13,6 +13,7 @@ export const inputFileds = (inputs) => {
               type,
               id,
               className,
+              value,
             })}
           </fieldset>
         `;
@@ -20,11 +21,15 @@ export const inputFileds = (inputs) => {
         return /* HTML */ `
           <fieldset class="form-group">
             <textarea
+              id="${id}"
               class="${className}"
               rows="${rows}"
+              name="${name}"
               placeholder="${placeholder}"
             >
-            </textarea>
+          ${value}
+          </textarea
+            >
           </fieldset>
         `;
       }

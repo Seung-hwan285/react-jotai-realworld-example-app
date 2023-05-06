@@ -1,7 +1,7 @@
 import { route } from '../../utils/routes.js';
 import { setLocalStroage } from '../../utils/storage.js';
 import { auth_request } from '../../lib/auth/request.js';
-import { buttonLogin, inputFileds } from '../../utils/helper/authForm.js';
+import { buttonLogin, createInputFields } from '../../utils/helper/authForm.js';
 
 function LoginForm(col) {
   const loginFormBox = document.createElement('form');
@@ -55,7 +55,7 @@ function LoginForm(col) {
       },
     ];
 
-    const getInputFiled = inputFileds(items);
+    const getInputFiled = createInputFields(items);
 
     loginFormBox.innerHTML = getInputFiled + buttonLogin;
 

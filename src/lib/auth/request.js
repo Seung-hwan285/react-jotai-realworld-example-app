@@ -82,7 +82,8 @@ export const auth_request = {
     }
   },
 
-  userUpdate: async (authToken, email, bio, imageValue) => {
+  userUpdate: async (settingData) => {
+    const { authToken, email, bio, imageValue } = settingData;
     try {
       const response = await fetch(`${API_END_POINT}/api/user`, {
         method: 'PUT',
@@ -110,14 +111,12 @@ export const auth_request = {
   },
 
   userLogout: (key) => {
-    const user = removeStroage(key);
-    if (user === undefined) {
-      const SettingContainer = document.querySelector('.Setting__Container');
-      if (SettingContainer) {
-        SettingContainer.innerHTML = '';
-        SettingContainer.remove();
-      }
-      route('/');
+    removeStroage(key);
+    const SettingContainer = document.querySelector('.Setting__Container');
+    if (SettingContainer) {
+      SettingContainer.innerHTML = '';
+      SettingContainer.remove();
     }
+    route('/');
   },
 };

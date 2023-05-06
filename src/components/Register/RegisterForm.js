@@ -1,6 +1,9 @@
 import { auth_request } from '../../lib/auth/request.js';
 import { route } from '../../utils/routes.js';
-import { buttonRegister, inputFileds } from '../../utils/helper/authForm.js';
+import {
+  buttonRegister,
+  createInputFields,
+} from '../../utils/helper/authForm.js';
 
 function RegisterForm(registerCol) {
   const registerFormBox = document.createElement('form');
@@ -62,7 +65,7 @@ function RegisterForm(registerCol) {
       },
     ];
 
-    const getInputFiled = inputFileds(items);
+    const getInputFiled = createInputFields(items);
 
     registerFormBox.innerHTML = getInputFiled + buttonRegister;
 

@@ -1,42 +1,56 @@
 import { getLocalStroage } from '../../utils/storage.js';
 import { auth_request } from '../../lib/auth/request.js';
 import { route } from '../../utils/routes.js';
-import Input from '../../commons/Input.js';
 import { getCookie, removeCookie } from '../../utils/cookie.js';
+import {
+  buttonSetting,
+  createInputFields,
+} from '../../utils/helper/authForm.js';
 
-function SettingForm(target) {
-  const settingFormBox = document.createElement('form');
-  settingFormBox.className = 'form';
-
-  const authToken = getLocalStroage('token');
-
-  const paintSetting = () => {
-    return `
+function renderLogoutButton() {
+  return `
        <hr />
       <button class="btn btn-outline-danger logout">
         Or click here to logout.
       </button>
       `;
-  };
+}
+
+function SettingForm(target) {
+  const settingFormBox = document.createElement('form');
+  settingFormBox.className = 'form';
+
   const paintSettingDiv = document.createElement('div');
-  paintSettingDiv.innerHTML = paintSetting();
+  paintSettingDiv.innerHTML = renderLogoutButton();
 
   target.appendChild(settingFormBox);
   target.appendChild(paintSettingDiv);
 
+  const initialState = {
+    username: '',
+    bio: '',
+    email: '',
+    image: '',
+  };
+
+  const updateState = (key, value) => {
+    state[key] = value;
+  };
+
+  const handleChange = (e) => {
+    const { name, value } = e.target;
+    updateState(name, value);
+  };
+
   const handleUpdateUserSubmit = async (e) => {
     e.preventDefault();
-    const email = document.querySelector('.email').value;
-    const bio = document.querySelector('.form-control-lg').value;
-    const image = document.querySelector('.image');
-    const imageValue = image.value.trim() === '' ? null : image.value;
 
-    const data = await auth_request.userUpdate(
-      authToken,
-      email,
-      bio,
-      imageValue
-    );
+    const settingDate = {
+      ...state,
+      authToken: getLocalStroage('token'),
+    };
+
+    const data = await auth_request.userUpdate(settingDate);
 
     if (data) {
       route('/');
@@ -44,61 +58,60 @@ function SettingForm(target) {
   };
 
   const handleLogoutClick = async () => {
-    const result = await auth_request.userLogout('token');
-    if (result) {
-      removeCookie('authToken');
-      route('/');
-    }
+    await auth_request.userLogout('token');
+
+    removeCookie('authToken');
+    route('/');
   };
 
   const render = () => {
     const authToken = JSON.parse(getCookie('token'));
 
-    settingFormBox.innerHTML = /* HTML */ `
-      <fieldset>
-        <fieldset class="form-group">
-          ${Input({
-            className: 'form-control',
-            type: 'text',
-            placeholder: 'URL of profile picture',
-            value: `${authToken.image}`,
-          })}
-        </fieldset>
-        <fieldset class="form-group">
-          ${Input({
-            className: 'form-control form-control-lg',
-            type: 'text',
-            placeholder: 'Your Name',
-            value: `${authToken.username}`,
-          })}
-        </fieldset>
-        <fieldset class="form-group">
-          <textarea
-            class="form-control form-control-lg"
-            rows="8"
-            placeholder="Short bio about you"
-          ></textarea>
-        </fieldset>
-        <fieldset class="form-group">
-          ${Input({
-            className: 'form-control form-control-lg email',
-            type: 'text',
-            placeholder: 'Email',
-            value: `${authToken.email}`,
-          })}
-        </fieldset>
-        <fieldset class="form-group">
-          ${Input({
-            className: 'form-control form-control-lg',
-            type: 'password',
-            placeholder: 'Password',
-          })}
-        </fieldset>
-        <button class="btn btn-lg btn-primary pull-xs-right">
-          Update Settings
-        </button>
-      </fieldset>
-    `;
+    const items = [
+      {
+        className: 'form-control',
+        id: 'image',
+        name: 'image',
+        type: 'text',
+        placeholder: 'URL of profile picture',
+        value: `${authToken.image}`,
+      },
+      {
+        className: 'form-control form-control-lg',
+        type: 'text',
+        name: 'username',
+        placeholder: 'Your Name',
+        value: `${authToken.username}`,
+      },
+      {
+        id: 'bio',
+        className: 'form-control form-control-lg',
+        rows: '8',
+        name: 'bio',
+        placeholder: 'Short bio about you',
+        value: `${authToken.bio.replace(/(\r\n|\n|\r)/gm, '')}`,
+      },
+      {
+        className: 'form-control form-control-lg email',
+        id: 'email',
+        type: 'text',
+        name: 'email',
+        placeholder: 'Email',
+        value: `${authToken.email}`,
+      },
+      {
+        className: 'form-control form-control-lg',
+        type: 'password',
+        placeholder: 'Password',
+      },
+    ];
+
+    const getInputField = createInputFields(items);
+
+    settingFormBox.innerHTML = getInputField + buttonSetting;
+
+    const inputs = document.querySelectorAll('input ,textarea');
+    inputs.forEach((input) => input.addEventListener('change', handleChange));
 
     const form = document.querySelector('.form');
     form.addEventListener('submit', handleUpdateUserSubmit);
@@ -106,6 +119,8 @@ function SettingForm(target) {
     const button = document.querySelector('.logout');
     button.addEventListener('click', handleLogoutClick);
   };
+
+  const state = initialState;
   render();
 }
 export default SettingForm;

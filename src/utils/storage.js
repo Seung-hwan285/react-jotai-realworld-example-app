@@ -15,7 +15,7 @@ export const getLocalStroage = (key) => {
 };
 export const removeStroage = (key) => {
   try {
-    return window.localStorage.removeItem(key);
+    window.localStorage.removeItem(key);
   } catch (err) {
     console.error(err);
   }
