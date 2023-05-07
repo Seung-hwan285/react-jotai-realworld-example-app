@@ -90,6 +90,7 @@ function HomeArticles(tagArticles) {
 
     spinnerContainer.remove();
     updateState({ articles: data });
+    console.log(state);
     HomeArticlePreview(state.articles);
 
     const ulElement = renderPageNumberLink(ul, state.activePage);
@@ -113,8 +114,7 @@ function HomeArticles(tagArticles) {
     const params = new URLSearchParams(window.location.search);
     const activePage = Number(params.get('page')) || 1;
 
-    console.log(activePage);
-    window.history.pushState({}, '', `?page=${activePage > 0 && activePage}`);
+    window.history.pushState({}, '', `?page=${activePage}`);
     const spinnerContainer = LoadingSpinner();
     col.appendChild(spinnerContainer);
 
@@ -122,7 +122,7 @@ function HomeArticles(tagArticles) {
       spinner.remove();
       HomeArticlePreview(tagArticles);
     } else if (activePage) {
-      const data = await article_request.getAllArticles(state.activePage);
+      const data = await article_request.getAllArticles(activePage);
       updateState({ activePage: activePage });
       updateState({ articles: data });
 

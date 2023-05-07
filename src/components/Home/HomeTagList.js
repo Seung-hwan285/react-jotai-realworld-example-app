@@ -83,7 +83,10 @@ function HomeTagList() {
   const col = document.createElement('div');
   col.className = 'col-md-3';
   row.appendChild(col);
-
+  if (document.querySelector('.col-md-3')) {
+    document.querySelector('.col-md-3').remove();
+    row.appendChild(col);
+  }
   renderSidebar();
 
   const tagList = document.querySelector('.tag-list');
