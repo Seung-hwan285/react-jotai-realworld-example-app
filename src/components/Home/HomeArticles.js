@@ -68,46 +68,45 @@ function HomeArticles(tagArticles) {
     state = { ...state, ...nextState };
   };
 
-  const handleNextPageClick = async (e) => {
-    const { textContent } = e.target;
-    const spinnerContainer = LoadingSpinner();
-    col.insertBefore(spinnerContainer, nav);
-
-    document.querySelectorAll('.page-item').forEach((li) => li.remove());
-    document.querySelectorAll('.article-preview').forEach((li) => li.remove());
-
+  const getNextPageIndex = (textContent) => {
     switch (textContent) {
       case '<<':
-        const firstPageIndex = 1;
-        updateState({ activePage: firstPageIndex });
-        break;
-
+        return 1;
       case '<':
         const previousPageIndex = state.activePage - 1;
         if (previousPageIndex > 1) {
-          updateState({ activePage: previousPageIndex });
-        } else {
-          return;
+          return previousPageIndex;
         }
         break;
-
       case '>>':
-        const lastPageIndex = 10;
-        updateState({ activePage: lastPageIndex });
-        break;
-
+        return 10;
       case '>':
         const nextPageIndex = state.activePage + 1;
         if (nextPageIndex < 11) {
-          updateState({ activePage: nextPageIndex });
+          return nextPageIndex;
         }
         break;
-
       default:
-        const pageNumber = Number(textContent);
-        updateState({ activePage: pageNumber });
-        break;
+        return Number(textContent);
     }
+  };
+
+  const removePageLinks = () => {
+    const pageLinks = document.querySelectorAll('.page-item');
+    pageLinks.forEach((link) => link.remove());
+  };
+
+  const removeArticles = () => {
+    const articlePreviews = document.querySelectorAll('.article-preview');
+    articlePreviews.forEach((article) => article.remove());
+  };
+
+  const createHomePage = async () => {
+    const spinnerContainer = LoadingSpinner();
+    col.insertBefore(spinnerContainer, nav);
+
+    removePageLinks();
+    removeArticles();
 
     const data = await article_request.getAllArticles(state.activePage);
 
@@ -117,10 +116,16 @@ function HomeArticles(tagArticles) {
 
     const ulElement = renderPageNumberLink(ul, state.activePage);
     const mainPaginationElement = document.querySelector('.main-pagination');
-    console.log(ulElement);
     mainPaginationElement.appendChild(ulElement);
 
     window.history.pushState({}, '', `?page=${state.activePage}`);
+  };
+
+  const handleNextPageClick = async (e) => {
+    const { textContent } = e.target;
+    const newPageIndex = getNextPageIndex(textContent);
+    updateState({ activePage: newPageIndex });
+    await createHomePage();
   };
 
   const render = async () => {
