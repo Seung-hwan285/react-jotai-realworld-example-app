@@ -1,4 +1,5 @@
 import { article_request } from '../../lib/article/request.js';
+
 import HomeArticlePreview from '../../components/Home/HomeArticlePreview.js';
 
 export const getPageItems = () =>
@@ -28,5 +29,8 @@ export const setActivePage = async (pageNumber) => {
     activeItem.classList.remove('active');
     page[pageNumber + 1].classList.add('active');
   }
-  HomeArticlePreview(articles);
+
+  // HomeArticlePreview(articles);
+
+  return articles;
 };

@@ -6,8 +6,8 @@ import {
   handleYourFeedClick,
 } from '../../utils/helper/feedToggle.js';
 import HomeArticles from './HomeArticles.js';
-import HomeTagList from './HomeTagList.js';
 import { setCookie } from '../../utils/cookie.js';
+import HomeTagList from './HomeTagList.js';
 
 function renderHomeMain() {
   const homeContainer = document.querySelector('.home-page');
@@ -82,6 +82,7 @@ function HomeMain() {
 
     feed.addEventListener('click', handleFeedClick);
   };
+
   render();
 }
 export default HomeMain;

@@ -1,12 +1,9 @@
 import LoadingSpinner from '../../commons/LoadingSpinner.js';
-import {
-  getActivePageItem,
-  getPageItems,
-  setActivePage,
-} from '../../utils/helper/mainPagination.js';
-import HomeArticlePreview from './HomeArticlePreview.js';
 
-function renderPageNumberLink(ul, activePage) {
+import HomeArticlePreview from './HomeArticlePreview.js';
+import { article_request } from '../../lib/article/request.js';
+
+export function renderPageNumberLink(ul, activePage) {
   const links = [
     '<<',
     '<',
@@ -48,75 +45,111 @@ function renderPageNumberLink(ul, activePage) {
     li.appendChild(a);
     ul.appendChild(li);
   });
+
+  return ul;
+  // mainPaginationElement.appendChild(ul);
 }
 
 function HomeArticles(tagArticles) {
   const col = document.querySelector('.col-md-9');
 
-  const spinnerContainer = LoadingSpinner();
-  col.appendChild(spinnerContainer);
   const nav = document.createElement('nav');
   nav.className = 'main-pagination';
   const ul = document.createElement('nav');
   ul.className = 'pagination';
   nav.appendChild(ul);
 
+  const initialState = {
+    articles: [],
+    activePage: 1,
+  };
+
+  const updateState = (nextState) => {
+    state = { ...state, ...nextState };
+  };
+
   const handleNextPageClick = async (e) => {
     const { textContent } = e.target;
+    const spinnerContainer = LoadingSpinner();
+    col.insertBefore(spinnerContainer, nav);
+
+    document.querySelectorAll('.page-item').forEach((li) => li.remove());
+    document.querySelectorAll('.article-preview').forEach((li) => li.remove());
 
     switch (textContent) {
       case '<<':
-        await setActivePage(1);
+        const firstPageIndex = 1;
+        updateState({ activePage: firstPageIndex });
         break;
 
       case '<':
-        const previousPageIndex = getActivePageItem();
-        if (previousPageIndex > 2) {
-          await setActivePage(previousPageIndex - 2);
+        const previousPageIndex = state.activePage - 1;
+        if (previousPageIndex > 1) {
+          updateState({ activePage: previousPageIndex });
         } else {
           return;
         }
         break;
 
       case '>>':
-        const lastPage = getPageItems().length - 4;
-
-        await setActivePage(lastPage);
+        const lastPageIndex = 10;
+        updateState({ activePage: lastPageIndex });
         break;
 
       case '>':
-        const nextPageIndex = getActivePageItem();
-        if (nextPageIndex < 10) {
-          await setActivePage(nextPageIndex);
+        const nextPageIndex = state.activePage + 1;
+        if (nextPageIndex < 11) {
+          updateState({ activePage: nextPageIndex });
         }
         break;
 
       default:
         const pageNumber = Number(textContent);
-        await setActivePage(pageNumber);
+        updateState({ activePage: pageNumber });
         break;
     }
+
+    const data = await article_request.getAllArticles(state.activePage);
+
+    spinnerContainer.remove();
+    updateState({ articles: data });
+    HomeArticlePreview(state.articles);
+
+    const ulElement = renderPageNumberLink(ul, state.activePage);
+    const mainPaginationElement = document.querySelector('.main-pagination');
+    console.log(ulElement);
+    mainPaginationElement.appendChild(ulElement);
+
+    window.history.pushState({}, '', `?page=${state.activePage}`);
   };
 
   const render = async () => {
     const spinner = document.querySelector('.spinner');
     const params = new URLSearchParams(window.location.search);
     const activePage = Number(params.get('page')) || 1;
+    window.history.pushState({}, '', `?page=${activePage}`);
+    const spinnerContainer = LoadingSpinner();
+    col.appendChild(spinnerContainer);
 
     if (tagArticles) {
       spinner.remove();
       HomeArticlePreview(tagArticles);
     } else if (activePage) {
-      await setActivePage(activePage);
-      spinner.remove();
-      renderPageNumberLink(ul, activePage);
-    }
+      updateState({ activePage: activePage });
 
+      const data = await article_request.getAllArticles(state.activePage);
+      updateState({ articles: data });
+
+      HomeArticlePreview(state.articles);
+      renderPageNumberLink(ul, state.activePage);
+    }
     col.appendChild(nav);
 
     const page = document.querySelector('.pagination');
     page.addEventListener('click', handleNextPageClick);
   };
+
+  let state = initialState;
 
   render();
 }

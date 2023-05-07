@@ -43,10 +43,10 @@ async function renderFeedWithClickEvent(tagArticles) {
       },
     ];
 
-    const findEvent = feeds.find((feed) => feed.text === textContent);
+    const findEvenet = feeds.find((feed) => feed.text === textContent);
 
-    if (findEvent) {
-      findEvent.click();
+    if (findEvenet) {
+      findEvenet.click();
     }
   };
 
@@ -82,13 +82,7 @@ function HomeTagList() {
   const row = document.querySelector('.row');
   const col = document.createElement('div');
   col.className = 'col-md-3';
-
   row.appendChild(col);
-
-  if (document.querySelector('.col-md-3')) {
-    document.querySelector('.col-md-3').remove();
-    row.appendChild(col);
-  }
 
   renderSidebar();
 
@@ -129,12 +123,10 @@ function HomeTagList() {
           </div>
         </div>
     `;
+    row.appendChild(col);
 
     const sidebar = document.querySelector('.sidebar');
     sidebar.addEventListener('click', handleTagClick);
-
-    const spinner = document.querySelector('.tag-list .spinner');
-    if (spinner) spinner.remove();
   };
 
   render();
