@@ -61,7 +61,7 @@ export function renderPageNumberLink(ul, activePage) {
   return ul;
 }
 
-function HomeArticles(tagArticles) {
+function HomeArticles(articles) {
   const col = document.querySelector('.col-md-9');
 
   const nav = document.createElement('nav');
@@ -90,7 +90,6 @@ function HomeArticles(tagArticles) {
 
     spinnerContainer.remove();
     updateState({ articles: data });
-    console.log(state);
     HomeArticlePreview(state.articles);
 
     const ulElement = renderPageNumberLink(ul, state.activePage);
@@ -110,7 +109,6 @@ function HomeArticles(tagArticles) {
   };
 
   const render = async () => {
-    const spinner = document.querySelector('.spinner');
     const params = new URLSearchParams(window.location.search);
     const activePage = Number(params.get('page')) || 1;
 
@@ -118,9 +116,13 @@ function HomeArticles(tagArticles) {
     const spinnerContainer = LoadingSpinner();
     col.appendChild(spinnerContainer);
 
-    if (tagArticles) {
-      spinner.remove();
-      HomeArticlePreview(tagArticles);
+    const spinner = document.querySelector('.spinner');
+
+    if (articles) {
+      setTimeout(() => {
+        spinner.remove();
+        HomeArticlePreview(articles);
+      }, 1000);
     } else if (activePage) {
       const data = await article_request.getAllArticles(activePage);
       updateState({ activePage: activePage });

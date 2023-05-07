@@ -58,6 +58,7 @@ export const handleGlobalFeedClick = async () => {
     const globalFeedElement = document.querySelector(
       '.nav-pills .nav-item:nth-child(2) a'
     );
+    console.log(globalFeedElement);
     const yourFeedElement = document.querySelector('.nav-pills .nav-item a');
     const tagFeedElement = document.querySelector(
       '.nav-pills .nav-item:nth-child(3) a'
@@ -84,7 +85,6 @@ export const handleGlobalFeedClick = async () => {
 
     const setActive = toggleActive(globalFeedElement, tagFeedElement);
     setActive();
-    mainRemove();
     domRemove(document.querySelectorAll('.article-preview'));
     HomeArticles();
   }
@@ -107,13 +107,14 @@ export const handleTagsFeedClick = async () => {
   );
   setActive();
 
-  const { articles: tagAricles } = await article_request.getTagArticles(
+  const data = await article_request.getTagArticles(
     getLocalStroage('selectTag')
   );
   if (document.querySelector('.main-pagination')) mainRemove();
 
   domRemove(document.querySelectorAll('.article-preview'));
-  HomeArticles(tagAricles);
+
+  HomeArticles(data);
 };
 
 export const createTagNavPillsHtml = (items, authToken, tag) => {
