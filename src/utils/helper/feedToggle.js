@@ -2,7 +2,7 @@ import { fetchAuthUserInfo } from './fetchAuth.js';
 import { getLocalStroage } from '../storage.js';
 import HomeArticles from '../../components/Home/HomeArticles.js';
 import { article_request } from '../../lib/article/request.js';
-import { articlesRemove } from './mainPagination.js';
+import { domRemove } from './mainPagination.js';
 
 const addActive = (dom) => dom.classList.add('active');
 const removeActive = (dom) => dom.classList.remove('active');
@@ -45,7 +45,7 @@ export const handleYourFeedClick = () => {
     const noArticle = document.createElement('div');
     noArticle.textContent = 'no article are here... yet.';
     noArticle.className = 'article-preview';
-    articlesRemove(document.querySelectorAll('.article-preview'));
+    domRemove(document.querySelectorAll('.article-preview'));
     mainRemove();
     col.appendChild(noArticle);
   }
@@ -72,7 +72,7 @@ export const handleGlobalFeedClick = async () => {
 
     if (document.querySelector('.main-pagination')) mainRemove();
 
-    articlesRemove(document.querySelectorAll('.article-preview'));
+    domRemove(document.querySelectorAll('.article-preview'));
     HomeArticles();
   } else {
     const globalFeedElement = document.querySelector(
@@ -85,7 +85,7 @@ export const handleGlobalFeedClick = async () => {
     const setActive = toggleActive(globalFeedElement, tagFeedElement);
     setActive();
     mainRemove();
-    articlesRemove(document.querySelectorAll('.article-preview'));
+    domRemove(document.querySelectorAll('.article-preview'));
     HomeArticles();
   }
 };
@@ -112,7 +112,7 @@ export const handleTagsFeedClick = async () => {
   );
   if (document.querySelector('.main-pagination')) mainRemove();
 
-  articlesRemove(document.querySelectorAll('.article-preview'));
+  domRemove(document.querySelectorAll('.article-preview'));
   HomeArticles(tagAricles);
 };
 

@@ -1,36 +1,26 @@
-import { article_request } from '../../lib/article/request.js';
+export const domRemove = (domList) => domList.forEach((dom) => dom.remove());
 
-import HomeArticlePreview from '../../components/Home/HomeArticlePreview.js';
-
-export const getPageItems = () =>
-  Array.from(document.querySelectorAll('.page-item'));
-
-export const getActivePageItem = () =>
-  getPageItems().findIndex((item) => item.classList.contains('active'));
-
-export const articlesRemove = (article) => article.forEach((a) => a.remove());
-
-export const getArticlePreviews = () =>
-  document.querySelectorAll('.article-preview');
-
-export const setActivePage = async (pageNumber) => {
-  const { articles } = await article_request.getAllArticles(
-    pageNumber > 1 && pageNumber
-  );
-
-  const articlePreviews = getArticlePreviews();
-  articlesRemove(articlePreviews);
-
-  window.history.pushState({}, '', `?page=${pageNumber}`);
-
-  const page = Array.from(document.querySelectorAll('.page-item'));
-  const activeItem = page.find((item) => item.classList.contains('active'));
-  if (page.length) {
-    activeItem.classList.remove('active');
-    page[pageNumber + 1].classList.add('active');
+export const getNextPageIndex = (textContent, state) => {
+  switch (textContent) {
+    case '<<':
+      return 1;
+    case '<':
+      const previousPageIndex = state.activePage - 1;
+      if (previousPageIndex > 0) {
+        return previousPageIndex;
+      } else {
+        return '<';
+      }
+    case '>>':
+      return 10;
+    case '>':
+      const nextPageIndex = state.activePage + 1;
+      if (nextPageIndex < 11) {
+        return nextPageIndex;
+      } else {
+        return '>';
+      }
+    default:
+      return Number(textContent);
   }
-
-  // HomeArticlePreview(articles);
-
-  return articles;
 };

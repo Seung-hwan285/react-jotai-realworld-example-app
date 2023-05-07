@@ -2,6 +2,10 @@ import LoadingSpinner from '../../commons/LoadingSpinner.js';
 
 import HomeArticlePreview from './HomeArticlePreview.js';
 import { article_request } from '../../lib/article/request.js';
+import {
+  domRemove,
+  getNextPageIndex,
+} from '../../utils/helper/mainPagination.js';
 
 export function renderPageNumberLink(ul, activePage) {
   const links = [
@@ -20,7 +24,6 @@ export function renderPageNumberLink(ul, activePage) {
     '>',
     '>>',
   ];
-
   links.forEach((link, idx) => {
     const li = document.createElement('li');
     li.classList.add('page-item');
@@ -30,9 +33,18 @@ export function renderPageNumberLink(ul, activePage) {
         li.classList.add('active');
         break;
       case activePage + 1 === idx && idx !== 1:
-        const classList = li.classList;
-        classList.remove('active');
-        classList.add('active');
+        li.classList.remove('active');
+        li.classList.add('active');
+        break;
+      case activePage === '>':
+        if (idx === 11) {
+          li.classList.add('active');
+        }
+        break;
+      case activePage === '<':
+        if (idx === 2) {
+          li.classList.add('active');
+        }
         break;
       default:
         break;
@@ -47,7 +59,6 @@ export function renderPageNumberLink(ul, activePage) {
   });
 
   return ul;
-  // mainPaginationElement.appendChild(ul);
 }
 
 function HomeArticles(tagArticles) {
@@ -68,45 +79,12 @@ function HomeArticles(tagArticles) {
     state = { ...state, ...nextState };
   };
 
-  const getNextPageIndex = (textContent) => {
-    switch (textContent) {
-      case '<<':
-        return 1;
-      case '<':
-        const previousPageIndex = state.activePage - 1;
-        if (previousPageIndex > 1) {
-          return previousPageIndex;
-        }
-        break;
-      case '>>':
-        return 10;
-      case '>':
-        const nextPageIndex = state.activePage + 1;
-        if (nextPageIndex < 11) {
-          return nextPageIndex;
-        }
-        break;
-      default:
-        return Number(textContent);
-    }
-  };
-
-  const removePageLinks = () => {
-    const pageLinks = document.querySelectorAll('.page-item');
-    pageLinks.forEach((link) => link.remove());
-  };
-
-  const removeArticles = () => {
-    const articlePreviews = document.querySelectorAll('.article-preview');
-    articlePreviews.forEach((article) => article.remove());
-  };
-
   const createHomePage = async () => {
     const spinnerContainer = LoadingSpinner();
     col.insertBefore(spinnerContainer, nav);
 
-    removePageLinks();
-    removeArticles();
+    domRemove(document.querySelectorAll('.page-item'));
+    domRemove(document.querySelectorAll('.article-preview'));
 
     const data = await article_request.getAllArticles(state.activePage);
 
@@ -118,12 +96,14 @@ function HomeArticles(tagArticles) {
     const mainPaginationElement = document.querySelector('.main-pagination');
     mainPaginationElement.appendChild(ulElement);
 
-    window.history.pushState({}, '', `?page=${state.activePage}`);
+    if (state.activePage > 0) {
+      window.history.pushState({}, '', `?page=${state.activePage}`);
+    }
   };
 
   const handleNextPageClick = async (e) => {
     const { textContent } = e.target;
-    const newPageIndex = getNextPageIndex(textContent);
+    const newPageIndex = getNextPageIndex(textContent, state);
     updateState({ activePage: newPageIndex });
     await createHomePage();
   };
@@ -132,7 +112,9 @@ function HomeArticles(tagArticles) {
     const spinner = document.querySelector('.spinner');
     const params = new URLSearchParams(window.location.search);
     const activePage = Number(params.get('page')) || 1;
-    window.history.pushState({}, '', `?page=${activePage}`);
+
+    console.log(activePage);
+    window.history.pushState({}, '', `?page=${activePage > 0 && activePage}`);
     const spinnerContainer = LoadingSpinner();
     col.appendChild(spinnerContainer);
 
@@ -140,9 +122,8 @@ function HomeArticles(tagArticles) {
       spinner.remove();
       HomeArticlePreview(tagArticles);
     } else if (activePage) {
-      updateState({ activePage: activePage });
-
       const data = await article_request.getAllArticles(state.activePage);
+      updateState({ activePage: activePage });
       updateState({ articles: data });
 
       HomeArticlePreview(state.articles);
