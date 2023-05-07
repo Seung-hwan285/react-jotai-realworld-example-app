@@ -1,4 +1,3 @@
-import { article_request } from '../../lib/article/request.js';
 import LoadingSpinner from '../../commons/LoadingSpinner.js';
 import {
   getActivePageItem,

@@ -85,6 +85,11 @@ function HomeTagList() {
 
   row.appendChild(col);
 
+  if (document.querySelector('.col-md-3')) {
+    document.querySelector('.col-md-3').remove();
+    row.appendChild(col);
+  }
+
   renderSidebar();
 
   const tagList = document.querySelector('.tag-list');
@@ -127,6 +132,9 @@ function HomeTagList() {
 
     const sidebar = document.querySelector('.sidebar');
     sidebar.addEventListener('click', handleTagClick);
+
+    const spinner = document.querySelector('.tag-list .spinner');
+    if (spinner) spinner.remove();
   };
 
   render();
