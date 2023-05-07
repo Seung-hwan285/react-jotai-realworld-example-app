@@ -13,14 +13,20 @@ export const getArticlePreviews = () =>
   document.querySelectorAll('.article-preview');
 
 export const setActivePage = async (pageNumber) => {
-  const page = Array.from(document.querySelectorAll('.page-item'));
-  const activeItem = page.find((item) => item.classList.contains('active'));
-  activeItem.classList.remove('active');
-  page[pageNumber].classList.add('active');
-
-  const { articles } = await article_request.getAllArticles(pageNumber - 1);
+  const { articles } = await article_request.getAllArticles(
+    pageNumber > 1 && pageNumber
+  );
 
   const articlePreviews = getArticlePreviews();
   articlesRemove(articlePreviews);
+
+  window.history.pushState({}, '', `?page=${pageNumber}`);
+
+  const page = Array.from(document.querySelectorAll('.page-item'));
+  const activeItem = page.find((item) => item.classList.contains('active'));
+  if (page.length) {
+    activeItem.classList.remove('active');
+    page[pageNumber + 1].classList.add('active');
+  }
   HomeArticlePreview(articles);
 };

@@ -112,11 +112,6 @@ export const auth_request = {
 
   userLogout: (key) => {
     removeStroage(key);
-    const SettingContainer = document.querySelector('.Setting__Container');
-    if (SettingContainer) {
-      SettingContainer.innerHTML = '';
-      SettingContainer.remove();
-    }
     route('/');
   },
 };

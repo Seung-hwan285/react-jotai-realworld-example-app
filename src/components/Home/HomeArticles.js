@@ -7,7 +7,7 @@ import {
 } from '../../utils/helper/mainPagination.js';
 import HomeArticlePreview from './HomeArticlePreview.js';
 
-function renderPageNumberLink(ul) {
+function renderPageNumberLink(ul, activePage) {
   const links = [
     '<<',
     '<',
@@ -29,8 +29,17 @@ function renderPageNumberLink(ul) {
     const li = document.createElement('li');
     li.classList.add('page-item');
 
-    if (idx === 2) {
-      li.classList.add('active');
+    switch (true) {
+      case idx === 2 && activePage === 1:
+        li.classList.add('active');
+        break;
+      case activePage + 1 === idx && idx !== 1:
+        const classList = li.classList;
+        classList.remove('active');
+        classList.add('active');
+        break;
+      default:
+        break;
     }
 
     const a = document.createElement('a');
@@ -58,57 +67,59 @@ function HomeArticles(tagArticles) {
 
     switch (textContent) {
       case '<<':
-        await setActivePage(2);
+        await setActivePage(1);
         break;
 
       case '<':
         const previousPageIndex = getActivePageItem();
         if (previousPageIndex > 2) {
-          await setActivePage(previousPageIndex - 1);
+          await setActivePage(previousPageIndex - 2);
         } else {
           return;
         }
         break;
 
       case '>>':
-        const lastPage = getPageItems().length - 3;
+        const lastPage = getPageItems().length - 4;
+
         await setActivePage(lastPage);
         break;
 
       case '>':
         const nextPageIndex = getActivePageItem();
-        if (nextPageIndex < 11) {
-          await setActivePage(nextPageIndex + 1);
+        if (nextPageIndex < 10) {
+          await setActivePage(nextPageIndex);
         }
         break;
 
       default:
-        const pageNumber = Number(textContent) + 1;
+        const pageNumber = Number(textContent);
         await setActivePage(pageNumber);
         break;
     }
   };
 
   const render = async () => {
-    const { articles } = await article_request.getAllArticles();
-
     const spinner = document.querySelector('.spinner');
+    const params = new URLSearchParams(window.location.search);
+    const activePage = Number(params.get('page')) || 1;
 
-    // 초기렌더링
     if (tagArticles) {
       spinner.remove();
       HomeArticlePreview(tagArticles);
-    } else {
+    } else if (activePage) {
+      await setActivePage(activePage);
       spinner.remove();
-      HomeArticlePreview(articles);
-      renderPageNumberLink(ul);
+      renderPageNumberLink(ul, activePage);
     }
 
     col.appendChild(nav);
+
     const page = document.querySelector('.pagination');
     page.addEventListener('click', handleNextPageClick);
   };
 
   render();
 }
+
 export default HomeArticles;

@@ -82,6 +82,7 @@ function HomeTagList() {
   const row = document.querySelector('.row');
   const col = document.createElement('div');
   col.className = 'col-md-3';
+
   row.appendChild(col);
 
   renderSidebar();
