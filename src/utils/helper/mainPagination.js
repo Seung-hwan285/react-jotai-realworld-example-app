@@ -1,11 +1,11 @@
 export const domRemove = (domList) => domList.forEach((dom) => dom.remove());
 
-export const getNextPageIndex = (textContent, state) => {
+export const getNextPageIndex = (textContent, activePage) => {
   switch (textContent) {
     case '<<':
       return 1;
     case '<':
-      const previousPageIndex = state.activePage - 1;
+      const previousPageIndex = activePage - 1;
       if (previousPageIndex > 0) {
         return previousPageIndex;
       } else {
@@ -14,7 +14,7 @@ export const getNextPageIndex = (textContent, state) => {
     case '>>':
       return 10;
     case '>':
-      const nextPageIndex = state.activePage + 1;
+      const nextPageIndex = activePage + 1;
       if (nextPageIndex < 11) {
         return nextPageIndex;
       } else {

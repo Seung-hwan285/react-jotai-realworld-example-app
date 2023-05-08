@@ -1,8 +1,26 @@
 import { getLocalStroage } from '../../utils/storage.js';
 import { createTagNavPillsHtml } from '../../utils/helper/feedToggle.js';
 
+function getNavElement(index) {
+  return document.querySelector(`.nav-pills .nav-item:nth-child(${index}) a`);
+}
+
+function renderFeedToggleContainer(getTagList) {
+  return `<div class="feed-toggle">
+    <ul class="nav nav-pills outline-active">
+    ${getTagList}
+</ul>
+</div>`;
+}
+
+function renderNoArticle(col, message) {
+  const noArticles = document.createElement('div');
+  noArticles.className = 'article-preview';
+  noArticles.textContent = message;
+  col.appendChild(noArticles);
+}
+
 function HomeFeed({ activeFeed, onClick }) {
-  console.log(activeFeed);
   const col = document.querySelector('.col-md-9');
   const getTag = getLocalStroage('selectTag');
 
@@ -16,65 +34,55 @@ function HomeFeed({ activeFeed, onClick }) {
 
   const getTagList = createTagNavPillsHtml(items, token, getTag);
 
-  const feedToggleContainer = `<div class="feed-toggle">
-    <ul class="nav nav-pills outline-active">
-    ${getTagList}
-</ul>
-</div>`;
+  const setActiveNavElement = (navElements) => {
+    navElements.forEach((navElement) => {
+      console.log(navElement);
+      if (activeFeed === Object.keys(navElement)[0]) {
+        Object.values(navElement)[0].classList.add('active');
+      } else {
+        Object.values(navElement)[0].classList.remove('active');
+      }
+    });
+  };
 
   const render = () => {
     if (getTag && token) {
-      col.innerHTML = feedToggleContainer;
+      col.innerHTML = renderFeedToggleContainer(getTagList);
     } else {
-      col.innerHTML = feedToggleContainer;
+      col.innerHTML = renderFeedToggleContainer(getTagList);
     }
-    const noArticles = document.createElement('div');
+
+    const navElements = [
+      ...(token
+        ? [
+            { your: getNavElement(1) },
+            { global: getNavElement(2) },
+            { getTag: getNavElement(3) },
+          ]
+        : [{ global: getNavElement(1) }, { getTag: getNavElement(2) }]),
+    ];
 
     if (token) {
-      const globalFeedElement = document.querySelector(
-        '.nav-pills .nav-item:nth-child(2) a'
-      );
-
-      const tagFeedElement = document.querySelector(
-        '.nav-pills .nav-item:nth-child(3) a'
-      );
-
-      const yourFeedElement = document.querySelector(
-        '.nav-pills .nav-item:nth-child(1) a'
-      );
-
-      if (activeFeed === 'global') {
-        globalFeedElement.classList.add('active');
-        tagFeedElement.classList.remove('active');
-      }
-      if (activeFeed !== 'global') {
-        globalFeedElement.classList.remove('active');
-        tagFeedElement.classList.add('active');
-      }
-      if (activeFeed === 'your') {
-        yourFeedElement.classList.add('active');
-        globalFeedElement.classList.remove('active');
-        tagFeedElement.classList.remove('active');
-        noArticles.className = 'article-preview';
-        noArticles.textContent = 'no aritlce...';
-        col.appendChild(noArticles);
+      switch (activeFeed) {
+        case 'global':
+          setActiveNavElement(navElements, 2);
+          break;
+        case 'getTag':
+          setActiveNavElement(navElements, 3);
+          break;
+        case 'your':
+          setActiveNavElement(navElements, 1);
+          renderNoArticle(col, 'no article...');
+          break;
       }
     } else {
-      const globalFeedElement = document.querySelector(
-        '.nav-pills .nav-item:nth-child(1) a'
-      );
-
-      const tagFeedElement = document.querySelector(
-        '.nav-pills .nav-item:nth-child(2) a'
-      );
-
-      if (activeFeed === 'global') {
-        globalFeedElement.classList.add('active');
-        tagFeedElement.classList.remove('active');
-      }
-      if (activeFeed !== 'global') {
-        globalFeedElement.classList.remove('active');
-        tagFeedElement.classList.add('active');
+      switch (activeFeed) {
+        case 'global':
+          setActiveNavElement(navElements, 1);
+          break;
+        case 'getTag':
+          setActiveNavElement(navElements, 2);
+          break;
       }
     }
 

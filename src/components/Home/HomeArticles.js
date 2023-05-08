@@ -8,24 +8,6 @@ import {
 } from '../../utils/helper/mainPagination.js';
 
 export function renderPageNumberLink(nav, activePage, pageNumber) {
-  const links = [
-    '<<',
-    '<',
-    '1',
-    '2',
-    '3',
-    '4',
-    '5',
-    '6',
-    '7',
-    '8',
-    '9',
-    '10',
-    '>',
-    '>>',
-  ];
-  console.log(pageNumber);
-
   if (pageNumber) {
     pageNumber.forEach((link, idx) => {
       const li = document.createElement('li');
@@ -91,7 +73,6 @@ async function updateArticles() {
   domRemove(document.querySelectorAll('.page-item'));
   domRemove(document.querySelectorAll('.article-preview'));
 
-  console.log(state.activePage);
   const { articles } = await article_request.getAllArticles(state.activePage);
 
   spinnerContainer.remove();
@@ -111,7 +92,6 @@ async function updateArticles() {
 }
 
 function HomeArticles({ state }) {
-  console.log(state);
   const col = document.querySelector('.col-md-9');
   const nav = document.createElement('nav');
   nav.className = 'main-pagination';
@@ -120,8 +100,12 @@ function HomeArticles({ state }) {
   nav.appendChild(ul);
 
   const handleNextPageClick = async (e) => {
+    const params = new URLSearchParams(window.location.search);
+    const activePage = Number(params.get('page')) || 1;
     const { textContent } = e.target;
-    const newPageIndex = getNextPageIndex(textContent);
+
+    const newPageIndex = getNextPageIndex(textContent, activePage);
+
     updateState({ activePage: newPageIndex });
     await updateArticles();
   };
@@ -150,11 +134,9 @@ function HomeArticles({ state }) {
   };
 
   render();
-  return { render };
 }
 
 const initialState = {
-  articles: [],
   activePage: 1,
 };
 
