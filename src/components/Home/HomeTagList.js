@@ -13,14 +13,15 @@ function renderSidebar() {
   col.innerHTML = `
     <div class="sidebar">
         <p>Popular Tags</p>
-        <div class="tag-list"></div>
+        <div class="sidebar tag-list"></div>
     </div>
   `;
   row.appendChild(col);
 }
 
 function renderTagList(tags) {
-  const tagList = document.querySelector('.tag-list');
+  const tagList = document.querySelector('.sidebar .tag-list');
+  console.log(tagList);
   tagList.innerHTML = tags
     .map((tag) => {
       return /* HTML*/ `
@@ -45,8 +46,9 @@ async function updateArticleByTag(tag) {
     articles: tagArticles,
   });
 
+  console.log(state);
   HomeFeed(state);
-  HomeArticlePreview(state);
+  // HomeArticlePreview(state.articles);
 }
 
 function HomeTagList() {
@@ -69,7 +71,9 @@ function HomeTagList() {
   const handleTagClick = async (e) => {
     e.preventDefault();
     const tag = e.target.textContent;
+
     setLocalStroage('selectTag', tag);
+
     await updateArticleByTag(tag);
   };
 

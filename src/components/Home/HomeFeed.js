@@ -1,40 +1,13 @@
 import { getLocalStroage } from '../../utils/storage.js';
-import {
-  createTagNavPillsHtml,
-  handleGlobalFeedClick,
-  handleTagsFeedClick,
-  handleYourFeedClick,
-} from '../../utils/helper/feedToggle.js';
+import { createTagNavPillsHtml } from '../../utils/helper/feedToggle.js';
 
-function HomeFeed({ getTag }) {
-  const token = getLocalStroage('token');
+function HomeFeed({ activeFeed, onClick }) {
+  console.log(activeFeed);
   const col = document.querySelector('.col-md-9');
+  const getTag = getLocalStroage('selectTag');
 
-  const handleFeedClick = async (e) => {
-    e.preventDefault();
+  const token = getLocalStroage('token');
 
-    const { textContent } = e.target;
-    const feeds = [
-      {
-        text: 'Your Feed',
-        click: handleYourFeedClick,
-      },
-      {
-        text: 'Global Feed',
-        click: handleGlobalFeedClick,
-      },
-      {
-        text: `#${getTag}`,
-        click: handleTagsFeedClick,
-      },
-    ];
-
-    const findEvent = feeds.find((feed) => feed.text === textContent);
-
-    if (findEvent) {
-      findEvent.click();
-    }
-  };
   const items = [
     ...(token
       ? [{ text: 'Your Feed' }, { text: 'Global Feed' }, { text: `#${getTag}` }]
@@ -55,9 +28,58 @@ function HomeFeed({ getTag }) {
     } else {
       col.innerHTML = feedToggleContainer;
     }
+    const noArticles = document.createElement('div');
+
+    if (token) {
+      const globalFeedElement = document.querySelector(
+        '.nav-pills .nav-item:nth-child(2) a'
+      );
+
+      const tagFeedElement = document.querySelector(
+        '.nav-pills .nav-item:nth-child(3) a'
+      );
+
+      const yourFeedElement = document.querySelector(
+        '.nav-pills .nav-item:nth-child(1) a'
+      );
+
+      if (activeFeed === 'global') {
+        globalFeedElement.classList.add('active');
+        tagFeedElement.classList.remove('active');
+      }
+      if (activeFeed !== 'global') {
+        globalFeedElement.classList.remove('active');
+        tagFeedElement.classList.add('active');
+      }
+      if (activeFeed === 'your') {
+        yourFeedElement.classList.add('active');
+        globalFeedElement.classList.remove('active');
+        tagFeedElement.classList.remove('active');
+        noArticles.className = 'article-preview';
+        noArticles.textContent = 'no aritlce...';
+        col.appendChild(noArticles);
+      }
+    } else {
+      const globalFeedElement = document.querySelector(
+        '.nav-pills .nav-item:nth-child(1) a'
+      );
+
+      const tagFeedElement = document.querySelector(
+        '.nav-pills .nav-item:nth-child(2) a'
+      );
+
+      if (activeFeed === 'global') {
+        globalFeedElement.classList.add('active');
+        tagFeedElement.classList.remove('active');
+      }
+      if (activeFeed !== 'global') {
+        globalFeedElement.classList.remove('active');
+        tagFeedElement.classList.add('active');
+      }
+    }
 
     const feed = document.querySelector('.feed-toggle');
-    feed.addEventListener('click', handleFeedClick);
+    feed.addEventListener('click', onClick);
   };
   render();
 }

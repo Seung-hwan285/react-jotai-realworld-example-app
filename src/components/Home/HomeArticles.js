@@ -7,7 +7,7 @@ import {
   getNextPageIndex,
 } from '../../utils/helper/mainPagination.js';
 
-export function renderPageNumberLink(nav, activePage) {
+export function renderPageNumberLink(nav, activePage, pageNumber) {
   const links = [
     '<<',
     '<',
@@ -24,40 +24,44 @@ export function renderPageNumberLink(nav, activePage) {
     '>',
     '>>',
   ];
-  links.forEach((link, idx) => {
-    const li = document.createElement('li');
-    li.classList.add('page-item');
+  console.log(pageNumber);
 
-    switch (true) {
-      case idx === 2 && activePage === 1:
-        li.classList.add('active');
-        break;
-      case activePage + 1 === idx && idx !== 1:
-        li.classList.remove('active');
-        li.classList.add('active');
-        break;
-      case activePage === '>':
-        if (idx === 11) {
+  if (pageNumber) {
+    pageNumber.forEach((link, idx) => {
+      const li = document.createElement('li');
+      li.classList.add('page-item');
+
+      switch (true) {
+        case idx === 2 && activePage === 1:
           li.classList.add('active');
-        }
-        break;
-      case activePage === '<':
-        if (idx === 2) {
+          break;
+        case activePage + 1 === idx && idx !== 1:
+          li.classList.remove('active');
           li.classList.add('active');
-        }
-        break;
-      default:
-        break;
-    }
+          break;
+        case activePage === '>':
+          if (idx === 11) {
+            li.classList.add('active');
+          }
+          break;
+        case activePage === '<':
+          if (idx === 2) {
+            li.classList.add('active');
+          }
+          break;
+        default:
+          break;
+      }
 
-    const a = document.createElement('a');
-    a.classList.add('page-link');
-    a.textContent = link;
+      const a = document.createElement('a');
+      a.classList.add('page-link');
+      a.textContent = link;
 
-    li.appendChild(a);
-    nav.appendChild(li);
-  });
-  return nav;
+      li.appendChild(a);
+      nav.appendChild(li);
+    });
+    return nav;
+  }
 }
 
 async function updateArticles() {
@@ -65,38 +69,59 @@ async function updateArticles() {
   const nav = document.querySelector('.pagination');
   const ul = document.querySelector('.main-pagination');
 
+  state.pageNumber = [
+    '<<',
+    '<',
+    '1',
+    '2',
+    '3',
+    '4',
+    '5',
+    '6',
+    '7',
+    '8',
+    '9',
+    '10',
+    '>',
+    '>>',
+  ];
   const spinnerContainer = LoadingSpinner();
   col.appendChild(spinnerContainer);
 
   domRemove(document.querySelectorAll('.page-item'));
   domRemove(document.querySelectorAll('.article-preview'));
 
-  const data = await article_request.getAllArticles(state.activePage);
+  console.log(state.activePage);
+  const { articles } = await article_request.getAllArticles(state.activePage);
 
   spinnerContainer.remove();
-  updateState({
-    articles: data,
-  });
-  HomeArticlePreview(state.articles);
-  const pagination = renderPageNumberLink(nav, state.activePage);
 
+  HomeArticlePreview(articles);
+  const pagination = renderPageNumberLink(
+    nav,
+    state.activePage,
+    state.pageNumber
+  );
+
+  console.log(pagination);
   ul.appendChild(pagination);
   if (state.activePage > 0) {
     window.history.pushState({}, '', `?page=${state.activePage}`);
   }
 }
 
-function HomeArticles(articles) {
+function HomeArticles({ state }) {
+  console.log(state);
   const col = document.querySelector('.col-md-9');
   const nav = document.createElement('nav');
   nav.className = 'main-pagination';
-  const ul = document.createElement('div');
+  const ul = document.createElement('nav');
   ul.className = 'pagination';
   nav.appendChild(ul);
 
   const handleNextPageClick = async (e) => {
     const { textContent } = e.target;
-    const newPageIndex = getNextPageIndex(textContent, state);
+    const newPageIndex = getNextPageIndex(textContent);
     updateState({ activePage: newPageIndex });
     await updateArticles();
   };
@@ -111,29 +136,21 @@ function HomeArticles(articles) {
 
     const spinner = document.querySelector('.spinner');
 
-    if (articles) {
+    if (state.articles) {
       setTimeout(() => {
-        spinner.remove();
-        HomeArticlePreview(articles);
-      }, 1000);
+        HomeArticlePreview(state.articles);
+        renderPageNumberLink(ul, activePage, state.pageNumber);
+      }, 1500);
     } else if (activePage) {
-      const data = await article_request.getAllArticles(activePage);
-      updateState({
-        activePage: activePage,
-        articles: data,
-      });
-
-      HomeArticlePreview(state.articles);
-      renderPageNumberLink(ul, state.activePage);
     }
     col.appendChild(nav);
 
     const page = document.querySelector('.pagination');
-    page.removeEventListener('click', handleNextPageClick);
     page.addEventListener('click', handleNextPageClick);
   };
 
   render();
+  return { render };
 }
 
 const initialState = {

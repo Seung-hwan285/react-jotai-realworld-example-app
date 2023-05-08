@@ -1,6 +1,7 @@
 import HomeArticleTagList from './HomeArticleTagList.js';
 
-function HomeArticlePreview({ articles }) {
+function HomeArticlePreview(articles) {
+  console.log(articles);
   const render = async () => {
     const col = document.querySelector('.col-md-9');
 
