@@ -36,7 +36,6 @@ function HomeFeed({ activeFeed, onClick }) {
 
   const setActiveNavElement = (navElements) => {
     navElements.forEach((navElement) => {
-      console.log(navElement);
       if (activeFeed === Object.keys(navElement)[0]) {
         Object.values(navElement)[0].classList.add('active');
       } else {

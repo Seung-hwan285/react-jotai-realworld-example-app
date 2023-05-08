@@ -21,7 +21,6 @@ function renderSidebar() {
 
 function renderTagList(tags) {
   const tagList = document.querySelector('.sidebar .tag-list');
-  console.log(tagList);
   tagList.innerHTML = tags
     .map((tag) => {
       return /* HTML*/ `
@@ -46,7 +45,6 @@ async function updateArticleByTag(tag) {
     articles: tagArticles,
   });
 
-  console.log(state);
   HomeFeed(state);
   // HomeArticlePreview(state.articles);
 }

@@ -84,7 +84,6 @@ async function updateArticles() {
     state.pageNumber
   );
 
-  console.log(pagination);
   ul.appendChild(pagination);
   if (state.activePage > 0) {
     window.history.pushState({}, '', `?page=${state.activePage}`);
