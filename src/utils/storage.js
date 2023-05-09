@@ -20,3 +20,20 @@ export const removeStroage = (key) => {
     console.error(err);
   }
 };
+
+export const setSessionStroage = (key, value) => {
+  try {
+    window.sessionStorage.setItem(key, JSON.stringify(value));
+  } catch (err) {
+    console.error(err);
+  }
+};
+
+export const getSessionStroage = (key) => {
+  try {
+    const value = window.sessionStorage.getItem(key);
+    return value === null ? null : JSON.parse(value);
+  } catch (err) {
+    console.error(err);
+  }
+};

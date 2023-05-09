@@ -1,4 +1,4 @@
-import { getLocalStroage } from '../../utils/storage.js';
+import { getLocalStroage, getSessionStroage } from '../../utils/storage.js';
 import { createTagNavPillsHtml } from '../../utils/helper/feedToggle.js';
 
 function getNavElement(index) {
@@ -22,14 +22,21 @@ function renderNoArticle(col, message) {
 
 function HomeFeed({ activeFeed, onClick }) {
   const col = document.querySelector('.col-md-9');
-  const getTag = getLocalStroage('selectTag');
+  const getTag = getSessionStroage('selectTag');
 
   const token = getLocalStroage('token');
 
   const items = [
     ...(token
-      ? [{ text: 'Your Feed' }, { text: 'Global Feed' }, { text: `#${getTag}` }]
-      : [{ text: 'Global Feed' }, { text: `#${getTag}` }]),
+      ? [
+          { text: 'Your Feed' },
+          { text: 'Global Feed' },
+          { text: getTag !== null ? `#${getTag}` : '' },
+        ]
+      : [
+          { text: 'Global Feed' },
+          { text: getTag !== null ? `#${getTag}` : '' },
+        ]),
   ];
 
   const getTagList = createTagNavPillsHtml(items);

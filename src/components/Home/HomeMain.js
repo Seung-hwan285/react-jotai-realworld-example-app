@@ -1,5 +1,5 @@
 import { fetchAuthUserInfo } from '../../utils/helper/fetchAuth.js';
-import { getLocalStroage } from '../../utils/storage.js';
+import { getLocalStroage, getSessionStroage } from '../../utils/storage.js';
 
 import HomeArticles from './HomeArticles.js';
 import { setCookie } from '../../utils/cookie.js';
@@ -8,7 +8,6 @@ import HomeFeed from './HomeFeed.js';
 import { article_request } from '../../lib/article/request.js';
 
 import { tag_request } from '../../lib/tag/request.js';
-import LoadingSpinner from '../../commons/LoadingSpinner.js';
 
 function renderHomeMain() {
   const homeContainer = document.querySelector('.home-page');
@@ -40,7 +39,7 @@ function HomeMain() {
   renderHomeMain();
   const handleFeedClick = async (e) => {
     e.preventDefault();
-    const getTag = getLocalStroage('selectTag');
+    const getTag = getSessionStroage('selectTag');
 
     const textContent = e.target.textContent.trim();
 
@@ -60,7 +59,7 @@ function HomeMain() {
   };
 
   const render = async () => {
-    const getTag = getLocalStroage('selectTag');
+    const getTag = getSessionStroage('selectTag');
 
     const authToken = await fetchAuthUserInfo(getLocalStroage('token'));
     setCookie('token', JSON.stringify(authToken), 7);
