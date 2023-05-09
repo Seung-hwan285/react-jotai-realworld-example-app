@@ -34,8 +34,10 @@ async function updateArticleByTag(tag, handleFeedClick) {
   const spinnerContainer = LoadingSpinner();
 
   tagList.appendChild(spinnerContainer);
+  console.log(tag);
   const { articles: tagArticles } = await article_request.getTagArticles(tag);
 
+  console.log(tagArticles);
   updateState({
     activeFeed: 'getTag',
     onClick: handleFeedClick,

@@ -1,4 +1,4 @@
-import { getLocalStroage } from '../../utils/storage.js';
+import { getLocalStroage, removeSessionStroage } from '../../utils/storage.js';
 import { auth_request } from '../../lib/auth/request.js';
 import { route } from '../../utils/routes.js';
 import { getCookie, removeCookie } from '../../utils/cookie.js';
@@ -59,9 +59,6 @@ function SettingForm(target) {
 
   const handleLogoutClick = async () => {
     await auth_request.userLogout('token');
-
-    removeCookie('authToken');
-    route('/');
   };
 
   const render = () => {

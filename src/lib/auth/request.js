@@ -1,6 +1,7 @@
-import { removeStroage } from '../../utils/storage.js';
+import { removeSessionStroage, removeStroage } from '../../utils/storage.js';
 import { route } from '../../utils/routes.js';
 import { API_END_POINT } from '../../url.js';
+import { removeCookie } from '../../utils/cookie.js';
 
 export const auth_request = {
   userLogin: async (loginData) => {
@@ -112,6 +113,8 @@ export const auth_request = {
 
   userLogout: (key) => {
     removeStroage(key);
+    removeCookie('authToken');
+    removeSessionStroage('selectTag');
     route('/');
   },
 };

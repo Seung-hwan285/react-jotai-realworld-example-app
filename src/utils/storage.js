@@ -37,3 +37,10 @@ export const getSessionStroage = (key) => {
     console.error(err);
   }
 };
+export const removeSessionStroage = (key) => {
+  try {
+    window.sessionStorage.removeItem(key);
+  } catch (err) {
+    console.error(err);
+  }
+};

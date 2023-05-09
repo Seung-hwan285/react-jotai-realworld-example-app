@@ -26,13 +26,18 @@ function renderHomeMain() {
 }
 
 function renderPageNumberList() {
-  return Array.from({ length: 14 }, (val, idx) => {
-    if (idx === 0) return '<<';
-    if (idx === 1) return '<';
-    if (idx === 12) return '>';
-    if (idx === 13) return '>>';
-    return String(idx - 1);
-  });
+  const initFirst = Array.from({ length: 10 }, (val, idx) => idx + 1);
+  const initSecond = Array.from({ length: 10 }, (val, idx) => idx + 11);
+  const symbols = ['<<', '<', '>', '>>'];
+
+  const firstList = symbols.slice(0, 2).concat(initFirst, symbols.slice(2, 4));
+  const secondList = symbols
+    .slice(0, 2)
+    .concat(initSecond, symbols.slice(2, 4));
+
+  const pageNumberList = Array.from(firstList).concat(Array.from(secondList));
+
+  return pageNumberList;
 }
 
 function HomeMain() {
@@ -47,7 +52,7 @@ function HomeMain() {
       case 'Global Feed':
         updateState({ activeFeed: 'global' });
         break;
-      case `#${getTag.trim()}`:
+      case `#${getTag && getTag.trim()}`:
         updateState({ activeFeed: 'getTag' });
         break;
       case 'Your Feed':
@@ -72,7 +77,7 @@ function HomeMain() {
         const { articles: articles } = await article_request.getAllArticles(
           activePage
         );
-        updateState({ articles });
+        updateState({ articles: articles });
         updateState({
           pageNumber: renderPageNumberList(),
         });
@@ -89,6 +94,17 @@ function HomeMain() {
       case 'your':
         updateState({ articles: [] });
         updateState({ pageNumber: [] });
+
+        if (!authToken) {
+          updateState({ activeFeed: 'global' });
+          const { articles: articles } = await article_request.getAllArticles(
+            activePage
+          );
+
+          updateState({ articles: articles });
+          updateState({ pageNumber: renderPageNumberList() });
+        }
+
         break;
       default:
         break;
@@ -100,8 +116,8 @@ function HomeMain() {
     });
 
     HomeArticles({
-      articles: state.articles,
       pageNumber: state.pageNumber,
+      articles: state.articles,
     });
   };
 

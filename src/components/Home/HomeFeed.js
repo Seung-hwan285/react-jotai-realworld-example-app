@@ -78,7 +78,7 @@ function HomeFeed({ activeFeed, onClick }) {
           break;
         case 'your':
           setActiveNavElement(navElements, 1);
-          renderNoArticle(col, 'no article...');
+          renderNoArticle(col, 'No articles are here... yet.');
           break;
       }
     } else {

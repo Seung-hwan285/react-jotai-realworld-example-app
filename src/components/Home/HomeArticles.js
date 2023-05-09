@@ -7,9 +7,18 @@ import {
   getNextPageIndex,
 } from '../../utils/helper/mainPagination.js';
 
-export function renderPageNumberLink(nav, activePage, pageNumber) {
+export function renderPageNumberLink(
+  nav,
+  activePage,
+  pageNumber,
+  pageSize = 14
+) {
+  const startIndex = activePage <= 10 ? 0 : 14;
+  const endIndex = Math.min(startIndex + pageSize, pageNumber.length);
+  const currentPageNumbers = pageNumber.slice(startIndex, endIndex);
+
   if (pageNumber) {
-    pageNumber.forEach((link, idx) => {
+    currentPageNumbers.forEach((link, idx) => {
       const li = document.createElement('li');
       li.classList.add('page-item');
 
@@ -17,20 +26,23 @@ export function renderPageNumberLink(nav, activePage, pageNumber) {
         case idx === 2 && activePage === 1:
           li.classList.add('active');
           break;
-        case activePage + 1 === idx && idx !== 1:
-          li.classList.remove('active');
+
+        case activePage <= 10 && idx === activePage + 1:
           li.classList.add('active');
           break;
-        case activePage === '>':
+
+        case activePage === 20:
           if (idx === 11) {
             li.classList.add('active');
           }
           break;
-        case activePage === '<':
-          if (idx === 2) {
+
+        case activePage > 10 && currentPageNumbers[idx] === activePage:
+          if (idx >= 2 && idx <= 8) {
             li.classList.add('active');
           }
           break;
+
         default:
           break;
       }
@@ -46,27 +58,11 @@ export function renderPageNumberLink(nav, activePage, pageNumber) {
   }
 }
 
-async function updateArticles() {
+async function updateArticles(pageNumber) {
   const col = document.querySelector('.col-md-9');
   const nav = document.querySelector('.pagination');
   const ul = document.querySelector('.main-pagination');
 
-  state.pageNumber = [
-    '<<',
-    '<',
-    '1',
-    '2',
-    '3',
-    '4',
-    '5',
-    '6',
-    '7',
-    '8',
-    '9',
-    '10',
-    '>',
-    '>>',
-  ];
   const spinnerContainer = LoadingSpinner();
   col.appendChild(spinnerContainer);
 
@@ -78,11 +74,7 @@ async function updateArticles() {
   spinnerContainer.remove();
 
   HomeArticlePreview(articles);
-  const pagination = renderPageNumberLink(
-    nav,
-    state.activePage,
-    state.pageNumber
-  );
+  const pagination = renderPageNumberLink(nav, state.activePage, pageNumber);
 
   ul.appendChild(pagination);
   if (state.activePage > 0) {
@@ -90,8 +82,8 @@ async function updateArticles() {
   }
 }
 
-// 홈 피드 상태값이 업데이트가 안일어나고있음
 function HomeArticles({ pageNumber, articles }) {
+  console.log(articles);
   const col = document.querySelector('.col-md-9');
   const nav = document.createElement('nav');
   nav.className = 'main-pagination';
@@ -105,9 +97,8 @@ function HomeArticles({ pageNumber, articles }) {
     const { textContent } = e.target;
 
     const newPageIndex = getNextPageIndex(textContent, activePage);
-
     updateState({ activePage: newPageIndex });
-    await updateArticles();
+    await updateArticles(pageNumber);
   };
 
   const render = async () => {

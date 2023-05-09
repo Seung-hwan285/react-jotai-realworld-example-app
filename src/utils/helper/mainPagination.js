@@ -12,10 +12,10 @@ export const getNextPageIndex = (textContent, activePage) => {
         return '<';
       }
     case '>>':
-      return 10;
+      return 20;
     case '>':
       const nextPageIndex = activePage + 1;
-      if (nextPageIndex < 11) {
+      if (nextPageIndex < 27) {
         return nextPageIndex;
       } else {
         return '>';
