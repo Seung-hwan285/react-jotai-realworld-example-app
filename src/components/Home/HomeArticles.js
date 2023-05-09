@@ -90,7 +90,8 @@ async function updateArticles() {
   }
 }
 
-function HomeArticles({ state }) {
+// 홈 피드 상태값이 업데이트가 안일어나고있음
+function HomeArticles({ pageNumber, articles }) {
   const col = document.querySelector('.col-md-9');
   const nav = document.createElement('nav');
   nav.className = 'main-pagination';
@@ -119,10 +120,10 @@ function HomeArticles({ state }) {
 
     const spinner = document.querySelector('.spinner');
 
-    if (state.articles) {
+    if (articles) {
       setTimeout(() => {
-        HomeArticlePreview(state.articles);
-        renderPageNumberLink(ul, activePage, state.pageNumber);
+        HomeArticlePreview(articles);
+        renderPageNumberLink(ul, activePage, pageNumber);
       }, 1500);
     } else if (activePage) {
     }

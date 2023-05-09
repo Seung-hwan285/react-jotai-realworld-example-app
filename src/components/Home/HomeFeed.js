@@ -32,7 +32,7 @@ function HomeFeed({ activeFeed, onClick }) {
       : [{ text: 'Global Feed' }, { text: `#${getTag}` }]),
   ];
 
-  const getTagList = createTagNavPillsHtml(items, token, getTag);
+  const getTagList = createTagNavPillsHtml(items);
 
   const setActiveNavElement = (navElements) => {
     navElements.forEach((navElement) => {

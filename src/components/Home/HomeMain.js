@@ -1,12 +1,14 @@
 import { fetchAuthUserInfo } from '../../utils/helper/fetchAuth.js';
-import { getLocalStroage, setLocalStroage } from '../../utils/storage.js';
+import { getLocalStroage } from '../../utils/storage.js';
 
 import HomeArticles from './HomeArticles.js';
 import { setCookie } from '../../utils/cookie.js';
 import HomeTagList from './HomeTagList.js';
 import HomeFeed from './HomeFeed.js';
 import { article_request } from '../../lib/article/request.js';
-import { domRemove } from '../../utils/helper/mainPagination.js';
+
+import { tag_request } from '../../lib/tag/request.js';
+import LoadingSpinner from '../../commons/LoadingSpinner.js';
 
 function renderHomeMain() {
   const homeContainer = document.querySelector('.home-page');
@@ -23,21 +25,30 @@ function renderHomeMain() {
   container.appendChild(row);
   homeContainer.appendChild(container);
 }
-// TODO : 피드 active 이벤트 구현 및 렌더링 변경
+
+function renderPageNumberList() {
+  return Array.from({ length: 14 }, (val, idx) => {
+    if (idx === 0) return '<<';
+    if (idx === 1) return '<';
+    if (idx === 12) return '>';
+    if (idx === 13) return '>>';
+    return String(idx - 1);
+  });
+}
 
 function HomeMain() {
-  const getTag = getLocalStroage('selectTag');
   renderHomeMain();
-
   const handleFeedClick = async (e) => {
     e.preventDefault();
+    const getTag = getLocalStroage('selectTag');
 
-    const { textContent } = e.target;
+    const textContent = e.target.textContent.trim();
+
     switch (textContent) {
       case 'Global Feed':
         updateState({ activeFeed: 'global' });
         break;
-      case `#${getTag}`:
+      case `#${getTag.trim()}`:
         updateState({ activeFeed: 'getTag' });
         break;
       case 'Your Feed':
@@ -49,6 +60,8 @@ function HomeMain() {
   };
 
   const render = async () => {
+    const getTag = getLocalStroage('selectTag');
+
     const authToken = await fetchAuthUserInfo(getLocalStroage('token'));
     setCookie('token', JSON.stringify(authToken), 7);
     const col = document.querySelector('.col-md-9');
@@ -62,22 +75,7 @@ function HomeMain() {
         );
         updateState({ articles });
         updateState({
-          pageNumber: [
-            '<<',
-            '<',
-            '1',
-            '2',
-            '3',
-            '4',
-            '5',
-            '6',
-            '7',
-            '8',
-            '9',
-            '10',
-            '>',
-            '>>',
-          ],
+          pageNumber: renderPageNumberList(),
         });
         break;
       case 'getTag':
@@ -86,31 +84,12 @@ function HomeMain() {
         );
         updateState({ articles: tagArticles });
         updateState({
-          pageNumber: [
-            '<<',
-            '<',
-            '1',
-            '2',
-            '3',
-            '4',
-            '5',
-            '6',
-            '7',
-            '8',
-            '9',
-            '10',
-            '>',
-            '>>',
-          ],
+          pageNumber: renderPageNumberList(),
         });
         break;
       case 'your':
         updateState({ articles: [] });
         updateState({ pageNumber: [] });
-        const noArticles = document.createElement('div');
-        noArticles.className = 'article-preview';
-        noArticles.textContent = 'no aritlce...';
-        col.appendChild(noArticles);
         break;
       default:
         break;
@@ -122,10 +101,21 @@ function HomeMain() {
     });
 
     HomeArticles({
-      state: state,
+      articles: state.articles,
+      pageNumber: state.pageNumber,
     });
-    HomeTagList();
   };
+
+  const initTags = async () => {
+    const { tags } = await tag_request.getTagsList();
+
+    HomeTagList({
+      tags: tags,
+      handleFeedClick,
+    });
+  };
+
+  initTags();
 
   render();
 }
