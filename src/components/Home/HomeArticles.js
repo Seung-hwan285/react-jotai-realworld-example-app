@@ -2,11 +2,13 @@ import LoadingSpinner from '../../commons/LoadingSpinner.js';
 
 import HomeArticlePreview from './HomeArticlePreview.js';
 import { article_request } from '../../lib/article/request.js';
-import {
-  domRemove,
-  getNextPageIndex,
-} from '../../utils/helper/mainPagination.js';
+import { getNextPageIndex } from '../../utils/helper/mainPagination.js';
 import { getLocalStroage } from '../../utils/storage.js';
+import {
+  appendChildrenToParent,
+  createElement,
+  domRemove,
+} from '../../utils/helper/dom.js';
 
 export function renderPageNumberLink(
   nav,
@@ -91,11 +93,11 @@ async function updateArticles(activePage, pageNumberList) {
 
 function HomeArticles({ pageNumber, articles }) {
   const col = document.querySelector('.col-md-9');
-  const nav = document.createElement('nav');
-  nav.className = 'main-pagination';
-  const ul = document.createElement('nav');
-  ul.className = 'pagination';
-  nav.appendChild(ul);
+
+  const nav = createElement('nav', 'main-pagination');
+  const ul = createElement('div', 'pagination');
+
+  appendChildrenToParent(nav, ul);
 
   const handleNextPageClick = async (e) => {
     const { textContent } = e.target;

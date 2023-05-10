@@ -21,9 +21,7 @@ function NewArticlePage(target) {
 
   const render = () => {
     cleanHTML.CreateArticlePage();
-    const col = document.querySelector('.offset-md-1');
-
-    NewArticleForm(col);
+    NewArticleForm();
   };
 
   render();

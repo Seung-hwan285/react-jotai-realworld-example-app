@@ -31,11 +31,10 @@ function LoginPage(target) {
   cleanHTML.LoginPage();
 
   renderLogin(target);
-  const loginCol = document.querySelector('.offset-md-3');
 
   const render = () => {
-    LoginFormTitle(loginCol);
-    LoginForm(loginCol);
+    LoginFormTitle();
+    LoginForm();
   };
 
   render();

@@ -6,6 +6,10 @@ import {
   buttonSetting,
   createInputFields,
 } from '../../utils/helper/authForm.js';
+import {
+  appendChildrenToParent,
+  createElement,
+} from '../../utils/helper/dom.js';
 
 function renderLogoutButton() {
   return `
@@ -16,15 +20,16 @@ function renderLogoutButton() {
       `;
 }
 
-function SettingForm(target) {
-  const settingFormBox = document.createElement('form');
-  settingFormBox.className = 'form';
+function SettingForm() {
+  const col = document.querySelector('.offset-md-3 ');
+  const settingFormBox = createElement('form', 'form');
 
-  const paintSettingDiv = document.createElement('div');
+  const paintSettingDiv = createElement('div', '');
+
   paintSettingDiv.innerHTML = renderLogoutButton();
 
-  target.appendChild(settingFormBox);
-  target.appendChild(paintSettingDiv);
+  appendChildrenToParent(col, settingFormBox);
+  appendChildrenToParent(col, paintSettingDiv);
 
   const initialState = {
     username: '',

@@ -32,11 +32,10 @@ function SettingPage(target) {
   cleanHTML.SettingPage();
 
   renderSetting(target);
-  const settingCol = document.querySelector('.offset-md-3');
 
   const render = () => {
-    SettingFormTitle(settingCol);
-    SettingForm(settingCol);
+    SettingFormTitle();
+    SettingForm(target);
   };
 
   render();

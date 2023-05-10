@@ -1,5 +1,3 @@
-import { getLocalStroage } from '../storage.js';
-
 const removeElement = (selector) => {
   const element = document.querySelector(selector);
   if (element) {

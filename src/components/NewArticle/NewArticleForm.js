@@ -1,12 +1,16 @@
 import { article_request } from '../../lib/article/request.js';
 import { getLocalStroage } from '../../utils/storage.js';
 import { route } from '../../utils/routes.js';
+import {
+  appendChildrenToParent,
+  createElement,
+} from '../../utils/helper/dom.js';
 
-function NewArticleForm(col) {
-  const newArticleBox = document.createElement('form');
-  newArticleBox.className = 'form';
+function NewArticleForm() {
+  const col = document.querySelector('.offset-md-1');
 
-  col.appendChild(newArticleBox);
+  const newArticleBox = createElement('form', 'form');
+  appendChildrenToParent(col, newArticleBox);
 
   const initialState = {
     title: '',

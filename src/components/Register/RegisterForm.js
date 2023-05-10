@@ -4,12 +4,18 @@ import {
   buttonRegister,
   createInputFields,
 } from '../../utils/helper/authForm.js';
+import {
+  appendChildrenToParent,
+  createElement,
+} from '../../utils/helper/dom.js';
 
-function RegisterForm(registerCol) {
-  const registerFormBox = document.createElement('form');
+function RegisterForm() {
+  const col = document.querySelector('.offset-md-3 ');
+
+  const registerFormBox = createElement('form', 'form');
   registerFormBox.className = 'form';
 
-  registerCol.appendChild(registerFormBox);
+  appendChildrenToParent(col, registerFormBox);
 
   const initialState = {
     username: '',

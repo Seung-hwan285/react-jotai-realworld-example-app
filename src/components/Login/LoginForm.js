@@ -2,12 +2,15 @@ import { route } from '../../utils/routes.js';
 import { setLocalStroage } from '../../utils/storage.js';
 import { auth_request } from '../../lib/auth/request.js';
 import { buttonLogin, createInputFields } from '../../utils/helper/authForm.js';
+import {
+  appendChildrenToParent,
+  createElement,
+} from '../../utils/helper/dom.js';
 
-function LoginForm(col) {
-  const loginFormBox = document.createElement('form');
-  loginFormBox.className = 'form';
-
-  col.appendChild(loginFormBox);
+function LoginForm() {
+  const col = document.querySelector('.offset-md-3');
+  const loginFormBox = createElement('form', 'form');
+  appendChildrenToParent(col, loginFormBox);
 
   const initialState = {
     email: '',

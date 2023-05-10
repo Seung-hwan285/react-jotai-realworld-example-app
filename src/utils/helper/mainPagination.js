@@ -1,5 +1,3 @@
-export const domRemove = (domList) => domList.forEach((dom) => dom.remove());
-
 export const getNextPageIndex = (textContent, activePage) => {
   switch (textContent) {
     case '<<':

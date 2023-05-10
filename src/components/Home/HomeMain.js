@@ -6,21 +6,23 @@ import { setCookie } from '../../utils/cookie.js';
 import HomeTagList from './HomeTagList.js';
 import HomeFeed from './HomeFeed.js';
 import { article_request } from '../../lib/article/request.js';
+import {
+  appendChildrenToParent,
+  createElement,
+} from '../../utils/helper/dom.js';
 
 function renderHomeMain() {
   const homeContainer = document.querySelector('.home-page');
-  const container = document.createElement('div');
-  container.className = 'container page';
 
-  const row = document.createElement('div');
-  row.className = 'row';
+  const container = createElement('div', 'container page');
 
-  const col = document.createElement('div');
-  col.className = 'col-md-9';
+  const row = createElement('div', 'row');
 
-  row.appendChild(col);
-  container.appendChild(row);
-  homeContainer.appendChild(container);
+  const col = createElement('div', 'col-md-9');
+
+  appendChildrenToParent(row, col);
+  appendChildrenToParent(container, row);
+  appendChildrenToParent(homeContainer, container);
 }
 
 function renderPageNumberList() {
@@ -73,11 +75,10 @@ function HomeMain() {
     const parms = new URLSearchParams(window.location.search);
     const activePage = Number(parms.get('page') || 1);
 
-    updateState({ activePage: activePage });
     switch (state.activeFeed) {
       case 'global':
         const { articles: articles } = await article_request.getAllArticles(
-          state.activePage === 1 ? 0 : state.activePage + 10,
+          activePage === 1 ? 0 : activePage + 10,
           !!token && token
         );
         updateState({ articles: articles, pageNumber: renderPageNumberList() });

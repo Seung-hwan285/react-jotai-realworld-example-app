@@ -5,6 +5,10 @@ import LoadingSpinner from '../../commons/LoadingSpinner.js';
 import HomeArticlePreview from './HomeArticlePreview.js';
 
 import { tag_request } from '../../lib/tag/request.js';
+import {
+  appendChildrenToParent,
+  createElement,
+} from '../../utils/helper/dom.js';
 
 function renderSidebar() {
   const row = document.querySelector('.row');
@@ -45,9 +49,9 @@ async function updateArticleByTag(tag, handleFeedClick) {
 
 function HomeTagList({ onClick }) {
   const row = document.querySelector('.row');
-  const col = document.createElement('div');
-  col.className = 'col-md-3';
-  row.appendChild(col);
+  const col = createElement('div', 'col-md-3');
+
+  appendChildrenToParent(row, col);
 
   if (document.querySelector('.col-md-3')) {
     document.querySelector('.col-md-3').remove();

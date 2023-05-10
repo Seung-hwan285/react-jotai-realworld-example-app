@@ -31,11 +31,10 @@ function renderRegister(target) {
 function RegisterPage(target) {
   cleanHTML.RegisterPage();
   renderRegister(target);
-  const registerCol = document.querySelector('.offset-md-3 ');
 
   const render = () => {
-    RegisterFormTitle(registerCol);
-    RegisterForm(registerCol);
+    RegisterFormTitle();
+    RegisterForm();
   };
   render();
 }
