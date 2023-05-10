@@ -1,33 +1,17 @@
 import { API_END_POINT } from '../../url.js';
-const headers = {
-  getHeaders: (authToken) => {
-    if (authToken) {
-      return {
-        'Content-Type': 'application/json',
-        Authorization: `Token ${encodeURIComponent(authToken)}`,
-      };
-    } else {
-      return {
-        'Content-Type': 'application/json',
-      };
-    }
-  },
-};
+import { getHeaders } from '../../utils/helper/jwt.js';
 
 export const article_request = {
   getAllArticles: async (offset, authToken) => {
-    console.log(headers.getHeaders());
     try {
       const response = await fetch(
         `${API_END_POINT}/api/articles?offset=${offset}`,
         {
           method: 'GET',
-          headers: headers.getHeaders(authToken),
+          headers: getHeaders(authToken),
         }
       );
-
       const data = await response.json();
-      console.log(data);
       if (response.ok) {
         return data;
       } else {
@@ -59,10 +43,7 @@ export const article_request = {
     try {
       const response = await fetch(`${API_END_POINT}/api/articles`, {
         method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-          Authorization: `Token ${encodeURIComponent(authToken)}`,
-        },
+        headers: getHeaders(authToken),
         body: JSON.stringify({
           article: {
             title: title,
@@ -88,10 +69,7 @@ export const article_request = {
     try {
       const response = await fetch(`${API_END_POINT}/api/articles/feed`, {
         method: 'GET',
-        headers: {
-          'Content-Type': 'application/json',
-          Authorization: `Token ${encodeURIComponent(authToken)}`,
-        },
+        headers: getHeaders(authToken),
       });
 
       const data = await response.json();

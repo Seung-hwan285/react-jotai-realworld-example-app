@@ -118,7 +118,6 @@ function HomeMain() {
     HomeArticles({
       pageNumber: state.pageNumber,
       articles: state.articles,
-      activePage: state.activePage,
     });
   };
 
@@ -142,7 +141,6 @@ const initalState = {
   activeFeed: 'global',
   articles: [],
   pageNumber: [],
-  activePage: 0,
 };
 
 const updateState = (nextState) => {

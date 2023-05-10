@@ -2,6 +2,7 @@ import { removeSessionStroage, removeStroage } from '../../utils/storage.js';
 import { route } from '../../utils/routes.js';
 import { API_END_POINT } from '../../url.js';
 import { removeCookie } from '../../utils/cookie.js';
+import { getHeaders } from '../../utils/helper/jwt.js';
 
 export const auth_request = {
   userLogin: async (loginData) => {
@@ -65,10 +66,7 @@ export const auth_request = {
     try {
       const response = await fetch(`${API_END_POINT}/api/user`, {
         method: 'GET',
-        headers: {
-          'Content-Type': 'application/json',
-          Authorization: `Token ${encodeURIComponent(authToken)}`,
-        },
+        headers: getHeaders(authToken),
       });
 
       const data = await response.json();
@@ -88,10 +86,7 @@ export const auth_request = {
     try {
       const response = await fetch(`${API_END_POINT}/api/user`, {
         method: 'PUT',
-        headers: {
-          'Content-Type': 'application/json',
-          Authorization: `Token ${encodeURIComponent(authToken)}`,
-        },
+        headers: getHeaders(authToken),
         body: JSON.stringify({
           user: {
             email: email,

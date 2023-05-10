@@ -39,7 +39,7 @@ export function renderPageNumberLink(
           break;
 
         case activePage > 10 && currentPageNumbers[idx] === activePage:
-          if (idx >= 2 && idx <= 8) {
+          if (idx >= 2 && idx <= 10) {
             li.classList.add('active');
           }
           break;
@@ -72,7 +72,7 @@ async function updateArticles(activePage, pageNumberList) {
 
   const authToken = getLocalStroage('token');
   const { articles } = await article_request.getAllArticles(
-    state.activePage === 1 ? 0 : state.activePage + 10,
+    activePage === 1 ? 0 : activePage + 10,
     authToken
   );
 
@@ -80,16 +80,16 @@ async function updateArticles(activePage, pageNumberList) {
 
   HomeArticlePreview(articles);
 
+  console.log(activePage);
   const pagination = renderPageNumberLink(nav, activePage, pageNumberList);
 
   ul.appendChild(pagination);
-  if (state.activePage > 0) {
-    window.history.pushState({}, '', `?page=${state.activePage}`);
+  if (activePage > 0) {
+    window.history.pushState({}, '', `?page=${activePage}`);
   }
 }
 
-function HomeArticles({ activePage, pageNumber, articles }) {
-  console.log(activePage);
+function HomeArticles({ pageNumber, articles }) {
   const col = document.querySelector('.col-md-9');
   const nav = document.createElement('nav');
   nav.className = 'main-pagination';
@@ -99,11 +99,10 @@ function HomeArticles({ activePage, pageNumber, articles }) {
 
   const handleNextPageClick = async (e) => {
     const { textContent } = e.target;
-
+    const params = new URLSearchParams(window.location.search);
+    const activePage = Number(params.get('page')) || 1;
     const newPageIndex = getNextPageIndex(textContent, activePage);
-
-    updateState({ activePage: newPageIndex });
-    await updateArticles(state.activePage, pageNumber);
+    await updateArticles(newPageIndex, pageNumber);
   };
 
   const render = async () => {
@@ -132,15 +131,5 @@ function HomeArticles({ activePage, pageNumber, articles }) {
 
   return { render };
 }
-
-const initialState = {
-  activePage: 1,
-};
-
-const updateState = (nextState) => {
-  state = { ...state, ...nextState };
-};
-
-let state = initialState;
 
 export default HomeArticles;
