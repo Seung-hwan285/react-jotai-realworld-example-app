@@ -7,8 +7,6 @@ import HomeTagList from './HomeTagList.js';
 import HomeFeed from './HomeFeed.js';
 import { article_request } from '../../lib/article/request.js';
 
-import { tag_request } from '../../lib/tag/request.js';
-
 function renderHomeMain() {
   const homeContainer = document.querySelector('.home-page');
   const container = document.createElement('div');
@@ -42,69 +40,71 @@ function renderPageNumberList() {
 
 function HomeMain() {
   renderHomeMain();
+
   const handleFeedClick = async (e) => {
     e.preventDefault();
+
     const getTag = getSessionStroage('selectTag');
 
     const textContent = e.target.textContent.trim();
 
-    switch (textContent) {
-      case 'Global Feed':
-        updateState({ activeFeed: 'global' });
-        break;
-      case `#${getTag && getTag.trim()}`:
-        updateState({ activeFeed: 'getTag' });
-        break;
-      case 'Your Feed':
-        updateState({ activeFeed: 'your' });
-        break;
-    }
+    const feeds = [
+      { text: 'Global Feed', feed: 'global' },
+      { text: `#${getTag && getTag.trim()}`, feed: 'getTag' },
+      { text: 'Your Feed', feed: 'your' },
+    ];
+    const findFeed = feeds.find((feed) => feed.text === textContent);
 
+    if (findFeed) {
+      updateState({ activeFeed: findFeed.feed });
+    }
     render();
   };
 
   const render = async () => {
     const getTag = getSessionStroage('selectTag');
 
-    const authToken = await fetchAuthUserInfo(getLocalStroage('token'));
+    const token = getLocalStroage('token');
+    const authToken = await fetchAuthUserInfo(token);
     setCookie('token', JSON.stringify(authToken), 7);
+
     const col = document.querySelector('.col-md-9');
+
     const parms = new URLSearchParams(window.location.search);
     const activePage = Number(parms.get('page') || 1);
 
+    updateState({ activePage: activePage });
     switch (state.activeFeed) {
       case 'global':
         const { articles: articles } = await article_request.getAllArticles(
-          activePage
+          state.activePage === 1 ? 0 : state.activePage + 10,
+          !!token && token
         );
-        updateState({ articles: articles });
-        updateState({
-          pageNumber: renderPageNumberList(),
-        });
+        updateState({ articles: articles, pageNumber: renderPageNumberList() });
+
         break;
+
       case 'getTag':
         const { articles: tagArticles } = await article_request.getTagArticles(
           getTag
         );
-        updateState({ articles: tagArticles });
         updateState({
-          pageNumber: renderPageNumberList(),
+          articles: tagArticles,
+          pageNumber: [],
         });
         break;
+
       case 'your':
-        updateState({ articles: [] });
-        updateState({ pageNumber: [] });
-
-        if (!authToken) {
-          updateState({ activeFeed: 'global' });
+        updateState({ articles: [], pageNumber: [] });
+        if (!token) {
           const { articles: articles } = await article_request.getAllArticles(
-            activePage
+            token
           );
-
-          updateState({ articles: articles });
-          updateState({ pageNumber: renderPageNumberList() });
+          updateState({
+            activeFeed: 'global',
+            articles: articles,
+          });
         }
-
         break;
       default:
         break;
@@ -118,31 +118,36 @@ function HomeMain() {
     HomeArticles({
       pageNumber: state.pageNumber,
       articles: state.articles,
+      activePage: state.activePage,
     });
   };
 
-  const initTags = async () => {
-    const { tags } = await tag_request.getTagsList();
-
+  const initTags = () => {
+    const spinner = document.querySelector('.spinner');
     HomeTagList({
-      tags: tags,
-      handleFeedClick,
+      onClick: handleFeedClick,
     });
+
+    if (spinner) {
+      spinner.remove();
+    }
+    render();
   };
 
   initTags();
 
-  render();
+  return { render };
 }
 const initalState = {
   activeFeed: 'global',
   articles: [],
   pageNumber: [],
+  activePage: 0,
 };
-
-let state = initalState;
 
 const updateState = (nextState) => {
   state = { ...state, ...nextState };
 };
+let state = initalState;
+
 export default HomeMain;

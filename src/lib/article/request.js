@@ -1,16 +1,33 @@
 import { API_END_POINT } from '../../url.js';
+const headers = {
+  getHeaders: (authToken) => {
+    if (authToken) {
+      return {
+        'Content-Type': 'application/json',
+        Authorization: `Token ${encodeURIComponent(authToken)}`,
+      };
+    } else {
+      return {
+        'Content-Type': 'application/json',
+      };
+    }
+  },
+};
 
 export const article_request = {
-  getAllArticles: async (offset) => {
+  getAllArticles: async (offset, authToken) => {
+    console.log(headers.getHeaders());
     try {
       const response = await fetch(
         `${API_END_POINT}/api/articles?offset=${offset}`,
         {
           method: 'GET',
+          headers: headers.getHeaders(authToken),
         }
       );
 
       const data = await response.json();
+      console.log(data);
       if (response.ok) {
         return data;
       } else {
@@ -21,13 +38,12 @@ export const article_request = {
     }
   },
 
-  getTagArticles: async (tag) => {
+  getTagArticles: async (tag, limit = 20) => {
     try {
       const response = await fetch(`${API_END_POINT}/api/articles?tag=${tag}`, {
         method: 'GET',
       });
       const data = await response.json();
-      console.log(data);
       if (response.ok) {
         return data;
       } else {
@@ -80,6 +96,7 @@ export const article_request = {
 
       const data = await response.json();
 
+      console.log(data);
       if (response.ok) {
         return data;
       } else {

@@ -7,7 +7,6 @@ function HomeArticlePreview(articles) {
     if (articles) {
       if (document.querySelector('.spinner'))
         document.querySelector('.spinner').remove();
-
       if (articles && Array.isArray(articles)) {
         articles.map(
           ({

@@ -6,6 +6,7 @@ import {
   domRemove,
   getNextPageIndex,
 } from '../../utils/helper/mainPagination.js';
+import { getLocalStroage } from '../../utils/storage.js';
 
 export function renderPageNumberLink(
   nav,
@@ -58,7 +59,7 @@ export function renderPageNumberLink(
   }
 }
 
-async function updateArticles(pageNumber) {
+async function updateArticles(activePage, pageNumberList) {
   const col = document.querySelector('.col-md-9');
   const nav = document.querySelector('.pagination');
   const ul = document.querySelector('.main-pagination');
@@ -69,12 +70,17 @@ async function updateArticles(pageNumber) {
   domRemove(document.querySelectorAll('.page-item'));
   domRemove(document.querySelectorAll('.article-preview'));
 
-  const { articles } = await article_request.getAllArticles(state.activePage);
+  const authToken = getLocalStroage('token');
+  const { articles } = await article_request.getAllArticles(
+    state.activePage === 1 ? 0 : state.activePage + 10,
+    authToken
+  );
 
   spinnerContainer.remove();
 
   HomeArticlePreview(articles);
-  const pagination = renderPageNumberLink(nav, state.activePage, pageNumber);
+
+  const pagination = renderPageNumberLink(nav, activePage, pageNumberList);
 
   ul.appendChild(pagination);
   if (state.activePage > 0) {
@@ -82,8 +88,8 @@ async function updateArticles(pageNumber) {
   }
 }
 
-function HomeArticles({ pageNumber, articles }) {
-  console.log(articles);
+function HomeArticles({ activePage, pageNumber, articles }) {
+  console.log(activePage);
   const col = document.querySelector('.col-md-9');
   const nav = document.createElement('nav');
   nav.className = 'main-pagination';
@@ -92,13 +98,12 @@ function HomeArticles({ pageNumber, articles }) {
   nav.appendChild(ul);
 
   const handleNextPageClick = async (e) => {
-    const params = new URLSearchParams(window.location.search);
-    const activePage = Number(params.get('page')) || 1;
     const { textContent } = e.target;
 
     const newPageIndex = getNextPageIndex(textContent, activePage);
+
     updateState({ activePage: newPageIndex });
-    await updateArticles(pageNumber);
+    await updateArticles(state.activePage, pageNumber);
   };
 
   const render = async () => {
@@ -116,7 +121,6 @@ function HomeArticles({ pageNumber, articles }) {
         HomeArticlePreview(articles);
         renderPageNumberLink(ul, activePage, pageNumber);
       }, 1500);
-    } else if (activePage) {
     }
     col.appendChild(nav);
 
@@ -125,6 +129,8 @@ function HomeArticles({ pageNumber, articles }) {
   };
 
   render();
+
+  return { render };
 }
 
 const initialState = {

@@ -4,6 +4,8 @@ import { setSessionStroage } from '../../utils/storage.js';
 import LoadingSpinner from '../../commons/LoadingSpinner.js';
 import HomeArticlePreview from './HomeArticlePreview.js';
 
+import { tag_request } from '../../lib/tag/request.js';
+
 function renderSidebar() {
   const row = document.querySelector('.row');
   const col = document.querySelector('.col-md-3');
@@ -29,26 +31,19 @@ function renderTagList(tags) {
 }
 
 async function updateArticleByTag(tag, handleFeedClick) {
-  const tagList = document.querySelector('.col-md-9');
-
-  const spinnerContainer = LoadingSpinner();
-
-  tagList.appendChild(spinnerContainer);
-  console.log(tag);
   const { articles: tagArticles } = await article_request.getTagArticles(tag);
 
-  console.log(tagArticles);
   updateState({
     activeFeed: 'getTag',
+    articles: tagArticles,
     onClick: handleFeedClick,
   });
 
-  // 개수에0 따라서 페이지네이션 생성
   HomeFeed(state);
-  HomeArticlePreview(tagArticles);
+  HomeArticlePreview(state.articles);
 }
 
-function HomeTagList({ tags, handleFeedClick }) {
+function HomeTagList({ onClick }) {
   const row = document.querySelector('.row');
   const col = document.createElement('div');
   col.className = 'col-md-3';
@@ -58,7 +53,6 @@ function HomeTagList({ tags, handleFeedClick }) {
     document.querySelector('.col-md-3').remove();
     row.appendChild(col);
   }
-
   renderSidebar();
 
   const handleTagClick = async (e) => {
@@ -67,18 +61,18 @@ function HomeTagList({ tags, handleFeedClick }) {
 
     setSessionStroage('selectTag', tag);
 
-    await updateArticleByTag(tag, handleFeedClick);
+    await updateArticleByTag(tag, onClick);
   };
 
-  const spinner = document.querySelector('.spinner');
   const render = async () => {
-    renderSidebar();
-
-    const tagList = document.querySelector('.tag-list');
+    const tagList = document.querySelector('.sidebar .tag-list');
     const spinnerContainer = LoadingSpinner();
     tagList.appendChild(spinnerContainer);
+    const { tags } = await tag_request.getTagsList();
 
     renderTagList(tags);
+
+    spinnerContainer.remove();
     const sidebar = document.querySelector('.sidebar');
 
     sidebar.addEventListener('click', handleTagClick);
