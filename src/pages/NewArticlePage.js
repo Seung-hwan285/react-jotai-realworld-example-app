@@ -1,23 +1,27 @@
 import { cleanHTML } from '../utils/helper/cleanHTML.js';
 import NewArticleForm from '../components/NewArticle/NewArticleForm.js';
+import { appendChildrenToParent, createElement } from '../utils/helper/dom.js';
+
+function renderNewArticle(target) {
+  const newArticleContainer = createElement('div', 'editor-page');
+
+  const newArticleWrapper = createElement('div', 'container page');
+
+  const newArticleRow = createElement('div', 'row');
+
+  const newArticleCol = createElement('div', 'col-md-10 offset-md-1 col-xs-1');
+
+  appendChildrenToParent(newArticleRow, newArticleCol);
+
+  appendChildrenToParent(newArticleWrapper, newArticleRow);
+
+  appendChildrenToParent(newArticleContainer, newArticleWrapper);
+
+  appendChildrenToParent(target, newArticleContainer);
+}
 
 function NewArticlePage(target) {
-  const newArticleContainer = document.createElement('div');
-  newArticleContainer.className = 'editor-page';
-
-  const newArticleWrapper = document.createElement('div');
-  newArticleWrapper.className = 'container page';
-
-  const newArticleRow = document.createElement('div');
-  newArticleRow.className = 'row';
-
-  const newArticleCol = document.createElement('div');
-  newArticleCol.className = 'col-md-10 offset-md-1 col-xs-1';
-
-  newArticleRow.appendChild(newArticleCol);
-  newArticleWrapper.appendChild(newArticleRow);
-  newArticleContainer.appendChild(newArticleWrapper);
-  target.appendChild(newArticleContainer);
+  renderNewArticle(target);
 
   const render = () => {
     cleanHTML.CreateArticlePage();

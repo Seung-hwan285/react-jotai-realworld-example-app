@@ -1,31 +1,27 @@
 import { cleanHTML } from '../utils/helper/cleanHTML.js';
 import SettingForm from '../components/Setting/SettingForm.js';
 import SettingFormTitle from '../components/Setting/SettingFormTitle.js';
+import { appendChildrenToParent, createElement } from '../utils/helper/dom.js';
 
 function renderSetting(target) {
+  const settingContainer = createElement('div', 'settings-page');
+
+  const settingWrapper = createElement('div', 'container page');
+
+  const settingRow = createElement('div', 'row');
+
+  const settingCol = createElement('div', 'col-md-6 offset-md-3 col-xs-12');
+
   const container = document.querySelector('.settings-page');
 
   if (container) {
     return;
   }
 
-  const settingContainer = document.createElement('div');
-  settingContainer.className = 'settings-page';
-
-  const settingWrapper = document.createElement('div');
-  settingWrapper.className = 'container page';
-
-  const settingRow = document.createElement('div');
-  settingRow.className = 'row';
-
-  const settingCol = document.createElement('div');
-  settingCol.className = 'col-md-6 offset-md-3 col-xs-12';
-
-  settingRow.appendChild(settingCol);
-  settingWrapper.appendChild(settingRow);
-  settingContainer.appendChild(settingWrapper);
-
-  target.appendChild(settingContainer);
+  appendChildrenToParent(settingRow, settingCol);
+  appendChildrenToParent(settingWrapper, settingRow);
+  appendChildrenToParent(settingContainer, settingWrapper);
+  appendChildrenToParent(target, settingContainer);
 }
 
 function SettingPage(target) {
