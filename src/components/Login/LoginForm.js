@@ -72,5 +72,7 @@ function LoginForm() {
 
   const state = initialState;
   render();
+
+  return { handleLoginChange, state };
 }
 export default LoginForm;
