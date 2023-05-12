@@ -32,6 +32,7 @@ function LoginForm() {
       ...state,
     };
 
+    console.log(loginDate);
     const token = await auth_request.userLogin(loginDate);
     setLocalStroage('token', token);
     if (token) {
@@ -73,6 +74,6 @@ function LoginForm() {
   const state = initialState;
   render();
 
-  return { handleLoginChange, state };
+  return { handleLoginChange, handleLoginSubmit, state };
 }
 export default LoginForm;

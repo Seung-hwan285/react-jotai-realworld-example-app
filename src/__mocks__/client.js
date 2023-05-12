@@ -1,1 +1,1 @@
-export {};
+require('jest-fetch-mock').enableMocks();
