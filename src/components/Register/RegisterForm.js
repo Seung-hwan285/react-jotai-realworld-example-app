@@ -29,6 +29,7 @@ function RegisterForm() {
 
   const handleChange = (e) => {
     const { name, value } = e.target;
+    console.log(name);
     updateState(name, value);
   };
 
@@ -39,7 +40,7 @@ function RegisterForm() {
       ...state,
     };
 
-    const user = auth_request.userRegister(registerData);
+    const user = await auth_request.userRegister(registerData);
 
     if (user) {
       route('/');
@@ -85,5 +86,7 @@ function RegisterForm() {
   };
   const state = initialState;
   render();
+
+  return { handleChange, state };
 }
 export default RegisterForm;

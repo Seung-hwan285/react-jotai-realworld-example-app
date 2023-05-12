@@ -23,12 +23,12 @@ export const createInputFields = (inputs) => {
             <textarea
               id="${id}"
               class="${className}"
-              rows="${rows}"
+              rows="${!!rows && rows}"
               name="${name}"
               placeholder="${placeholder}"
             >
-          ${value}
-          </textarea
+            ${value ? value : ''}
+            </textarea
             >
           </fieldset>
         `;
@@ -76,4 +76,10 @@ export const buttonSetting = Button({
   className: 'btn btn-lg btn-primary pull-xs-right',
   type: 'submit',
   text: 'Update Settings',
+});
+
+export const buttonNewArticle = Button({
+  className: 'btn btn-lg pull-xs-right btn-primary',
+  type: 'button',
+  text: 'Publish Article',
 });

@@ -1,8 +1,9 @@
 import LoginForm from '../LoginForm';
 import '@testing-library/jest-dom';
-import { screen } from '@testing-library/dom';
+import { fireEvent, screen } from '@testing-library/dom';
 
 import { auth_request } from '../../../lib/auth/request';
+import { createElement } from '../../../utils/helper/dom';
 
 describe('LoginForm', () => {
   test('should have initial state with empty email and password', () => {
@@ -26,9 +27,13 @@ describe('LoginForm', () => {
       },
     };
 
-    loginForm.handleLoginChange(eventEmail);
-    expect(loginForm.state.email).toEqual('test@test.com');
-    expect(loginForm.state.password).toEqual('');
+    const expectedState = {
+      email: 'test@test.com',
+      password: '',
+    };
+
+    loginForm.handleChange(eventEmail);
+    expect(loginForm.state).toEqual(expectedState);
 
     const eventPassword = {
       target: {
@@ -37,16 +42,19 @@ describe('LoginForm', () => {
       },
     };
 
-    loginForm.handleLoginChange(eventPassword);
-    expect(loginForm.state.email).toEqual('test@test.com');
-    expect(loginForm.state.password).toEqual('123');
+    loginForm.handleChange(eventPassword);
+
+    const expectedState2 = {
+      email: 'test@test.com',
+      password: '123',
+    };
+    expect(loginForm.state).toEqual(expectedState2);
   });
 
-  test('get Token after login', async () => {
+  test('should successfully login and return token', async () => {
     const mockResponse = {
       user: {
         token: 'abc123',
-        status: 200,
       },
     };
 

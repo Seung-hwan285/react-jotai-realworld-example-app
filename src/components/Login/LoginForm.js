@@ -20,7 +20,7 @@ function LoginForm() {
     state[key] = value;
   };
 
-  const handleLoginChange = (e) => {
+  const handleChange = (e) => {
     const { name, value } = e.target;
     updateState(name, value);
   };
@@ -32,7 +32,6 @@ function LoginForm() {
       ...state,
     };
 
-    console.log(loginDate);
     const token = await auth_request.userLogin(loginDate);
     setLocalStroage('token', token);
     if (token) {
@@ -64,7 +63,7 @@ function LoginForm() {
 
     const inputs = document.querySelectorAll('input');
     inputs.forEach((input) => {
-      input.addEventListener('change', handleLoginChange);
+      input.addEventListener('change', handleChange);
     });
 
     const form = document.querySelector('.form');
@@ -74,6 +73,6 @@ function LoginForm() {
   const state = initialState;
   render();
 
-  return { handleLoginChange, handleLoginSubmit, state };
+  return { state, handleChange };
 }
 export default LoginForm;

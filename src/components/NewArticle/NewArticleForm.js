@@ -5,6 +5,10 @@ import {
   appendChildrenToParent,
   createElement,
 } from '../../utils/helper/dom.js';
+import {
+  buttonNewArticle,
+  createInputFields,
+} from '../../utils/helper/authForm.js';
 
 function NewArticleForm() {
   const col = document.querySelector('.offset-md-1');
@@ -23,6 +27,11 @@ function NewArticleForm() {
     state[key] = value;
   };
 
+  const handleChange = (e) => {
+    const { name, value } = e.target;
+    updateState(name, value);
+  };
+
   const handleArticleSubmit = async (e) => {
     e.preventDefault();
 
@@ -38,11 +47,6 @@ function NewArticleForm() {
     }
   };
 
-  const handleChange = (e) => {
-    const { name, value } = e.target;
-    updateState(name, value);
-  };
-
   const handleTagSubmit = (e) => {
     if (e.key === 'Enter') {
       updateState('tagList', [...state.tagList, e.target.value]);
@@ -56,31 +60,36 @@ function NewArticleForm() {
   };
 
   const render = () => {
-    newArticleBox.innerHTML = `
-              <fieldset>
-            <fieldset class="form-group">
-              <input name="title" type="text" class="form-control form-control-lg" placeholder="Article Title" />
-            </fieldset>
-            <fieldset class="form-group">
-              <input name="description" type="text" class="form-control" placeholder="What's this article about?" />
-            </fieldset>
-            <fieldset class="form-group">
-              <textarea
-              name ="body"
-                class="form-control"
-                rows="8"
-                placeholder="Write your article (in markdown)"
-              ></textarea>
-            </fieldset>
-            <fieldset class="form-group">
-              <input id="tag" name="tag" type="text" class="form-control" placeholder="Enter tags" />
-              <div class="tag-list"></div>
-            </fieldset>
-            <button class="btn btn-lg pull-xs-right btn-primary" type="button">
-              Publish Article
-            </button>
-          </fieldset>
-        `;
+    const items = [
+      {
+        placeholder: 'Article Title',
+        name: 'title',
+        type: 'text',
+        className: 'form-control form-control-lg',
+      },
+      {
+        placeholder: 'What`s this article about?',
+        name: 'description',
+        type: 'text',
+        className: 'form-control',
+      },
+      {
+        placeholder: 'Write your article (in markdown)',
+        name: 'body',
+        className: 'form-control',
+        rows: '8',
+      },
+      {
+        placeholder: 'Enter tags',
+        name: 'tag',
+        id: 'tag',
+        type: 'text',
+        className: 'form-control',
+      },
+    ];
+
+    const getInputFiled = createInputFields(items);
+    newArticleBox.innerHTML = getInputFiled + buttonNewArticle;
 
     const inputs = document.querySelectorAll('input, textarea');
     inputs.forEach((input) => {
