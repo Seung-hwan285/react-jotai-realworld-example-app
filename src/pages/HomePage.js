@@ -5,11 +5,8 @@ import { appendChildrenToParent, createElement } from '../utils/helper/dom.js';
 
 function renderHome(target) {
   const homeContainer = createElement('div', 'home-page');
-
   const bannerTop = createElement('div', 'banner');
-
   const bannerWrapper = createElement('div', 'container');
-
   const banner = document.querySelector('.banner');
 
   if (banner) {
@@ -17,9 +14,7 @@ function renderHome(target) {
   }
 
   appendChildrenToParent(bannerTop, bannerWrapper);
-
   appendChildrenToParent(homeContainer, bannerTop);
-
   appendChildrenToParent(target, homeContainer);
 }
 

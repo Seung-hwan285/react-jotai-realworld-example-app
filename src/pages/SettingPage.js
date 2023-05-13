@@ -5,11 +5,8 @@ import { appendChildrenToParent, createElement } from '../utils/helper/dom.js';
 
 function renderSetting(target) {
   const settingContainer = createElement('div', 'settings-page');
-
   const settingWrapper = createElement('div', 'container page');
-
   const settingRow = createElement('div', 'row');
-
   const settingCol = createElement('div', 'col-md-6 offset-md-3 col-xs-12');
 
   const container = document.querySelector('.settings-page');

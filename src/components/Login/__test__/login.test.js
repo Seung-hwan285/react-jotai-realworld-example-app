@@ -1,9 +1,12 @@
 import LoginForm from '../LoginForm';
 import '@testing-library/jest-dom';
-import { fireEvent, screen } from '@testing-library/dom';
+import { screen } from '@testing-library/dom';
 import { auth_request } from '../../../lib/auth/request';
 
 describe('LoginForm', () => {
+  const EMAIL = 'Email';
+  const PASSWORD = 'Password';
+
   test('should have initial state with empty email and password', () => {
     const col = document.createElement('div');
     col.className = 'offset-md-3';
@@ -11,42 +14,43 @@ describe('LoginForm', () => {
 
     LoginForm();
 
-    expect(screen.getByPlaceholderText('Email')).toHaveValue('');
-    expect(screen.getByPlaceholderText('Password')).toHaveValue('');
+    expect(screen.getByPlaceholderText(EMAIL)).toHaveValue('');
+    expect(screen.getByPlaceholderText(PASSWORD)).toHaveValue('');
   });
 
   test('updates state when input values change', () => {
     const loginForm = new LoginForm();
 
-    const eventEmail = {
-      target: {
-        name: 'email',
-        value: 'test@test.com',
+    const events = [
+      {
+        target: {
+          name: 'email',
+          value: 'test@test.com',
+        },
       },
-    };
-
-    const expectedState = {
-      email: 'test@test.com',
-      password: '',
-    };
-
-    loginForm.handleChange(eventEmail);
-    expect(loginForm.state).toEqual(expectedState);
-
-    const eventPassword = {
-      target: {
-        name: 'password',
-        value: '123',
+      {
+        target: {
+          name: 'password',
+          value: '123',
+        },
       },
-    };
+    ];
 
-    loginForm.handleChange(eventPassword);
+    const expectedStates = [
+      {
+        email: 'test@test.com',
+        password: '',
+      },
+      {
+        email: 'test@test.com',
+        password: '123',
+      },
+    ];
 
-    const expectedState2 = {
-      email: 'test@test.com',
-      password: '123',
-    };
-    expect(loginForm.state).toEqual(expectedState2);
+    events.forEach((event, idx) => {
+      loginForm.handleChange(event);
+      expect(loginForm.state).toEqual(expectedStates[idx]);
+    });
   });
 
   test('should successfully login and return token', async () => {

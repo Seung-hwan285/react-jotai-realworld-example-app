@@ -3,9 +3,9 @@ import { getCookie, removeCookie } from '../../../utils/cookie';
 
 describe('SettingForm', () => {
   test('returns the cookie value given the cookie name', () => {
-    const cookieName = 'token';
+    const COOKIE_NAME = 'token';
 
-    const expectedCookie = [
+    const mockCookie = [
       {
         email: 'test@test.com',
         test_username: 'test_user',
@@ -14,20 +14,10 @@ describe('SettingForm', () => {
       },
     ];
 
-    const cookieValue = [
-      {
-        email: 'test@test.com',
-        test_username: 'test_user',
-        bio: 'test_bio',
-        token: 'test_token',
-      },
-    ];
+    document.cookie = `${COOKIE_NAME}=${JSON.stringify(mockCookie)}`;
 
-    document.cookie = `${cookieName}=${JSON.stringify(cookieValue)}`;
-
-    const result = JSON.parse(getCookie(cookieName));
-
-    expect(result).toEqual(expectedCookie);
+    const result = JSON.parse(getCookie(COOKIE_NAME));
+    expect(result).toEqual(mockCookie);
   });
 
   test('removes a cookie by setting its expiration date to the past', () => {
