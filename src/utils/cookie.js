@@ -5,18 +5,15 @@ export const setCookie = (name, value, days) => {
     date.setTime(date.getTime() + days * 24 * 60 * 60 * 1000);
     expires = '; expires=' + date.toUTCString();
   }
-  document.cookie = name + '=' + (value.trim() || '') + expires + '; path=/';
+  document.cookie = name + '=' + (value?.trim() || '') + expires + '; path=/';
 };
 
 export const getCookie = (name) => {
   const cookies = document.cookie.split(';');
 
   for (let i = 0; i < cookies.length; i++) {
-    let cookie = JSON.parse(cookies[i].substring(name.length + 1));
-    cookie = JSON.stringify(cookie);
-    if (cookie) {
-      return cookie;
-    }
+    let cookie = cookies[i].substring(name.length + 1);
+    return cookie;
   }
   return null;
 };

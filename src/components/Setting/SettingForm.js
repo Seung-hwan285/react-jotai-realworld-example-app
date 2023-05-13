@@ -21,15 +21,16 @@ function renderLogoutButton() {
 }
 
 function SettingForm() {
-  const col = document.querySelector('.offset-md-3 ');
+  // const col = document.querySelector('.offset-md-3 ');
   const settingFormBox = createElement('form', 'form');
 
   const paintSettingDiv = createElement('div', '');
 
   paintSettingDiv.innerHTML = renderLogoutButton();
 
-  appendChildrenToParent(col, settingFormBox);
-  appendChildrenToParent(col, paintSettingDiv);
+  const col = document.querySelector('.offset-md-3');
+
+  appendChildrenToParent(col, settingFormBox, paintSettingDiv);
 
   const initialState = {
     username: '',
@@ -68,7 +69,7 @@ function SettingForm() {
 
   const render = () => {
     const authToken = JSON.parse(getCookie('token'));
-    console.log(authToken.bio);
+
     const items = [
       {
         className: 'form-control',
@@ -109,7 +110,6 @@ function SettingForm() {
     ];
 
     const getInputField = createInputFields(items);
-    console.log(getInputField);
 
     settingFormBox.innerHTML = getInputField + buttonSetting;
 
@@ -126,6 +126,6 @@ function SettingForm() {
   const state = initialState;
   render();
 
-  return { state };
+  return { state, render };
 }
 export default SettingForm;

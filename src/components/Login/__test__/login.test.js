@@ -15,7 +15,7 @@ describe('LoginForm', () => {
     expect(screen.getByPlaceholderText('Password')).toHaveValue('');
   });
 
-  test('state update when entering login input', () => {
+  test('updates state when input values change', () => {
     const loginForm = new LoginForm();
 
     const eventEmail = {

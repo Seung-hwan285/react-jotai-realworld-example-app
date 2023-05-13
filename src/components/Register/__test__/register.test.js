@@ -14,7 +14,7 @@ describe('registerForm', () => {
     expect(screen.getByPlaceholderText('Username')).toHaveValue('');
   });
 
-  test('state update when entering register input', () => {
+  test('updates state when input values change', () => {
     const registerForm = new RegisterForm();
 
     const eventUsername = {

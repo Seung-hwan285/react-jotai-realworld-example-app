@@ -10,5 +10,5 @@ export const createElement = (tagName, className) => {
 };
 
 export const appendChildrenToParent = (parent, ...children) => {
-  children.forEach((child) => parent.appendChild(child));
+  children.forEach((child) => parent?.appendChild(child));
 };
