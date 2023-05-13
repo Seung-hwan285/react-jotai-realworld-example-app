@@ -10,7 +10,9 @@ import {
 function LoginForm() {
   const col = document.querySelector('.offset-md-3');
   const loginFormBox = createElement('form', 'form');
+
   appendChildrenToParent(col, loginFormBox);
+
   const initialState = {
     email: '',
     password: '',

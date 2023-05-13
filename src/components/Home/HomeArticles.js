@@ -79,13 +79,11 @@ async function updateArticles(activePage, pageNumberList) {
   );
 
   spinnerContainer.remove();
-
   HomeArticlePreview(articles);
 
-  console.log(activePage);
   const pagination = renderPageNumberLink(nav, activePage, pageNumberList);
-
   ul.appendChild(pagination);
+
   if (activePage > 0) {
     window.history.pushState({}, '', `?page=${activePage}`);
   }

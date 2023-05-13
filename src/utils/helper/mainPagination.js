@@ -4,7 +4,6 @@ export const getNextPageIndex = (textContent, activePage) => {
       return 1;
     case '<':
       const previousPageIndex = activePage - 1;
-      console.log(previousPageIndex);
       if (previousPageIndex > 0) {
         return previousPageIndex;
       } else {

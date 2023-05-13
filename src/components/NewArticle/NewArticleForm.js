@@ -13,6 +13,7 @@ import {
 function NewArticleForm() {
   const col = document.querySelector('.offset-md-1');
   const newArticleBox = createElement('form', 'form');
+
   appendChildrenToParent(col, newArticleBox);
 
   const initialState = {
@@ -47,12 +48,10 @@ function NewArticleForm() {
   };
 
   const handleTagSubmit = (e) => {
-    console.log(e);
     if (e.key === 'Enter') {
       updateState('tagList', [...state.tagList, e.target.value]);
 
       const tagList = document.querySelector('.tag-list');
-      console.log(tagList);
       tagList.innerHTML = state.tagList
         .map((tag) => `<span class="tag-pill tag-default">>${tag}</span>`)
         .join('');

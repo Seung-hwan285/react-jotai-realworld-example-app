@@ -11,9 +11,7 @@ import {
 
 function RegisterForm() {
   const col = document.querySelector('.offset-md-3 ');
-
   const registerFormBox = createElement('form', 'form');
-  registerFormBox.className = 'form';
 
   appendChildrenToParent(col, registerFormBox);
 
@@ -29,7 +27,6 @@ function RegisterForm() {
 
   const handleChange = (e) => {
     const { name, value } = e.target;
-    console.log(name);
     updateState(name, value);
   };
 
