@@ -17,14 +17,14 @@ describe('registerForm', () => {
   test('state update when entering register input', () => {
     const registerForm = new RegisterForm();
 
-    const eventEmail = {
+    const eventUsername = {
       target: {
         name: 'username',
         value: 'hwan',
       },
     };
 
-    registerForm.handleChange(eventEmail);
+    registerForm.handleChange(eventUsername);
 
     const expectedState = {
       email: '',

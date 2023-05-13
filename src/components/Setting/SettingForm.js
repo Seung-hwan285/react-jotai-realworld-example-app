@@ -68,7 +68,7 @@ function SettingForm() {
 
   const render = () => {
     const authToken = JSON.parse(getCookie('token'));
-
+    console.log(authToken.bio);
     const items = [
       {
         className: 'form-control',
@@ -91,7 +91,7 @@ function SettingForm() {
         rows: '8',
         name: 'bio',
         placeholder: 'Short bio about you',
-        value: `${authToken.bio.replace(/(\r\n|\n|\r)/gm, '')}`,
+        value: `${authToken.bio}`,
       },
       {
         className: 'form-control form-control-lg email',
@@ -109,6 +109,7 @@ function SettingForm() {
     ];
 
     const getInputField = createInputFields(items);
+    console.log(getInputField);
 
     settingFormBox.innerHTML = getInputField + buttonSetting;
 
@@ -124,5 +125,7 @@ function SettingForm() {
 
   const state = initialState;
   render();
+
+  return { state };
 }
 export default SettingForm;

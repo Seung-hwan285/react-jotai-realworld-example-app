@@ -1,9 +1,7 @@
 import LoginForm from '../LoginForm';
 import '@testing-library/jest-dom';
 import { fireEvent, screen } from '@testing-library/dom';
-
 import { auth_request } from '../../../lib/auth/request';
-import { createElement } from '../../../utils/helper/dom';
 
 describe('LoginForm', () => {
   test('should have initial state with empty email and password', () => {

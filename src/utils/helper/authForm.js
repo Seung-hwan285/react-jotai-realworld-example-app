@@ -27,8 +27,7 @@ export const createInputFields = (inputs) => {
               name="${name}"
               placeholder="${placeholder}"
             >
-            ${value ? value : ''}
-            </textarea
+${value ? value : ''}</textarea
             >
           </fieldset>
         `;
