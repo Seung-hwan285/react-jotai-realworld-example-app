@@ -3,24 +3,19 @@ import { getLocalStroage } from '../utils/storage.js';
 import { fetchAuthUserInfo } from '../utils/helper/fetchAuth.js';
 import { setHeaderActive } from '../utils/helper/headerActive.js';
 import { createNavbarHtml } from '../utils/helper/authForm.js';
+import { appendChildrenToParent, createElement } from '../utils/helper/dom.js';
 
 function renderHeader(target) {
-  const nav = document.createElement('nav');
-  nav.className = 'navbar navbar-light';
-  const headerContainer = document.createElement('div');
-  headerContainer.className = 'container';
+  const nav = createElement('nav', 'navbar navbar-light');
+  const headerContainer = createElement('div', 'container');
+  const logo = createElement('a', 'navbar-brand');
 
-  const logo = document.createElement('a');
   logo.textContent = 'Conduit';
-  logo.className = 'navbar-brand';
   logo.setAttribute('data-link', '/');
 
-  headerContainer.appendChild(logo);
-  nav.appendChild(headerContainer);
-
-  if (target) {
-    target.appendChild(nav);
-  }
+  appendChildrenToParent(headerContainer, logo);
+  appendChildrenToParent(nav, headerContainer);
+  appendChildrenToParent(target, nav);
 }
 
 function Header(target) {
@@ -59,8 +54,7 @@ function Header(target) {
     }
 
     if (!navElement) {
-      navElement = document.createElement('ul');
-      navElement.className = 'nav navbar-nav pull-xs-right';
+      navElement = createElement('ul', 'nav navbar-nav pull-xs-right');
     }
 
     const items = [

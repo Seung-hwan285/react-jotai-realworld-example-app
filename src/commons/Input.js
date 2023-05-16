@@ -11,7 +11,6 @@ function Input({ name, value, placeholder, id, type, className }) {
       type="${type}"
       value="${value === undefined ? '' : value}"
       placeholder="${placeholder}"
-      role="textbox"
     />
 
     ${tagList ? tagList.outerHTML : ''}

@@ -1,7 +1,7 @@
-import { getLocalStroage, removeSessionStroage } from '../../utils/storage.js';
+import { getLocalStroage } from '../../utils/storage.js';
 import { auth_request } from '../../lib/auth/request.js';
 import { route } from '../../utils/routes.js';
-import { getCookie, removeCookie } from '../../utils/cookie.js';
+import { getCookie } from '../../utils/cookie.js';
 import {
   buttonSetting,
   createInputFields,
@@ -21,14 +21,13 @@ function renderLogoutButton() {
 }
 
 function SettingForm() {
-  // const col = document.querySelector('.offset-md-3 ');
+  const col = document.querySelector('.offset-md-3 ');
+
   const settingFormBox = createElement('form', 'form');
 
   const paintSettingDiv = createElement('div', '');
 
   paintSettingDiv.innerHTML = renderLogoutButton();
-
-  const col = document.querySelector('.offset-md-3');
 
   appendChildrenToParent(col, settingFormBox, paintSettingDiv);
 
@@ -126,6 +125,6 @@ function SettingForm() {
   const state = initialState;
   render();
 
-  return { state, render };
+  return { state, handleChange };
 }
 export default SettingForm;
