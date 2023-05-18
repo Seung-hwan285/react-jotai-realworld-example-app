@@ -1,12 +1,14 @@
 import HomeArticleTagList from './HomeArticleTagList.js';
 
-function HomeArticlePreview(articles) {
-  const render = async () => {
+function HomeArticlePreview(articles, onClick) {
+  const render = () => {
     const col = document.querySelector('.col-md-9');
+    const spinner = document.querySelector('.spinner');
 
     if (articles) {
-      if (document.querySelector('.spinner'))
-        document.querySelector('.spinner').remove();
+      if (spinner) {
+        spinner.remove();
+      }
       if (articles && Array.isArray(articles)) {
         articles.map(
           ({
@@ -24,6 +26,7 @@ function HomeArticlePreview(articles) {
             const article = document.createElement('div');
 
             article.className = 'article-preview';
+
             article.innerHTML = /* HTML */ `
               <div class="article-meta">
                 <a href="profile.html"><img src=${author.image} /></a>
@@ -44,13 +47,8 @@ function HomeArticlePreview(articles) {
               </a>
             `;
 
-            col.appendChild(article);
-
-            // const tagListElement = document.querySelectorAll('.preview-link');
-            // tagListElement.forEach((tagElement) => {
-            //   tagElement.removeEventListener('click', handleArticleTagClick);
-            //   tagElement.addEventListener('click', handleArticleTagClick);
-            // });
+            col.append(article);
+            article.addEventListener('click', onClick);
           }
         );
       }

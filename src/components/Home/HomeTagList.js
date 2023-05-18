@@ -34,7 +34,7 @@ function renderTagList(tags) {
     .join('');
 }
 
-async function updateArticleByTag(tag, handleFeedClick) {
+export async function updateArticleByTag(tag, handleFeedClick) {
   const { articles: tagArticles } = await article_request.getTagArticles(tag);
 
   updateState({
@@ -44,6 +44,7 @@ async function updateArticleByTag(tag, handleFeedClick) {
   });
 
   HomeFeed(state);
+
   HomeArticlePreview(state.articles);
 }
 
@@ -61,8 +62,7 @@ function HomeTagList({ onClick }) {
 
   const handleTagClick = async (e) => {
     e.preventDefault();
-    const tag = e.target.textContent;
-
+    const tag = e.target.textContent.trim();
     setSessionStroage('selectTag', tag);
 
     await updateArticleByTag(tag, onClick);
@@ -72,13 +72,13 @@ function HomeTagList({ onClick }) {
     const tagList = document.querySelector('.sidebar .tag-list');
     const spinnerContainer = LoadingSpinner();
     tagList.appendChild(spinnerContainer);
+
     const { tags } = await tag_request.getTagsList();
 
     renderTagList(tags);
-
     spinnerContainer.remove();
-    const sidebar = document.querySelector('.sidebar');
 
+    const sidebar = document.querySelector('.sidebar');
     sidebar.addEventListener('click', handleTagClick);
   };
   render();
@@ -86,7 +86,7 @@ function HomeTagList({ onClick }) {
 
 const initialState = {
   articles: [],
-  getTag: '',
+  activeFeed: '',
 };
 
 const updateState = (nextState) => {

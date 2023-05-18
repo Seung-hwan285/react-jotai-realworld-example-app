@@ -22,13 +22,10 @@ function renderLogoutButton() {
 
 function SettingForm() {
   const col = document.querySelector('.offset-md-3 ');
-
   const settingFormBox = createElement('form', 'form');
-
   const paintSettingDiv = createElement('div', '');
 
   paintSettingDiv.innerHTML = renderLogoutButton();
-
   appendChildrenToParent(col, settingFormBox, paintSettingDiv);
 
   const initialState = {

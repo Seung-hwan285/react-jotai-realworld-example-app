@@ -9,4 +9,5 @@ function HomeArticleTagList(tagList) {
     </ul>
   `;
 }
+
 export default HomeArticleTagList;

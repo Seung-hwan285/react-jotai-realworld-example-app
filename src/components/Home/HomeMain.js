@@ -1,5 +1,9 @@
 import { fetchAuthUserInfo } from '../../utils/helper/fetchAuth.js';
-import { getLocalStroage, getSessionStroage } from '../../utils/storage.js';
+import {
+  getLocalStroage,
+  getSessionStroage,
+  setSessionStroage,
+} from '../../utils/storage.js';
 
 import HomeArticles from './HomeArticles.js';
 import { setCookie } from '../../utils/cookie.js';
@@ -13,11 +17,8 @@ import {
 
 function renderHomeMain() {
   const homeContainer = document.querySelector('.home-page');
-
   const container = createElement('div', 'container page');
-
   const row = createElement('div', 'row');
-
   const col = createElement('div', 'col-md-9');
 
   appendChildrenToParent(row, col);
@@ -36,18 +37,26 @@ function renderPageNumberList() {
     .concat(initSecond, symbols.slice(2, 4));
 
   const pageNumberList = Array.from(firstList).concat(Array.from(secondList));
-
   return pageNumberList;
 }
 
 function HomeMain() {
   renderHomeMain();
 
+  const handleTagListClick = (e) => {
+    e.preventDefault();
+    const tag = e.target.textContent.trim();
+    setSessionStroage('selectTag', tag);
+
+    updateState({
+      activeFeed: 'getTag',
+    });
+    render();
+  };
+
   const handleFeedClick = async (e) => {
     e.preventDefault();
-
     const getTag = getSessionStroage('selectTag');
-
     const textContent = e.target.textContent.trim();
 
     const feeds = [
@@ -69,8 +78,6 @@ function HomeMain() {
     const token = getLocalStroage('token');
     const authToken = await fetchAuthUserInfo(token);
     setCookie('token', JSON.stringify(authToken), 7);
-
-    const col = document.querySelector('.col-md-9');
 
     const parms = new URLSearchParams(window.location.search);
     const activePage = Number(parms.get('page') || 1);
@@ -119,6 +126,7 @@ function HomeMain() {
     HomeArticles({
       pageNumber: state.pageNumber,
       articles: state.articles,
+      onClick: handleTagListClick,
     });
   };
 

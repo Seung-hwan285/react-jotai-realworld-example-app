@@ -89,7 +89,7 @@ async function updateArticles(activePage, pageNumberList) {
   }
 }
 
-function HomeArticles({ pageNumber, articles }) {
+function HomeArticles({ pageNumber, articles, onClick }) {
   const col = document.querySelector('.col-md-9');
 
   const nav = createElement('nav', 'main-pagination');
@@ -113,11 +113,9 @@ function HomeArticles({ pageNumber, articles }) {
     const spinnerContainer = LoadingSpinner();
     col.appendChild(spinnerContainer);
 
-    const spinner = document.querySelector('.spinner');
-
     if (articles) {
       setTimeout(() => {
-        HomeArticlePreview(articles);
+        HomeArticlePreview(articles, onClick);
         renderPageNumberLink(ul, activePage, pageNumber);
       }, 1500);
     }
