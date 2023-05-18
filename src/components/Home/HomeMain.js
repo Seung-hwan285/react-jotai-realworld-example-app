@@ -133,7 +133,8 @@ function HomeMain() {
   const initTags = () => {
     const spinner = document.querySelector('.spinner');
     HomeTagList({
-      onClick: handleFeedClick,
+      onClickFeed: handleFeedClick,
+      onClickTag: handleTagListClick,
     });
 
     if (spinner) {

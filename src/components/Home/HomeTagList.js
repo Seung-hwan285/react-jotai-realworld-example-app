@@ -34,7 +34,7 @@ function renderTagList(tags) {
     .join('');
 }
 
-export async function updateArticleByTag(tag, handleFeedClick) {
+export async function updateArticleByTag(tag, handleFeedClick, handleTagClick) {
   const { articles: tagArticles } = await article_request.getTagArticles(tag);
 
   updateState({
@@ -44,11 +44,10 @@ export async function updateArticleByTag(tag, handleFeedClick) {
   });
 
   HomeFeed(state);
-
-  HomeArticlePreview(state.articles);
+  HomeArticlePreview(state.articles, handleTagClick);
 }
 
-function HomeTagList({ onClick }) {
+function HomeTagList({ onClickFeed, onClickTag }) {
   const row = document.querySelector('.row');
   const col = createElement('div', 'col-md-3');
 
@@ -65,7 +64,7 @@ function HomeTagList({ onClick }) {
     const tag = e.target.textContent.trim();
     setSessionStroage('selectTag', tag);
 
-    await updateArticleByTag(tag, onClick);
+    await updateArticleByTag(tag, onClickFeed, onClickTag);
   };
 
   const render = async () => {
