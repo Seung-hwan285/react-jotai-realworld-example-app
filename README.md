@@ -6,5 +6,21 @@
 
 This codebase was created to demonstrate a fully fledged fullstack application built with **Vanilla Js + Functional components + history API** including CRUD operations, authentication, routing, pagination, and more.
 
+This is still an unfinished project.
+
+This project was planned with the idea that it is easy to learn if you learn vanilla sufficiently before learning frameworks such as React, Vue, and Svelte.
+Also, the project structure and state management pattern is similar to the most popular React approach.
+
+## Getting Started
+
+You can't view a live demo over at [Demo](https://js-playground-two.vercel.app)
+
+To get the frontend running locally:
+
+- Clone this repo
+- `npm install` to install all dependencies
+- `npm start` to start the local server
+- `npm test` to start the jest library 
+
 For more information on how to this works with other frontends/backends, head over to the [RealWorld](https://github.com/gothinkster/realworld) repo.
 [![Brought to you by Thinkster](https://raw.githubusercontent.com/gothinkster/realworld/master/media/end.png)](https://thinkster.io)
