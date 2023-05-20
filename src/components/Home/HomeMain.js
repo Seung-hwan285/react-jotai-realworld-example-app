@@ -45,13 +45,18 @@ function HomeMain() {
 
   const handleTagListClick = (e) => {
     e.preventDefault();
-    const tag = e.target.textContent.trim();
-    setSessionStroage('selectTag', tag);
+    if (e.target.classList.contains('tag-pill')) {
+      const tag = e.target.textContent.trim();
+      setSessionStroage('selectTag', tag);
 
-    updateState({
-      activeFeed: 'getTag',
-    });
-    render();
+      updateState({
+        activeFeed: 'getTag',
+      });
+      render();
+    }
+  };
+  const handleButtonClick = (e) => {
+    console.log(e.target);
   };
 
   const handleFeedClick = async (e) => {

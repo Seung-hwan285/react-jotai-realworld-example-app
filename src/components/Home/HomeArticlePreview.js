@@ -1,10 +1,39 @@
 import HomeArticleTagList from './HomeArticleTagList.js';
+import { article_request } from '../../lib/article/request.js';
+import { getLocalStroage } from '../../utils/storage.js';
 
 function HomeArticlePreview(articles, onClick) {
+  const handleArticleFavoriteClick = async (e) => {
+    e.preventDefault();
+    const slug = e.target.dataset;
+
+    const button = e.target;
+
+    const initialCount = button.textContent.trim();
+    const updateCount = String(Number(initialCount) + 1);
+
+    button.innerHTML = `
+        <i class="ion-heart"></i> ${updateCount}
+    `;
+    updateState({
+      favoritesCount: updateCount,
+    });
+
+    const { set } = slug;
+    await article_request.favorite(set, getLocalStroage('token'));
+  };
+
+  const state = {
+    favoritesCount: 0,
+  };
+
+  const updateState = (key, value) => {
+    state[key] = value;
+  };
+
   const render = () => {
     const col = document.querySelector('.col-md-9');
     const spinner = document.querySelector('.spinner');
-
     if (articles) {
       if (spinner) {
         spinner.remove();
@@ -23,8 +52,8 @@ function HomeArticlePreview(articles, onClick) {
             title,
             updatedAt,
           }) => {
+            updateState('favoritesCount', favoritesCount);
             const article = document.createElement('div');
-
             article.className = 'article-preview';
 
             article.innerHTML = /* HTML */ `
@@ -35,7 +64,7 @@ function HomeArticlePreview(articles, onClick) {
                   <span class="date">${createdAt}</span>
                 </div>
                 <button class="btn btn-outline-primary btn-sm pull-xs-right">
-                  <i class="ion-heart"></i> ${favoritesCount}
+                  <i class="ion-heart"></i> ${state.favoritesCount}
                 </button>
               </div>
               <a href="" class="preview-link">
@@ -48,6 +77,10 @@ function HomeArticlePreview(articles, onClick) {
             `;
 
             col.append(article);
+
+            const button = article.querySelector('button');
+            button.setAttribute('data-set', slug);
+            button.addEventListener('click', handleArticleFavoriteClick);
             article.addEventListener('click', onClick);
           }
         );

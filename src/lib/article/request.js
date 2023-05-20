@@ -65,6 +65,29 @@ export const article_request = {
       console.error(err);
     }
   },
+
+  favorite: async (slug, authToken) => {
+    try {
+      const response = await fetch(
+        `${API_END_POINT}/api/articles/${slug}/favorite`,
+        {
+          method: 'POST',
+          headers: getHeaders(authToken),
+        }
+      );
+
+      const data = await response.json();
+
+      if (response.ok) {
+        return data;
+      } else {
+        throw new Error(data.error);
+      }
+    } catch (err) {
+      console.error(err);
+    }
+  },
+
   getUserFeedArticles: async (authToken) => {
     try {
       const response = await fetch(`${API_END_POINT}/api/articles/feed`, {

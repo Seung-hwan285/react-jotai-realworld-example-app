@@ -4,7 +4,6 @@ export const getHeaders = (authToken) => {
   };
   if (authToken) {
     isJwtToken(authToken);
-
     baseHeaders.Authorization = `Token ${encodeURIComponent(authToken)}`;
   }
   return baseHeaders;

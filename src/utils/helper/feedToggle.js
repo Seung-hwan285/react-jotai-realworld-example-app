@@ -9,19 +9,3 @@ export const createTagNavPillsHtml = (items) => {
     })
     .join('');
 };
-
-export const createNavPillsHtml = (items, authToken) => {
-  return items.map(({ text }) => {
-    const isActive = text === `#${authToken}` ? `active` : '';
-
-    const isActiveTextContent = text === 'Global Feed' && 'active';
-
-    return `
-      <li class="nav-item">
-        <a class="nav-link ${
-          isActive || isActiveTextContent
-        }" href="">${text}</a>
-      </li>
-    `;
-  });
-};
