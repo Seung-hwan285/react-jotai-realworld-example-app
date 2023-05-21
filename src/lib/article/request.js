@@ -1,5 +1,6 @@
 import { API_END_POINT } from '../../url.js';
 import { getHeaders } from '../../utils/helper/jwt.js';
+import { getLocalStroage } from '../../utils/storage.js';
 
 export const article_request = {
   getAllArticles: async (offset, authToken) => {
@@ -98,7 +99,6 @@ export const article_request = {
       );
 
       const data = await response.json();
-      console.log(data);
 
       if (response.ok) {
         return data;
@@ -110,12 +110,35 @@ export const article_request = {
     }
   },
 
-  getUserFeedArticles: async (authToken) => {
+  getUserFavortieArticles: async (author, authToken) => {
     try {
-      const response = await fetch(`${API_END_POINT}/api/articles/feed`, {
-        method: 'GET',
-        headers: getHeaders(authToken),
-      });
+      const response = await fetch(
+        `${API_END_POINT}/api/articles?favorited=${author}&offset=0`,
+        {
+          method: 'GET',
+          headers: getHeaders(authToken),
+        }
+      );
+      const data = await response.json();
+      if (response.ok) {
+        return data;
+      } else {
+        throw new Error(data.error);
+      }
+    } catch (err) {
+      console.error(err);
+    }
+  },
+
+  getUserArticles: async (author, authToken) => {
+    try {
+      const response = await fetch(
+        `${API_END_POINT}/api/articles?author=${author}&offset=0`,
+        {
+          method: 'GET',
+          headers: getHeaders(authToken),
+        }
+      );
 
       const data = await response.json();
 

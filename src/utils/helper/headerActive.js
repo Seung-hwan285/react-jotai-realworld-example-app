@@ -22,5 +22,8 @@ export const setHeaderActive = (currentUrl) => {
     case '/setting':
       navbar[2].classList.add('active');
       break;
+    case '/profile':
+      navbar[3].classList.add('active');
+      break;
   }
 };

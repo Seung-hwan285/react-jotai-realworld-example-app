@@ -5,10 +5,10 @@ import { initRouter } from './utils/routes.js';
 import RegisterPage from './pages/RegisterPage.js';
 import SettingPage from './pages/SettingPage.js';
 import NewArticlePage from './pages/NewArticlePage.js';
+import ProfilePage from './pages/ProfilePage.js';
 
 function App({ target }) {
   const header = new Header(target);
-
   const routes = () => {
     const { pathname } = window.location;
 
@@ -18,6 +18,7 @@ function App({ target }) {
       { path: '/register', component: RegisterPage },
       { path: '/setting', component: SettingPage },
       { path: '/new-article', component: NewArticlePage },
+      { path: '/profile', component: ProfilePage },
     ];
 
     const page = pages.find((page) => page.path === pathname);
@@ -30,7 +31,6 @@ function App({ target }) {
   const render = () => {
     initRouter(() => {
       header.render();
-
       routes();
     });
     routes();

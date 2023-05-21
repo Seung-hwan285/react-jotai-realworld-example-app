@@ -12,6 +12,7 @@ export const cleanHTML = {
     removeElement('.container-page');
     removeElement('.settings-page');
     removeElement('.editor-page');
+    removeElement('.profile-page');
   },
   LoginPage: () => {
     removeElement('.home-page');
@@ -24,9 +25,17 @@ export const cleanHTML = {
   SettingPage: () => {
     removeElement('.editor-page');
     removeElement('.home-page');
+    removeElement('.profile-page');
   },
   CreateArticlePage: () => {
     removeElement('.settings-page');
+    removeElement('.home-page');
+    removeElement('.profile-page');
+  },
+  ProfilePage: () => {
+    removeElement('.editor-page');
+    removeElement('.settings-page');
+    removeElement('container-page');
     removeElement('.home-page');
   },
 };

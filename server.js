@@ -10,4 +10,8 @@ app.get('/*', (req, res) => {
   res.sendFile(path.resolve('index.html'));
 });
 
+app.get('/setting', (req, res) => {
+  res.sendFile(path.resolve('index.html'));
+});
+
 app.listen(process.env.PORT || 5000, () => console.log('Server running ....'));

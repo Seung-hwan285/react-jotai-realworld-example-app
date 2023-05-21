@@ -23,7 +23,6 @@ function renderSetting(target) {
 
 function SettingPage(target) {
   cleanHTML.SettingPage();
-
   renderSetting(target);
 
   const render = () => {

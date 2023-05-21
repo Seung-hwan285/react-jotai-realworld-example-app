@@ -20,14 +20,11 @@ function renderHome(target) {
 
 function HomePage(target) {
   cleanHTML.HomePage();
-
   renderHome(target);
 
-  const bannerWrapper = document.querySelector('.banner .container');
-
   const render = () => {
-    HomeBanner(bannerWrapper);
-    HomeMain(bannerWrapper);
+    HomeBanner();
+    HomeMain();
   };
 
   render();

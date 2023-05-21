@@ -15,10 +15,10 @@ function renderNewArticle(target) {
 }
 
 function NewArticlePage(target) {
+  cleanHTML.CreateArticlePage();
   renderNewArticle(target);
 
   const render = () => {
-    cleanHTML.CreateArticlePage();
     NewArticleForm();
   };
 

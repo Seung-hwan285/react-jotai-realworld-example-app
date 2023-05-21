@@ -71,7 +71,7 @@ function Header(target) {
             },
             {
               text: `${user.username}`,
-              link: '/',
+              link: '/profile',
             },
           ]
         : [
@@ -114,6 +114,9 @@ function Header(target) {
       },
       {
         link: '/setting',
+      },
+      {
+        link: '/profile',
       },
     ];
     const findUrl = url.find((u) => currentUrl === u.link);
