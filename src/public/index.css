@@ -12,6 +12,11 @@ li {
 input:focus {
   outline: none;
 }
+.btn-color {
+  background-color: #5cb85c;
+}
+.btn-outline-primary:hover {
+}
 
 .spinner {
   background-image: url('/src/public/spinner.gif');

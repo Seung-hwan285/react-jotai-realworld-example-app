@@ -2,33 +2,35 @@ import HomeArticleTagList from './HomeArticleTagList.js';
 import { article_request } from '../../lib/article/request.js';
 import { getLocalStroage } from '../../utils/storage.js';
 
+const FAVORITED_CLASS = 'btn btn-sm btn-primary pull-xs-right';
+const NOT_FAVORITED_CLASS = 'btn btn-sm btn-outline-primary pull-xs-right';
+
 function HomeArticlePreview(articles, onClick) {
-  const handleArticleFavoriteClick = async (e) => {
+  const handleFavoriteClick = async (e) => {
     e.preventDefault();
+
     const slug = e.target.dataset;
-
     const button = e.target;
-
     const initialCount = button.textContent.trim();
     const updateCount = String(Number(initialCount) + 1);
+    const deleteCount = String(Number(initialCount) - 1);
 
-    button.innerHTML = `
-        <i class="ion-heart"></i> ${updateCount}
-    `;
     updateState({
-      favoritesCount: updateCount,
+      favorited: !state.favorited,
+      favoritesCount: state.favorited ? updateCount : deleteCount,
     });
 
+    button.innerHTML = /* HTML */ `
+      <i class="ion-heart"></i> ${state.favorited ? updateCount : deleteCount}
+    </button>`;
+
     const { set } = slug;
-    await article_request.favorite(set, getLocalStroage('token'));
-  };
 
-  const state = {
-    favoritesCount: 0,
-  };
-
-  const updateState = (key, value) => {
-    state[key] = value;
+    if (state.favorited) {
+      await article_request.favorite(set, getLocalStroage('token'));
+    } else {
+      await article_request.cancelFavorite(set, getLocalStroage('token'));
+    }
   };
 
   const render = () => {
@@ -52,7 +54,9 @@ function HomeArticlePreview(articles, onClick) {
             title,
             updatedAt,
           }) => {
-            updateState('favoritesCount', favoritesCount);
+            updateState({
+              favoritesCount: favoritesCount,
+            });
             const article = document.createElement('div');
             article.className = 'article-preview';
 
@@ -63,7 +67,9 @@ function HomeArticlePreview(articles, onClick) {
                   <a href="" class="author">${author.username}</a>
                   <span class="date">${createdAt}</span>
                 </div>
-                <button class="btn btn-outline-primary btn-sm pull-xs-right">
+                <button
+                  class="${state.favorited} ? ${FAVORITED_CLASS} : ${NOT_FAVORITED_CLASS}"
+                >
                   <i class="ion-heart"></i> ${state.favoritesCount}
                 </button>
               </div>
@@ -71,7 +77,6 @@ function HomeArticlePreview(articles, onClick) {
                 <h1>${title}</h1>
                 <p>${description}</p>
                 <span>Read more...</span>
-
                 ${Array.isArray(tagList) && HomeArticleTagList(tagList)}
               </a>
             `;
@@ -80,7 +85,7 @@ function HomeArticlePreview(articles, onClick) {
 
             const button = article.querySelector('button');
             button.setAttribute('data-set', slug);
-            button.addEventListener('click', handleArticleFavoriteClick);
+            button.addEventListener('click', handleFavoriteClick);
             article.addEventListener('click', onClick);
           }
         );
@@ -90,5 +95,16 @@ function HomeArticlePreview(articles, onClick) {
 
   render();
 }
+
+const initialState = {
+  favorited: false,
+  favoritesCount: 0,
+};
+
+const updateState = (nextState) => {
+  state = { ...state, ...nextState };
+};
+
+let state = initialState;
 
 export default HomeArticlePreview;

@@ -55,9 +55,6 @@ function HomeMain() {
       render();
     }
   };
-  const handleButtonClick = (e) => {
-    console.log(e.target);
-  };
 
   const handleFeedClick = async (e) => {
     e.preventDefault();
