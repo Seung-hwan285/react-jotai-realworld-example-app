@@ -12,24 +12,27 @@ function HomeArticlePreview(articles, onClick) {
     const slug = e.target.dataset;
     const button = e.target;
     const initialCount = button.textContent.trim();
-    const updateCount = String(Number(initialCount) + 1);
-    const deleteCount = String(Number(initialCount) - 1);
 
-    updateState({
-      favorited: !state.favorited,
-      favoritesCount: state.favorited ? updateCount : deleteCount,
-    });
+    if (!e.target.classList.contains('ion-heart')) {
+      const updateCount = String(Number(initialCount) + 1);
+      const deleteCount = String(Number(initialCount) - 1);
 
-    button.innerHTML = /* HTML */ `
+      updateState({
+        favorited: !state.favorited,
+        favoritesCount: state.favorited ? updateCount : deleteCount,
+      });
+
+      button.innerHTML = /* HTML */ `
       <i class="ion-heart"></i> ${state.favorited ? updateCount : deleteCount}
     </button>`;
 
-    const { set } = slug;
+      const { set } = slug;
 
-    if (state.favorited) {
-      await article_request.favorite(set, getLocalStroage('token'));
-    } else {
-      await article_request.cancelFavorite(set, getLocalStroage('token'));
+      if (state.favorited) {
+        await article_request.favorite(set, getLocalStroage('token'));
+      } else {
+        await article_request.cancelFavorite(set, getLocalStroage('token'));
+      }
     }
   };
 
