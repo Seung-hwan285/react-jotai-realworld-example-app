@@ -45,9 +45,9 @@ function ProfilePage(target) {
     updateState({
       user: user,
     });
-    ProfileBanner(user);
+    ProfileBanner(state.user);
     ProfileFeed({
-      feed: state,
+      feed: state.feed,
       onClick: handleFeedClick,
     });
     ProfileArticle({

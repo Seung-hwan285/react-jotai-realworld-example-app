@@ -1,10 +1,43 @@
 import { article_request } from '../../lib/article/request.js';
 import { createElement } from '../../utils/helper/dom.js';
 import { getLocalStroage } from '../../utils/storage.js';
+import HomeArticleTagList from '../Home/HomeArticleTagList.js';
 
 function ProfileArticle({ feed, user }) {
+  const handleFavoriteClick = async (e) => {
+    const slug = e.target.dataset;
+
+    const button = e.target;
+    const initialCount = button.textContent.trim();
+
+    const deleteCount = String(Number(initialCount) - 1);
+
+    if (button.classList.contains('clicked')) {
+      return;
+    }
+    button.classList.add('clicked');
+
+    if (Number(initialCount) <= 0) {
+      return;
+    }
+
+    updateState({
+      favoritesCount: deleteCount,
+    });
+
+    button.innerHTML = /* HTML */ `
+      <i class="ion-heart"></i>${state.favoritesCount}
+    `;
+
+    const { set } = slug;
+
+    if (Number(initialCount) > 0) {
+      await article_request.cancelFavorite(set, getLocalStroage('token'));
+    }
+  };
+
   const render = async () => {
-    const page = document.querySelector('.articles-toggle');
+    const col = document.querySelector('.articles-toggle');
     const { username } = user;
 
     const token = getLocalStroage('token');
@@ -47,9 +80,11 @@ function ProfileArticle({ feed, user }) {
           title,
           updatedAt,
         }) => {
-          const aritlce = createElement('div', 'article-preview');
-
-          aritlce.innerHTML = /* HTML */ `
+          const ariticle = createElement('div', 'article-preview');
+          updateState({
+            favoritesCount: favoritesCount,
+          });
+          ariticle.innerHTML = /* HTML */ `
           <div class="article-meta">
             <a href=""><img src=${user.image} /></a>
             <div class="info">
@@ -57,24 +92,21 @@ function ProfileArticle({ feed, user }) {
               <span class="date">${title}</span>
             </div>
             <button class="btn btn-outline-primary btn-sm pull-xs-right">
-              <i class="ion-heart"></i> ${favoritesCount}
+              <i class="ion-heart"></i> ${state.favoritesCount}
             </button>
           </div>
           <a href="" class="preview-link">
             <h1>${title}</h1>
             <p>${body}</p>
             <span>Read more...</span>
-        <ul class="tag-list">
-      ${tagList
-        .map((tag) => {
-          return `<li class="tag-default tag-pill tag-outline">${tag}</li>`;
-        })
-        .join('')}
-    </ul>
+         ${Array.isArray(tagList) && HomeArticleTagList(tagList)}
           </a>
         </div>
         `;
-          page.appendChild(aritlce);
+          col.appendChild(ariticle);
+          const button = ariticle.querySelector('button');
+          button.setAttribute('data-set', slug);
+          button.addEventListener('click', handleFavoriteClick);
         }
       );
     }
@@ -85,6 +117,7 @@ function ProfileArticle({ feed, user }) {
 
 const initialState = {
   articles: [],
+  favoritesCount: 0,
 };
 
 const updateState = (nextState) => {

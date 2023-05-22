@@ -28,14 +28,12 @@ function ProfileFeed({ feed, onClick }) {
     profileFeedToggle.innerHTML = /* HTML */ `
       <ul class="nav nav-pills outline-active feed">
         <li class="nav-item">
-          <a class="nav-link ${feed.feed === 'my' ? 'active' : ''}" href=""
+          <a class="nav-link ${feed === 'my' ? 'active' : ''}" href=""
             >My Articles</a
           >
         </li>
         <li class="nav-item">
-          <a
-            class="nav-link ${feed.feed === 'favorite' ? 'active' : ''}"
-            href=""
+          <a class="nav-link ${feed === 'favorite' ? 'active' : ''}" href=""
             >Favorited Articles</a
           >
         </li>
