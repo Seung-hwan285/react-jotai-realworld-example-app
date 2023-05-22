@@ -21,6 +21,22 @@ export const article_request = {
       console.error(err);
     }
   },
+  getSingleArticle: async (slug) => {
+    console.log(slug);
+    try {
+      const response = await fetch(`${API_END_POINT}/api/articles/${slug}`, {
+        method: 'GET',
+      });
+      const data = await response.json();
+      if (response.ok) {
+        return data;
+      } else {
+        throw new Error(data.error);
+      }
+    } catch (err) {
+      console.error(err);
+    }
+  },
 
   getTagArticles: async (tag, limit = 20) => {
     try {

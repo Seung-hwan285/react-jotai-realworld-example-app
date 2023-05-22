@@ -114,10 +114,8 @@ function HomeArticles({ pageNumber, articles, onClick }) {
     col.appendChild(spinnerContainer);
 
     if (articles) {
-      setTimeout(() => {
-        HomeArticlePreview(articles, onClick);
-        renderPageNumberLink(ul, activePage, pageNumber);
-      }, 1500);
+      HomeArticlePreview(articles, onClick);
+      renderPageNumberLink(ul, activePage, pageNumber);
     }
     col.appendChild(nav);
 

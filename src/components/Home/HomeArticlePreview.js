@@ -1,11 +1,20 @@
 import HomeArticleTagList from './HomeArticleTagList.js';
 import { article_request } from '../../lib/article/request.js';
 import { getLocalStroage } from '../../utils/storage.js';
+import { route } from '../../utils/routes.js';
 
 const FAVORITED_CLASS = 'btn btn-sm btn-primary pull-xs-right';
 const NOT_FAVORITED_CLASS = 'btn btn-sm btn-outline-primary pull-xs-right';
 
+// https://api.realworld.io/api/articles/TEST-158960
+
 function HomeArticlePreview(articles, onClick) {
+  const handleArticleClick = (slug) => {
+    const { pathname } = window.location;
+
+    route(`/articles/${slug}`);
+  };
+
   const handleFavoriteClick = async (e) => {
     e.preventDefault();
 
@@ -87,9 +96,11 @@ function HomeArticlePreview(articles, onClick) {
             col.append(article);
 
             const button = article.querySelector('button');
+            const preview = article.querySelector('.preview-link');
             button.setAttribute('data-set', slug);
             button.addEventListener('click', handleFavoriteClick);
-            article.addEventListener('click', onClick);
+            preview.addEventListener('click', onClick);
+            article.addEventListener('click', () => handleArticleClick(slug));
           }
         );
       }

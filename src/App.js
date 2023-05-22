@@ -6,12 +6,14 @@ import RegisterPage from './pages/RegisterPage.js';
 import SettingPage from './pages/SettingPage.js';
 import NewArticlePage from './pages/NewArticlePage.js';
 import ProfilePage from './pages/ProfilePage.js';
+import SinglePage from './pages/SinglePage.js';
 
 function App({ target }) {
   const header = new Header(target);
   const routes = () => {
-    const { pathname } = window.location;
+    let { pathname } = window.location;
 
+    console.log(pathname);
     const pages = [
       { path: '/', component: HomePage },
       { path: '/login', component: LoginPage },
@@ -19,8 +21,13 @@ function App({ target }) {
       { path: '/setting', component: SettingPage },
       { path: '/new-article', component: NewArticlePage },
       { path: '/profile', component: ProfilePage },
+      { path: `/article`, component: SinglePage },
     ];
 
+    if (pathname.includes('/article')) {
+      pathname = pathname.slice(0, 8);
+    }
+    console.log(pathname);
     const page = pages.find((page) => page.path === pathname);
 
     if (page) {
