@@ -13,7 +13,6 @@ function App({ target }) {
   const routes = () => {
     let { pathname } = window.location;
 
-    console.log(pathname);
     const pages = [
       { path: '/', component: HomePage },
       { path: '/login', component: LoginPage },
@@ -27,7 +26,6 @@ function App({ target }) {
     if (pathname.includes('/article')) {
       pathname = pathname.slice(0, 8);
     }
-    console.log(pathname);
     const page = pages.find((page) => page.path === pathname);
 
     if (page) {

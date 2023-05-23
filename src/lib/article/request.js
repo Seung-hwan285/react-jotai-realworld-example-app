@@ -22,7 +22,6 @@ export const article_request = {
     }
   },
   getSingleArticle: async (slug) => {
-    console.log(slug);
     try {
       const response = await fetch(`${API_END_POINT}/api/articles/${slug}`, {
         method: 'GET',

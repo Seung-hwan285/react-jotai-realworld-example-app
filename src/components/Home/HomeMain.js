@@ -149,6 +149,7 @@ function HomeMain() {
 
   return { render };
 }
+
 const initalState = {
   activeFeed: 'global',
   articles: [],

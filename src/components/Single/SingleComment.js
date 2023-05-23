@@ -2,75 +2,84 @@ import {
   appendChildrenToParent,
   createElement,
 } from '../../utils/helper/dom.js';
+import { comment_request } from '../../lib/comment/request.js';
+import {
+  renderCommentForm,
+  renderComments,
+} from '../../utils/helper/comment.js';
 
-function renderCommentForm(comments) {
-  return comments.map((comment) => {
-    return /* HTML */ `
-      <hr />
-      <form class="card comment-form">
-        <div class="card-block">
-          <textarea
-            class="form-control"
-            placeholder="Write a comment..."
-            rows="3"
-          ></textarea>
-        </div>
-        <div class="card-footer">
-          <img src=${comment.author.image} class="comment-author-img" />
-          <button class="btn btn-sm btn-primary">Post Comment</button>
-        </div>
-      </form>
-    `;
-  });
-}
-function renderComments(comments) {
-  return comments
-    .map((comment) => {
-      console.log(comment);
-      return `
-        <hr/>
-          <div class="card">
-            <div class="card-block">
-              <p class="card-text">
-                    ${comment.body}
-              </p>
-            </div>
-            <div class="card-footer">
-              <a href="" class="comment-author">
-                <img
-                  src=${comment.author.image}
-                  class="comment-author-img"
-                />
-              </a>
-              &nbsp;
-              <a href="" class="comment-author">${comment.username}</a>
-              <span class="date-posted">${comment.createdAt}</span>
-                <span class="mod-options">
-                <i class="ion-edit"></i>
-                <i class="ion-trash-a"></i>
-              </span>
-            </div>
-          </div>
-        </div>
-      </div>`;
-    })
-    .join('');
+function renderComment({ comment }) {
+  const commentCard = renderComments([comment]);
+
+  const commentsContainer = document.querySelector('.comment-box');
+  commentsContainer.insertAdjacentHTML('beforeend', commentCard);
 }
 
-function SingleComment({ comments }) {
+function renderSingle(article, comments) {
   const row = createElement('div', 'row');
-  const col = createElement('div', 'col-xs-12 col-md-8 offset-md-2');
-  const getCommentForm = renderCommentForm(comments);
-  const getComment = renderComments(comments);
+  const col = createElement(
+    'div',
+    'col-xs-12 col-md-8 offset-md-2 comment-box'
+  );
 
-  col.insertAdjacentHTML('beforeend', getCommentForm);
-  col.insertAdjacentHTML('beforeend', getComment);
+  const commentForm = renderCommentForm(article.author.image);
+  const commentCard = renderComments(comments);
+
+  col.insertAdjacentHTML('beforeend', commentForm);
+  col.insertAdjacentHTML('beforeend', commentCard);
   appendChildrenToParent(row, col);
 
+  const pageElement = document.querySelector('.page');
+  pageElement.insertAdjacentHTML('beforeend', row.innerHTML);
+}
+
+function SingleComment({ user, comment }) {
+  const { article } = user;
+  const { comments } = comment;
+
+  renderSingle(article, comments);
+
+  const handleCommentSubmit = async (e) => {
+    e.preventDefault();
+    const { pathname } = window.location;
+    const slug = pathname.split('/')[2];
+    const textarea = e.target
+      .closest('.comment-form')
+      .querySelector('textarea');
+
+    const data = await comment_request.createComment(slug, textarea.value);
+
+    textarea.value = '';
+    renderComment(data);
+    render();
+  };
+
+  const handleCommentClick = async (e) => {
+    const { set } = e.target.dataset;
+    const { pathname } = window.location;
+    const slug = pathname.split('/')[2];
+
+    const commentElement = e.target.closest('.card-container');
+    const hr = commentElement.previousElementSibling;
+
+    if (commentElement) {
+      hr.remove();
+      commentElement.remove();
+    }
+
+    await comment_request.deleteComment(slug, set);
+  };
+
   const render = () => {
-    const pageElement = document.querySelector('.page');
-    pageElement.insertAdjacentHTML('beforeend', row.innerHTML);
+    const form = document.querySelector('.comment-form');
+    const buttons = document.querySelectorAll('.ion-trash-a');
+
+    form.addEventListener('submit', handleCommentSubmit);
+    buttons.forEach((button) => {
+      button.addEventListener('click', handleCommentClick);
+    });
   };
   render();
 }
+
 export default SingleComment;

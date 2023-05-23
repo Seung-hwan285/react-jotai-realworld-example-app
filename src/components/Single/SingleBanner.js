@@ -7,8 +7,6 @@ function SingleBanner({ article }) {
   const articleMeta = createElement('div', 'article-meta');
   const container = document.querySelector('.article');
 
-  console.log(article);
-
   const render = () => {
     articleMeta.innerHTML = /* HTML */ `
       <a href=""><img src=${article.author.image} /></a>

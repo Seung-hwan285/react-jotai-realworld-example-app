@@ -22,12 +22,30 @@ function SinglePage(target) {
     const user = await article_request.getSingleArticle(pathname.split('/')[2]);
     const comment = await comment_request.getComments(pathname.split('/')[2]);
 
-    console.log(comment);
-    SingleBanner(user);
-    SingleContent(user);
-    SingleComment(comment);
+    updateState({
+      user: user,
+      comment: comment,
+    });
+
+    SingleBanner(state.user);
+    SingleContent(state.user);
+    SingleComment(state);
   };
 
   render();
 }
+
+const initialState = {
+  user: {},
+  comment: {},
+};
+
+const updateState = (nextState) => {
+  state = {
+    ...state,
+    ...nextState,
+  };
+};
+let state = initialState;
+
 export default SinglePage;

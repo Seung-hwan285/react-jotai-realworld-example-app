@@ -6,12 +6,8 @@ import { route } from '../../utils/routes.js';
 const FAVORITED_CLASS = 'btn btn-sm btn-primary pull-xs-right';
 const NOT_FAVORITED_CLASS = 'btn btn-sm btn-outline-primary pull-xs-right';
 
-// https://api.realworld.io/api/articles/TEST-158960
-
 function HomeArticlePreview(articles, onClick) {
   const handleArticleClick = (slug) => {
-    const { pathname } = window.location;
-
     route(`/articles/${slug}`);
   };
 
@@ -100,7 +96,10 @@ function HomeArticlePreview(articles, onClick) {
             button.setAttribute('data-set', slug);
             button.addEventListener('click', handleFavoriteClick);
             preview.addEventListener('click', onClick);
-            article.addEventListener('click', () => handleArticleClick(slug));
+            article.addEventListener('click', (e) => {
+              e.preventDefault();
+              handleArticleClick(slug);
+            });
           }
         );
       }

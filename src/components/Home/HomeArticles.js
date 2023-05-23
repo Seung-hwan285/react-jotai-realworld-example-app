@@ -57,7 +57,6 @@ export function renderPageNumberLink(
       li.appendChild(a);
       nav.appendChild(li);
     });
-    return nav;
   }
 }
 
@@ -80,9 +79,7 @@ async function updateArticles(activePage, pageNumberList) {
 
   spinnerContainer.remove();
   HomeArticlePreview(articles);
-
-  const pagination = renderPageNumberLink(nav, activePage, pageNumberList);
-  ul.appendChild(pagination);
+  renderPageNumberLink(nav, activePage, pageNumberList);
 
   if (activePage > 0) {
     window.history.pushState({}, '', `?page=${activePage}`);
@@ -94,7 +91,6 @@ function HomeArticles({ pageNumber, articles, onClick }) {
 
   const nav = createElement('nav', 'main-pagination');
   const ul = createElement('div', 'pagination');
-
   appendChildrenToParent(nav, ul);
 
   const handleNextPageClick = async (e) => {
