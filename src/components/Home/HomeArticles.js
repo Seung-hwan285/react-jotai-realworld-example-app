@@ -63,7 +63,6 @@ export function renderPageNumberLink(
 async function updateArticles(activePage, pageNumberList) {
   const col = document.querySelector('.col-md-9');
   const nav = document.querySelector('.pagination');
-  const ul = document.querySelector('.main-pagination');
 
   const spinnerContainer = LoadingSpinner();
   col.appendChild(spinnerContainer);

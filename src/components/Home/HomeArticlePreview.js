@@ -22,14 +22,29 @@ function HomeArticlePreview(articles, onClick) {
       const updateCount = String(Number(initialCount) + 1);
       const deleteCount = String(Number(initialCount) - 1);
 
-      updateState({
-        favorited: !state.favorited,
-        favoritesCount: state.favorited ? updateCount : deleteCount,
-      });
+      const className = button.className.split(' ');
+
+      const boolean = className[className.length - 1] === 'true';
+
+      if (boolean) {
+        updateState({
+          favorited: false,
+          favoritesCount: deleteCount,
+        });
+      }
+
+      if (!boolean) {
+        updateState({
+          favorited: true,
+          favoritesCount: updateCount,
+        });
+      }
 
       button.innerHTML = /* HTML */ `
-      <i class="ion-heart"></i> ${state.favorited ? updateCount : deleteCount}
+      <i class="ion-heart"></i> ${state.favoritesCount}
     </button>`;
+
+      button.disabled = true;
 
       const { set } = slug;
 
@@ -63,10 +78,17 @@ function HomeArticlePreview(articles, onClick) {
             updatedAt,
           }) => {
             updateState({
+              favorited: favorited,
               favoritesCount: favoritesCount,
             });
             const article = document.createElement('div');
             article.className = 'article-preview';
+
+            const isFavorited = state.favorited === true;
+
+            const buttonClass = isFavorited
+              ? FAVORITED_CLASS
+              : NOT_FAVORITED_CLASS;
 
             article.innerHTML = /* HTML */ `
               <div class="article-meta">
@@ -75,9 +97,7 @@ function HomeArticlePreview(articles, onClick) {
                   <a href="" class="author">${author.username}</a>
                   <span class="date">${createdAt}</span>
                 </div>
-                <button
-                  class="${state.favorited} ? ${FAVORITED_CLASS} : ${NOT_FAVORITED_CLASS}"
-                >
+                <button class="${buttonClass} ${isFavorited}">
                   <i class="ion-heart"></i> ${state.favoritesCount}
                 </button>
               </div>
@@ -98,7 +118,13 @@ function HomeArticlePreview(articles, onClick) {
             preview.addEventListener('click', onClick);
             article.addEventListener('click', (e) => {
               e.preventDefault();
-              handleArticleClick(slug);
+
+              const tag = e.target.classList.contains('tag-pill');
+              const likeButton = e.target.classList.contains('btn');
+
+              if (!tag && !likeButton) {
+                handleArticleClick(slug);
+              }
             });
           }
         );
