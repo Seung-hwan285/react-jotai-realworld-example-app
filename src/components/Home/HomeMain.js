@@ -1,19 +1,20 @@
-import { fetchAuthUserInfo } from '../../utils/helper/fetchAuth.js';
 import {
   getLocalStroage,
   getSessionStroage,
   setSessionStroage,
 } from '../../utils/storage.js';
 
-import HomeArticles from './HomeArticles.js';
-import { setCookie } from '../../utils/cookie.js';
-import HomeTagList from './HomeTagList.js';
-import HomeFeed from './HomeFeed.js';
-import { article_request } from '../../lib/article/request.js';
 import {
+  setCookie,
+  fetchAuthUserInfo,
+  article_request,
   appendChildrenToParent,
   createElement,
-} from '../../utils/helper/dom.js';
+  createPageNumberList,
+  HomeTagList,
+  HomeFeed,
+  HomeArticles,
+} from './index.js';
 
 function renderHomeMain() {
   const homeContainer = document.querySelector('.home-page');
@@ -26,18 +27,47 @@ function renderHomeMain() {
   appendChildrenToParent(homeContainer, container);
 }
 
-function renderPageNumberList() {
-  const initFirst = Array.from({ length: 10 }, (val, idx) => idx + 1);
-  const initSecond = Array.from({ length: 10 }, (val, idx) => idx + 11);
-  const symbols = ['<<', '<', '>', '>>'];
+async function getArticlesPromise() {
+  const getTag = getSessionStroage('selectTag');
 
-  const firstList = symbols.slice(0, 2).concat(initFirst, symbols.slice(2, 4));
-  const secondList = symbols
-    .slice(0, 2)
-    .concat(initSecond, symbols.slice(2, 4));
+  const token = getLocalStroage('token');
+  const parms = new URLSearchParams(window.location.search);
+  const activePage = Number(parms.get('page') || 1);
 
-  const pageNumberList = Array.from(firstList).concat(Array.from(secondList));
-  return pageNumberList;
+  switch (state.activeFeed) {
+    case 'global':
+      const { articles } = await article_request.getAllArticles(
+        activePage === 1 ? 0 : activePage + 10,
+        !!token && token
+      );
+      updateState({ articles: articles, pageNumber: createPageNumberList() });
+      break;
+
+    case 'getTag':
+      const { articles: tagArticles } = await article_request.getTagArticles(
+        getTag
+      );
+      updateState({
+        articles: tagArticles,
+        pageNumber: [],
+      });
+      break;
+
+    case 'your':
+      updateState({ articles: [], pageNumber: [] });
+      if (!token) {
+        const { articles } = await article_request.getAllArticles(token);
+        updateState({
+          activeFeed: 'global',
+          articles: articles,
+        });
+      }
+      break;
+
+    default:
+      break;
+  }
+  return state.articles;
 }
 
 function HomeMain() {
@@ -75,59 +105,26 @@ function HomeMain() {
   };
 
   const render = async () => {
-    const getTag = getSessionStroage('selectTag');
-
     const token = getLocalStroage('token');
-    const authToken = await fetchAuthUserInfo(token);
+    const authTokenPromise = fetchAuthUserInfo(token);
+    const articlesPromise = getArticlesPromise();
+
+    const [authToken, articles] = await Promise.all([
+      authTokenPromise,
+      articlesPromise,
+    ]);
+
     setCookie('token', JSON.stringify(authToken), 7);
-
-    const parms = new URLSearchParams(window.location.search);
-    const activePage = Number(parms.get('page') || 1);
-
-    switch (state.activeFeed) {
-      case 'global':
-        const { articles: articles } = await article_request.getAllArticles(
-          activePage === 1 ? 0 : activePage + 10,
-          !!token && token
-        );
-        updateState({ articles: articles, pageNumber: renderPageNumberList() });
-
-        break;
-
-      case 'getTag':
-        const { articles: tagArticles } = await article_request.getTagArticles(
-          getTag
-        );
-        updateState({
-          articles: tagArticles,
-          pageNumber: [],
-        });
-        break;
-
-      case 'your':
-        updateState({ articles: [], pageNumber: [] });
-        if (!token) {
-          const { articles: articles } = await article_request.getAllArticles(
-            token
-          );
-          updateState({
-            activeFeed: 'global',
-            articles: articles,
-          });
-        }
-        break;
-      default:
-        break;
-    }
 
     HomeFeed({
       activeFeed: state.activeFeed,
       onClick: handleFeedClick,
     });
 
+    console.log(authToken);
     HomeArticles({
       pageNumber: state.pageNumber,
-      articles: state.articles,
+      articles: articles,
       onClick: handleTagListClick,
     });
   };

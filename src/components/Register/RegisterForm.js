@@ -1,13 +1,11 @@
-import { auth_request } from '../../lib/auth/request.js';
-import { route } from '../../utils/routes.js';
-import {
-  buttonRegister,
-  createInputFields,
-} from '../../utils/helper/authForm.js';
 import {
   appendChildrenToParent,
+  auth_request,
+  buttonRegister,
   createElement,
-} from '../../utils/helper/dom.js';
+  createInputFields,
+  route,
+} from './index.js';
 
 function RegisterForm() {
   const col = document.querySelector('.offset-md-3 ');

@@ -2,7 +2,7 @@ import { removeSessionStroage, removeStroage } from '../../utils/storage.js';
 import { route } from '../../utils/routes.js';
 import { API_END_POINT } from '../../url.js';
 import { removeCookie } from '../../utils/cookie.js';
-import { getHeaders } from '../../utils/helper/jwt.js';
+import { getHeaders } from './helper/jwt.js';
 
 export const auth_request = {
   userLogin: async (loginData) => {

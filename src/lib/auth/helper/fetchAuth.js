@@ -1,4 +1,4 @@
-import { auth_request } from '../../lib/auth/request.js';
+import { auth_request } from '../request.js';
 
 export const fetchAuthUserInfo = async (authToken) => {
   if (authToken) {

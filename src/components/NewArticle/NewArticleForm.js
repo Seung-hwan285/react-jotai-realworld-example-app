@@ -1,14 +1,12 @@
-import { article_request } from '../../lib/article/request.js';
-import { getLocalStroage } from '../../utils/storage.js';
-import { route } from '../../utils/routes.js';
 import {
   appendChildrenToParent,
-  createElement,
-} from '../../utils/helper/dom.js';
-import {
+  article_request,
   buttonNewArticle,
+  createElement,
   createInputFields,
-} from '../../utils/helper/authForm.js';
+  getLocalStroage,
+  route,
+} from './index.js';
 
 function NewArticleForm() {
   const col = document.querySelector('.offset-md-1');

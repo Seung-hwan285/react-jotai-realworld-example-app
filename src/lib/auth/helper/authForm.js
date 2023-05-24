@@ -1,5 +1,5 @@
-import Input from '../../commons/Input.js';
-import Button from '../../commons/Button.js';
+import Input from '../../../commons/Input.js';
+import Button from '../../../commons/Button.js';
 
 export const createInputFields = (inputs) => {
   return inputs

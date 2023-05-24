@@ -1,7 +1,7 @@
-import { cleanHTML } from '../utils/helper/cleanHTML.js';
+import { cleanHTML } from '../utils/cleanHTML.js';
 import SettingForm from '../components/Setting/SettingForm.js';
 import SettingFormTitle from '../components/Setting/SettingFormTitle.js';
-import { appendChildrenToParent, createElement } from '../utils/helper/dom.js';
+import { appendChildrenToParent, createElement } from '../utils/dom.js';
 
 function renderSetting(target) {
   const settingContainer = createElement('div', 'settings-page');

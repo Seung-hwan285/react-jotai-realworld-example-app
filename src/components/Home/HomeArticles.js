@@ -2,13 +2,13 @@ import LoadingSpinner from '../../commons/LoadingSpinner.js';
 
 import HomeArticlePreview from './HomeArticlePreview.js';
 import { article_request } from '../../lib/article/request.js';
-import { getNextPageIndex } from '../../utils/helper/mainPagination.js';
+import { getNextPageIndex } from '../../lib/article/helper/mainPagination.js';
 import { getLocalStroage } from '../../utils/storage.js';
 import {
   appendChildrenToParent,
   createElement,
   domRemove,
-} from '../../utils/helper/dom.js';
+} from '../../utils/dom.js';
 
 export function renderPageNumberLink(
   nav,

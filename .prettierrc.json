@@ -2,7 +2,7 @@
   "singleQuote": true,
   "semi": true,
   "tabWidth": 2,
-  "vueIndentScriptAndStyle": true,
   "arrowParens": "always",
+  "endOfLine": "lf",
   "printWidth": 80
 }

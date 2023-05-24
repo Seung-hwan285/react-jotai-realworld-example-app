@@ -1,9 +1,9 @@
 import { route } from '../utils/routes.js';
 import { getLocalStroage } from '../utils/storage.js';
-import { fetchAuthUserInfo } from '../utils/helper/fetchAuth.js';
-import { setHeaderActive } from '../utils/helper/headerActive.js';
-import { createNavbarHtml } from '../utils/helper/authForm.js';
-import { appendChildrenToParent, createElement } from '../utils/helper/dom.js';
+import { fetchAuthUserInfo } from '../lib/auth/helper/fetchAuth.js';
+import { setHeaderActive } from '../lib/article/helper/headerActive.js';
+import { createNavbarHtml } from '../lib/auth/helper/authForm.js';
+import { appendChildrenToParent, createElement } from '../utils/dom.js';
 
 function renderHeader(target) {
   const nav = createElement('nav', 'navbar navbar-light');

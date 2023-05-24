@@ -1,7 +1,7 @@
-import { cleanHTML } from '../utils/helper/cleanHTML.js';
+import { cleanHTML } from '../utils/cleanHTML.js';
 import HomeBanner from '../components/Home/HomeBanner.js';
 import HomeMain from '../components/Home/HomeMain.js';
-import { appendChildrenToParent, createElement } from '../utils/helper/dom.js';
+import { appendChildrenToParent, createElement } from '../utils/dom.js';
 
 function renderHome(target) {
   const homeContainer = createElement('div', 'home-page');

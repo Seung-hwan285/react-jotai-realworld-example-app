@@ -1,7 +1,9 @@
-import { article_request } from '../../lib/article/request.js';
-import { createElement } from '../../utils/helper/dom.js';
-import { getLocalStroage } from '../../utils/storage.js';
-import HomeArticleTagList from '../Home/HomeArticleTagList.js';
+import {
+  article_request,
+  createElement,
+  getLocalStroage,
+  HomeArticleTagList,
+} from './index.js';
 
 function ProfileArticle({ feed, user }) {
   const handleFavoriteClick = async (e) => {

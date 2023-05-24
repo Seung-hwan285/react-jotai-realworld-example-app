@@ -1,15 +1,13 @@
-import { getLocalStroage } from '../../utils/storage.js';
-import { auth_request } from '../../lib/auth/request.js';
-import { route } from '../../utils/routes.js';
-import { getCookie } from '../../utils/cookie.js';
-import {
-  buttonSetting,
-  createInputFields,
-} from '../../utils/helper/authForm.js';
 import {
   appendChildrenToParent,
+  auth_request,
+  buttonSetting,
   createElement,
-} from '../../utils/helper/dom.js';
+  createInputFields,
+  getCookie,
+  getLocalStroage,
+  route,
+} from './index.js';
 
 function renderLogoutButton() {
   return `

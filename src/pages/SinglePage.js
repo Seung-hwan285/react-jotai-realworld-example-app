@@ -1,5 +1,5 @@
-import { appendChildrenToParent, createElement } from '../utils/helper/dom.js';
-import { cleanHTML } from '../utils/helper/cleanHTML.js';
+import { appendChildrenToParent, createElement } from '../utils/dom.js';
+import { cleanHTML } from '../utils/cleanHTML.js';
 import SingleBanner from '../components/Single/SingleBanner.js';
 import SingleContent from '../components/Single/SingleContent.js';
 import SingleComment from '../components/Single/SingleComment.js';

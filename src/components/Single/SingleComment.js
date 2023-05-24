@@ -1,15 +1,13 @@
 import {
   appendChildrenToParent,
+  comment_request,
+  createCommentForm,
+  createComments,
   createElement,
-} from '../../utils/helper/dom.js';
-import { comment_request } from '../../lib/comment/request.js';
-import {
-  renderCommentForm,
-  renderComments,
-} from '../../utils/helper/comment.js';
+} from './index.js';
 
 function renderComment({ comment }) {
-  const commentCard = renderComments([comment]);
+  const commentCard = createComments([comment]);
 
   const commentsContainer = document.querySelector('.comment-box');
   commentsContainer.insertAdjacentHTML('beforeend', commentCard);
@@ -22,8 +20,8 @@ function renderSingle(article, comments) {
     'col-xs-12 col-md-8 offset-md-2 comment-box'
   );
 
-  const commentForm = renderCommentForm(article.author.image);
-  const commentCard = renderComments(comments);
+  const commentForm = createCommentForm(article.author.image);
+  const commentCard = createComments(comments);
 
   col.insertAdjacentHTML('beforeend', commentForm);
   col.insertAdjacentHTML('beforeend', commentCard);

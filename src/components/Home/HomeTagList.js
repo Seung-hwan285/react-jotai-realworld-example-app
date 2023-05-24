@@ -5,10 +5,7 @@ import LoadingSpinner from '../../commons/LoadingSpinner.js';
 import HomeArticlePreview from './HomeArticlePreview.js';
 
 import { tag_request } from '../../lib/tag/request.js';
-import {
-  appendChildrenToParent,
-  createElement,
-} from '../../utils/helper/dom.js';
+import { appendChildrenToParent, createElement } from '../../utils/dom.js';
 
 function renderSidebar() {
   const row = document.querySelector('.row');

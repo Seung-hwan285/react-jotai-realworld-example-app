@@ -1,11 +1,12 @@
-import { route } from '../../utils/routes.js';
-import { setLocalStroage } from '../../utils/storage.js';
-import { auth_request } from '../../lib/auth/request.js';
-import { buttonLogin, createInputFields } from '../../utils/helper/authForm.js';
 import {
+  auth_request,
+  buttonLogin,
+  route,
   appendChildrenToParent,
   createElement,
-} from '../../utils/helper/dom.js';
+  setLocalStroage,
+  createInputFields,
+} from './index.js';
 
 function LoginForm() {
   const col = document.querySelector('.offset-md-3');

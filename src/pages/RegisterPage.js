@@ -1,7 +1,7 @@
-import { cleanHTML } from '../utils/helper/cleanHTML.js';
+import { cleanHTML } from '../utils/cleanHTML.js';
 import RegisterForm from '../components/Register/RegisterForm.js';
 import RegisterFormTitle from '../components/Register/RegisterFormTitle.js';
-import { appendChildrenToParent, createElement } from '../utils/helper/dom.js';
+import { appendChildrenToParent, createElement } from '../utils/dom.js';
 
 function renderRegister(target) {
   const registerContainer = createElement('div', 'auth-page');

@@ -1,9 +1,9 @@
-import { appendChildrenToParent, createElement } from '../utils/helper/dom.js';
+import { appendChildrenToParent, createElement } from '../utils/dom.js';
 import ProfileBanner from '../components/Profile/ProfileBanner.js';
-import { cleanHTML } from '../utils/helper/cleanHTML.js';
+import { cleanHTML } from '../utils/cleanHTML.js';
 import ProfileFeed from '../components/Profile/ProfileFeed.js';
 import ProfileArticle from '../components/Profile/ProfileArticle.js';
-import { fetchAuthUserInfo } from '../utils/helper/fetchAuth.js';
+import { fetchAuthUserInfo } from '../lib/auth/helper/fetchAuth.js';
 import { getLocalStroage } from '../utils/storage.js';
 
 function renderProfile(target) {

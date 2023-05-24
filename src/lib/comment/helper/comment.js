@@ -1,4 +1,4 @@
-export const renderCommentForm = (image) => {
+export const createCommentForm = (image) => {
   return /* HTML */ `
     <hr />
     <form class="card comment-form">
@@ -17,7 +17,7 @@ export const renderCommentForm = (image) => {
   `;
 };
 
-export const renderComments = (comments) => {
+export const createComments = (comments) => {
   return comments
     .map((comment) => {
       return `

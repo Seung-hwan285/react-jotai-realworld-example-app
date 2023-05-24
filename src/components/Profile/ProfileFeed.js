@@ -1,7 +1,4 @@
-import {
-  appendChildrenToParent,
-  createElement,
-} from '../../utils/helper/dom.js';
+import { appendChildrenToParent, createElement } from '../../utils/dom.js';
 
 function renderProfile() {
   const page = document.querySelector('.profile-page');

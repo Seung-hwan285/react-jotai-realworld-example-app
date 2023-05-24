@@ -1,7 +1,4 @@
-import {
-  appendChildrenToParent,
-  createElement,
-} from '../../utils/helper/dom.js';
+import { appendChildrenToParent, createElement } from './index.js';
 
 function SingleContent({ article }) {
   const page = createElement('div', 'container page');

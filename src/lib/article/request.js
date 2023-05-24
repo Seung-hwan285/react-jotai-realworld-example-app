@@ -1,5 +1,5 @@
 import { API_END_POINT } from '../../url.js';
-import { getHeaders } from '../../utils/helper/jwt.js';
+import { getHeaders } from '../auth/helper/jwt.js';
 
 export const article_request = {
   getAllArticles: async (offset, authToken) => {
