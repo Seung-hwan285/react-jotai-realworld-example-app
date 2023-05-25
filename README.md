@@ -31,6 +31,6 @@ To get the frontend running locally:
 
 ![제목 없는 다이어그램 drawio (7)](https://github.com/Seung-hwan285/Functional-component-realworld-example-app/assets/74364667/5ef88954-8126-4757-a06a-7c88c4784366)
 
-![제목 없는 다이어그램 drawio (8)](https://github.com/Seung-hwan285/Functional-component-realworld-example-app/assets/74364667/559bd802-da5c-414e-8545-ca0c47f3deb2)
+![제목 없는 다이어그램 drawio (9)](https://github.com/Seung-hwan285/Functional-component-realworld-example-app/assets/74364667/20f959bd-f36e-4175-ab92-12439a642e05)
 For more information on how to this works with other frontends/backends, head over to the [RealWorld](https://github.com/gothinkster/realworld) repo.
 [![Brought to you by Thinkster](https://raw.githubusercontent.com/gothinkster/realworld/master/media/end.png)](https://thinkster.io)
