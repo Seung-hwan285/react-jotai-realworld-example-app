@@ -10,12 +10,7 @@ import {
   domRemove,
 } from '../../utils/dom.js';
 
-export function renderPageNumberLink(
-  nav,
-  activePage,
-  pageNumber,
-  pageSize = 14
-) {
+function renderPageNumberLink(nav, activePage, pageNumber, pageSize = 14) {
   const startIndex = activePage <= 10 ? 0 : 14;
   const endIndex = Math.min(startIndex + pageSize, pageNumber.length);
   const currentPageNumbers = pageNumber.slice(startIndex, endIndex);
@@ -60,7 +55,7 @@ export function renderPageNumberLink(
   }
 }
 
-async function updateArticles(activePage, pageNumberList) {
+async function updateArticles(activePage, pageNumberList, onClick) {
   const col = document.querySelector('.col-md-9');
   const nav = document.querySelector('.pagination');
 
@@ -77,7 +72,7 @@ async function updateArticles(activePage, pageNumberList) {
   );
 
   spinnerContainer.remove();
-  HomeArticlePreview(articles);
+  HomeArticlePreview(articles, onClick);
   renderPageNumberLink(nav, activePage, pageNumberList);
 
   if (activePage > 0) {
@@ -97,7 +92,7 @@ function HomeArticles({ pageNumber, articles, onClick }) {
     const params = new URLSearchParams(window.location.search);
     const activePage = Number(params.get('page')) || 1;
     const newPageIndex = getNextPageIndex(textContent, activePage);
-    await updateArticles(newPageIndex, pageNumber);
+    await updateArticles(newPageIndex, pageNumber, onClick);
   };
 
   const render = async () => {
@@ -120,7 +115,7 @@ function HomeArticles({ pageNumber, articles, onClick }) {
 
   render();
 
-  return { render };
+  return render;
 }
 
 export default HomeArticles;

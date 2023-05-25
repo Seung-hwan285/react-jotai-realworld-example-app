@@ -121,25 +121,19 @@ function HomeMain() {
       onClick: handleFeedClick,
     });
 
-    console.log(authToken);
     HomeArticles({
       pageNumber: state.pageNumber,
       articles: articles,
       onClick: handleTagListClick,
     });
   };
+  render();
 
   const initTags = () => {
-    const spinner = document.querySelector('.spinner');
     HomeTagList({
       onClickFeed: handleFeedClick,
       onClickTag: handleTagListClick,
     });
-
-    if (spinner) {
-      spinner.remove();
-    }
-    render();
   };
 
   initTags();

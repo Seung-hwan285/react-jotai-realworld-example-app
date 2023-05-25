@@ -1,4 +1,4 @@
-# ![Vanilla Js + Functional components + history API](logo_js.png)
+]# ![Vanilla Js + Functional components + history API](logo_js.png)
 
 > ### Vanilla Js + Functional Components + history API real world examples (CRUD, auth, advanced patterns, etc) that adheres to the [RealWorld](https://github.com/gothinkster/realworld-example-apps) spec and API.
 
@@ -19,8 +19,14 @@ To get the frontend running locally:
 
 - Clone this repo
 - `npm install` to install all dependencies
-- `npm start` to start the local server
+- `npm start` to start the local server 
 - `npm test` to start the jest library 
+
+
+## Architecture
+![제목 없는 다이어그램 drawio (3)](https://github.com/Seung-hwan285/Functional-component-realworld-example-app/assets/74364667/f8a4535c-119b-46f0-8017-f9aa9a290b2c)
+
+
 
 For more information on how to this works with other frontends/backends, head over to the [RealWorld](https://github.com/gothinkster/realworld) repo.
 [![Brought to you by Thinkster](https://raw.githubusercontent.com/gothinkster/realworld/master/media/end.png)](https://thinkster.io)

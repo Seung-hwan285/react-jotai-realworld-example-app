@@ -115,13 +115,15 @@ function HomeArticlePreview(articles, onClick) {
             const preview = article.querySelector('.preview-link');
             button.setAttribute('data-set', slug);
             button.addEventListener('click', handleFavoriteClick);
+
             preview.addEventListener('click', onClick);
+
             article.addEventListener('click', (e) => {
               e.preventDefault();
 
               const tag = e.target.classList.contains('tag-pill');
               const likeButton = e.target.classList.contains('btn');
-
+              console.log(tag);
               if (!tag && !likeButton) {
                 handleArticleClick(slug);
               }

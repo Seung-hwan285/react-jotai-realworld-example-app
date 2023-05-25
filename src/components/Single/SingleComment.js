@@ -13,14 +13,18 @@ function renderComment({ comment }) {
   commentsContainer.insertAdjacentHTML('beforeend', commentCard);
 }
 
-function renderSingle(article, comments) {
+function renderSingle(article, comments, image) {
   const row = createElement('div', 'row');
   const col = createElement(
     'div',
     'col-xs-12 col-md-8 offset-md-2 comment-box'
   );
 
-  const commentForm = createCommentForm(article.author.image);
+  if (!image) {
+    return;
+  }
+
+  const commentForm = createCommentForm(image);
   const commentCard = createComments(comments);
 
   col.insertAdjacentHTML('beforeend', commentForm);
@@ -31,11 +35,17 @@ function renderSingle(article, comments) {
   pageElement.insertAdjacentHTML('beforeend', row.innerHTML);
 }
 
-function SingleComment({ user, comment }) {
+function SingleComment({ user, comment, token }) {
   const { article } = user;
   const { comments } = comment;
 
-  renderSingle(article, comments);
+  if (!token) {
+    return;
+  }
+
+  const { image } = token;
+
+  renderSingle(article, comments, image);
 
   const handleCommentSubmit = async (e) => {
     e.preventDefault();
@@ -72,7 +82,8 @@ function SingleComment({ user, comment }) {
     const form = document.querySelector('.comment-form');
     const buttons = document.querySelectorAll('.ion-trash-a');
 
-    form.addEventListener('submit', handleCommentSubmit);
+    form?.addEventListener('submit', handleCommentSubmit);
+
     buttons.forEach((button) => {
       button.addEventListener('click', handleCommentClick);
     });

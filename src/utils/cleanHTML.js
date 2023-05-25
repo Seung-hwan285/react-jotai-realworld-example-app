@@ -19,10 +19,12 @@ export const cleanHTML = {
   LoginPage: () => {
     removeElement('.home-page');
     removeElement('.auth-page');
+    removeElement('.article-page');
   },
   RegisterPage: () => {
     removeElement('.home-page');
     removeElement('.auth-page');
+    removeElement('.article-page');
   },
   SettingPage: () => {
     removeElement('.article-page');

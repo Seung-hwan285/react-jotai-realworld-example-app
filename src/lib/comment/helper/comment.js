@@ -19,27 +19,27 @@ export const createCommentForm = (image) => {
 
 export const createComments = (comments) => {
   return comments
-    .map((comment) => {
+    .map(({ body, author, username, createdAt, id }) => {
       return `
         <hr/>
           <div class="card card-container">
             <div class="card-block">
               <p class="card-text">
-                    ${comment.body}
+                    ${body}
               </p>
             </div>
             <div class="card-footer">
               <a href="" class="comment-author">
                 <img
-                  src=${comment.author.image}
+                  src=${author.image}
                   class="comment-author-img"
                 />
               </a>
               &nbsp;
-              <a href="" class="comment-author">${comment.username}</a>
-              <span class="date-posted">${comment.createdAt}</span>
+              <a href="" class="comment-author">${username}</a>
+              <span class="date-posted">${createdAt}</span>
                 <span class="mod-options">
-                <i data-set="${comment.id}" class="ion-trash-a"></i>
+                <i data-set="${id}" class="ion-trash-a"></i>
               </span>
             </div>
           </div>

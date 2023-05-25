@@ -70,23 +70,12 @@ function ProfileArticle({ feed, user }) {
     }
 
     if (state.articles && Array.isArray(state.articles)) {
-      state.articles.map(
-        ({
-          author,
-          body,
-          createdAt,
-          description,
-          favoritesCount,
-          slug,
-          tagList,
-          title,
-          updatedAt,
-        }) => {
-          const ariticle = createElement('div', 'article-preview');
-          updateState({
-            favoritesCount: favoritesCount,
-          });
-          ariticle.innerHTML = /* HTML */ `
+      state.articles.map(({ body, favoritesCount, slug, tagList, title }) => {
+        const ariticle = createElement('div', 'article-preview');
+        updateState({
+          favoritesCount: favoritesCount,
+        });
+        ariticle.innerHTML = /* HTML */ `
           <div class="article-meta">
             <a href=""><img src=${user.image} /></a>
             <div class="info">
@@ -105,12 +94,11 @@ function ProfileArticle({ feed, user }) {
           </a>
         </div>
         `;
-          col.appendChild(ariticle);
-          const button = ariticle.querySelector('button');
-          button.setAttribute('data-set', slug);
-          button.addEventListener('click', handleFavoriteClick);
-        }
-      );
+        col.appendChild(ariticle);
+        const button = ariticle.querySelector('button');
+        button.setAttribute('data-set', slug);
+        button.addEventListener('click', handleFavoriteClick);
+      });
     }
   };
 

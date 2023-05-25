@@ -5,10 +5,10 @@ import SingleContent from '../components/Single/SingleContent.js';
 import SingleComment from '../components/Single/SingleComment.js';
 import { article_request } from '../lib/article/request.js';
 import { comment_request } from '../lib/comment/request.js';
+import { fetchAuthUserInfo } from '../lib/auth/helper/fetchAuth.js';
+import { getLocalStroage } from '../utils/storage.js';
 
-function SinglePage(target) {
-  cleanHTML.SinglePage();
-
+function renderSingle(target) {
   const singleContainer = createElement('div', 'article-page');
   const singleBanner = createElement('div', 'banner');
   const container = createElement('div', 'container article');
@@ -16,15 +16,34 @@ function SinglePage(target) {
   appendChildrenToParent(singleBanner, container);
   appendChildrenToParent(singleContainer, singleBanner);
   appendChildrenToParent(target, singleContainer);
+}
+
+function SinglePage(target) {
+  cleanHTML.SinglePage();
+  renderSingle(target);
 
   const render = async () => {
     const { pathname } = window.location;
-    const user = await article_request.getSingleArticle(pathname.split('/')[2]);
-    const comment = await comment_request.getComments(pathname.split('/')[2]);
+    const token = getLocalStroage('token');
+
+    const userPromise = article_request.getSingleArticle(
+      pathname.split('/')[2]
+    );
+    const userCommentPromise = comment_request.getComments(
+      pathname.split('/')[2]
+    );
+    const authTokenPromise = fetchAuthUserInfo(token);
+
+    const [user, comment, authToken] = await Promise.all([
+      userPromise,
+      userCommentPromise,
+      authTokenPromise,
+    ]);
 
     updateState({
       user: user,
       comment: comment,
+      token: authToken,
     });
 
     SingleBanner(state.user);
@@ -38,6 +57,7 @@ function SinglePage(target) {
 const initialState = {
   user: {},
   comment: {},
+  token: '',
 };
 
 const updateState = (nextState) => {

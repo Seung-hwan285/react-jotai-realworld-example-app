@@ -39,6 +39,7 @@ function ProfilePage(target) {
     }
     render();
   };
+
   const render = async () => {
     const user = await fetchAuthUserInfo(getLocalStroage('token'));
     cleanHTML.ProfilePage();
