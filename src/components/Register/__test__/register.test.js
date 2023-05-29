@@ -1,6 +1,5 @@
-import { screen } from '@testing-library/dom';
 import RegisterForm from '../RegisterForm';
-import '@testing-library/jest-dom';
+import { screen } from '@testing-library/dom';
 import { auth_request } from '../../../lib/auth/request';
 
 describe('RegisterForm', () => {
@@ -14,9 +13,9 @@ describe('RegisterForm', () => {
     document.body.appendChild(col);
 
     RegisterForm();
-    expect(screen.getByPlaceholderText(EMAIL)).toHaveValue('');
-    expect(screen.getByPlaceholderText(PASSWORD)).toHaveValue('');
-    expect(screen.getByPlaceholderText(USER_NAME)).toHaveValue('');
+    expect(screen.getByPlaceholderText(EMAIL).value).toBe('');
+    expect(screen.getByPlaceholderText(PASSWORD).value).toBe('');
+    expect(screen.getByPlaceholderText(USER_NAME).value).toBe('');
   });
 
   test('updates state when input values change', () => {

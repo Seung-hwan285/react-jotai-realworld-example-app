@@ -1,5 +1,4 @@
 import LoginForm from '../LoginForm';
-import '@testing-library/jest-dom';
 import { screen } from '@testing-library/dom';
 import { auth_request } from '../../../lib/auth/request';
 
@@ -14,8 +13,8 @@ describe('LoginForm', () => {
 
     LoginForm();
 
-    expect(screen.getByPlaceholderText(EMAIL)).toHaveValue('');
-    expect(screen.getByPlaceholderText(PASSWORD)).toHaveValue('');
+    expect(screen.getByPlaceholderText(EMAIL).value).toBe('');
+    expect(screen.getByPlaceholderText(PASSWORD).value).toBe('');
   });
 
   test('update state when input values change', () => {

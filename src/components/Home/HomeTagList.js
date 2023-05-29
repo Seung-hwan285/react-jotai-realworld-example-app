@@ -54,13 +54,13 @@ function HomeTagList({ onClickFeed, onClickTag }) {
     document.querySelector('.col-md-3').remove();
     row.appendChild(col);
   }
+
   renderSidebar();
 
   const handleTagClick = async (e) => {
     e.preventDefault();
     const tag = e.target.textContent.trim();
     setSessionStroage('selectTag', tag);
-
     await updateArticleByTag(tag, onClickFeed, onClickTag);
   };
 
@@ -77,7 +77,12 @@ function HomeTagList({ onClickFeed, onClickTag }) {
     const sidebar = document.querySelector('.sidebar');
     sidebar.addEventListener('click', handleTagClick);
   };
+
   render();
+
+  return {
+    render,
+  };
 }
 
 const initialState = {
