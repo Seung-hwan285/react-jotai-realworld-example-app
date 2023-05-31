@@ -82,6 +82,7 @@ function HomeTagList({ onClickFeed, onClickTag }) {
 
   return {
     render,
+    handleTagClick,
   };
 }
 

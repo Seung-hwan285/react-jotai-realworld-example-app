@@ -20,18 +20,18 @@ describe('SettingForm', () => {
     setSessionStroage(TOKEN_NAME);
   });
 
-  test('return a cookie value given a cookie name', () => {
+  test('returns a cookie value given a cookie name', () => {
     const result = JSON.parse(getCookie(TOKEN_NAME));
     expect(result).toEqual(mockCookie);
   });
 
-  test('remove a cookie by setting its expiration date to the past', () => {
+  test('removes a cookie by setting its expiration date to the past', () => {
     document.cookie = `${TOKEN_NAME}=dummyValue; expires=Fri, 13 May 2023 00:00:00 UTC; path=/;`;
     removeCookie(TOKEN_NAME);
     expect(document.cookie).not.toMatch(TOKEN_NAME);
   });
 
-  test('update state when input values change', () => {
+  test('updates state when input values change', () => {
     // for input element test
     const inputElements = document.createElement('input');
 
@@ -108,7 +108,7 @@ describe('SettingForm', () => {
     });
   });
 
-  test('update state when input values change and user update is successful', async () => {
+  test('updates state when input values change and user update is successful', async () => {
     SettingForm();
 
     const mockResponse = {

@@ -22,6 +22,7 @@ export const removeStroage = (key) => {
 };
 
 export const setSessionStroage = (key, value) => {
+  console.log(value);
   try {
     window.sessionStorage.setItem(key, JSON.stringify(value));
   } catch (err) {
