@@ -4,7 +4,7 @@
   "description": "]# ![Vanilla Js + Functional components + history API](logo_js.png)",
   "main": "babel.config.js",
   "dependencies": {
-    "@babel/preset-env": "^7.22.2",
+    "@babel/preset-env": "^7.22.4",
     "@testing-library/dom": "^9.3.0",
     "babel-jest": "^29.5.0",
     "babel-plugin-istanbul": "^6.1.1",
