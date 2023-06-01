@@ -18,7 +18,6 @@ function renderProfile() {
 
 function ProfileFeed({ feed, onClick }) {
   renderProfile();
-
   const profileFeedToggle = document.querySelector('.articles-toggle');
 
   const render = () => {

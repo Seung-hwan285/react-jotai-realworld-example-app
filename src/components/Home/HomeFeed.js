@@ -22,7 +22,7 @@ function renderNoArticle(col, message) {
 
 function HomeFeed({ activeFeed, onClick }) {
   const col = document.querySelector('.col-md-9');
-  const getTag = getSessionStroage('selectTag');
+  const tag = getSessionStroage('selectTag');
 
   const token = getLocalStroage('token');
 
@@ -31,15 +31,12 @@ function HomeFeed({ activeFeed, onClick }) {
       ? [
           { text: 'Your Feed' },
           { text: 'Global Feed' },
-          { text: getTag !== null ? `#${getTag}` : '' },
+          { text: tag !== null ? `#${tag}` : '' },
         ]
-      : [
-          { text: 'Global Feed' },
-          { text: getTag !== null ? `#${getTag}` : '' },
-        ]),
+      : [{ text: 'Global Feed' }, { text: tag !== null ? `#${tag}` : '' }]),
   ];
 
-  const getTagList = createTagNavPillsHtml(items);
+  const tagList = createTagNavPillsHtml(items);
 
   const setActiveNavElement = (navElements) => {
     navElements.forEach((navElement) => {
@@ -52,10 +49,10 @@ function HomeFeed({ activeFeed, onClick }) {
   };
 
   const render = () => {
-    if (getTag && token) {
-      col.innerHTML = renderFeedToggleContainer(getTagList);
+    if (tag && token) {
+      col.innerHTML = renderFeedToggleContainer(tagList);
     } else {
-      col.innerHTML = renderFeedToggleContainer(getTagList);
+      col.innerHTML = renderFeedToggleContainer(tagList);
     }
 
     const navElements = [
@@ -97,4 +94,7 @@ function HomeFeed({ activeFeed, onClick }) {
   };
   render();
 }
+
+export { renderNoArticle, renderFeedToggleContainer, getNavElement };
+
 export default HomeFeed;

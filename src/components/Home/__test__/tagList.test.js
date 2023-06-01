@@ -52,6 +52,7 @@ describe('HomeTagList', () => {
   test('updates sessionStorage with selected tag', async () => {
     const onClickFeed = jest.fn();
     const onClickTag = jest.fn();
+
     const home = new HomeTagList({ onClickFeed, onClickTag });
 
     const mockFeedElement = document.createElement('div');
@@ -75,16 +76,15 @@ describe('HomeTagList', () => {
 
     expect(event.preventDefault).toHaveBeenCalledTimes(1);
     expect(tagSpy).toBe('tag1');
+
     const HomeFeed = jest.fn();
     HomeFeed({
       activeFeed: 'getTag',
-      articles: ['tag1'],
       onClick: onClickFeed,
     });
 
     expect(HomeFeed).toHaveBeenCalledWith({
       activeFeed: 'getTag',
-      articles: ['tag1'],
       onClick: onClickFeed,
     });
   });
