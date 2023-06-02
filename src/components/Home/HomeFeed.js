@@ -5,10 +5,10 @@ function getNavElement(index) {
   return document.querySelector(`.nav-pills .nav-item:nth-child(${index}) a`);
 }
 
-function renderFeedToggleContainer(getTagList) {
+function renderFeedToggleContainer(tagList) {
   return `<div class="feed-toggle">
     <ul class="nav nav-pills outline-active">
-    ${getTagList}
+    ${tagList}
 </ul>
 </div>`;
 }

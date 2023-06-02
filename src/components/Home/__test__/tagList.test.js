@@ -6,13 +6,20 @@ import HomeTagList from '../HomeTagList';
 import { article_request } from '../../../lib/article/request';
 
 describe('HomeTagList', () => {
-  test('should fetch and return the correct tag list', async () => {
-    const mockTagList = { tags: ['tag1', 'tag2'] };
+  beforeEach(() => {
     document.body.innerHTML = `
       <div class="row">
         <div class="col-md-3"></div>
       </div>
     `;
+  });
+
+  afterEach(() => {
+    document.body.innerHTML = '';
+  });
+
+  test('should fetch and return the correct tag list', async () => {
+    const mockTagList = { tags: ['tag1', 'tag2'] };
 
     fetch.mockResponse(JSON.stringify(mockTagList));
 
@@ -22,12 +29,6 @@ describe('HomeTagList', () => {
   });
 
   test('renders tag list in HomeTagList component', async () => {
-    document.body.innerHTML = `
-    <div class="row">
-      <div class="col-md-3"></div>
-    </div>
-  `;
-
     const onClickFeed = jest.fn();
     const onClickTag = jest.fn();
 

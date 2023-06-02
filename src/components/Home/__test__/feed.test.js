@@ -1,5 +1,8 @@
-import { getNavElement, renderNoArticle } from '../HomeFeed';
-import { appendChildrenToParent, createElement } from '../../../utils/dom';
+import {
+  getNavElement,
+  renderFeedToggleContainer,
+  renderNoArticle,
+} from '../HomeFeed';
 
 describe('HomeFeed', () => {
   beforeEach(() => {
@@ -52,5 +55,18 @@ describe('HomeFeed', () => {
 
     expect(navElement).toBeDefined();
     expect(navElement.tagName).toBe('A');
+  });
+
+  test('returns the HTML string', () => {
+    const tagList = jest.fn().mockReturnValue('<li>tag1</li><li>tag2</li>');
+
+    const expectedOutput = /*HTML*/ `<div class="feed-toggle">
+      <ul class="nav nav-pills outline-active">
+      <li>tag1</li><li>tag2</li>
+  </ul>
+  </div>`;
+
+    expect(renderFeedToggleContainer(tagList())).toBe(expectedOutput);
+    expect(tagList).toHaveBeenCalled();
   });
 });
