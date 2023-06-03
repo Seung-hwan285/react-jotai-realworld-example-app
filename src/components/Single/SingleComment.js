@@ -6,14 +6,14 @@ import {
   createElement,
 } from './index.js';
 
-function renderComment({ comment }) {
-  const commentCard = createComments([comment]);
+function renderComment({ comment }, token) {
+  const commentCard = createComments([comment], token);
 
   const commentsContainer = document.querySelector('.comment-box');
   commentsContainer.insertAdjacentHTML('beforeend', commentCard);
 }
 
-function renderSingle(article, comments, image) {
+function renderSingle({ article, comments, image, token }) {
   const row = createElement('div', 'row');
   const col = createElement(
     'div',
@@ -25,7 +25,7 @@ function renderSingle(article, comments, image) {
   }
 
   const commentForm = createCommentForm(image);
-  const commentCard = createComments(comments);
+  const commentCard = createComments(comments, token);
 
   col.insertAdjacentHTML('beforeend', commentForm);
   col.insertAdjacentHTML('beforeend', commentCard);
@@ -45,7 +45,14 @@ function SingleComment({ user, comment, token }) {
 
   const { image } = token;
 
-  renderSingle(article, comments, image);
+  const singleData = {
+    article,
+    comments,
+    image,
+    token,
+  };
+
+  renderSingle(singleData);
 
   const handleCommentSubmit = async (e) => {
     e.preventDefault();
@@ -58,7 +65,7 @@ function SingleComment({ user, comment, token }) {
     const data = await comment_request.createComment(slug, textarea.value);
 
     textarea.value = '';
-    renderComment(data);
+    renderComment(data, token);
     render();
   };
 

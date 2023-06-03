@@ -8,6 +8,7 @@ import { comment_request } from '../lib/comment/request.js';
 import { fetchAuthUserInfo } from '../lib/auth/helper/fetchAuth.js';
 import { getLocalStroage } from '../utils/storage.js';
 
+// username이 똑같지 않으면 삭제 버튼이 사라지게
 function renderSingle(target) {
   const singleContainer = createElement('div', 'article-page');
   const singleBanner = createElement('div', 'banner');

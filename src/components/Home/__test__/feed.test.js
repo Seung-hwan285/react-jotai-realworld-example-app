@@ -61,10 +61,10 @@ describe('HomeFeed', () => {
     const tagList = jest.fn().mockReturnValue('<li>tag1</li><li>tag2</li>');
 
     const expectedOutput = /*HTML*/ `<div class="feed-toggle">
-      <ul class="nav nav-pills outline-active">
-      <li>tag1</li><li>tag2</li>
+  <ul class="nav nav-pills outline-active">
+    <li>tag1</li><li>tag2</li>
   </ul>
-  </div>`;
+</div>`;
 
     expect(renderFeedToggleContainer(tagList())).toBe(expectedOutput);
     expect(tagList).toHaveBeenCalled();

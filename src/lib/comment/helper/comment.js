@@ -17,9 +17,14 @@ export const createCommentForm = (image) => {
   `;
 };
 
-export const createComments = (comments) => {
+export const createComments = (comments, token) => {
   return comments
-    .map(({ body, author, username, createdAt, id }) => {
+    .map(({ body, author, createdAt, id }) => {
+      const iconClass =
+        author.username === token.username
+          ? `<i data-set="${id}" class="ion-trash-a"></i>`
+          : '';
+
       return `
         <hr/>
           <div class="card card-container">
@@ -36,10 +41,10 @@ export const createComments = (comments) => {
                 />
               </a>
               &nbsp;
-              <a href="" class="comment-author">${username}</a>
+              <a href="" class="comment-author">${author.username}</a>
               <span class="date-posted">${createdAt}</span>
                 <span class="mod-options">
-                <i data-set="${id}" class="ion-trash-a"></i>
+                ${iconClass}
               </span>
             </div>
           </div>

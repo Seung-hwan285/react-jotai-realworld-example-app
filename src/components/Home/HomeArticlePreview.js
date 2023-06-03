@@ -6,6 +6,8 @@ import { route } from '../../utils/routes.js';
 const FAVORITED_CLASS = 'btn btn-sm btn-primary pull-xs-right';
 const NOT_FAVORITED_CLASS = 'btn btn-sm btn-outline-primary pull-xs-right';
 
+// 토큰이 맞지 않으면 삭제가 되지 않아야한다.
+
 function HomeArticlePreview(articles, onClick) {
   const handleArticleClick = (slug) => {
     route(`/articles/${slug}`);
@@ -67,7 +69,6 @@ function HomeArticlePreview(articles, onClick) {
         articles.map(
           ({
             author,
-            body,
             createdAt,
             description,
             favorited,
@@ -75,7 +76,6 @@ function HomeArticlePreview(articles, onClick) {
             slug,
             tagList,
             title,
-            updatedAt,
           }) => {
             updateState({
               favorited: favorited,
@@ -123,7 +123,6 @@ function HomeArticlePreview(articles, onClick) {
 
               const tag = e.target.classList.contains('tag-pill');
               const likeButton = e.target.classList.contains('btn');
-              console.log(tag);
               if (!tag && !likeButton) {
                 handleArticleClick(slug);
               }

@@ -90,12 +90,15 @@ function ProfileArticle({ feed, user }) {
 
     if (Array.isArray(state.articles)) {
       LoadingSpinner();
+
       state.articles.map(({ body, favoritesCount, slug, tagList, title }) => {
-        const ariticle = createElement('div', 'article-preview');
+        const articlePreview = createElement('div', 'article-preview');
+
         updateState({
           favoritesCount: favoritesCount,
         });
-        ariticle.innerHTML = /* HTML */ `
+
+        articlePreview.innerHTML = /* HTML */ `
           <div class="article-meta">
             <a href=""><img src=${user.image} /></a>
             <div class="info">
@@ -114,8 +117,8 @@ function ProfileArticle({ feed, user }) {
           </a>
         </div>
         `;
-        col.appendChild(ariticle);
-        const button = ariticle.querySelector('button');
+        col.appendChild(articlePreview);
+        const button = articlePreview.querySelector('button');
         button.setAttribute('data-set', slug);
         button.addEventListener('click', handleFavoriteClick);
       });

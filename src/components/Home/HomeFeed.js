@@ -6,10 +6,10 @@ function getNavElement(index) {
 }
 
 function renderFeedToggleContainer(tagList) {
-  return `<div class="feed-toggle">
-    <ul class="nav nav-pills outline-active">
+  return /*HTML*/ `<div class="feed-toggle">
+  <ul class="nav nav-pills outline-active">
     ${tagList}
-</ul>
+  </ul>
 </div>`;
 }
 
