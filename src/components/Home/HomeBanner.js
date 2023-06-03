@@ -1,3 +1,5 @@
+function rednerSpinner() {}
+
 function HomeBanner() {
   const bannerWrapper = document.querySelector('.banner .container');
 

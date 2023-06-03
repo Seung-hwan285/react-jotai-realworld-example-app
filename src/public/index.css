@@ -19,7 +19,7 @@ input:focus {
 }
 
 .spinner {
-  background-image: url('/src/public/spinner.gif');
+  background-image: url('/src/public/spinner_3.gif');
   width: 50px;
   height: 50px;
   margin: 25px auto;

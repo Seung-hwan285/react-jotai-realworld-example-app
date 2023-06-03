@@ -3,8 +3,7 @@ import ProfileBanner from '../components/Profile/ProfileBanner.js';
 import { cleanHTML } from '../utils/cleanHTML.js';
 import ProfileFeed from '../components/Profile/ProfileFeed.js';
 import ProfileArticle from '../components/Profile/ProfileArticle.js';
-import { fetchAuthUserInfo } from '../lib/auth/helper/fetchAuth.js';
-import { getLocalStroage } from '../utils/storage.js';
+import { getCookie } from '../utils/cookie.js';
 
 function renderProfile(target) {
   const profileContainer = createElement('div', 'profile-page');
@@ -41,7 +40,8 @@ function ProfilePage(target) {
   };
 
   const render = async () => {
-    const user = await fetchAuthUserInfo(getLocalStroage('token'));
+    const user = JSON.parse(getCookie('token'));
+
     cleanHTML.ProfilePage();
     updateState({
       user: user,

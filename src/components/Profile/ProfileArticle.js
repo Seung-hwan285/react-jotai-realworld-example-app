@@ -4,6 +4,18 @@ import {
   getLocalStroage,
   HomeArticleTagList,
 } from './index.js';
+import LoadingSpinner from '../../commons/LoadingSpinner.js';
+
+function renderSpinner() {
+  const col = document.querySelector('.articles-toggle');
+  const spinnerContainer = LoadingSpinner();
+  col.appendChild(spinnerContainer);
+}
+
+function removeSpinner() {
+  const spinner = document.querySelector('.spinner');
+  spinner.remove();
+}
 
 function ProfileArticle({ feed, user }) {
   const handleFavoriteClick = async (e) => {
@@ -45,31 +57,39 @@ function ProfileArticle({ feed, user }) {
     const token = getLocalStroage('token');
     switch (feed) {
       case 'my':
+        renderSpinner();
         const { articles: articleUsername } =
           await article_request.getUserArticles(username, token);
         updateState({
           articles: articleUsername,
         });
+        removeSpinner();
         break;
       case 'favorite':
+        renderSpinner();
         const { articles: articleFavorite } =
           await article_request.getUserFavortieArticles(username, token);
         updateState({
           articles: articleFavorite,
         });
+        removeSpinner();
         break;
       default:
+        renderSpinner();
         const { articles } = await article_request.getUserArticles(
           username,
           token
         );
+        removeSpinner();
+
         updateState({
           articles: articles,
         });
         break;
     }
 
-    if (state.articles && Array.isArray(state.articles)) {
+    if (Array.isArray(state.articles)) {
+      LoadingSpinner();
       state.articles.map(({ body, favoritesCount, slug, tagList, title }) => {
         const ariticle = createElement('div', 'article-preview');
         updateState({

@@ -1,6 +1,6 @@
 import { route } from '../../utils/routes.js';
 
-async function ProfileBanner(user) {
+async function ProfileBanner({ username, bio, image }) {
   const col = document.querySelector('.col-xs-12');
 
   const handleSettingClick = () => {
@@ -9,9 +9,9 @@ async function ProfileBanner(user) {
 
   const render = () => {
     col.innerHTML = /* HTML */ `
-      <img src=${user.image} />
-      <h4>${user.username}</h4>
-      <p>${user.bio}</p>
+      <img src=${image} />
+      <h4>${username}</h4>
+      <p>${bio}</p>
       <button class="btn btn-sm btn-outline-secondary action-btn">
         <i class="ion-plus-round"></i>
         &nbsp; Edit Profile Setting
