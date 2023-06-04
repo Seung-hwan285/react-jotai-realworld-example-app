@@ -82,7 +82,6 @@ async function updateArticles(activePage, pageNumberList, onClick) {
 
 function HomeArticles({ pageNumber, articles, onClick }) {
   const col = document.querySelector('.col-md-9');
-
   const nav = createElement('nav', 'main-pagination');
   const ul = createElement('div', 'pagination');
   appendChildrenToParent(nav, ul);
@@ -100,14 +99,12 @@ function HomeArticles({ pageNumber, articles, onClick }) {
     const activePage = Number(params.get('page')) || 1;
 
     window.history.pushState({}, '', `?page=${activePage}`);
-    const spinnerContainer = LoadingSpinner();
-    col.appendChild(spinnerContainer);
 
     if (articles) {
       HomeArticlePreview(articles, onClick);
       renderPageNumberLink(ul, activePage, pageNumber);
+      col?.appendChild(nav);
     }
-    col.appendChild(nav);
 
     const page = document.querySelector('.pagination');
     page.addEventListener('click', handleNextPageClick);

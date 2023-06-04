@@ -15,6 +15,7 @@ import {
   HomeFeed,
   HomeArticles,
 } from './index.js';
+import LoadingSpinner from '../../commons/LoadingSpinner.js';
 
 function renderHomeMain() {
   const homeContainer = document.querySelector('.home-page');
@@ -74,7 +75,6 @@ function HomeMain() {
   renderHomeMain();
 
   const handleTagListClick = (e) => {
-    e.preventDefault();
     if (e.target.classList.contains('tag-pill')) {
       const tag = e.target.textContent.trim();
       setSessionStroage('selectTag', tag);
@@ -109,10 +109,7 @@ function HomeMain() {
     const authTokenPromise = fetchAuthUserInfo(token);
     const articlesPromise = getArticlesPromise();
 
-    const [authToken, articles] = await Promise.all([
-      authTokenPromise,
-      articlesPromise,
-    ]);
+    const [authToken] = await Promise.all([authTokenPromise]);
 
     setCookie('token', JSON.stringify(authToken), 7);
 
@@ -122,11 +119,21 @@ function HomeMain() {
     });
 
     HomeArticles({
+      articles: [],
+    });
+
+    const spinner = LoadingSpinner();
+    const col = document.querySelector('.col-md-9');
+    col.appendChild(spinner);
+    await articlesPromise;
+
+    HomeArticles({
       pageNumber: state.pageNumber,
-      articles: articles,
+      articles: state.articles,
       onClick: handleTagListClick,
     });
   };
+
   render();
 
   const initTags = () => {

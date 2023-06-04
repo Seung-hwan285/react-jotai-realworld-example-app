@@ -6,8 +6,6 @@ import { route } from '../../utils/routes.js';
 const FAVORITED_CLASS = 'btn btn-sm btn-primary pull-xs-right';
 const NOT_FAVORITED_CLASS = 'btn btn-sm btn-outline-primary pull-xs-right';
 
-// 토큰이 맞지 않으면 삭제가 되지 않아야한다.
-
 function HomeArticlePreview(articles, onClick) {
   const handleArticleClick = (slug) => {
     route(`/articles/${slug}`);
@@ -61,75 +59,71 @@ function HomeArticlePreview(articles, onClick) {
   const render = () => {
     const col = document.querySelector('.col-md-9');
     const spinner = document.querySelector('.spinner');
-    if (articles) {
-      if (spinner) {
-        spinner.remove();
-      }
-      if (articles && Array.isArray(articles)) {
-        articles.map(
-          ({
-            author,
-            createdAt,
-            description,
-            favorited,
-            favoritesCount,
-            slug,
-            tagList,
-            title,
-          }) => {
-            updateState({
-              favorited: favorited,
-              favoritesCount: favoritesCount,
-            });
-            const article = document.createElement('div');
-            article.className = 'article-preview';
 
-            const isFavorited = state.favorited === true;
+    if (Array.isArray(articles)) {
+      articles.map(
+        ({
+          author,
+          createdAt,
+          description,
+          favorited,
+          favoritesCount,
+          slug,
+          tagList,
+          title,
+        }) => {
+          updateState({
+            favorited: favorited,
+            favoritesCount: favoritesCount,
+          });
+          const article = document.createElement('div');
+          article.className = 'article-preview';
 
-            const buttonClass = isFavorited
-              ? FAVORITED_CLASS
-              : NOT_FAVORITED_CLASS;
+          const isFavorited = state.favorited === true;
 
-            article.innerHTML = /* HTML */ `
-              <div class="article-meta">
-                <a href="profile.html"><img src=${author.image} /></a>
-                <div class="info">
-                  <a href="" class="author">${author.username}</a>
-                  <span class="date">${createdAt}</span>
-                </div>
-                <button class="${buttonClass} ${isFavorited}">
-                  <i class="ion-heart"></i> ${state.favoritesCount}
-                </button>
+          const buttonClass = isFavorited
+            ? FAVORITED_CLASS
+            : NOT_FAVORITED_CLASS;
+
+          article.innerHTML = /* HTML */ `
+            <div class="article-meta">
+              <a href="profile.html"><img src=${author.image} /></a>
+              <div class="info">
+                <a href="" class="author">${author.username}</a>
+                <span class="date">${createdAt}</span>
               </div>
-              <a href="" class="preview-link">
-                <h1>${title}</h1>
-                <p>${description}</p>
-                <span>Read more...</span>
-                ${Array.isArray(tagList) && HomeArticleTagList(tagList)}
-              </a>
-            `;
+              <button class="${buttonClass} ${isFavorited}">
+                <i class="ion-heart"></i> ${state.favoritesCount}
+              </button>
+            </div>
+            <a href="" class="preview-link">
+              <h1>${title}</h1>
+              <p>${description}</p>
+              <span>Read more...</span>
+              ${Array.isArray(tagList) && HomeArticleTagList(tagList)}
+            </a>
+          `;
 
-            col.append(article);
+          col?.appendChild(article);
+          spinner?.remove();
+          const button = article.querySelector('button');
+          const preview = article.querySelector('.preview-link');
+          button.setAttribute('data-set', slug);
+          button.addEventListener('click', handleFavoriteClick);
 
-            const button = article.querySelector('button');
-            const preview = article.querySelector('.preview-link');
-            button.setAttribute('data-set', slug);
-            button.addEventListener('click', handleFavoriteClick);
+          preview.addEventListener('click', onClick);
 
-            preview.addEventListener('click', onClick);
+          article.addEventListener('click', (e) => {
+            e.preventDefault();
 
-            article.addEventListener('click', (e) => {
-              e.preventDefault();
-
-              const tag = e.target.classList.contains('tag-pill');
-              const likeButton = e.target.classList.contains('btn');
-              if (!tag && !likeButton) {
-                handleArticleClick(slug);
-              }
-            });
-          }
-        );
-      }
+            const tag = e.target.classList.contains('tag-pill');
+            const likeButton = e.target.classList.contains('btn');
+            if (!tag && !likeButton) {
+              handleArticleClick(slug);
+            }
+          });
+        }
+      );
     }
   };
 

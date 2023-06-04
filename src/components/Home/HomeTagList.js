@@ -66,13 +66,11 @@ function HomeTagList({ onClickFeed, onClickTag }) {
 
   const render = async () => {
     const tagList = document.querySelector('.sidebar .tag-list');
-    const spinnerContainer = LoadingSpinner();
-    tagList.appendChild(spinnerContainer);
+    const spinner = LoadingSpinner();
+    tagList.appendChild(spinner);
 
     const { tags } = await tag_request.getTagsList();
-
     renderTagList(tags);
-    spinnerContainer.remove();
 
     const sidebar = document.querySelector('.sidebar');
     sidebar.addEventListener('click', handleTagClick);

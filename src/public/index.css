@@ -35,3 +35,6 @@ input:focus {
   position: absolute;
   left: 0;
 }
+.tag-pill p {
+  cursor: pointer;
+}
