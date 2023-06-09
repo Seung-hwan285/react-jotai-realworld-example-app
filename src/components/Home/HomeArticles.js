@@ -1,5 +1,3 @@
-import LoadingSpinner from '../../commons/LoadingSpinner.js';
-
 import HomeArticlePreview from './HomeArticlePreview.js';
 import { article_request } from '../../lib/article/request.js';
 import { getNextPageIndex } from '../../lib/article/helper/mainPagination.js';
@@ -9,9 +7,12 @@ import {
   createElement,
   domRemove,
 } from '../../utils/dom.js';
+import LoadingSpinner from '../../commons/LoadingSpinner.js';
 
 function renderPageNumberLink(nav, activePage, pageNumber, pageSize = 14) {
   const startIndex = activePage <= 10 ? 0 : 14;
+
+  console.log(pageNumber);
   const endIndex = Math.min(startIndex + pageSize, pageNumber.length);
   const currentPageNumbers = pageNumber.slice(startIndex, endIndex);
 
@@ -55,12 +56,14 @@ function renderPageNumberLink(nav, activePage, pageNumber, pageSize = 14) {
   }
 }
 
-async function updateArticles(activePage, pageNumberList, onClick) {
+async function updateArticles(activePage, pageNumber, onClick) {
   const col = document.querySelector('.col-md-9');
   const nav = document.querySelector('.pagination');
 
-  const spinnerContainer = LoadingSpinner();
-  col.appendChild(spinnerContainer);
+  const spinner = LoadingSpinner();
+  col.appendChild(spinner);
+
+  console.log(col);
 
   domRemove(document.querySelectorAll('.page-item'));
   domRemove(document.querySelectorAll('.article-preview'));
@@ -71,9 +74,9 @@ async function updateArticles(activePage, pageNumberList, onClick) {
     authToken
   );
 
-  spinnerContainer.remove();
+  spinner.remove();
   HomeArticlePreview(articles, onClick);
-  renderPageNumberLink(nav, activePage, pageNumberList);
+  renderPageNumberLink(nav, activePage, pageNumber);
 
   if (activePage > 0) {
     window.history.pushState({}, '', `?page=${activePage}`);

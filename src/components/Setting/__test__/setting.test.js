@@ -113,7 +113,7 @@ describe('SettingForm', () => {
 
     const mockResponse = {
       user: {
-        username: 'hwan',
+        username: 'hwan2',
         bio: 'test',
         email: 'test_email',
         image: 'test_image',
@@ -121,17 +121,16 @@ describe('SettingForm', () => {
     };
 
     const settingData = {
-      username: 'hwan2',
+      username: 'hwan',
       bio: 'test',
       email: 'test@test.com',
       image: 'test_image',
     };
 
     fetch.mockResponse(JSON.stringify(mockResponse));
-
     const expectedData = mockResponse;
-    const actualData = await auth_request.userUpdate(settingData);
 
+    const actualData = await auth_request.userUpdate(settingData);
     expect(actualData).toEqual(expectedData);
   });
 });

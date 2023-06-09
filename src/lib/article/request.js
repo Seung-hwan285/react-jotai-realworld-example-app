@@ -1,5 +1,6 @@
 import { API_END_POINT } from '../../url.js';
 import { getHeaders } from '../auth/helper/jwt.js';
+import { getLocalStroage } from '../../utils/storage.js';
 
 export const article_request = {
   getAllArticles: async (offset, authToken) => {
@@ -37,10 +38,14 @@ export const article_request = {
     }
   },
 
+  // 1.문제 다른 api에서 나오는거보니 create에서 문제가 없다.
+  // 2. 여기 가져오는게 문제
   getTagArticles: async (tag, limit = 20) => {
+    console.log(tag);
     try {
       const response = await fetch(`${API_END_POINT}/api/articles?tag=${tag}`, {
         method: 'GET',
+        headers: getHeaders(getLocalStroage('token')),
       });
       const data = await response.json();
       if (response.ok) {
@@ -161,6 +166,18 @@ export const article_request = {
       } else {
         throw new Error(data.error);
       }
+    } catch (err) {
+      console.error(err);
+    }
+  },
+
+  DeleteArticle: async (pid, authToken) => {
+    console.log(pid);
+    try {
+      await fetch(`${API_END_POINT}/api/articles/${pid}`, {
+        method: 'DELETE',
+        headers: getHeaders(authToken),
+      });
     } catch (err) {
       console.error(err);
     }

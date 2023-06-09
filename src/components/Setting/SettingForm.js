@@ -62,7 +62,7 @@ function SettingForm() {
   };
 
   const render = () => {
-    const authToken = JSON.parse(getCookie('token'));
+    const authToken = JSON.parse(getCookie('authToken'));
 
     const items = [
       {
@@ -120,6 +120,6 @@ function SettingForm() {
   const state = initialState;
   render();
 
-  return { state, handleChange };
+  return { state, handleChange, handleUpdateUserSubmit };
 }
 export default SettingForm;

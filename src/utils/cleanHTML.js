@@ -42,10 +42,12 @@ export const cleanHTML = {
     removeElement('.article-page');
     removeElement('.editor-page');
     removeElement('.settings-page');
-    removeElement('container-page');
+    removeElement('.container-page');
     removeElement('.home-page');
+    removeElement('.article-page');
   },
   SinglePage: () => {
     removeElement('.home-page');
+    removeElement('.profile-page');
   },
 };

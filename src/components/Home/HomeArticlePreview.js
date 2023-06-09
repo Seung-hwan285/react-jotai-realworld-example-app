@@ -104,6 +104,7 @@ function HomeArticlePreview(articles, onClick) {
             </a>
           `;
 
+          // wait refactoring
           col?.appendChild(article);
           spinner?.remove();
           const button = article.querySelector('button');

@@ -5,9 +5,6 @@ function getNavElement(index) {
   return document.querySelector(`.nav-pills .nav-item:nth-child(${index}) a`);
 }
 
-// TODO HomeeFeed
-//  1. 클릭하면 너무 느려 슬라이드바 추가하는게 좋을거같음
-// 2. 슬라이드바 추가하지말고 퍼포먼스 수정 가능한지 일단 비동기 부분을 고쳐야할듯
 function renderFeedToggleContainer(tagList) {
   return /*HTML*/ `<div class="feed-toggle">
   <ul class="nav nav-pills outline-active">

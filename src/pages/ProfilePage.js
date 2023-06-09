@@ -3,7 +3,8 @@ import ProfileBanner from '../components/Profile/ProfileBanner.js';
 import { cleanHTML } from '../utils/cleanHTML.js';
 import ProfileFeed from '../components/Profile/ProfileFeed.js';
 import ProfileArticle from '../components/Profile/ProfileArticle.js';
-import { getCookie } from '../utils/cookie.js';
+import { fetchAuthUserInfo } from '../lib/auth/helper/fetchAuth.js';
+import { getLocalStroage } from '../utils/storage.js';
 
 function renderProfile(target) {
   const profileContainer = createElement('div', 'profile-page');
@@ -11,6 +12,11 @@ function renderProfile(target) {
   const profileWrapper = createElement('div', 'container');
   const profileRow = createElement('div', 'row');
   const profileCol = createElement('div', 'col-xs-12 col-md-10 offset-md-1');
+
+  const page = document.querySelector('.profile-page');
+  if (page) {
+    return;
+  }
 
   appendChildrenToParent(profileRow, profileCol);
   appendChildrenToParent(profileWrapper, profileRow);
@@ -20,8 +26,6 @@ function renderProfile(target) {
 }
 
 function ProfilePage(target) {
-  renderProfile(target);
-
   const handleFeedClick = (e) => {
     e.preventDefault();
     const { textContent } = e.target;
@@ -40,9 +44,10 @@ function ProfilePage(target) {
   };
 
   const render = async () => {
-    const user = JSON.parse(getCookie('token'));
-
+    const user = await fetchAuthUserInfo(getLocalStroage('token'));
     cleanHTML.ProfilePage();
+    renderProfile(target);
+
     updateState({
       user: user,
     });

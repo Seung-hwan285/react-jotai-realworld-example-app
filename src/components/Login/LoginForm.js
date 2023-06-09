@@ -7,6 +7,9 @@ import {
   setLocalStroage,
   createInputFields,
 } from './index.js';
+import { fetchAuthUserInfo } from '../../lib/auth/helper/fetchAuth.js';
+import { getLocalStroage } from '../../utils/storage.js';
+import { setCookie } from '../../utils/cookie.js';
 
 function LoginForm() {
   const col = document.querySelector('.offset-md-3');
@@ -37,6 +40,10 @@ function LoginForm() {
 
     const token = await auth_request.userLogin(loginDate);
     setLocalStroage('token', token);
+
+    const authToken = await fetchAuthUserInfo(getLocalStroage('token'));
+
+    setCookie('authToken', JSON.stringify(authToken), 7);
     if (token) {
       route('/');
     }

@@ -35,6 +35,9 @@ input:focus {
   position: absolute;
   left: 0;
 }
-.tag-pill p {
+.tag-pill {
   cursor: pointer;
+}
+.tag-pill:hover {
+  background-color: #999999;
 }

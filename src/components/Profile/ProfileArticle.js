@@ -5,6 +5,7 @@ import {
   HomeArticleTagList,
 } from './index.js';
 import LoadingSpinner from '../../commons/LoadingSpinner.js';
+import { route } from '../../utils/routes.js';
 
 function renderSpinner() {
   const col = document.querySelector('.articles-toggle');
@@ -18,12 +19,16 @@ function removeSpinner() {
 }
 
 function ProfileArticle({ feed, user }) {
+  const handleArticleClick = (slug) => {
+    route(`/articles/${slug}`);
+  };
+
   const handleFavoriteClick = async (e) => {
+    e.preventDefault();
     const slug = e.target.dataset;
 
     const button = e.target;
     const initialCount = button.textContent.trim();
-
     const deleteCount = String(Number(initialCount) - 1);
 
     if (button.classList.contains('clicked')) {
@@ -89,8 +94,6 @@ function ProfileArticle({ feed, user }) {
     }
 
     if (Array.isArray(state.articles)) {
-      LoadingSpinner();
-
       state.articles.map(({ body, favoritesCount, slug, tagList, title }) => {
         const articlePreview = createElement('div', 'article-preview');
 
@@ -119,8 +122,19 @@ function ProfileArticle({ feed, user }) {
         `;
         col.appendChild(articlePreview);
         const button = articlePreview.querySelector('button');
+
+        console.log(button);
         button.setAttribute('data-set', slug);
         button.addEventListener('click', handleFavoriteClick);
+
+        articlePreview.addEventListener('click', (e) => {
+          e.preventDefault();
+          console.log(e.target);
+
+          if (!e.target.classList.contains('btn')) {
+            handleArticleClick(slug);
+          }
+        });
       });
     }
   };

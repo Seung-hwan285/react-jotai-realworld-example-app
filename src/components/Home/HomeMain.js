@@ -105,13 +105,9 @@ function HomeMain() {
   };
 
   const render = async () => {
-    const token = getLocalStroage('token');
-    const authTokenPromise = fetchAuthUserInfo(token);
     const articlesPromise = getArticlesPromise();
 
-    const [authToken] = await Promise.all([authTokenPromise]);
-
-    setCookie('token', JSON.stringify(authToken), 7);
+    // setCookie('token', JSON.stringify(authToken), 7);
 
     HomeFeed({
       activeFeed: state.activeFeed,
