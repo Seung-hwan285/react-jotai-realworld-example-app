@@ -1,7 +1,9 @@
-import HomeArticleTagList from './HomeArticleTagList.js';
-import { article_request } from '../../lib/article/request.js';
-import { getLocalStroage } from '../../utils/storage.js';
-import { route } from '../../utils/routes.js';
+import {
+  article_request,
+  getLocalStroage,
+  HomeArticleTagList,
+  route,
+} from './index.js';
 
 const FAVORITED_CLASS = 'btn btn-sm btn-primary pull-xs-right';
 const NOT_FAVORITED_CLASS = 'btn btn-sm btn-outline-primary pull-xs-right';
@@ -118,7 +120,9 @@ function HomeArticlePreview(articles, onClick) {
             e.preventDefault();
 
             const tag = e.target.classList.contains('tag-pill');
+
             const likeButton = e.target.classList.contains('btn');
+
             if (!tag && !likeButton) {
               handleArticleClick(slug);
             }

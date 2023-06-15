@@ -1,11 +1,13 @@
-import { article_request } from '../../lib/article/request.js';
-import HomeFeed from './HomeFeed.js';
-import { setSessionStroage } from '../../utils/storage.js';
 import LoadingSpinner from '../../commons/LoadingSpinner.js';
-import HomeArticlePreview from './HomeArticlePreview.js';
-
-import { tag_request } from '../../lib/tag/request.js';
-import { appendChildrenToParent, createElement } from '../../utils/dom.js';
+import {
+  HomeArticlePreview,
+  HomeFeed,
+  article_request,
+  createElement,
+  appendChildrenToParent,
+  tag_request,
+  setSessionStroage,
+} from './index.js';
 
 function renderSidebar() {
   const row = document.querySelector('.row');

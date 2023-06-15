@@ -82,13 +82,17 @@ export const auth_request = {
   },
 
   userUpdate: async (settingData) => {
-    const { authToken, email, bio, imageValue } = settingData;
+    const { authToken, username, email, bio, imageValue } = settingData;
+
+    console.log(username);
+
     try {
       const response = await fetch(`${API_END_POINT}/api/user`, {
         method: 'PUT',
         headers: getHeaders(authToken),
         body: JSON.stringify({
           user: {
+            username: username,
             email: email,
             bio: bio,
             image: imageValue,

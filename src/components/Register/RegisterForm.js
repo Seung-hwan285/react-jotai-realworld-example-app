@@ -36,7 +36,6 @@ function RegisterForm() {
     };
 
     const user = await auth_request.userRegister(registerData);
-
     if (user) {
       route('/');
     }

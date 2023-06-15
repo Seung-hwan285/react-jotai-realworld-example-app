@@ -94,19 +94,22 @@ function ProfileArticle({ feed, user }) {
     }
 
     if (Array.isArray(state.articles)) {
-      state.articles.map(({ body, favoritesCount, slug, tagList, title }) => {
-        const articlePreview = createElement('div', 'article-preview');
+      state.articles.map(
+        ({ body, author, favoritesCount, slug, tagList, title }) => {
+          const articlePreview = createElement('div', 'article-preview');
 
-        updateState({
-          favoritesCount: favoritesCount,
-        });
+          console.log(state.articles);
+          updateState({
+            favoritesCount: favoritesCount,
+          });
 
-        articlePreview.innerHTML = /* HTML */ `
+          articlePreview.innerHTML = /* HTML */ `
           <div class="article-meta">
-            <a href=""><img src=${user.image} /></a>
+            <a href=""><img src=${
+              author.image ? author.image : user.image
+            } /></a>
             <div class="info">
               <a href="" class="author">${username}</a>
-              <span class="date">${title}</span>
             </div>
             <button class="btn btn-outline-primary btn-sm pull-xs-right">
               <i class="ion-heart"></i> ${state.favoritesCount}
@@ -120,22 +123,25 @@ function ProfileArticle({ feed, user }) {
           </a>
         </div>
         `;
-        col.appendChild(articlePreview);
-        const button = articlePreview.querySelector('button');
+          col.appendChild(articlePreview);
+          const button = articlePreview.querySelector('button');
 
-        console.log(button);
-        button.setAttribute('data-set', slug);
-        button.addEventListener('click', handleFavoriteClick);
+          console.log(button);
+          button.setAttribute('data-set', slug);
+          button.addEventListener('click', handleFavoriteClick);
 
-        articlePreview.addEventListener('click', (e) => {
-          e.preventDefault();
-          console.log(e.target);
-
-          if (!e.target.classList.contains('btn')) {
-            handleArticleClick(slug);
-          }
-        });
-      });
+          articlePreview.addEventListener('click', (e) => {
+            e.preventDefault();
+            console.log(e.target);
+            if (
+              !e.target.classList.contains('btn') &&
+              !e.target.classList.contains('ion-heart')
+            ) {
+              handleArticleClick(slug);
+            }
+          });
+        }
+      );
     }
   };
 

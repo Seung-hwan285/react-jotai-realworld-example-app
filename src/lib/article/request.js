@@ -38,8 +38,6 @@ export const article_request = {
     }
   },
 
-  // 1.문제 다른 api에서 나오는거보니 create에서 문제가 없다.
-  // 2. 여기 가져오는게 문제
   getTagArticles: async (tag, limit = 20) => {
     console.log(tag);
     try {

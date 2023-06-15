@@ -1,5 +1,8 @@
-import { getLocalStroage, getSessionStroage } from '../../utils/storage.js';
-import { createTagNavPillsHtml } from '../../lib/article/helper/feedToggle.js';
+import {
+  createTagNavPillsHtml,
+  getLocalStroage,
+  getSessionStroage,
+} from './index.js';
 
 function getNavElement(index) {
   return document.querySelector(`.nav-pills .nav-item:nth-child(${index}) a`);

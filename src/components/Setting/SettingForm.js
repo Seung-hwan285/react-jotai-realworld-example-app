@@ -8,6 +8,7 @@ import {
   getLocalStroage,
   route,
 } from './index.js';
+import { setCookie } from '../../utils/cookie.js';
 
 function renderLogoutButton() {
   return `
@@ -45,13 +46,14 @@ function SettingForm() {
   const handleUpdateUserSubmit = async (e) => {
     e.preventDefault();
 
-    const settingDate = {
+    const settingData = {
       ...state,
       authToken: getLocalStroage('token'),
     };
 
-    const data = await auth_request.userUpdate(settingDate);
+    const data = await auth_request.userUpdate(settingData);
 
+    setCookie('authToken', JSON.stringify(data.user), 7);
     if (data) {
       route('/');
     }
@@ -63,6 +65,8 @@ function SettingForm() {
 
   const render = () => {
     const authToken = JSON.parse(getCookie('authToken'));
+
+    console.log(authToken);
 
     const items = [
       {

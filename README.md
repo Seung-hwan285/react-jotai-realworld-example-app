@@ -6,10 +6,6 @@
 
 This codebase was created to demonstrate a fully fledged fullstack application built with **Vanilla Js + Functional components + history API** including CRUD operations, authentication, routing, pagination, and more.
 
-This is still an unfinished project.
-
-This project was planned with the idea that it is easy to learn if you learn vanilla sufficiently before learning frameworks such as React, Vue, and Svelte.
-Also, the project structure and state management pattern is similar to the most popular React approach.
 
 ## Getting Started
 
@@ -23,9 +19,18 @@ To get the frontend running locally:
 - `npm test` to start the jest library 
 
 
+## Functionality overview
+General functionality:
+- Authenticate users via JWT (login/signup pages + logout button on settings page)
+- CRU* users (sign up & settings page - no deleting required)
+- CRUD Articles
+- CR*D Comments on articles (no updating required)
+- GET and display paginated lists of articles
+- Favorite articles
+- Follow other users
+
 ## Architecture Design
 ![제목 없는 다이어그램 drawio (3)](https://github.com/Seung-hwan285/Functional-component-realworld-example-app/assets/74364667/f8a4535c-119b-46f0-8017-f9aa9a290b2c)
-
 
 ![제목 없는 다이어그램 drawio (4)](https://github.com/Seung-hwan285/Functional-component-realworld-example-app/assets/74364667/0ac78f98-3670-4852-b8b0-897ec86acb48)
 

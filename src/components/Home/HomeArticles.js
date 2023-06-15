@@ -1,12 +1,13 @@
-import HomeArticlePreview from './HomeArticlePreview.js';
-import { article_request } from '../../lib/article/request.js';
-import { getNextPageIndex } from '../../lib/article/helper/mainPagination.js';
-import { getLocalStroage } from '../../utils/storage.js';
 import {
   appendChildrenToParent,
+  article_request,
   createElement,
   domRemove,
-} from '../../utils/dom.js';
+  getLocalStroage,
+  getNextPageIndex,
+  HomeArticlePreview,
+} from './index.js';
+
 import LoadingSpinner from '../../commons/LoadingSpinner.js';
 
 function renderPageNumberLink(nav, activePage, pageNumber, pageSize = 14) {

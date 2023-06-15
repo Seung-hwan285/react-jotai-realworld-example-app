@@ -1,6 +1,4 @@
 function HomeArticleTagList(tagList) {
-  console.log(tagList);
-
   return /* HTML */ `
     <ul class="tag-list">
       ${tagList

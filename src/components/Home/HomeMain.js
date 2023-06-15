@@ -5,8 +5,6 @@ import {
 } from '../../utils/storage.js';
 
 import {
-  setCookie,
-  fetchAuthUserInfo,
   article_request,
   appendChildrenToParent,
   createElement,

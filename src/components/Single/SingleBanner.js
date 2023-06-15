@@ -2,7 +2,6 @@ import { appendChildrenToParent, createElement } from './index.js';
 import { article_request } from '../../lib/article/request.js';
 import { getLocalStroage } from '../../utils/storage.js';
 import { route } from '../../utils/routes.js';
-import { fetchAuthUserInfo } from '../../lib/auth/helper/fetchAuth.js';
 
 function SingleBanner({ article }) {
   const articleMeta = createElement('div', 'article-meta');
