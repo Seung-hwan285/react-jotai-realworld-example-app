@@ -25,10 +25,6 @@ describe('HomeArticle', () => {
       ...symbols2,
     ];
 
-    console.log(expectedPageNumber);
-
-    console.log(createPageNumberList());
-
     expect(createPageNumberList()).toEqual(expectedPageNumber);
   });
 });
