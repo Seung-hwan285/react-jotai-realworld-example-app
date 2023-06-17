@@ -39,7 +39,6 @@ export const article_request = {
   },
 
   getTagArticles: async (tag, limit = 20) => {
-    console.log(tag);
     try {
       const response = await fetch(`${API_END_POINT}/api/articles?tag=${tag}`, {
         method: 'GET',

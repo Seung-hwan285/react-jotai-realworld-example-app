@@ -4,7 +4,7 @@ import { setLocalStroage, setSessionStroage } from '../../../utils/storage';
 import { auth_request } from '../../../lib/auth/request';
 
 describe('SettingForm', () => {
-  const TOKEN_NAME = 'token';
+  const TOKEN_NAME = 'authToken';
   const mockCookie = [
     {
       email: 'test@test.com',

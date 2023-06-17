@@ -66,8 +66,6 @@ function SettingForm() {
   const render = () => {
     const authToken = JSON.parse(getCookie('authToken'));
 
-    console.log(authToken);
-
     const items = [
       {
         className: 'form-control',

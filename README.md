@@ -7,9 +7,13 @@
 This codebase was created to demonstrate a fully fledged fullstack application built with **Vanilla Js + Functional components + history API** including CRUD operations, authentication, routing, pagination, and more.
 
 
+This is still an unfinished project.
+
+
 ## Getting Started
 
 You can't view a live demo over at [Demo](https://js-playground-two.vercel.app)
+
 
 To get the frontend running locally:
 
