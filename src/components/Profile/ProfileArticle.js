@@ -3,9 +3,9 @@ import {
   createElement,
   getLocalStroage,
   HomeArticleTagList,
+  route,
 } from './index.js';
 import LoadingSpinner from '../../commons/LoadingSpinner.js';
-import { route } from '../../utils/routes.js';
 
 function renderSpinner() {
   const col = document.querySelector('.articles-toggle');
@@ -98,7 +98,6 @@ function ProfileArticle({ feed, user }) {
         ({ body, author, favoritesCount, slug, tagList, title }) => {
           const articlePreview = createElement('div', 'article-preview');
 
-          console.log(state.articles);
           updateState({
             favoritesCount: favoritesCount,
           });
@@ -126,13 +125,11 @@ function ProfileArticle({ feed, user }) {
           col.appendChild(articlePreview);
           const button = articlePreview.querySelector('button');
 
-          console.log(button);
           button.setAttribute('data-set', slug);
           button.addEventListener('click', handleFavoriteClick);
 
           articlePreview.addEventListener('click', (e) => {
             e.preventDefault();
-            console.log(e.target);
             if (
               !e.target.classList.contains('btn') &&
               !e.target.classList.contains('ion-heart')

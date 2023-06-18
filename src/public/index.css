@@ -25,9 +25,15 @@ input:focus {
   margin: 25px auto;
   background-size: cover;
 }
+
+footer {
+  position: absolute;
+  bottom: -6%;
+}
+
 .main-pagination {
   position: absolute;
-  bottom: -5%;
+  bottom: -4%;
   left: 0;
   right: 0;
 }

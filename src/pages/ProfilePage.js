@@ -1,10 +1,13 @@
-import { appendChildrenToParent, createElement } from '../utils/dom.js';
-import ProfileBanner from '../components/Profile/ProfileBanner.js';
-import { cleanHTML } from '../utils/cleanHTML.js';
-import ProfileFeed from '../components/Profile/ProfileFeed.js';
-import ProfileArticle from '../components/Profile/ProfileArticle.js';
-import { fetchAuthUserInfo } from '../lib/auth/helper/fetchAuth.js';
-import { getLocalStroage } from '../utils/storage.js';
+import {
+  appendChildrenToParent,
+  cleanHTML,
+  createElement,
+  fetchAuthUserInfo,
+  getLocalStroage,
+  ProfileArticle,
+  ProfileBanner,
+  ProfileFeed,
+} from './index.js';
 
 function renderProfile(target) {
   const profileContainer = createElement('div', 'profile-page');

@@ -1,12 +1,17 @@
-import { appendChildrenToParent, createElement } from '../utils/dom.js';
-import { cleanHTML } from '../utils/cleanHTML.js';
-import SingleBanner from '../components/Single/SingleBanner.js';
-import SingleContent from '../components/Single/SingleContent.js';
-import SingleComment from '../components/Single/SingleComment.js';
-import { article_request } from '../lib/article/request.js';
-import { comment_request } from '../lib/comment/request.js';
-import { fetchAuthUserInfo } from '../lib/auth/helper/fetchAuth.js';
-import { getLocalStroage } from '../utils/storage.js';
+import LoadingSpinner from '../commons/LoadingSpinner.js';
+
+import {
+  appendChildrenToParent,
+  article_request,
+  cleanHTML,
+  comment_request,
+  createElement,
+  fetchAuthUserInfo,
+  getLocalStroage,
+  SingleBanner,
+  SingleComment,
+  SingleContent,
+} from './index.js';
 
 function renderSingle(target) {
   const singleContainer = createElement('div', 'article-page');
@@ -20,8 +25,9 @@ function renderSingle(target) {
 
 function SinglePage(target) {
   cleanHTML.SinglePage();
-  renderSingle(target);
 
+  const spinner = LoadingSpinner();
+  target.appendChild(spinner);
   const render = async () => {
     const { pathname } = window.location;
     const token = getLocalStroage('token');
@@ -39,6 +45,7 @@ function SinglePage(target) {
       userCommentPromise,
       authTokenPromise,
     ]);
+    renderSingle(target);
 
     updateState({
       user: user,
@@ -46,9 +53,11 @@ function SinglePage(target) {
       token: authToken,
     });
 
-    SingleBanner(state.user);
+    SingleBanner(state);
     SingleContent(state.user);
     SingleComment(state);
+
+    target.removeChild(spinner);
   };
 
   render();

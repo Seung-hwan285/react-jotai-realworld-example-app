@@ -6,10 +6,10 @@ import {
   createElement,
   setLocalStroage,
   createInputFields,
+  getLocalStroage,
+  fetchAuthUserInfo,
+  setCookie,
 } from './index.js';
-import { fetchAuthUserInfo } from '../../lib/auth/helper/fetchAuth.js';
-import { getLocalStroage } from '../../utils/storage.js';
-import { setCookie } from '../../utils/cookie.js';
 
 function LoginForm() {
   const col = document.querySelector('.offset-md-3');

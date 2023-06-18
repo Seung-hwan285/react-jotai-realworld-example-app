@@ -1,9 +1,12 @@
-import { appendChildrenToParent, createElement } from './index.js';
-import { article_request } from '../../lib/article/request.js';
-import { getLocalStroage } from '../../utils/storage.js';
-import { route } from '../../utils/routes.js';
+import {
+  appendChildrenToParent,
+  article_request,
+  createElement,
+  getLocalStroage,
+  route,
+} from './index.js';
 
-function SingleBanner({ article }) {
+function SingleBanner({ user, comment, token }) {
   const articleMeta = createElement('div', 'article-meta');
   const container = document.querySelector('.article');
   const authToken = getLocalStroage('token');
@@ -13,12 +16,31 @@ function SingleBanner({ article }) {
     const { pathname } = window.location;
 
     const pid = pathname.split('/')[2].trim();
-    await article_request.DeleteArticle(pid, authToken);
+    await article_request.deleteArticle(pid, authToken);
 
     route('/');
   };
 
   const render = async () => {
+    const { article } = user;
+
+    const iconName =
+      token?.username === article.author.username ? `Delete Article` : '';
+
+    const iconClass =
+      token?.username === article.author.username ? `ion-trash-a` : '';
+
+    const paintIcon = () => {
+      if (iconName === 'Delete Article') {
+        return ` <button class="btn btn-outline-danger btn-sm">
+        <i class=${iconClass}></i>
+        &nbsp; ${iconName}
+      </button>`;
+      } else {
+        return `&nbsp;`;
+      }
+    };
+
     articleMeta.innerHTML = /* HTML */ `
       <a href=""><img src=${article.author.image} /></a>
       <div class="info">
@@ -29,11 +51,7 @@ function SingleBanner({ article }) {
         <i class="ion-plus-round"></i>
         &nbsp; Follow Eric Simons <span class="counter">(10)</span>
       </button>
-      &nbsp;&nbsp;
-      <button class="btn btn-outline-danger btn-sm">
-        <i class="ion-trash-a"></i>
-        &nbsp; Delete Article
-      </button>
+      &nbsp;&nbsp; ${paintIcon()}
     `;
 
     appendChildrenToParent(container, articleMeta);

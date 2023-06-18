@@ -7,9 +7,11 @@ import SettingPage from './pages/SettingPage.js';
 import NewArticlePage from './pages/NewArticlePage.js';
 import ProfilePage from './pages/ProfilePage.js';
 import SinglePage from './pages/SinglePage.js';
+import Footer from './layout/footer.js';
 
 function App({ target }) {
   const header = new Header(target);
+  const footer = new Footer(target);
   const routes = () => {
     let { pathname } = window.location;
 
@@ -36,6 +38,7 @@ function App({ target }) {
   const render = () => {
     initRouter(() => {
       header.render();
+      footer.render();
       routes();
     });
     routes();

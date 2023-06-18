@@ -168,8 +168,7 @@ export const article_request = {
     }
   },
 
-  DeleteArticle: async (pid, authToken) => {
-    console.log(pid);
+  deleteArticle: async (pid, authToken) => {
     try {
       await fetch(`${API_END_POINT}/api/articles/${pid}`, {
         method: 'DELETE',

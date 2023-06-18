@@ -1,6 +1,9 @@
-import { cleanHTML } from '../utils/cleanHTML.js';
-import NewArticleForm from '../components/NewArticle/NewArticleForm.js';
-import { appendChildrenToParent, createElement } from '../utils/dom.js';
+import {
+  appendChildrenToParent,
+  cleanHTML,
+  createElement,
+  NewArticleForm,
+} from './index.js';
 
 function renderNewArticle(target) {
   const newArticleContainer = createElement('div', 'editor-page');

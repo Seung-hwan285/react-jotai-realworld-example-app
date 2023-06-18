@@ -1,7 +1,10 @@
-import { cleanHTML } from '../utils/cleanHTML.js';
-import SettingForm from '../components/Setting/SettingForm.js';
-import SettingFormTitle from '../components/Setting/SettingFormTitle.js';
-import { appendChildrenToParent, createElement } from '../utils/dom.js';
+import {
+  appendChildrenToParent,
+  cleanHTML,
+  createElement,
+  SettingForm,
+  SettingFormTitle,
+} from './index.js';
 
 function renderSetting(target) {
   const settingContainer = createElement('div', 'settings-page');
@@ -27,7 +30,7 @@ function SettingPage(target) {
 
   const render = () => {
     SettingFormTitle();
-    SettingForm(target);
+    SettingForm();
   };
 
   render();

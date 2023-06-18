@@ -14,3 +14,4 @@ export { getLocalStroage } from '../../utils/storage.js';
 export { route } from '../../utils/routes.js';
 export { getCookie } from '../../utils/cookie.js';
 export { appendChildrenToParent, createElement } from '../../utils/dom.js';
+export { setCookie } from '../../utils/cookie.js';

@@ -1,4 +1,4 @@
-import { route } from '../../utils/routes.js';
+import { route } from './index.js';
 
 async function ProfileBanner({ username, bio, image }) {
   const col = document.querySelector('.col-xs-12');

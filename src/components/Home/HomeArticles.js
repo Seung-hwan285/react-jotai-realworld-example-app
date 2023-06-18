@@ -13,7 +13,6 @@ import LoadingSpinner from '../../commons/LoadingSpinner.js';
 function renderPageNumberLink(nav, activePage, pageNumber, pageSize = 14) {
   const startIndex = activePage <= 10 ? 0 : 14;
 
-  console.log(pageNumber);
   const endIndex = Math.min(startIndex + pageSize, pageNumber.length);
   const currentPageNumbers = pageNumber.slice(startIndex, endIndex);
 
@@ -63,8 +62,6 @@ async function updateArticles(activePage, pageNumber, onClick) {
 
   const spinner = LoadingSpinner();
   col.appendChild(spinner);
-
-  console.log(col);
 
   domRemove(document.querySelectorAll('.page-item'));
   domRemove(document.querySelectorAll('.article-preview'));

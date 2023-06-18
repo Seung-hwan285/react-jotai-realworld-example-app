@@ -7,8 +7,8 @@ import {
   getCookie,
   getLocalStroage,
   route,
+  setCookie,
 } from './index.js';
-import { setCookie } from '../../utils/cookie.js';
 
 function renderLogoutButton() {
   return `
