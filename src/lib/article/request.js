@@ -12,6 +12,8 @@ export const article_request = {
           headers: getHeaders(authToken),
         }
       );
+
+      console.log(response);
       const data = await response.json();
       if (response.ok) {
         return data;

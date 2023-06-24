@@ -10,7 +10,12 @@ import {
 
 import LoadingSpinner from '../../commons/LoadingSpinner.js';
 
-function renderPageNumberLink(nav, activePage, pageNumber, pageSize = 14) {
+export function renderPageNumberLink(
+  nav,
+  activePage,
+  pageNumber,
+  pageSize = 14
+) {
   const startIndex = activePage <= 10 ? 0 : 14;
 
   const endIndex = Math.min(startIndex + pageSize, pageNumber.length);
@@ -56,7 +61,7 @@ function renderPageNumberLink(nav, activePage, pageNumber, pageSize = 14) {
   }
 }
 
-async function updateArticles(activePage, pageNumber, onClick) {
+export async function updateArticles(activePage, pageNumber, onClick) {
   const col = document.querySelector('.col-md-9');
   const nav = document.querySelector('.pagination');
 
@@ -72,6 +77,7 @@ async function updateArticles(activePage, pageNumber, onClick) {
     authToken
   );
 
+  console.log(articles);
   spinner.remove();
   HomeArticlePreview(articles, onClick);
   renderPageNumberLink(nav, activePage, pageNumber);
