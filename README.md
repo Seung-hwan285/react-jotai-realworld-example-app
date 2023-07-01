@@ -22,6 +22,8 @@ To get the frontend running locally:
 - `npm start` to start the local server 
 - `npm test` to start the jest library 
 
+## JSDOC
+https://seung-hwan285.github.io/Functional-component-realworld-example-app/
 
 ## Functionality overview
 General functionality:

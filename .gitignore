@@ -2,3 +2,5 @@
 .env
 node_modules
 coverage
+out
+/assets/index.js
