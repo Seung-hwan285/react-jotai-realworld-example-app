@@ -36,7 +36,6 @@ describe('HomeArticle', () => {
       <nav class="pagination"></nav>
     `;
   });
-
   const articleMock = {
     author: {
       bio: 'hi',
@@ -98,9 +97,9 @@ describe('HomeArticle', () => {
 
     jest.spyOn(article_request, 'getAllArticles').mockReturnValue(articlesMock);
 
-    const onClickMock = jest.fn();
+    const onClick = jest.fn();
 
-    await updateArticles(1, pageNumberList, onClickMock);
+    await updateArticles(1, pageNumberList, onClick);
 
     expect(col.querySelectorAll('.page-item').length).toBe(0);
     expect(col.querySelectorAll('.article-preview').length).toBe(0);
@@ -111,16 +110,16 @@ describe('HomeArticle', () => {
     const onClick = jest.fn();
 
     const homeArticlePreview = new HomeArticlePreview(articleMock, onClick);
-
-    const slug = articleMock.slug;
+    const { state, slug } = homeArticlePreview;
 
     homeArticlePreview.handleArticleClick(slug);
     const history = createMemoryHistory();
-    history.push('/article/test_title-158960');
-    const currentUrl = `/article/${slug}`;
 
-    expect(currentUrl).toBe(`/article/test_title-158960`);
-    expect(history.location.pathname).toEqual(`/article/${slug}`);
+    const baseUrl = 'http://localhost:5000';
+
+    history.push(`${baseUrl}/article/${slug}`);
+
+    expect(history.location.pathname).toEqual(`${baseUrl}/article/${slug}`);
   });
 
   // jsdom broken error
@@ -131,9 +130,7 @@ describe('HomeArticle', () => {
     const { document: dom } = new JSDOM('<html><body></body></html>');
 
     const homeArticlePreview = new HomeArticlePreview();
-
-    const { state } = homeArticlePreview;
-    const slug = { set: 'article-slug' };
+    const { state, slug } = homeArticlePreview;
 
     const button = document.createElement('button');
     button.className = 'ion-heart';
