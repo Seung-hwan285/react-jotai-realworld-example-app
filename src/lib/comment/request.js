@@ -19,8 +19,8 @@ export const comment_request = {
       } else {
         throw new Error(data.error);
       }
-    } catch (e) {
-      console.error(e);
+    } catch (err) {
+      console.error(err);
     }
   },
 
@@ -40,8 +40,8 @@ export const comment_request = {
       } else {
         throw new Error(data.error);
       }
-    } catch (e) {
-      console.error(e);
+    } catch (err) {
+      console.error(err);
     }
   },
 
@@ -66,8 +66,8 @@ export const comment_request = {
       } else {
         throw new Error(data.error);
       }
-    } catch (e) {
-      console.error(e);
+    } catch (err) {
+      console.error(err);
     }
   },
 };

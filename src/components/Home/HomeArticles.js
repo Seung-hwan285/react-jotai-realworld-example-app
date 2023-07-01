@@ -13,15 +13,15 @@ import LoadingSpinner from '../../commons/LoadingSpinner.js';
 export function renderPageNumberLink(
   nav,
   activePage,
-  pageNumber,
+  pageNumberList,
   pageSize = 14
 ) {
   const startIndex = activePage <= 10 ? 0 : 14;
 
-  const endIndex = Math.min(startIndex + pageSize, pageNumber.length);
-  const currentPageNumbers = pageNumber.slice(startIndex, endIndex);
+  const endIndex = Math.min(startIndex + pageSize, pageNumberList.length);
+  const currentPageNumbers = pageNumberList.slice(startIndex, endIndex);
 
-  if (pageNumber) {
+  if (pageNumberList) {
     currentPageNumbers.forEach((link, idx) => {
       const li = document.createElement('li');
       li.classList.add('page-item');
@@ -61,7 +61,7 @@ export function renderPageNumberLink(
   }
 }
 
-export async function updateArticles(activePage, pageNumber, onClick) {
+export async function updateArticles(activePage, pageNumberList, onClick) {
   const col = document.querySelector('.col-md-9');
   const nav = document.querySelector('.pagination');
 
@@ -80,7 +80,7 @@ export async function updateArticles(activePage, pageNumber, onClick) {
   console.log(articles);
   spinner.remove();
   HomeArticlePreview(articles, onClick);
-  renderPageNumberLink(nav, activePage, pageNumber);
+  renderPageNumberLink(nav, activePage, pageNumberList);
 
   if (activePage > 0) {
     window.history.pushState({}, '', `?page=${activePage}`);

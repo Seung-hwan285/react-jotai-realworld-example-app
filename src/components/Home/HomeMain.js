@@ -28,7 +28,6 @@ function renderHomeMain() {
 
 async function getArticlesPromise() {
   const getTag = getSessionStroage('selectTag');
-
   const token = getLocalStroage('token');
   const parms = new URLSearchParams(window.location.search);
   const activePage = Number(parms.get('page') || 1);

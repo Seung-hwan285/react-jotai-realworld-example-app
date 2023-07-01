@@ -13,8 +13,8 @@ export const tag_request = {
       } else {
         throw new Error(data.error);
       }
-    } catch (e) {
-      console.error(e);
+    } catch (err) {
+      console.error(err);
     }
   },
 };

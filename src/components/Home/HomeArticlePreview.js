@@ -10,6 +10,7 @@ const NOT_FAVORITED_CLASS = 'btn btn-sm btn-outline-primary pull-xs-right';
 
 function HomeArticlePreview(articles, onClick) {
   const handleArticleClick = (slug) => {
+    console.log(slug);
     route(`/articles/${slug}`);
   };
 
@@ -133,6 +134,12 @@ function HomeArticlePreview(articles, onClick) {
   };
 
   render();
+
+  return {
+    handleArticleClick,
+    handleFavoriteClick,
+    state,
+  };
 }
 
 const initialState = {

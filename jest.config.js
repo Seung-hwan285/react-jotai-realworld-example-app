@@ -6,4 +6,6 @@ module.exports = {
   moduleNameMapper: {
     '\\.(css|less|scss|sass)$': 'identity-obj-proxy',
   },
+  // jsdom broken error
+  setupFilesAfterEnv: ['<rootDir>/jest.setup.js'],
 };
