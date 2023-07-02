@@ -18,7 +18,7 @@ describe('HomeTagList', () => {
     document.body.innerHTML = '';
   });
 
-  test('should fetch and return the correct tag list', async () => {
+  test('returns tag list after fetching', async () => {
     const mockTagList = { tags: ['tag1', 'tag2'] };
 
     fetch.mockResponse(JSON.stringify(mockTagList));

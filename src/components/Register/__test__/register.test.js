@@ -7,7 +7,7 @@ describe('RegisterForm', () => {
   const PASSWORD = 'Password';
   const USER_NAME = 'Username';
 
-  test('should have inital state with empty and password and username', () => {
+  test('initializes with empty email or password or username', () => {
     const col = document.createElement('div');
     col.className = 'offset-md-3';
     document.body.appendChild(col);
@@ -66,7 +66,7 @@ describe('RegisterForm', () => {
     });
   });
 
-  test('should successfully register a new user and return their username ', async () => {
+  test('returns registered after authentication', async () => {
     const mockResponse = {
       user: {
         username: 'hwan',

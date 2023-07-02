@@ -8,7 +8,6 @@ import {
 
 function renderComment({ comment }, token) {
   const commentCard = createComments([comment], token);
-
   const commentsContainer = document.querySelector('.comment-box');
   commentsContainer.insertAdjacentHTML('beforeend', commentCard);
 }

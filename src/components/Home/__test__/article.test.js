@@ -71,7 +71,7 @@ describe('HomeArticle', () => {
     expect(createPageNumberList()).toEqual(pageNumberList);
   });
 
-  test('returns renderPageNumberLink activePage 20', () => {
+  test('returns renderPageNumberLink for activePage 20', () => {
     activePage = 20;
     renderPageNumberLink(nav, activePage, pageNumberList);
     const li = nav.querySelectorAll('li');
@@ -80,7 +80,7 @@ describe('HomeArticle', () => {
     expect(li[11].classList.contains('active')).toBe(true);
   });
 
-  test('returns renderPageNumberLink activePage 1', () => {
+  test('returns renderPageNumberLink for activePage 1', () => {
     activePage = 1;
     renderPageNumberLink(nav, activePage, pageNumberList);
     const li = nav.querySelectorAll('li');
@@ -89,8 +89,7 @@ describe('HomeArticle', () => {
     expect(li[2].classList.contains('active')).toBe(true);
   });
 
-  // wait name refactoring
-  test('TODO...', async () => {
+  test('removes all page item and article-preview', async () => {
     const col = document.querySelector('.col-md-9');
 
     const articlesMock = ['article1', 'article2'];
@@ -105,8 +104,7 @@ describe('HomeArticle', () => {
     expect(col.querySelectorAll('.article-preview').length).toBe(0);
   });
 
-  // wait name refactoring
-  test('TODO...', async () => {
+  test('updates history pathname on article click', async () => {
     const onClick = jest.fn();
 
     const homeArticlePreview = new HomeArticlePreview(articleMock, onClick);
@@ -126,10 +124,11 @@ describe('HomeArticle', () => {
   /**
    * @jest-environment node
    */
-  test('TODO...', () => {
+  test('updates state on favorite click', () => {
     const { document: dom } = new JSDOM('<html><body></body></html>');
+    const onClick = jest.fn();
 
-    const homeArticlePreview = new HomeArticlePreview();
+    const homeArticlePreview = new HomeArticlePreview(articleMock, onClick);
     const { state, slug } = homeArticlePreview;
 
     const button = document.createElement('button');

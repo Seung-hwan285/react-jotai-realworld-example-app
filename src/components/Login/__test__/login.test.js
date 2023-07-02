@@ -6,7 +6,7 @@ describe('LoginForm', () => {
   const EMAIL = 'Email';
   const PASSWORD = 'Password';
 
-  test('should have initial state with empty email and password', () => {
+  test('initializes with empty email and password', () => {
     const col = document.createElement('div');
     col.className = 'offset-md-3';
     document.body.appendChild(col);
@@ -52,7 +52,7 @@ describe('LoginForm', () => {
     });
   });
 
-  test('should successfully login and return token', async () => {
+  test('returns login token after authentication', async () => {
     const mockResponse = {
       user: {
         token: 'abc123',
