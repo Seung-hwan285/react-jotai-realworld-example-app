@@ -26,22 +26,27 @@
     
     <section>
         <article>
-            <pre class="prettyprint source linenums"><code>function LoginForm() {
+            <pre class="prettyprint source linenums"><code>/**
+ * Represents a login form component.
+ * @function LoginForm
+ */
+
+function LoginForm() {
   /**
-   * The parent container element where the login form will be appended.
+   *
    * @type {Element}
    */
   const col = document.querySelector('.offset-md-3');
 
   /**
-   * The login form element.
+   *
    * @type {Element}
    */
   const loginFormBox = createElement('form', 'form');
 
   appendChildrenToParent(col, loginFormBox);
   /**
-   * The initial state of the login form.
+   *
    * @type {Object}
    * @property {string} email
    * @property {string} password
@@ -52,7 +57,7 @@
   };
 
   /**
-   * Updates the component's state with a new value.
+   *
    * @function
    * @param {string} key
    * @param {string} value
@@ -62,7 +67,7 @@
   };
 
   /**
-   * Handles the change event of form inputs and updates the state accordingly.
+   *
    * @function
    * @param {HashChangeEvent&lt;HTMLInputElement>} e
    */
@@ -72,7 +77,7 @@
   };
 
   /**
-   * Handles the form submit event when the user tries to login.
+   *
    * @function
    * @param {FormDataEvent} e
    * @returns {Promise&lt;void>}
@@ -81,7 +86,7 @@
     e.preventDefault();
 
     /**
-     * The login data object.
+     *
      * @type {Object}
      * @property {string} username
      */
@@ -101,38 +106,38 @@
   };
 
   /**
-   * Renders the form items.
+   *
    * @returns {void}
    */
   const render = () => {
     /**
-     * Renders the form items.
+     *
      * @type {Array&lt;Object>}
      */
     const items = [
       {
         /**
-         * The placeholder text for the email input field.
+         *
          * @type {string}
          */
         placeholder: 'Email',
         /**
-         * The name attribute for the email input field.
+         *
          * @type {string}
          */
         name: 'email',
         /**
-         * The type attribute for the email input field.
+         *
          * @type {string}
          */
         type: 'text',
         /**
-         * The id attribute for the email input field.
+         *
          * @type {string}
          */
         id: 'email',
         /**
-         * The class attribute for the email input field.
+         *
          * @type {string}
          */
         className: 'form-control form-control-lg',
@@ -150,7 +155,7 @@
 
     loginFormBox.innerHTML = getInputField + buttonLogin;
     /**
-     * Event listener
+     *
      * @param {HTMLInputElement} input
      */
     const inputs = document.querySelectorAll('input');
@@ -163,7 +168,7 @@
   };
 
   /**
-   * The current state of the login form.
+   *
    * @type {Object}
    */
   const state = initialState;
@@ -180,7 +185,7 @@
 
 function RegisterForm() {
   /**
-   * The parent container element where the login form will be appended.
+   *
    * @type {Element}
    */
   const col = document.querySelector('.offset-md-3 ');
@@ -189,7 +194,7 @@ function RegisterForm() {
   appendChildrenToParent(col, registerFormBox);
 
   /**
-   * The initial state of the register form.
+   *
    * @type {Object}
    * @property {string} username
    * @property {string} email
@@ -202,7 +207,7 @@ function RegisterForm() {
   };
 
   /**
-   * Updates the component's state with a new value.
+   *
    * @function
    * @param {string} key
    * @param {string} value
@@ -212,7 +217,7 @@ function RegisterForm() {
   };
 
   /**
-   * Handles the change event of form inputs and updates the state accordingly.
+   *
    * @function
    * @param {HashChangeEvent&lt;HTMLInputElement>} e
    */
@@ -222,7 +227,7 @@ function RegisterForm() {
   };
 
   /**
-   * Handles the form submit event when the user tries to register.
+   *
    * @function
    * @param {FormDataEvent} e
    * @returns {Promise&lt;void>}
@@ -231,7 +236,7 @@ function RegisterForm() {
     e.preventDefault();
 
     /**
-     * The register data object.
+     *
      * @type {Object}
      * @property {string} username
      * @property {string} email
@@ -248,38 +253,32 @@ function RegisterForm() {
   };
 
   /**
-   * Renders the form items.
+   *
    * @returns {void}
    */
   const render = () => {
     /**
-     * The array of form items.
      * @type {Array&lt;Object>}
      */
     const items = [
       {
         /**
-         * The placeholder text for the email input field.
          * @type {string}
          */
         placeholder: 'Username',
         /**
-         * The name attribute for the name input field.
          * @type {string}
          */
         name: 'username',
         /**
-         * The type attribute for the type input field.
          * @type {string}
          */
         type: 'text',
         /**
-         * The id for input field.
          * @type {string}
          */
         id: 'username',
         /**
-         * The class attribute for the email input field.
          * @type {string}
          */
         className: 'form-control form-control-lg',
@@ -306,8 +305,6 @@ function RegisterForm() {
 
     const inputs = document.querySelectorAll('input');
     /**
-     *
-     * Event listener
      * @param {HTMLInputElement} input
      */
     inputs.forEach((input) => {
@@ -318,7 +315,7 @@ function RegisterForm() {
     form.addEventListener('submit', handleRegisterSubmit);
   };
   /**
-   * The current state of the login form.
+   *
    * @type {Object}
    */
   const state = initialState;
@@ -336,13 +333,13 @@ function RegisterForm() {
 </div>
 
 <nav>
-    <h2><a href="index.html">Home</a></h2><h3>Global</h3><ul><li><a href="global.html#RegisterForm">RegisterForm</a></li><li><a href="global.html#className">className</a></li><li><a href="global.html#id">id</a></li><li><a href="global.html#name">name</a></li><li><a href="global.html#placeholder">placeholder</a></li><li><a href="global.html#type">type</a></li></ul>
+    <h2><a href="index.html">Home</a></h2><h3>Global</h3><ul><li><a href="global.html#LoginForm">LoginForm</a></li><li><a href="global.html#RegisterForm">RegisterForm</a></li><li><a href="global.html#className">className</a></li><li><a href="global.html#id">id</a></li><li><a href="global.html#name">name</a></li><li><a href="global.html#placeholder">placeholder</a></li><li><a href="global.html#type">type</a></li></ul>
 </nav>
 
 <br class="clear">
 
 <footer>
-    Documentation generated by <a href="https://github.com/jsdoc/jsdoc">JSDoc 4.0.2</a> on Sun Jul 02 2023 06:32:59 GMT+0900 (대한민국 표준시)
+    Documentation generated by <a href="https://github.com/jsdoc/jsdoc">JSDoc 4.0.2</a> on Sun Jul 02 2023 13:42:48 GMT+0900 (대한민국 표준시)
 </footer>
 
 <script> prettyPrint(); </script>
