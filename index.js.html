@@ -26,27 +26,35 @@
     
     <section>
         <article>
-            <pre class="prettyprint source linenums"><code>/**
+            <pre class="prettyprint source linenums"><code>import { appendChildrenToParent, createElement } from '../src/utils/dom';
+import {
+  getLocalStroage,
+  getSessionStroage,
+  setSessionStroage,
+} from '../src/utils/storage';
+import { article_request } from '../src/lib/article/request';
+import { createPageNumberList } from '../src/lib/article/helper/mainPagination';
+import { HomeArticles, HomeFeed, HomeTagList } from '../src/components/Home';
+import LoadingSpinner from '../src/commons/LoadingSpinner';
+
+/**
  * Represents a login form component.
  * @function LoginForm
  */
 
 function LoginForm() {
   /**
-   *
    * @type {Element}
    */
   const col = document.querySelector('.offset-md-3');
 
   /**
-   *
    * @type {Element}
    */
   const loginFormBox = createElement('form', 'form');
-
   appendChildrenToParent(col, loginFormBox);
+
   /**
-   *
    * @type {Object}
    * @property {string} email
    * @property {string} password
@@ -57,17 +65,15 @@ function LoginForm() {
   };
 
   /**
-   *
-   * @function
-   * @param {string} key
-   * @param {string} value
+   * @function updateState
+   * @param {string} key email
+   * @param {string} value password
    */
   const updateState = (key, value) => {
     state[key] = value;
   };
 
   /**
-   *
    * @function
    * @param {HashChangeEvent&lt;HTMLInputElement>} e
    */
@@ -77,7 +83,6 @@ function LoginForm() {
   };
 
   /**
-   *
    * @function
    * @param {FormDataEvent} e
    * @returns {Promise&lt;void>}
@@ -86,14 +91,21 @@ function LoginForm() {
     e.preventDefault();
 
     /**
-     *
      * @type {Object}
-     * @property {string} username
+     * @property {string} email
+     * @property {string} password
      */
     const loginData = {
       ...state,
     };
 
+    /**
+     * @param {Object} loginData
+     * @param  {string} loginData.username
+     * @param  {string} loginData.password
+     * @returns {Promise&lt;string>} token
+     * @throws {Error}
+     */
     const token = await auth_request.userLogin(loginData);
     setLocalStroage('token', token);
 
@@ -105,41 +117,23 @@ function LoginForm() {
     }
   };
 
-  /**
-   *
-   * @returns {void}
-   */
   const render = () => {
     /**
-     *
-     * @type {Array&lt;Object>}
+     * @typedef {Object} Login Items
+     * @property {string} placeholder placeholder
+     * @property {string} name name
+     * @property {string} type type
+     * @property {string} id id
+     * @property {string} className className
      */
+
+    /** @type {Item[]} */
     const items = [
       {
-        /**
-         *
-         * @type {string}
-         */
         placeholder: 'Email',
-        /**
-         *
-         * @type {string}
-         */
         name: 'email',
-        /**
-         *
-         * @type {string}
-         */
         type: 'text',
-        /**
-         *
-         * @type {string}
-         */
         id: 'email',
-        /**
-         *
-         * @type {string}
-         */
         className: 'form-control form-control-lg',
       },
       {
@@ -151,6 +145,16 @@ function LoginForm() {
       },
     ];
 
+    /**
+     * @param {Array&lt;Object>} items
+     * @param {string} inputs.placeholder
+     * @param {string} input.name
+     * @param {string} input.type
+     * @param {string} input.id
+     * @param {string} input.className
+     * @param {string} input.value
+     * @returns {string}
+     */
     const getInputField = createInputFields(items);
 
     loginFormBox.innerHTML = getInputField + buttonLogin;
@@ -168,7 +172,6 @@ function LoginForm() {
   };
 
   /**
-   *
    * @type {Object}
    */
   const state = initialState;
@@ -178,6 +181,8 @@ function LoginForm() {
   return { state, handleChange };
 }
 
+///////////////////////////////////////////////////////////////////////////////////////////
+
 /**
  * Represents a register form component.
  * @function RegisterForm
@@ -185,7 +190,6 @@ function LoginForm() {
 
 function RegisterForm() {
   /**
-   *
    * @type {Element}
    */
   const col = document.querySelector('.offset-md-3 ');
@@ -194,8 +198,7 @@ function RegisterForm() {
   appendChildrenToParent(col, registerFormBox);
 
   /**
-   *
-   * @type {Object}
+   * @function
    * @property {string} username
    * @property {string} email
    * @property {string} password
@@ -207,7 +210,6 @@ function RegisterForm() {
   };
 
   /**
-   *
    * @function
    * @param {string} key
    * @param {string} value
@@ -217,7 +219,6 @@ function RegisterForm() {
   };
 
   /**
-   *
    * @function
    * @param {HashChangeEvent&lt;HTMLInputElement>} e
    */
@@ -227,7 +228,6 @@ function RegisterForm() {
   };
 
   /**
-   *
    * @function
    * @param {FormDataEvent} e
    * @returns {Promise&lt;void>}
@@ -236,7 +236,6 @@ function RegisterForm() {
     e.preventDefault();
 
     /**
-     *
      * @type {Object}
      * @property {string} username
      * @property {string} email
@@ -246,6 +245,14 @@ function RegisterForm() {
       ...state,
     };
 
+    /**
+     * @param {Object} registerData
+     * @param  {string} registerData.username
+     * @param  {string} registerData.username
+     * @param  {string} registerData.password
+     * @returns {Promise&lt;Object>} user
+     * @throws {Error}
+     */
     const user = await auth_request.userRegister(registerData);
     if (user) {
       route('/');
@@ -253,34 +260,25 @@ function RegisterForm() {
   };
 
   /**
-   *
    * @returns {void}
    */
   const render = () => {
     /**
-     * @type {Array&lt;Object>}
+     * @typedef {Object} Register Items
+     * @property {string} placeholder placeholder
+     * @property {string} name name
+     * @property {string} type type
+     * @property {string} id id
+     * @property {string} className className
      */
+
+    /** @type {Item[]} */
     const items = [
       {
-        /**
-         * @type {string}
-         */
         placeholder: 'Username',
-        /**
-         * @type {string}
-         */
         name: 'username',
-        /**
-         * @type {string}
-         */
         type: 'text',
-        /**
-         * @type {string}
-         */
         id: 'username',
-        /**
-         * @type {string}
-         */
         className: 'form-control form-control-lg',
       },
       {
@@ -299,10 +297,22 @@ function RegisterForm() {
       },
     ];
 
+    /**
+     * @param {Array&lt;Object>} items
+     * @param {string} inputs.placeholder
+     * @param {string} input.name
+     * @param {string} input.type
+     * @param {string} input.id
+     * @param {string} input.className
+     * @returns {string}
+     */
     const getInputFiled = createInputFields(items);
 
     registerFormBox.innerHTML = getInputFiled + buttonRegister;
 
+    /**
+     * @type {Element}
+     */
     const inputs = document.querySelectorAll('input');
     /**
      * @param {HTMLInputElement} input
@@ -314,8 +324,8 @@ function RegisterForm() {
     const form = document.querySelector('.form');
     form.addEventListener('submit', handleRegisterSubmit);
   };
+
   /**
-   *
    * @type {Object}
    */
   const state = initialState;
@@ -323,6 +333,145 @@ function RegisterForm() {
 
   return { handleChange, state };
 }
+///////////////////////////////////////////////////////////////////////////////////////////
+
+/**
+ * Represents a HomeMain form component.
+ * @component HomeMain
+ */
+
+function HomeMain() {
+  /**
+   * Renders main  for home page.
+   * @returns {void}
+   */
+  renderHomeMain();
+
+  /**
+   * @function
+   * @param {MouseEvent&lt;HTMLButtonElement>} e
+   */
+  const handleTagListClick = (e) => {
+    if (e.target.classList.contains('tag-pill')) {
+      /**
+       * @type {Element}
+       */
+      const tag = e.target.textContent.trim();
+
+      /**
+       * @param {string} key
+       * @param {Element} tag
+       */
+      setSessionStroage('selectTag', tag);
+
+      updateState({
+        activeFeed: 'getTag',
+      });
+      render();
+    }
+  };
+
+  /**
+   * @function
+   * @param {MouseEvent&lt;HTMLButtonElement>} e
+   */
+  const handleFeedClick = async (e) => {
+    e.preventDefault();
+
+    /**
+     * @param {string} key
+     * @returns {unknown | string}
+     */
+    const getTag = getSessionStroage('selectTag');
+
+    /**
+     * @type {Element}
+     */
+    const textContent = e.target.textContent.trim();
+
+    /**
+     * @typedef {Object} HomeMain feeds
+     * @property {unknown | string} text text
+     * @property {string} feed feed
+     */
+    /** @type {feeds[]} */
+    const feeds = [
+      { text: 'Global Feed', feed: 'global' },
+      { text: `#${getTag &amp;&amp; getTag.trim()}`, feed: 'getTag' },
+      { text: 'Your Feed', feed: 'your' },
+    ];
+
+    const findFeed = feeds.find((feed) => feed.text === textContent);
+
+    if (findFeed) {
+      updateState({ activeFeed: findFeed.feed });
+    }
+    render();
+  };
+
+  const render = async () => {
+    /**
+     * Retrieves articles as  Promise.
+     * @returns {Promise&lt;articles[]>}
+     */
+    const articlesPromise = getArticlesPromise();
+
+    /**
+     * @component HomeFeed
+     * @param {string} activeFeed
+     * @param {Function} onClick
+     */
+    HomeFeed({
+      activeFeed: state.activeFeed,
+      onClick: handleFeedClick,
+    });
+
+    /**
+     * @component HomeArticles
+     * @param {string[]} articles
+     */
+    HomeArticles({
+      articles: [],
+    });
+
+    const spinner = LoadingSpinner();
+    const col = document.querySelector('.col-md-9');
+    col.appendChild(spinner);
+    await articlesPromise;
+
+    /**
+     * @component HomeArticles
+     * @param {string[]} pageNumber
+     * @param {articles[]} articles
+     * @param {function} onClick
+     */
+    HomeArticles({
+      pageNumber: state.pageNumber,
+      articles: state.articles,
+      onClick: handleTagListClick,
+    });
+  };
+
+  render();
+
+  const initTags = () => {
+    /**
+     * @component HomeTagList
+     * @param {function} onClickFeed
+     * @param {function} onClickTag
+     */
+    HomeTagList({
+      onClickFeed: handleFeedClick,
+      onClickTag: handleTagListClick,
+    });
+  };
+
+  initTags();
+
+  return { render };
+}
+
+///////////////////////////////////////////////////////////////////////////////////////////
 </code></pre>
         </article>
     </section>
@@ -333,13 +482,13 @@ function RegisterForm() {
 </div>
 
 <nav>
-    <h2><a href="index.html">Home</a></h2><h3>Global</h3><ul><li><a href="global.html#LoginForm">LoginForm</a></li><li><a href="global.html#RegisterForm">RegisterForm</a></li><li><a href="global.html#className">className</a></li><li><a href="global.html#id">id</a></li><li><a href="global.html#name">name</a></li><li><a href="global.html#placeholder">placeholder</a></li><li><a href="global.html#type">type</a></li></ul>
+    <h2><a href="index.html">Home</a></h2><h3>Global</h3><ul><li><a href="global.html#HomeMain">HomeMain</a></li><li><a href="global.html#LoginForm">LoginForm</a></li><li><a href="global.html#RegisterForm">RegisterForm</a></li><li><a href="global.html#updateState">updateState</a></li></ul>
 </nav>
 
 <br class="clear">
 
 <footer>
-    Documentation generated by <a href="https://github.com/jsdoc/jsdoc">JSDoc 4.0.2</a> on Sun Jul 02 2023 13:42:48 GMT+0900 (대한민국 표준시)
+    Documentation generated by <a href="https://github.com/jsdoc/jsdoc">JSDoc 4.0.2</a> on Sun Jul 02 2023 22:46:16 GMT+0900 (대한민국 표준시)
 </footer>
 
 <script> prettyPrint(); </script>
