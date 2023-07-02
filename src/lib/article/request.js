@@ -13,7 +13,6 @@ export const article_request = {
         }
       );
 
-      console.log(response);
       const data = await response.json();
       if (response.ok) {
         return data;

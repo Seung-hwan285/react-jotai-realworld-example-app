@@ -1,5 +1,5 @@
 /*
-  components
+  Components
  */
 export { default as SingleBanner } from '../components/Single/SingleBanner.js';
 export { default as SingleContent } from '../components/Single/SingleContent.js';
@@ -12,7 +12,8 @@ export { default as RegisterForm } from '../components/Register/RegisterForm.js'
 export { default as RegisterFormTitle } from '../components/Register/RegisterFormTitle.js';
 export { default as SettingForm } from '../components/Setting/SettingForm.js';
 export { default as SettingFormTitle } from '../components/Setting/SettingFormTitle.js';
-
+export { default as LoginForm } from '../components/Login/LoginForm.js';
+export { default as LoginFormTitle } from '../components/Login/LoginForm.js';
 /*
     utils
  */

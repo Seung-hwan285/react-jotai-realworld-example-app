@@ -1,6 +1,5 @@
 import { route } from './index.js';
-
-async function ProfileBanner({ username, bio, image }) {
+function ProfileBanner({ username, bio, image }) {
   const col = document.querySelector('.col-xs-12');
 
   const handleSettingClick = () => {

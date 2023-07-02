@@ -1,7 +1,9 @@
-import LoginForm from '../components/Login/LoginForm.js';
-import LoginFormTitle from '../components/Login/LoginFormTitle.js';
-import { cleanHTML } from '../utils/cleanHTML.js';
-import { appendChildrenToParent, createElement } from '../utils/dom.js';
+import {
+  appendChildrenToParent,
+  cleanHTML,
+  createElement,
+  LoginFormTitle,
+} from './index.js';
 
 function renderLogin(target) {
   const loginContainer = createElement('div', 'auth-page');

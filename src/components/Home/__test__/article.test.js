@@ -36,23 +36,26 @@ describe('HomeArticle', () => {
       <nav class="pagination"></nav>
     `;
   });
-  const articleMock = {
-    author: {
-      bio: 'hi',
-      following: false,
-      image: 'https://api.realworld.io/images/smiley-cyrus.jpeg',
-      username: 'fsda22',
+  const articleMock = [
+    {
+      author: {
+        bio: 'hi',
+        following: false,
+        image: 'https://api.realworld.io/images/smiley-cyrus.jpeg',
+        username: 'fsda22',
+      },
+      body: 'test_bio',
+      createdAt: '2023-07-01T08:39:33.602Z',
+      description: 'test',
+      favorited: false,
+      favoritesCount: 0,
+      slug: 'test_title-158960',
+      tagList: ['test_tag'],
+      title: 'test_title',
+      updatedAt: '2023-07-01T08:39:33.602Z',
     },
-    body: 'test_bio',
-    createdAt: '2023-07-01T08:39:33.602Z',
-    description: 'test',
-    favorited: false,
-    favoritesCount: 0,
-    slug: 'test_title-158960',
-    tagList: ['test_tag'],
-    title: 'test_title',
-    updatedAt: '2023-07-01T08:39:33.602Z',
-  };
+  ];
+
   afterEach(() => {
     nav = null;
     activePage = null;
@@ -108,9 +111,9 @@ describe('HomeArticle', () => {
     const onClick = jest.fn();
 
     const homeArticlePreview = new HomeArticlePreview(articleMock, onClick);
-    const { state, slug } = homeArticlePreview;
+    const { slug, handleArticleClick } = homeArticlePreview;
 
-    homeArticlePreview.handleArticleClick(slug);
+    handleArticleClick(slug);
     const history = createMemoryHistory();
 
     const baseUrl = 'http://localhost:5000';
@@ -129,7 +132,7 @@ describe('HomeArticle', () => {
     const onClick = jest.fn();
 
     const homeArticlePreview = new HomeArticlePreview(articleMock, onClick);
-    const { state, slug } = homeArticlePreview;
+    const { state, slug, handleFavoriteClick } = homeArticlePreview;
 
     const button = document.createElement('button');
     button.className = 'ion-heart';
@@ -137,7 +140,7 @@ describe('HomeArticle', () => {
     button.dataset.slug = JSON.stringify(slug);
 
     document.body.appendChild(button);
-    button.addEventListener('click', homeArticlePreview.handleFavoriteClick);
+    button.addEventListener('click', handleFavoriteClick);
 
     setTimeout(() => {
       const event = new dom.window.Event('click');
