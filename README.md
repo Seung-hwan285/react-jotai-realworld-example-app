@@ -4,7 +4,7 @@
 
 ### [Demo](https://js-playground-two.vercel.app)&nbsp;&nbsp;&nbsp;&nbsp;[RealWorld](https://github.com/gothinkster/realworld)
 
-This codebase was created to demonstrate a fully fledged fullstack application built with **Vanilla Js + Functional Components + history API + JsDoc** including CRUD operations, authentication, routing, pagination, and more.
+This codebase was created to demonstrate a fully fledged fullstack application built with **Vanilla Js + Functional Components + history API + Vite** including CRUD operations, authentication, routing, pagination, and more.
 
 This is still an unfinished project.
 
@@ -17,9 +17,9 @@ To get the frontend running locally:
 ### Clone this rep
 ###  `pnpm install`  
 to install all dependencies
-### `pnpm start` 
-to start the local server
-### `pnpm test` 
+### `pnpm run start` 
+to start the local server (Vite)
+### `pnpm run test` 
 to start the jest library 
 
 ## JSDOC

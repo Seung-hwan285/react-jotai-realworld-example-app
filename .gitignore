@@ -5,3 +5,6 @@ coverage
 out
 /assets/index.js
 pnpm-lock.yaml
+
+dist.js
+/dist.js

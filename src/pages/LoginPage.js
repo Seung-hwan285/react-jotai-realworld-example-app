@@ -2,8 +2,9 @@ import {
   appendChildrenToParent,
   cleanHTML,
   createElement,
-  LoginFormTitle,
+  LoginForm,
 } from './index.js';
+import LoginTitle from '../components/Login/LoginTitle';
 
 function renderLogin(target) {
   const loginContainer = createElement('div', 'auth-page');
@@ -28,7 +29,9 @@ function LoginPage(target) {
   renderLogin(target);
 
   const render = () => {
-    LoginFormTitle();
+    // LoginFormTitle not recognized name change after vite conversion
+    // LoginForm component keeps rendering
+    LoginTitle();
     LoginForm();
   };
 
