@@ -1,4 +1,4 @@
-function LoginFormTitle() {
+function LoginTitle() {
   const col = document.querySelector('.offset-md-3');
 
   return (col.innerHTML = /* HTML */ `
@@ -8,4 +8,4 @@ function LoginFormTitle() {
     </p>
   `);
 }
-export default LoginFormTitle;
+export default LoginTitle;

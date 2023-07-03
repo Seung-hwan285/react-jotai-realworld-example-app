@@ -3,6 +3,7 @@ import {
   cleanHTML,
   createElement,
   LoginForm,
+  LoginTitle,
 } from './index.js';
 
 function renderLogin(target) {
@@ -30,6 +31,7 @@ function LoginPage(target) {
   const render = () => {
     // LoginFormTitle not recognized name change after vite conversion
     // LoginForm component keeps rendering
+    LoginTitle();
     LoginForm();
   };
 

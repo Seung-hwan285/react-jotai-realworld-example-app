@@ -13,7 +13,8 @@ export { default as RegisterFormTitle } from '../components/Register/RegisterFor
 export { default as SettingForm } from '../components/Setting/SettingForm.js';
 export { default as SettingFormTitle } from '../components/Setting/SettingFormTitle.js';
 export { default as LoginForm } from '../components/Login/LoginForm.js';
-export { default as LoginFormTitle } from '../components/Login/LoginForm.js';
+export { default as LoginTitle } from '../components/Login/LoginTitle.js';
+
 /*
     utils
  */
