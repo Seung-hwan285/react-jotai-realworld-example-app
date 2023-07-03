@@ -4,7 +4,6 @@ import {
   createElement,
   LoginForm,
 } from './index.js';
-import LoginTitle from '../components/Login/LoginTitle';
 
 function renderLogin(target) {
   const loginContainer = createElement('div', 'auth-page');
