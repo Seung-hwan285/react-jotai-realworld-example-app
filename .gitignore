@@ -4,3 +4,4 @@ node_modules
 coverage
 out
 /assets/index.js
+pnpm-lock.yaml
