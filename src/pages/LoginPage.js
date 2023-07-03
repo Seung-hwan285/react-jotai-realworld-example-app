@@ -31,7 +31,6 @@ function LoginPage(target) {
   const render = () => {
     // LoginFormTitle not recognized name change after vite conversion
     // LoginForm component keeps rendering
-    LoginTitle();
     LoginForm();
   };
 
