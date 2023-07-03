@@ -14,11 +14,13 @@ This is still an unfinished project.
 You can't view a live demo over at [Demo](https://js-playground-two.vercel.app)
 
 To get the frontend running locally:
-
-- Clone this repo
-- `npm install` to install all dependencies
-- `npm start` to start the local server 
-- `npm test` to start the jest library 
+### Clone this rep
+###  `pnpm install`  
+to install all dependencies
+### `pnpm start` 
+to start the local server
+### `pnpm test` 
+to start the jest library 
 
 ## JSDOC
 https://seung-hwan285.github.io/Functional-component-realworld-example-app/
