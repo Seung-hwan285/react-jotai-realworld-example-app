@@ -57,6 +57,7 @@
     "jsesc": "^2.5.2"
   },
   "scripts": {
+    "preinstall": "npx only-allow pnpm",
     "test": "jest",
     "start": "node server.js",
     "doc": "jsdoc ./assets/index.js",
