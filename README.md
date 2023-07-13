@@ -1,16 +1,7 @@
 ![Vanilla Js + Functional components + history API](logo_js.png)
 
 
-This project is solely a side project that I work on during my free time. I initiated this project with the purpose of providing a resource for individuals interested in exploring vanilla JavaScript before transitioning to frameworks/libraries. Additionally,
-
-it functions as a platform for testing different JavaScript libraries. Please refrain from sending threatening emails from unknown email addresses.
-
-I have absolutely no aversion to frameworks/libraries. Normally, I develop using a framework, but since this project is my personal endeavor, I opted to utilize JavaScript without relying on a framework.
-
-Also, if you have something to say, please post it in the discussion. I am open to hearing your opinions.
-
-I like using both JS/TS and I don't want to obscure which language is better.
-Please do not send speculative emails about me
+### Full structure refactoring until 08/13
 
 > ### Vanilla Js + Functional Components + history API real world examples (CRUD, auth, advanced patterns, etc) that adheres to the [RealWorld](https://github.com/gothinkster/realworld-example-apps) spec and API.
 
