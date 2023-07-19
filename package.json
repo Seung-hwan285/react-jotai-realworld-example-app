@@ -1,56 +1,55 @@
 {
-  "name": "js_realworld",
-  "version": "1.0.0",
-  "description": "]# ![Vanilla Js + Functional components + history API](logo_js.png)",
-  "main": "babel.config.js",
+  "name": "realworld",
+  "version": "0.1.0",
+  "private": true,
   "dependencies": {
-    "@babel/cli": "^7.22.5",
-    "@babel/core": "^7.22.5",
-    "@babel/plugin-transform-arrow-functions": "^7.22.5",
-    "@babel/plugin-transform-classes": "^7.22.5",
-    "@babel/plugin-transform-destructuring": "^7.22.5",
-    "@babel/plugin-transform-spread": "^7.22.5",
-    "@babel/plugin-transform-template-literals": "^7.22.5",
-    "@babel/preset-env": "^7.22.2",
-    "@rollup/plugin-babel": "^6.0.3",
-    "@testing-library/dom": "^9.3.0",
-    "babel-jest": "^29.5.0",
-    "babel-plugin-istanbul": "^6.1.1",
-    "babel-plugin-jest-hoist": "^29.5.0",
-    "babel-preset-current-node-syntax": "^1.0.1",
-    "babel-preset-jest": "^29.5.0",
-    "docdash": "^2.0.1",
-    "express": "^4.18.2",
-    "vite": "^4.3.9"
-  },
-  "devDependencies": {
-    "fetch-mock": "^9.11.0",
-    "gh-pages": "^5.0.0",
-    "history": "^5.3.0",
-    "jest": "^29.5.0",
-    "jest-environment-jsdom": "^29.5.0",
-    "jest-environment-node": "^29.5.0",
-    "jest-fetch-mock": "^3.0.3",
-    "jest-snapshot": "^29.5.0",
-    "jest-util": "^29.5.0",
-    "jsdoc": "^4.0.2",
-    "jsdom": "^22.1.0",
-    "jsesc": "^2.5.2"
+    "@testing-library/jest-dom": "^5.16.5",
+    "@testing-library/react": "^13.4.0",
+    "@testing-library/user-event": "^13.5.0",
+    "@types/jest": "^27.5.2",
+    "@types/node": "^16.18.38",
+    "@types/react": "^18.2.15",
+    "@types/react-dom": "^18.2.7",
+    "axios": "^1.4.0",
+    "jotai": "^2.2.2",
+    "jotai-form": "^0.1.3",
+    "react": "^18.2.0",
+    "react-dom": "^18.2.0",
+    "react-error-boundary": "^4.0.10",
+    "react-router-dom": "^6.14.2",
+    "react-scripts": "5.0.1",
+    "typescript": "^4.9.5",
+    "web-vitals": "^2.1.4",
+    "yup": "^1.2.0"
   },
   "scripts": {
-    "preinstall": "npx only-allow pnpm",
-    "test": "jest",
-    "start": "vite",
-    "doc": "jsdoc ./assets/index.js",
-    "deploy": "gh-pages -d out"
+    "start": "react-scripts start",
+    "build": "realworld/node_modules/.bin/react-scripts build",
+    "test": "realworld/node_modules/.bin/react-scripts test",
+    "eject": "realworld/node_modules/.bin/react-scripts eject"
   },
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/Seung-hwan285/js_real.git"
+  "eslintConfig": {
+    "extends": [
+      "react-app",
+      "react-app/jest"
+    ]
   },
-  "author": "",
-  "license": "ISC",
-  "bugs": {
-    "url": "https://github.com/Seung-hwan285/js_real/issues"
+  "browserslist": {
+    "production": [
+      ">0.2%",
+      "not dead",
+      "not op_mini all"
+    ],
+    "development": [
+      "last 1 chrome version",
+      "last 1 firefox version",
+      "last 1 safari version"
+    ]
+  },
+  "devDependencies": {
+    "eslint": "^8.45.0",
+    "eslint-config-prettier": "^8.8.0",
+    "eslint-plugin-prettier": "^5.0.0",
+    "prettier": "^3.0.0"
   }
 }
