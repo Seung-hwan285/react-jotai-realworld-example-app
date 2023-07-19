@@ -13,7 +13,11 @@
     }
   },
   "rules": {
-    "no-console": 0
+    "no-console": 2,
+    "@typescript-eslint/no-empty-interface": "warn",
+    "@typescript-eslint/no-unused-vars" : "error",
+    "@typescript-eslint/no-inferrable-types" : "error",
+    "@typescript-eslint/no-this-alias": "error"
   },
   "settings": {
     "import/resolver": {

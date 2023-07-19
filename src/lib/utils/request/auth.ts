@@ -9,7 +9,7 @@ export const authAPI = {
         email: email,
         password: password,
       };
-      // Email
+
       const result = await axiosInterceptor.post(
         '/api/users/login',
         JSON.stringify({ user: body }),
@@ -17,14 +17,14 @@ export const authAPI = {
 
       const { data } = result;
 
-      if (isLoginResponse(data)) {
+      if (isLoginResponse(result)) {
         if (result.status === 200) {
           setLocalStorage('token', data);
           return result;
         }
       }
-    } catch (err: any) {
-      throw new Error(err);
+    } catch (err) {
+      console.error(err);
     }
   },
 
@@ -50,7 +50,7 @@ export const authAPI = {
           return result;
         }
       }
-    } catch (err: any) {
+    } catch (err) {
       console.error(err);
     }
   },
