@@ -5,6 +5,7 @@ import { isRouteErrorResponse, useRouteError } from 'react-router-dom';
 function RootBoundary() {
   const error = useRouteError();
 
+  console.log(error);
   if (isRouteErrorResponse(error)) {
     if (error.status === 404) {
       // eslint-disable-next-line react/no-unescaped-entities
@@ -12,7 +13,7 @@ function RootBoundary() {
     }
 
     if (error.status === 403) {
-      return <div>403</div>;
+      return <h1>403</h1>;
     }
 
     if (error.status === 401) {

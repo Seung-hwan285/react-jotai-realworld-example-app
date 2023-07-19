@@ -1,6 +1,6 @@
 import { axiosInterceptor } from '../../axios/interceptor';
 import { setLocalStorage } from '../storage';
-import { isLoginResponse, isRegisterResponse } from '../type-gaurd/auth';
+import { isLoginResponse, isRegisterResponse } from '../type-guard/auth';
 
 export const authAPI = {
   login: async (email: string | unknown, password: string | unknown) => {

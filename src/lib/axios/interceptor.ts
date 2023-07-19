@@ -58,8 +58,6 @@ const isErrorResponse = (error: AxiosError | Error) => {
 
 const isResponse = (response: AxiosResponse) => {
   const { method, url } = response.config;
-  const { status } = response;
-
   console.log(`[API] ${method?.toUpperCase()} ${url} |Request`);
 
   return response;

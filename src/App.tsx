@@ -7,6 +7,7 @@ import RegisterPage from './app/register';
 import RootBoundary from './lib/provider/failback';
 import Footer from './components/layout/footer';
 import Navbar from './components/layout/navbar';
+import ProfilePage from './app/profile';
 
 function App() {
   return (
@@ -24,6 +25,7 @@ function App() {
             />
             <Route path="/login" element={<LoginPage />} />
             <Route path="/register" element={<RegisterPage />} />
+            <Route path="/profile" element={<ProfilePage />} />
           </Routes>
         </div>
       </main>
