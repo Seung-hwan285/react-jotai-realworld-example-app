@@ -11,25 +11,14 @@ export type Login = {
   password: string;
 };
 
-type UserData = {
-  email: string;
-  password: string;
-};
-
 export type UserLoginData = {
-  user: UserData;
+  user: Login;
   handleChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
   handleSubmit: () => Promise<void>;
 };
 
-type RegisterData = {
-  username: string;
-  email: string;
-  password: string;
-};
-
 export type UserRegisterData = {
-  user: RegisterData;
+  user: Register;
   handleChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
   handleSubmit: () => Promise<void>;
 };
