@@ -1,3 +1,5 @@
+import { AuthUser } from './auth';
+
 export type Author = {
   bio: string;
   following: boolean;
@@ -25,6 +27,15 @@ type PropsWithArticles = {
 export type PropsFeed = {
   feed: string;
   onClick: (e: string) => void;
+};
+
+export type PropsTag = {
+  tagList?: string[];
+};
+
+export type PropsLoading = {
+  loading: boolean;
+  user: AuthUser;
 };
 
 export type PropsArray = PropsWithArticles;

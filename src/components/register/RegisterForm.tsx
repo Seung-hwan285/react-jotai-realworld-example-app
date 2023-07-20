@@ -1,4 +1,5 @@
 import React from 'react';
+import Button from '../common/Button';
 import useRegister from './hook/register';
 
 function RegisterForm() {
@@ -50,9 +51,9 @@ function RegisterForm() {
                     onChange={handleChange}
                   />
                 </fieldset>
-                <button className="btn btn-lg btn-primary pull-xs-right">
+                <Button className="btn btn-lg btn-primary pull-xs-right">
                   Sign up
-                </button>
+                </Button>
               </form>
             </div>
           </div>

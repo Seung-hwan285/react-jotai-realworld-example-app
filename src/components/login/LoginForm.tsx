@@ -1,5 +1,6 @@
 import React from 'react';
 import useLogin from './hook/login';
+import Button from '../common/Button';
 
 function LoginForm() {
   const { user, handleChange, handleSubmit } = useLogin();
@@ -39,9 +40,9 @@ function LoginForm() {
                   onChange={handleChange}
                 />
               </fieldset>
-              <button className="btn btn-lg btn-primary pull-xs-right">
+              <Button className="btn btn-lg btn-primary pull-xs-right">
                 Sign up
-              </button>
+              </Button>
             </form>
           </div>
         </div>

@@ -1,5 +1,22 @@
 import React from 'react';
-import { PropsArray } from '../../lib/utils/type/article';
+import { PropsArray, PropsTag } from '../../lib/utils/type/article';
+import Button from '../common/Button';
+
+function ProfileTagList({ tagList }: PropsTag) {
+  return (
+    <ul className="tag-list">
+      {/* eslint-disable-next-line react/prop-types */}
+      {tagList?.map((tag: string) => (
+        <li
+          className="tag-default tag-pill tag-outline"
+          key={new Date().toISOString()}
+        >
+          {tag}
+        </li>
+      ))}
+    </ul>
+  );
+}
 
 function ProfileArticles({ articles }: PropsArray) {
   return (
@@ -16,9 +33,9 @@ function ProfileArticles({ articles }: PropsArray) {
                   <a href="/profile/eric-simons" className="author"></a>
                   <span className="date">{data.author.username}</span>
                 </div>
-                <button className="btn btn-outline-primary btn-sm pull-xs-right">
+                <Button className="btn btn-outline-primary btn-sm pull-xs-right">
                   <i className="ion-heart"></i> {data.favoritesCount}
-                </button>
+                </Button>
               </div>
               <a
                 href="/article/how-to-buil-webapps-that-scale"
@@ -28,11 +45,7 @@ function ProfileArticles({ articles }: PropsArray) {
                 <p>{data.description}</p>
                 <span>Read more...</span>
 
-                {data.tagList.map((tag: string) => (
-                  <ul className="tag-list" key={new Date().toISOString()}>
-                    <li className="tag-default tag-pill tag-outline">{tag}</li>
-                  </ul>
-                ))}
+                <ProfileTagList tagList={data.tagList} />
               </a>
             </div>
           );

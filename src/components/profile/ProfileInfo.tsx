@@ -1,5 +1,5 @@
 import React from 'react';
-import LoadingSpinner from '../commons/LoadingSpinner';
+import LoadingSpinner from '../common/LoadingSpinner';
 import useProfileInfo from './hook/info';
 import ProfileArticles from './ProfileArticles';
 import ProfileFeed from './ProfileFeed';

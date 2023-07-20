@@ -1,13 +1,9 @@
 import React from 'react';
-import { AuthUser } from '../../lib/utils/type/auth';
 import useProfileHeader from './hook/header';
+import Button from '../common/Button';
+import { PropsLoading } from '../../lib/utils/type/article';
 
-type Props = {
-  loading: boolean;
-  user: AuthUser;
-};
-
-function LoadingSkeleton({ loading, user }: Props) {
+function LoadingSkeleton({ loading, user }: PropsLoading) {
   return (
     <div className="loading-skeleton">
       {loading ? (
@@ -27,6 +23,7 @@ function LoadingSkeleton({ loading, user }: Props) {
 
 function ProfileHeader() {
   const { loading, handleSettingClick, user } = useProfileHeader();
+
   return (
     <>
       <div className="user-info">
@@ -35,12 +32,12 @@ function ProfileHeader() {
             <div className="col-xs-12 col-md-10 offset-md-1">
               <LoadingSkeleton user={user} loading={loading} />
 
-              <button
+              <Button
                 onClick={handleSettingClick}
                 className="btn btn-sm btn-outline-secondary action-btn"
               >
                 <i className="ion-plus-round"></i> Follow {user?.user?.username}
-              </button>
+              </Button>
             </div>
           </div>
         </div>
