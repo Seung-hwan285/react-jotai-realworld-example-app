@@ -1,6 +1,7 @@
 import { axiosInterceptor } from '../../axios/interceptor';
 import { setLocalStorage } from '../storage';
-import { isLoginResponse, isRegisterResponse } from '../type-guard/auth';
+import { isResponse } from '../type-guard/auth';
+import { AxiosResponse, InternalAxiosRequestConfig } from 'axios';
 
 export const authAPI = {
   login: async (email: string | unknown, password: string | unknown) => {
@@ -16,10 +17,12 @@ export const authAPI = {
       );
 
       const { data } = result;
+      const { token } = data.user;
 
-      if (isLoginResponse(result)) {
+      console.log(data);
+      if (isResponse(result)) {
         if (result.status === 200) {
-          setLocalStorage('token', data);
+          setLocalStorage('token', token);
           return result;
         }
       }
@@ -45,7 +48,7 @@ export const authAPI = {
         JSON.stringify({ user: body }),
       );
 
-      if (isRegisterResponse(result)) {
+      if (isResponse(result)) {
         if (result.status === 200) {
           return result;
         }
@@ -53,5 +56,27 @@ export const authAPI = {
     } catch (err) {
       console.error(err);
     }
+  },
+  getUser: async (): Promise<AxiosResponse<any>> => {
+    try {
+      const result = await axiosInterceptor.get('/api/user');
+
+      console.log(result);
+      if (isResponse(result)) {
+        if (result.status === 200) {
+          return result;
+        }
+      }
+    } catch (err) {
+      console.error(err);
+    }
+
+    return {
+      data: null,
+      status: 500,
+      statusText: 'server error',
+      headers: {},
+      config: {} as InternalAxiosRequestConfig,
+    };
   },
 };

@@ -38,6 +38,17 @@ function Navbar() {
                   Profile
                 </Link>
               </li>
+
+              <li className="nav-item">
+                <Link
+                  className={`nav-link ${
+                    isActiveLink('/setting') ? 'active' : ''
+                  }`}
+                  to="/setting"
+                >
+                  Setting
+                </Link>
+              </li>
             </>
           ) : (
             <>

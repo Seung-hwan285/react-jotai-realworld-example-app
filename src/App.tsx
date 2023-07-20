@@ -4,9 +4,9 @@ import './App.css';
 import Home from './app/home';
 import LoginPage from './app/login';
 import RegisterPage from './app/register';
-import RootBoundary from './lib/provider/failback';
 import Footer from './components/layout/footer';
 import Navbar from './components/layout/navbar';
+import SettingPage from './app/setting';
 import ProfilePage from './app/profile';
 
 function App() {
@@ -21,15 +21,15 @@ function App() {
             <Route
               path="/"
               element={<Home />}
-              errorElement={<RootBoundary />}
+              // errorElement={<RootBoundary />}
             />
             <Route path="/login" element={<LoginPage />} />
             <Route path="/register" element={<RegisterPage />} />
             <Route path="/profile" element={<ProfilePage />} />
+            <Route path="/setting" element={<SettingPage />} />
           </Routes>
         </div>
       </main>
-
       <footer>
         <Footer />
       </footer>

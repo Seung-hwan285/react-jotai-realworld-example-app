@@ -3,10 +3,6 @@ type ApiResponse<T> = {
   data: T;
 };
 
-export const isLoginResponse = (res: any): res is ApiResponse<any> => {
-  return typeof res?.status === 'number' && 'data' in res;
-};
-
-export const isRegisterResponse = (res: any): res is ApiResponse<any> => {
+export const isResponse = (res: any): res is ApiResponse<any> => {
   return typeof res?.status === 'number' && 'data' in res;
 };

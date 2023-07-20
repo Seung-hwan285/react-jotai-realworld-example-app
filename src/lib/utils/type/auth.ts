@@ -22,3 +22,13 @@ export type UserRegisterData = {
   handleChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
   handleSubmit: () => Promise<void>;
 };
+
+export type AuthUser = {
+  user: {
+    username: '';
+    image: '';
+    bio: '';
+    email: '';
+    token: '';
+  };
+};

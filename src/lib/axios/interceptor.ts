@@ -4,6 +4,7 @@ import axios, {
   AxiosResponse,
   InternalAxiosRequestConfig,
 } from 'axios';
+import { getLocalStroage } from '../utils/storage';
 
 const apiConfig: any = {
   baseURL: process.env.REACT_APP_URL,
@@ -15,6 +16,13 @@ const isRequest = (config: InternalAxiosRequestConfig) => {
   const { method, url } = config;
 
   config.headers['Content-Type'] = 'application/json';
+
+  const user = getLocalStroage('token');
+
+  if (user) {
+    config.headers['Authorization'] = `Token ${user}`;
+  }
+
   console.log(`[API] ${method?.toUpperCase()} ${url} |Request`);
 
   return config;

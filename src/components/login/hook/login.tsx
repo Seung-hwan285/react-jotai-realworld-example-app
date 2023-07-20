@@ -1,9 +1,9 @@
 import { useAtom } from 'jotai';
-import { userLoginStateAtom } from '../../../lib/jotail/login';
 import { useNavigate } from 'react-router-dom';
 import React from 'react';
 import { Login, UserLoginData } from '../../../lib/utils/type/auth';
 import { authAPI } from '../../../lib/utils/request/auth';
+import { userLoginStateAtom } from '../../../lib/jotail/user';
 
 function useLogin() {
   const [user, setUser] = useAtom(userLoginStateAtom);

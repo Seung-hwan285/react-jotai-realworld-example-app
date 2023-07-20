@@ -1,12 +1,12 @@
 import { useAtom } from 'jotai';
-import { userStateAtom } from '../../../lib/jotail/register';
 import { useNavigate } from 'react-router-dom';
 import React from 'react';
 import { Register, UserRegisterData } from '../../../lib/utils/type/auth';
 import { authAPI } from '../../../lib/utils/request/auth';
+import { userRegisterStateAtom } from '../../../lib/jotail/user';
 
 function useRegister() {
-  const [user, setUser] = useAtom(userStateAtom);
+  const [user, setUser] = useAtom(userRegisterStateAtom);
 
   const navigate = useNavigate();
 
