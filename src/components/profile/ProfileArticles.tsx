@@ -6,11 +6,8 @@ function ProfileTagList({ tagList }: PropsTag) {
   return (
     <ul className="tag-list">
       {/* eslint-disable-next-line react/prop-types */}
-      {tagList?.map((tag: string) => (
-        <li
-          className="tag-default tag-pill tag-outline"
-          key={new Date().toISOString()}
-        >
+      {tagList?.map((tag: string, idx: number) => (
+        <li className="tag-default tag-pill tag-outline" key={idx}>
           {tag}
         </li>
       ))}

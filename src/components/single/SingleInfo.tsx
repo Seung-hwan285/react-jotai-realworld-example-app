@@ -55,21 +55,21 @@ function SingleInfo() {
 
     setSlug(item);
 
-    const fetchSingle = async () => {
-      const { data } = await ArticlesAPI.getSingleArticle(slugname);
-      setSingle(data);
-      setUserImage(data.article.author.image);
-    };
+    const fetchArticleAndComment = async () => {
+      try {
+        const [articleResponse, commentsResponse] = await Promise.all([
+          ArticlesAPI.getSingleArticle(slugname),
+          ArticlesAPI.getCommentsFromArticle(slugname),
+        ]);
 
-    const fetchComments = async () => {
-      const { data: commentsData } = await ArticlesAPI.getCommentsFromArticle(
-        slugname,
-      );
-      setComments(commentsData);
+        setSingle(articleResponse.data);
+        setUserImage(articleResponse.data.article.author.image);
+        setComments(commentsResponse.data);
+      } catch (err) {
+        console.error(err);
+      }
     };
-
-    fetchSingle();
-    fetchComments();
+    fetchArticleAndComment();
   }, [location]);
 
   return (

@@ -23,6 +23,10 @@ function SingleBodyTag({ tags }: BodyTags) {
 }
 
 function SingleBody({ article }: PropsArticle) {
+  if (!article) {
+    return null;
+  }
+
   return (
     <>
       <div className="row article-content">
