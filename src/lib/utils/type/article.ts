@@ -7,7 +7,11 @@ export type Author = {
   username: string;
 };
 
-type Props = {
+export type PropsArticle = {
+  article?: Props;
+};
+
+export type Props = {
   author: Author;
   body: string;
   createdAt: string;

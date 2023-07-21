@@ -3,6 +3,7 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
+    "@tanstack/react-query": "^4.29.25",
     "@testing-library/jest-dom": "^5.16.5",
     "@testing-library/react": "^13.4.0",
     "@testing-library/user-event": "^13.5.0",
@@ -18,11 +19,11 @@
     "react-error-boundary": "^4.0.10",
     "react-router-dom": "^6.14.2",
     "react-scripts": "5.0.1",
+    "reapop": "^4.2.1",
     "typescript": "^4.9.5",
     "web-vitals": "^2.1.4",
     "yup": "^1.2.0"
   },
-
   "scripts": {
     "start": "react-scripts start",
     "build": "react-scripts build",

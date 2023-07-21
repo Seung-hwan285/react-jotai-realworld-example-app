@@ -1,7 +1,7 @@
 import React from 'react';
 import { PropsArray, PropsTag } from '../../lib/utils/type/article';
 import Button from '../common/Button';
-
+import { useNavigate } from 'react-router-dom';
 function ProfileTagList({ tagList }: PropsTag) {
   return (
     <ul className="tag-list">
@@ -19,12 +19,22 @@ function ProfileTagList({ tagList }: PropsTag) {
 }
 
 function ProfileArticles({ articles }: PropsArray) {
+  const histoyr = useNavigate();
+
+  const handleClick = (slug: string) => {
+    histoyr(`/article/${slug}`);
+  };
+
   return (
     <>
       {articles &&
         articles.map((data: any) => {
           return (
-            <div key={data.slug} className="article-preview">
+            <div
+              onClick={() => handleClick(data.slug)}
+              key={data.slug}
+              className="article-preview"
+            >
               <div className="article-meta">
                 <a href="/profile/eric-simons">
                   <img src={`${data.author.image}`} alt="Author" />
@@ -37,10 +47,7 @@ function ProfileArticles({ articles }: PropsArray) {
                   <i className="ion-heart"></i> {data.favoritesCount}
                 </Button>
               </div>
-              <a
-                href="/article/how-to-buil-webapps-that-scale"
-                className="preview-link"
-              >
+              <a className="preview-link">
                 <h1>{data.body}</h1>
                 <p>{data.description}</p>
                 <span>Read more...</span>

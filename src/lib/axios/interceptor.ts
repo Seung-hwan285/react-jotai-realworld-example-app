@@ -14,7 +14,6 @@ const APi: AxiosInstance = axios.create(apiConfig);
 
 const isRequest = (config: InternalAxiosRequestConfig) => {
   const { method, url } = config;
-
   config.headers['Content-Type'] = 'application/json';
 
   const user = getLocalStroage('token');
@@ -23,7 +22,7 @@ const isRequest = (config: InternalAxiosRequestConfig) => {
     config.headers['Authorization'] = `Token ${user}`;
   }
 
-  console.log(`[API] ${method?.toUpperCase()} ${url} |Request`);
+  // console.log(`[API] ${method?.toUpperCase()} ${url} |Request`);
 
   return config;
 };
@@ -66,7 +65,7 @@ const isErrorResponse = (error: AxiosError | Error) => {
 
 const isResponse = (response: AxiosResponse) => {
   const { method, url } = response.config;
-  console.log(`[API] ${method?.toUpperCase()} ${url} |Request`);
+  // console.log(`[API] ${method?.toUpperCase()} ${url} |Request`);
 
   return response;
 };

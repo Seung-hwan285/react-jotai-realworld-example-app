@@ -8,32 +8,32 @@ import Footer from './components/layout/footer';
 import Navbar from './components/layout/navbar';
 import SettingPage from './app/setting';
 import ProfilePage from './app/profile';
+import SinglePage from './app/single';
+import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 
+const queryClient = new QueryClient();
 function App() {
   return (
-    <div className="app">
-      <header>
-        <Navbar />
-      </header>
-      <main>
-        <div className="App">
+    <QueryClientProvider client={queryClient}>
+      <div className="app">
+        <header>
+          <Navbar />
+        </header>
+        <main>
           <Routes>
-            <Route
-              path="/"
-              element={<Home />}
-              // errorElement={<RootBoundary />}
-            />
+            <Route path="/" element={<Home />} />
             <Route path="/login" element={<LoginPage />} />
             <Route path="/register" element={<RegisterPage />} />
             <Route path="/profile" element={<ProfilePage />} />
             <Route path="/setting" element={<SettingPage />} />
+            <Route path="/article/:slug" element={<SinglePage />} />
           </Routes>
-        </div>
-      </main>
-      <footer>
-        <Footer />
-      </footer>
-    </div>
+        </main>
+        <footer>
+          <Footer />
+        </footer>
+      </div>
+    </QueryClientProvider>
   );
 }
 

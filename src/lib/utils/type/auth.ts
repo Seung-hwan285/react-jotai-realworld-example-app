@@ -23,6 +23,15 @@ export type UserRegisterData = {
   handleSubmit: () => Promise<void>;
 };
 
+export type PropsAuthNavbar = {
+  onClick?: (e: React.MouseEvent) => void;
+  isActiveLink: (e: string) => boolean;
+};
+
+export type Image = {
+  image: string;
+};
+
 export type AuthUser = {
   user: {
     username: '';

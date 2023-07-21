@@ -1,5 +1,6 @@
 import { atom } from 'jotai';
-import { AuthUser, Login, Register } from '../utils/type/auth';
+import { AuthUser, Image, Login, Register } from '../utils/type/auth';
+import { Slug } from '../utils/type/comment';
 
 export const userRegisterStateAtom = atom<Register>({
   username: '',
@@ -22,4 +23,13 @@ export const userState = atom<AuthUser>({
   },
 });
 
+export const userImage = atom<Image>({
+  image: '',
+});
+
+export const userSlug = atom<Slug>({
+  slug: '',
+});
+
 export const readOnlyAtom = atom((get) => get(userState).user.username);
+export const readOnlyImageAtom = atom((get) => get(userImage));

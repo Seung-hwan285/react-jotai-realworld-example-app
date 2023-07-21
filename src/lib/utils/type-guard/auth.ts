@@ -4,5 +4,8 @@ type ApiResponse<T> = {
 };
 
 export const isResponse = (res: any): res is ApiResponse<any> => {
-  return typeof res?.status === 'number' && 'data' in res;
+  return (
+    typeof res?.status === 'number' &&
+    ('data' in res || 'article' in res || 'user' in res || 'comment' in res)
+  );
 };

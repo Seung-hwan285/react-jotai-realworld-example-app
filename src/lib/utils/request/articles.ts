@@ -49,4 +49,50 @@ export const ArticlesAPI = {
       config: {} as InternalAxiosRequestConfig,
     };
   },
+
+  getSingleArticle: async (slug: string): Promise<AxiosResponse<any>> => {
+    try {
+      const result = await axiosInterceptor.get(`/api/articles/${slug}`);
+
+      if (isResponse(result)) {
+        if (result.status === 200) {
+          return result;
+        }
+      }
+    } catch (err) {
+      console.error(err);
+    }
+
+    return {
+      data: null,
+      status: 500,
+      statusText: 'server error',
+      headers: {},
+      config: {} as InternalAxiosRequestConfig,
+    };
+  },
+
+  getCommentsFromArticle: async (slug: string): Promise<AxiosResponse<any>> => {
+    try {
+      const result = await axiosInterceptor.get(
+        `/api/articles/${slug}/comments`,
+      );
+
+      console.log(result);
+      if (isResponse(result)) {
+        if (result.status === 200) {
+          return result;
+        }
+      }
+    } catch (err) {
+      console.error(err);
+    }
+    return {
+      data: null,
+      status: 500,
+      statusText: 'server error',
+      headers: {},
+      config: {} as InternalAxiosRequestConfig,
+    };
+  },
 };

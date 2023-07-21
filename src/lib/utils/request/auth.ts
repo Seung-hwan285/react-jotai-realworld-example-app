@@ -19,7 +19,6 @@ export const authAPI = {
       const { data } = result;
       const { token } = data.user;
 
-      console.log(data);
       if (isResponse(result)) {
         if (result.status === 200) {
           setLocalStorage('token', token);

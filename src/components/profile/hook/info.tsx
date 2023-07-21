@@ -1,5 +1,5 @@
 import { useAtom } from 'jotai';
-import { readOnlyAtom } from '../../../lib/jotail/user';
+import { readOnlyAtom } from '../../../lib/jotai/user';
 import { useEffect, useState } from 'react';
 import { ArticlesAPI } from '../../../lib/utils/request/articles';
 

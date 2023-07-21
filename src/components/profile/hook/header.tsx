@@ -1,5 +1,5 @@
 import { useAtom } from 'jotai';
-import { userState } from '../../../lib/jotail/user';
+import { userState } from '../../../lib/jotai/user';
 import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { authAPI } from '../../../lib/utils/request/auth';

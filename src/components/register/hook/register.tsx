@@ -3,7 +3,7 @@ import { useNavigate } from 'react-router-dom';
 import React from 'react';
 import { Register, UserRegisterData } from '../../../lib/utils/type/auth';
 import { authAPI } from '../../../lib/utils/request/auth';
-import { userRegisterStateAtom } from '../../../lib/jotail/user';
+import { userRegisterStateAtom } from '../../../lib/jotai/user';
 
 function useRegister() {
   const [user, setUser] = useAtom(userRegisterStateAtom);
