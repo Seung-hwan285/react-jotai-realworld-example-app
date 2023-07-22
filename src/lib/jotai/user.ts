@@ -33,3 +33,4 @@ export const userSlug = atom<Slug>({
 
 export const readOnlyAtom = atom((get) => get(userState).user.username);
 export const readOnlyImageAtom = atom((get) => get(userImage));
+export const readOnlySlug = atom((get) => get(userSlug).slug);

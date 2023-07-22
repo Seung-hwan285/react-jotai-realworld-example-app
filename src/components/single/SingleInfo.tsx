@@ -10,14 +10,14 @@ import { userImage, userSlug } from '../../lib/jotai/user';
 import { bodyAtom } from '../../lib/jotai/article';
 import SingleComment from './SingleComment';
 import { CommentAPI } from '../../lib/utils/request/comment';
-import { PropsCommnet } from '../../lib/utils/type/comment';
+import { commentList } from '../../lib/jotai/comment';
+import { Comments } from '../../lib/utils/type/comment';
 
 function SingleInfo() {
   const location = useLocation();
   const [single, setSingle] = useState<PropsArticle>({});
-  const [comments, setComments] = useState<{ comments: PropsCommnet[] }>({
-    comments: [],
-  });
+
+  const [comments, setComments] = useAtom(commentList);
 
   const [image, setUserImage] = useAtom(userImage);
   const [slugAtom, setSlug] = useAtom(userSlug);
@@ -33,8 +33,8 @@ function SingleInfo() {
       const { data } = await CommentAPI.createComment(slug, body);
 
       if (data) {
-        setComments((prevComments) => ({
-          comments: [...prevComments.comments, data.comment],
+        setComments(({ comments }: Comments) => ({
+          comments: [...comments, data.comment],
         }));
 
         setBody({ body: '' });
@@ -80,7 +80,7 @@ function SingleInfo() {
           <div className="container page">
             <SingleBody article={single.article} />
             <hr />
-            <SingleComment handleSubmit={handleSubmit} commentList={comments} />
+            <SingleComment handleSubmit={handleSubmit} />
           </div>
         </div>
       ) : (

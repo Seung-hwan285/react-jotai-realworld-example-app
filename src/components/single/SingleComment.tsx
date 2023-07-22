@@ -1,23 +1,37 @@
 import React from 'react';
-import {
-  PropsComments,
-  PropsCommentsList,
-  PropsCommnet,
-} from '../../lib/utils/type/comment';
+import { PropsCommentsList, PropsCommnet } from '../../lib/utils/type/comment';
 import useImageAndText from './hook/useImageAndText';
 import useCommentList from './hook/useCommentList';
+import { useAtom } from 'jotai';
+import { readOnlySlug } from '../../lib/jotai/user';
+import { CommentAPI } from '../../lib/utils/request/comment';
+import { commentList } from '../../lib/jotai/comment';
 
-function SingleCommentList({ comments }: PropsComments) {
-  if (!comments) {
-    return null;
-  }
-
+function SingleCommentList() {
   const { iconClass } = useCommentList();
+
+  const [slugAtom] = useAtom(readOnlySlug);
+  const [comments, setComments] = useAtom(commentList);
+
+  const handleClick = async (id: number) => {
+    try {
+      const { slug }: any = slugAtom;
+      const { data } = await CommentAPI.deleteComment(slug, id);
+
+      setComments((prev: any) => ({
+        comments: prev.comments.filter((comment: any) => comment.id !== id),
+      }));
+
+      console.log(data);
+    } catch (err) {
+      console.error(err);
+    }
+  };
 
   return (
     <>
       {!!comments &&
-        comments?.map((comment: PropsCommnet) => {
+        comments?.comments?.map((comment: PropsCommnet) => {
           return (
             <div key={comment.id} className="card">
               <div className="card-block">
@@ -35,7 +49,12 @@ function SingleCommentList({ comments }: PropsComments) {
                   {comment.author.username}
                 </a>
                 <span className="date-posted">{comment.createdAt}</span>
-                <span className="mod-options">{iconClass}</span>
+                <span
+                  onClick={() => handleClick(comment.id)}
+                  className="mod-options"
+                >
+                  {iconClass}
+                </span>
               </div>
             </div>
           );
@@ -44,7 +63,7 @@ function SingleCommentList({ comments }: PropsComments) {
   );
 }
 
-function SingleCommentForm({ handleSubmit, commentList }: PropsCommentsList) {
+function SingleCommentForm({ handleSubmit }: PropsCommentsList) {
   const { imageElement, text, setBody } = useImageAndText();
 
   return (
@@ -66,22 +85,17 @@ function SingleCommentForm({ handleSubmit, commentList }: PropsCommentsList) {
           <button className="btn btn-sm btn-primary">Post Comment</button>
         </div>
       </form>
-      <SingleCommentList comments={commentList} />
+      <SingleCommentList />
     </>
   );
 }
 
-function SingleComment({ handleSubmit, commentList }: PropsCommentsList) {
-  const { comments }: any = commentList;
-
+function SingleComment({ handleSubmit }: PropsCommentsList) {
   return (
     <>
       <div className="row">
         <div className="col-xs-12 col-md-8 offset-md-2">
-          <SingleCommentForm
-            handleSubmit={handleSubmit}
-            commentList={comments}
-          />
+          <SingleCommentForm handleSubmit={handleSubmit} />
         </div>
       </div>
     </>

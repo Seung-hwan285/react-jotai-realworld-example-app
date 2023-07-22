@@ -9,8 +9,8 @@ export type PropsCommnet = {
   updatedAt: string;
 };
 
-export type PropsComments = {
-  comments?: PropsCommnet[];
+export type Comments = {
+  comments: PropsCommnet[];
 };
 
 export type Slug = {
@@ -19,7 +19,6 @@ export type Slug = {
 
 export type PropsCommentsList = {
   handleSubmit?: (e: React.FormEvent) => void;
-  commentList: PropsCommnet[] | any;
 };
 
 export type ImageAndTextData = {

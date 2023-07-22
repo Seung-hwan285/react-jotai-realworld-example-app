@@ -33,4 +33,28 @@ export const CommentAPI = {
       config: {} as InternalAxiosRequestConfig,
     };
   },
+
+  deleteComment: async (
+    slug: string,
+    id: number,
+  ): Promise<AxiosResponse<any>> => {
+    try {
+      const result = await axiosInterceptor.delete(
+        `/api/articles/${slug}/comments/${id}`,
+      );
+
+      if (result.status === 200) {
+        return result;
+      }
+    } catch (err) {
+      console.error(err);
+    }
+    return {
+      data: null,
+      status: 500,
+      statusText: 'server error',
+      headers: {},
+      config: {} as InternalAxiosRequestConfig,
+    };
+  },
 };
