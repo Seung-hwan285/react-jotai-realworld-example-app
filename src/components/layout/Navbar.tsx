@@ -1,6 +1,6 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import useNavBar from './hook/navbar';
+import useNavBar from './hook/useNavbar';
 import { PropsAuthNavbar } from '../../lib/utils/type/auth';
 
 function AuthNavbar({ onClick, isActiveLink }: PropsAuthNavbar) {

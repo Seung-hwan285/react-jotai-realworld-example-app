@@ -2,6 +2,10 @@ import React from 'react';
 import { PropsArticle } from '../../lib/utils/type/article';
 
 function SingleBanner({ article }: PropsArticle) {
+  if (!article) {
+    return null;
+  }
+
   return (
     <>
       <div className="banner">

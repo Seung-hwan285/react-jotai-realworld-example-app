@@ -1,12 +1,12 @@
 import React from 'react';
-import { PropsArray, PropsTag } from '../../lib/utils/type/article';
+import { Props, PropsArray, PropsTag } from '../../lib/utils/type/article';
 import Button from '../common/Button';
 import { useNavigate } from 'react-router-dom';
-function ProfileTagList({ tagList }: PropsTag) {
+function ProfileTags({ tags }: PropsTag) {
   return (
     <ul className="tag-list">
       {/* eslint-disable-next-line react/prop-types */}
-      {tagList?.map((tag: string, idx: number) => (
+      {tags?.map((tag: string, idx: number) => (
         <li className="tag-default tag-pill tag-outline" key={idx}>
           {tag}
         </li>
@@ -16,16 +16,20 @@ function ProfileTagList({ tagList }: PropsTag) {
 }
 
 function ProfileArticles({ articles }: PropsArray) {
-  const histoyr = useNavigate();
+  if (!articles) {
+    return null;
+  }
+
+  const history = useNavigate();
 
   const handleClick = (slug: string) => {
-    histoyr(`/article/${slug}`);
+    history(`/article/${slug}`);
   };
 
   return (
     <>
-      {articles &&
-        articles.map((data: any) => {
+      {!!articles &&
+        articles?.map((data: Props) => {
           return (
             <div
               onClick={() => handleClick(data.slug)}
@@ -49,7 +53,7 @@ function ProfileArticles({ articles }: PropsArray) {
                 <p>{data.description}</p>
                 <span>Read more...</span>
 
-                <ProfileTagList tagList={data.tagList} />
+                <ProfileTags tags={data.tagList} />
               </a>
             </div>
           );

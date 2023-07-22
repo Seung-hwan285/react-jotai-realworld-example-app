@@ -1,5 +1,5 @@
 import React from 'react';
-import useProfileHeader from './hook/header';
+import useProfileHeader from './hook/useHeader';
 import Button from '../common/Button';
 import { PropsLoading } from '../../lib/utils/type/article';
 

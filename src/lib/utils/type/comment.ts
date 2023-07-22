@@ -21,3 +21,9 @@ export type PropsCommentsList = {
   handleSubmit?: (e: React.FormEvent) => void;
   commentList: PropsCommnet[] | any;
 };
+
+export type ImageAndTextData = {
+  imageElement?: string;
+  text: { body: string };
+  setBody: (e: { body: string }) => void;
+};

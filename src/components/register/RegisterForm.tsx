@@ -1,6 +1,6 @@
 import React from 'react';
 import Button from '../common/Button';
-import useRegister from './hook/register';
+import useRegister from './hook/useRegister';
 
 function RegisterForm() {
   const { user, handleChange, handleSubmit } = useRegister();

@@ -33,8 +33,12 @@ export type PropsFeed = {
   onClick: (e: string) => void;
 };
 
+export type BodyTags = {
+  tags?: string[];
+};
+
 export type PropsTag = {
-  tagList?: string[];
+  tags?: string[];
 };
 
 export type PropsLoading = {

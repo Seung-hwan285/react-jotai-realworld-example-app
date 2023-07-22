@@ -1,6 +1,6 @@
 import React from 'react';
 import LoadingSpinner from '../common/LoadingSpinner';
-import useProfileInfo from './hook/info';
+import useProfileInfo from './hook/useInfo';
 import ProfileArticles from './ProfileArticles';
 import ProfileFeed from './ProfileFeed';
 

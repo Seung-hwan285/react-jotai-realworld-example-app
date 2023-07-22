@@ -1,5 +1,5 @@
 import { atom } from 'jotai';
-type Body = {
+export type Body = {
   body: string;
 };
 

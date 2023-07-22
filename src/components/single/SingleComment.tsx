@@ -1,26 +1,22 @@
-import React, { useEffect, useState } from 'react';
+import React from 'react';
 import {
   PropsComments,
   PropsCommentsList,
   PropsCommnet,
 } from '../../lib/utils/type/comment';
-import { useAtom } from 'jotai';
-import { readOnlyImageAtom } from '../../lib/jotai/user';
-import { getLocalStroage } from '../../lib/utils/storage';
-import { bodyAtom } from '../../lib/jotai/article';
+import useImageAndText from './hook/useImageAndText';
+import useCommentList from './hook/useCommentList';
 
 function SingleCommentList({ comments }: PropsComments) {
-  const [iconClass, setIconClass] = useState<React.ReactNode>(null);
-  const token = getLocalStroage('token');
+  if (!comments) {
+    return null;
+  }
 
-  useEffect(() => {
-    const icon = token ? <i data-set="${id}" className="ion-trash-a" /> : '';
-    setIconClass(icon);
-  }, []);
+  const { iconClass } = useCommentList();
 
   return (
     <>
-      {comments &&
+      {!!comments &&
         comments?.map((comment: PropsCommnet) => {
           return (
             <div key={comment.id} className="card">
@@ -49,9 +45,7 @@ function SingleCommentList({ comments }: PropsComments) {
 }
 
 function SingleCommentForm({ handleSubmit, commentList }: PropsCommentsList) {
-  const [image] = useAtom(readOnlyImageAtom);
-  const imageElement = image && String(image);
-  const [text, setBody] = useAtom(bodyAtom);
+  const { imageElement, text, setBody } = useImageAndText();
 
   return (
     <>

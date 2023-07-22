@@ -1,19 +1,12 @@
 import React from 'react';
-import { PropsArticle } from '../../lib/utils/type/article';
+import { BodyTags, PropsArticle } from '../../lib/utils/type/article';
 
-type BodyTags = {
-  tags?: string[];
-};
-
-function SingleBodyTag({ tags }: BodyTags) {
+function SingleBodyTags({ tags }: BodyTags) {
   return (
     <ul className="tag-list">
-      {tags?.map((tag: string) => {
+      {tags?.map((tag: string, idx: number) => {
         return (
-          <li
-            key={new Date().toISOString()}
-            className="tag-default tag-pill tag-outline"
-          >
+          <li key={idx} className="tag-default tag-pill tag-outline">
             {tag}
           </li>
         );
@@ -33,7 +26,7 @@ function SingleBody({ article }: PropsArticle) {
         <div className="col-md-12">
           <h2 id="introducing-ionic">{article?.title}</h2>
           <p>{article?.body}</p>
-          <SingleBodyTag tags={article?.tagList} />
+          <SingleBodyTags tags={article?.tagList} />
         </div>
       </div>
     </>
