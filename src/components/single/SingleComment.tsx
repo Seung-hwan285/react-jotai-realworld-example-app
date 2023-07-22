@@ -1,5 +1,9 @@
 import React from 'react';
-import { PropsCommentsList, PropsCommnet } from '../../lib/utils/type/comment';
+import {
+  Comments,
+  PropsCommentsList,
+  PropsCommnet,
+} from '../../lib/utils/type/comment';
 import useImageAndText from './hook/useImageAndText';
 import useCommentList from './hook/useCommentList';
 import { useAtom } from 'jotai';
@@ -18,8 +22,10 @@ function SingleCommentList() {
       const { slug }: any = slugAtom;
       const { data } = await CommentAPI.deleteComment(slug, id);
 
-      setComments((prev: any) => ({
-        comments: prev.comments.filter((comment: any) => comment.id !== id),
+      setComments((prev: Comments) => ({
+        comments: prev.comments.filter(
+          (comment: PropsCommnet) => comment.id !== id,
+        ),
       }));
 
       console.log(data);
