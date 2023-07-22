@@ -1,38 +1,10 @@
 import React from 'react';
-import {
-  Comments,
-  PropsCommentsList,
-  PropsCommnet,
-} from '../../lib/utils/type/comment';
+import { PropsCommentsList, PropsCommnet } from '../../lib/utils/type/comment';
 import useImageAndText from './hook/useImageAndText';
 import useCommentList from './hook/useCommentList';
-import { useAtom } from 'jotai';
-import { readOnlySlug } from '../../lib/jotai/user';
-import { CommentAPI } from '../../lib/utils/request/comment';
-import { commentList } from '../../lib/jotai/comment';
 
 function SingleCommentList() {
-  const { iconClass } = useCommentList();
-
-  const [slugAtom] = useAtom(readOnlySlug);
-  const [comments, setComments] = useAtom(commentList);
-
-  const handleClick = async (id: number) => {
-    try {
-      const { slug }: any = slugAtom;
-      const { data } = await CommentAPI.deleteComment(slug, id);
-
-      setComments((prev: Comments) => ({
-        comments: prev.comments.filter(
-          (comment: PropsCommnet) => comment.id !== id,
-        ),
-      }));
-
-      console.log(data);
-    } catch (err) {
-      console.error(err);
-    }
-  };
+  const { iconClass, comments, handleClick } = useCommentList();
 
   return (
     <>
