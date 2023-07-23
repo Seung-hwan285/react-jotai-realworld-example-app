@@ -1,6 +1,7 @@
 import { axiosInterceptor } from '../../axios/interceptor';
 import { isResponse } from '../type-guard/auth';
 import { AxiosResponse, InternalAxiosRequestConfig } from 'axios';
+import { NewArticle } from '../type/article';
 
 export const ArticlesAPI = {
   getUserArticles: async (author: string): Promise<AxiosResponse<any>> => {
@@ -101,7 +102,7 @@ export const ArticlesAPI = {
     description,
     body,
     tags,
-  }: any): Promise<AxiosResponse<any>> => {
+  }: NewArticle): Promise<AxiosResponse<any>> => {
     try {
       const bodyArticle = {
         title: title,

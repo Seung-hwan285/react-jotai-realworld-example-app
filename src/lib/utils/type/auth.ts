@@ -24,7 +24,7 @@ export type UserRegisterData = {
 };
 
 export type PropsAuthNavbar = {
-  username?: string;
+  user?: AuthUser;
   onClick?: (e: React.MouseEvent) => void;
   isActiveLink: (e: string) => boolean;
 };

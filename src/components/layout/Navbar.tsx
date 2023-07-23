@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom';
 import useNavBar from './hook/useNavbar';
 import { PropsAuthNavbar } from '../../lib/utils/type/auth';
 
-function AuthNavbar({ username, isActiveLink }: PropsAuthNavbar) {
+function AuthNavbar({ user, isActiveLink }: PropsAuthNavbar) {
   return (
     <>
       {/*<li className="nav-item">*/}
@@ -37,7 +37,7 @@ function AuthNavbar({ username, isActiveLink }: PropsAuthNavbar) {
           to="/profile"
         >
           <img src="" className="user-pic" />
-          {username}
+          {user?.user.username}
         </Link>
       </li>
     </>
@@ -79,7 +79,6 @@ function LogoHome({ isActiveLink }: PropsAuthNavbar) {
 
 function Navbar() {
   const { isActiveLink, isLoggedIn, user } = useNavBar();
-  const { username }: any = user;
 
   return (
     <nav className="navbar navbar-light">
@@ -90,7 +89,7 @@ function Navbar() {
         <ul className="nav navbar-nav pull-xs-right">
           <LogoHome isActiveLink={isActiveLink} />
           {isLoggedIn ? (
-            <AuthNavbar username={username} isActiveLink={isActiveLink} />
+            <AuthNavbar user={user} isActiveLink={isActiveLink} />
           ) : (
             <GuestNavbar isActiveLink={isActiveLink} />
           )}

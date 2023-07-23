@@ -12,6 +12,7 @@ function useProfileInfo() {
 
   const handleFeedClick = (feed: string) => {
     setPending(true);
+
     if (feed === 'my') {
       setFeed('my');
     }

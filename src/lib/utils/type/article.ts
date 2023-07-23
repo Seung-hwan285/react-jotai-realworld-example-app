@@ -28,13 +28,16 @@ type PropsWithArticles = {
   articles?: Props[];
 };
 
+type newArticle = {
+  title: string;
+  description: string;
+  body: string;
+  tags: string[];
+};
+
 export type PropsFeed = {
   feed: string;
   onClick: (e: string) => void;
-};
-
-export type BodyTags = {
-  tags?: string[];
 };
 
 export type PropsTag = {
@@ -47,3 +50,5 @@ export type PropsLoading = {
 };
 
 export type PropsArray = PropsWithArticles;
+export type BodyTags = PropsTag;
+export type NewArticle = newArticle;
