@@ -60,6 +60,7 @@ export const authAPI = {
     try {
       const result = await axiosInterceptor.get('/api/user');
 
+      console.log(result);
       if (isResponse(result)) {
         if (result.status === 200) {
           return result;

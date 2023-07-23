@@ -16,10 +16,10 @@ const isRequest = (config: InternalAxiosRequestConfig) => {
   const { method, url } = config;
   config.headers['Content-Type'] = 'application/json';
 
-  const user = getLocalStroage('token');
+  const token = getLocalStroage('token');
 
-  if (user) {
-    config.headers['Authorization'] = `Token ${user}`;
+  if (token) {
+    config.headers['Authorization'] = `Token ${encodeURIComponent(token)}`;
   }
 
   // console.log(`[API] ${method?.toUpperCase()} ${url} |Request`);

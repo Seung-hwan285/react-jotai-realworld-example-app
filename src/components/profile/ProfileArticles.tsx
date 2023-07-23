@@ -49,7 +49,7 @@ function ProfileArticles({ articles }: PropsArray) {
                 </Button>
               </div>
               <a className="preview-link">
-                <h1>{data.body}</h1>
+                <h1>{data.title}</h1>
                 <p>{data.description}</p>
                 <span>Read more...</span>
 

@@ -3,21 +3,22 @@ import { Link } from 'react-router-dom';
 import useNavBar from './hook/useNavbar';
 import { PropsAuthNavbar } from '../../lib/utils/type/auth';
 
-function AuthNavbar({ onClick, isActiveLink }: PropsAuthNavbar) {
+function AuthNavbar({ username, isActiveLink }: PropsAuthNavbar) {
   return (
     <>
-      <li className="nav-item">
-        <Link className={`nav-link`} onClick={onClick} to="/">
-          Log out
-        </Link>
-      </li>
+      {/*<li className="nav-item">*/}
+      {/*  <Link className={`nav-link`} onClick={onClick} to="/">*/}
+      {/*    Log out*/}
+      {/*  </Link>*/}
+      {/*</li>*/}
 
       <li className="nav-item">
         <Link
-          className={`nav-link ${isActiveLink('/profile') ? 'active' : ''}`}
-          to="/profile"
+          className={`nav-link ${isActiveLink('/new-article') ? 'active' : ''}`}
+          to="/new-article"
         >
-          Profile
+          <i className="ion-compose" />
+          &nbsp; New Post
         </Link>
       </li>
 
@@ -26,7 +27,17 @@ function AuthNavbar({ onClick, isActiveLink }: PropsAuthNavbar) {
           className={`nav-link ${isActiveLink('/setting') ? 'active' : ''}`}
           to="/setting"
         >
-          Setting
+          <i className="ion-gear-a"></i>&nbsp;Settings
+        </Link>
+      </li>
+
+      <li className="nav-item">
+        <Link
+          className={`nav-link ${isActiveLink('/profile') ? 'active' : ''}`}
+          to="/profile"
+        >
+          <img src="" className="user-pic" />
+          {username}
         </Link>
       </li>
     </>
@@ -67,7 +78,8 @@ function LogoHome({ isActiveLink }: PropsAuthNavbar) {
 }
 
 function Navbar() {
-  const { isActiveLink, isLoggedIn, handleLogout } = useNavBar();
+  const { isActiveLink, isLoggedIn, user } = useNavBar();
+  const { username }: any = user;
 
   return (
     <nav className="navbar navbar-light">
@@ -78,7 +90,7 @@ function Navbar() {
         <ul className="nav navbar-nav pull-xs-right">
           <LogoHome isActiveLink={isActiveLink} />
           {isLoggedIn ? (
-            <AuthNavbar onClick={handleLogout} isActiveLink={isActiveLink} />
+            <AuthNavbar username={username} isActiveLink={isActiveLink} />
           ) : (
             <GuestNavbar isActiveLink={isActiveLink} />
           )}

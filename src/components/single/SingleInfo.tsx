@@ -22,14 +22,14 @@ function SingleInfo() {
   const [image, setUserImage] = useAtom(userImage);
   const [slugAtom, setSlug] = useAtom(userSlug);
 
-  const [textBody, setBody] = useAtom(bodyAtom);
+  const [textBodyAtom, setBody] = useAtom(bodyAtom);
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
 
     try {
       const { slug } = slugAtom;
-      const { body } = textBody;
+      const { body } = textBodyAtom;
       const { data } = await CommentAPI.createComment(slug, body);
 
       if (data) {
@@ -80,7 +80,7 @@ function SingleInfo() {
           <div className="container page">
             <SingleBody article={single.article} />
             <hr />
-            <SingleComment handleSubmit={handleSubmit} />
+            <SingleComment onSubmit={handleSubmit} />
           </div>
         </div>
       ) : (

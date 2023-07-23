@@ -41,12 +41,12 @@ function SingleCommentList() {
   );
 }
 
-function SingleCommentForm({ handleSubmit }: PropsCommentsList) {
+function SingleCommentForm({ onSubmit }: PropsCommentsList) {
   const { imageElement, text, setBody } = useImageAndText();
 
   return (
     <>
-      <form onSubmit={handleSubmit} className="card comment-form">
+      <form onSubmit={onSubmit} className="card comment-form">
         <div className="card-block">
           <textarea
             className="form-control"
@@ -68,12 +68,12 @@ function SingleCommentForm({ handleSubmit }: PropsCommentsList) {
   );
 }
 
-function SingleComment({ handleSubmit }: PropsCommentsList) {
+function SingleComment({ onSubmit }: PropsCommentsList) {
   return (
     <>
       <div className="row">
         <div className="col-xs-12 col-md-8 offset-md-2">
-          <SingleCommentForm handleSubmit={handleSubmit} />
+          <SingleCommentForm onSubmit={onSubmit} />
         </div>
       </div>
     </>

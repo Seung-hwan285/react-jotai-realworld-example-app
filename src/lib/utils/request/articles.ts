@@ -95,4 +95,40 @@ export const ArticlesAPI = {
       config: {} as InternalAxiosRequestConfig,
     };
   },
+
+  createArticle: async ({
+    title,
+    description,
+    body,
+    tags,
+  }: any): Promise<AxiosResponse<any>> => {
+    try {
+      const bodyArticle = {
+        title: title,
+        description: description,
+        body: body,
+        tagList: tags,
+      };
+
+      const result = await axiosInterceptor.post(
+        `/api/articles`,
+        JSON.stringify({ article: bodyArticle }),
+      );
+
+      if (isResponse(result)) {
+        if (result.status === 200) {
+          return result;
+        }
+      }
+    } catch (err) {
+      console.error(err);
+    }
+    return {
+      data: null,
+      status: 500,
+      statusText: 'server error',
+      headers: {},
+      config: {} as InternalAxiosRequestConfig,
+    };
+  },
 };

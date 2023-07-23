@@ -9,6 +9,7 @@ import Navbar from './components/layout/Navbar';
 import SettingPage from './app/setting';
 import ProfilePage from './app/profile';
 import SinglePage from './app/single';
+import NewArticlePage from './app/newArticle';
 
 function App() {
   return (
@@ -24,6 +25,7 @@ function App() {
           <Route path="/profile" element={<ProfilePage />} />
           <Route path="/setting" element={<SettingPage />} />
           <Route path="/article/:slug" element={<SinglePage />} />
+          <Route path="/new-article" element={<NewArticlePage />} />
         </Routes>
       </main>
       <footer>

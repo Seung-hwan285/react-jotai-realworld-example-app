@@ -18,7 +18,7 @@ export type Slug = {
 };
 
 export type PropsCommentsList = {
-  handleSubmit?: (e: React.FormEvent) => void;
+  onSubmit?: (e: React.FormEvent) => void;
 };
 
 export type ImageAndTextData = {
