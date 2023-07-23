@@ -3,10 +3,7 @@ import { useAtom } from 'jotai';
 import { NewArticle, newArticleAtom } from '../../../lib/jotai/article';
 import { useNavigate } from 'react-router-dom';
 import { ArticlesAPI } from '../../../lib/utils/request/articles';
-
-export type Tag = {
-  tag?: string;
-};
+import { Tag } from '../../../lib/utils/type/article';
 
 function useNewArticle() {
   const [newArticle, setNewArticle] = useAtom(newArticleAtom);
@@ -50,7 +47,7 @@ function useNewArticle() {
       title: newArticle.title,
       description: newArticle.description,
       body: newArticle.body,
-      tags: tags,
+      tags: tags as string[],
     };
     await ArticlesAPI.createArticle(body);
     return navigate('/');

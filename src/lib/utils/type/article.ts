@@ -35,6 +35,10 @@ type newArticle = {
   tags: string[];
 };
 
+export type Tag = {
+  tag?: string;
+};
+
 export type PropsFeed = {
   feed: string;
   onClick: (e: string) => void;

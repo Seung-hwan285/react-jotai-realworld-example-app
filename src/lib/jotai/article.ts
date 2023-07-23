@@ -18,5 +18,3 @@ export const newArticleAtom = atom<NewArticle>({
   description: '',
   body: '',
 });
-
-export const readOnlyBody = atom((get) => get(bodyAtom));
