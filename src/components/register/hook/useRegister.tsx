@@ -1,6 +1,6 @@
 import { useAtom } from 'jotai';
 import { useNavigate } from 'react-router-dom';
-import React from 'react';
+import React, { startTransition } from 'react';
 import { Register, UserRegisterData } from '../../../lib/utils/type/auth';
 import { authAPI } from '../../../lib/utils/request/auth';
 import { userRegisterStateAtom } from '../../../lib/jotai/user';
@@ -12,10 +12,13 @@ function useRegister() {
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
-    setUser((prev: Register) => ({
-      ...prev,
-      [name]: value,
-    }));
+
+    startTransition(() => {
+      setUser((prev: Register) => ({
+        ...prev,
+        [name]: value,
+      }));
+    });
   };
 
   const handleSubmit = async (e: React.FormEvent) => {

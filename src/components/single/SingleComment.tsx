@@ -2,6 +2,7 @@ import React from 'react';
 import { PropsCommentsList, PropsCommnet } from '../../lib/utils/type/comment';
 import useImageAndText from './hook/useImageAndText';
 import useCommentList from './hook/useCommentList';
+import Button from '../common/Button';
 
 function SingleCommentList() {
   const { iconClass, comments, handleClick } = useCommentList();
@@ -60,7 +61,7 @@ function SingleCommentForm({ onSubmit }: PropsCommentsList) {
         </div>
         <div className="card-footer">
           <img className="comment-author-img" src={imageElement} />
-          <button className="btn btn-sm btn-primary">Post Comment</button>
+          <Button className="btn btn-sm btn-primary">Post Comment</Button>
         </div>
       </form>
       <SingleCommentList />

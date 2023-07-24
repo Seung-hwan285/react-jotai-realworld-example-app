@@ -97,6 +97,66 @@ export const ArticlesAPI = {
     };
   },
 
+  deleteArticle: async (slug: string): Promise<AxiosResponse<any>> => {
+    try {
+      const result = await axiosInterceptor.delete(`/api/articles/${slug}`);
+      if (result.status === 200) {
+        return result;
+      }
+    } catch (err) {
+      console.error(err);
+    }
+    return {
+      data: null,
+      status: 500,
+      statusText: 'server error',
+      headers: {},
+      config: {} as InternalAxiosRequestConfig,
+    };
+  },
+
+  cancelFavorite: async (slug: string) => {
+    try {
+      const result = await axiosInterceptor.delete(
+        `/api/articles/${slug}/favorite`,
+      );
+
+      if (result.status === 200) {
+        return result;
+      }
+    } catch (err) {
+      console.error(err);
+    }
+    return {
+      data: null,
+      status: 500,
+      statusText: 'server error',
+      headers: {},
+      config: {} as InternalAxiosRequestConfig,
+    };
+  },
+
+  favortie: async (slug: string) => {
+    try {
+      const result = await axiosInterceptor.post(
+        `/api/articles/${slug}/favorite`,
+      );
+
+      if (result.status === 200) {
+        return result;
+      }
+    } catch (err) {
+      console.error(err);
+    }
+    return {
+      data: null,
+      status: 500,
+      statusText: 'server error',
+      headers: {},
+      config: {} as InternalAxiosRequestConfig,
+    };
+  },
+
   createArticle: async ({
     title,
     description,

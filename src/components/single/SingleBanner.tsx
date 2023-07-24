@@ -1,10 +1,14 @@
 import React from 'react';
 import { PropsArticle } from '../../lib/utils/type/article';
+import useSingleBanner from './hook/useSingleBanner';
+import Button from '../common/Button';
 
 function SingleBanner({ article }: PropsArticle) {
   if (!article) {
     return null;
   }
+
+  const { userAtom, handleClick } = useSingleBanner();
 
   return (
     <>
@@ -22,15 +26,24 @@ function SingleBanner({ article }: PropsArticle) {
               </a>
               <span className="date">{article?.createdAt}</span>
             </div>
-            <button className="btn btn-sm btn-outline-secondary">
-              <i className="ion-plus-round"></i>
-              &nbsp; Follow Eric Simons <span className="counter">(10)</span>
-            </button>
-            &nbsp;&nbsp;
-            <button className="btn btn-sm btn-outline-primary">
-              <i className="ion-heart"></i>
-              &nbsp; Favorite Post <span className="counter">(29)</span>
-            </button>
+
+            {article.author.username === userAtom && (
+              <>
+                <Button
+                  onClick={() => handleClick(article.slug)}
+                  className="btn btn-outline-danger btn-sm"
+                >
+                  <i className="ion-trash-a"></i>
+                  &nbsp; Delete Article
+                </Button>
+                &nbsp;&nbsp;
+                <Button className="btn btn-sm btn-outline-primary">
+                  <i className="ion-heart"></i>
+                  &nbsp; Favorite Post{' '}
+                  <span className="counter">{article.favoritesCount}</span>
+                </Button>
+              </>
+            )}
           </div>
         </div>
       </div>

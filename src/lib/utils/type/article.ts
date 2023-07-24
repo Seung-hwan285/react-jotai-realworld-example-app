@@ -11,6 +11,11 @@ export type PropsArticle = {
   article?: Props;
 };
 
+export type PropsData = {
+  slug?: string;
+  data: Props;
+};
+
 export type Props = {
   author: Author;
   body: string;

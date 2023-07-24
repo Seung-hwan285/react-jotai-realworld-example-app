@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { startTransition, useState } from 'react';
 import { useAtom } from 'jotai';
 import { NewArticle, newArticleAtom } from '../../../lib/jotai/article';
 import { useNavigate } from 'react-router-dom';
@@ -17,10 +17,13 @@ function useNewArticle() {
     e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>,
   ) => {
     const { name, value } = e.target;
-    setNewArticle((prev: NewArticle) => ({
-      ...prev,
-      [name]: value,
-    }));
+
+    startTransition(() => {
+      setNewArticle((prev: NewArticle) => ({
+        ...prev,
+        [name]: value,
+      }));
+    });
   };
 
   const handleTagChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -33,7 +36,6 @@ function useNewArticle() {
       setTags((prevTag) => [...prevTag, tag.trim() as Tag]);
       setTag('');
     }
-    console.log(tags);
   };
 
   const handleDeleteClick = (tagRemove: Tag) => {
