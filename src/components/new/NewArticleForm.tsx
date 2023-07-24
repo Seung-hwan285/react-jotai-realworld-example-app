@@ -1,4 +1,5 @@
 import React from 'react';
+import { Tag } from '../../lib/utils/type/article';
 import useNewArticle from './hook/useNewArticle';
 
 function NewArticleForm() {
@@ -64,14 +65,15 @@ function NewArticleForm() {
                     />
                     <div className="tag-list">
                       {!!tags &&
-                        tags.map((tag: any, idx: number) => {
+                        tags.map((tag: Tag, idx: number) => {
+                          const string = tag as string;
                           return (
                             <div key={idx}>
                               <span
                                 onClick={() => handleDeleteClick(tag)}
                                 className="tag-pill tag-default"
                               >
-                                {tag} &nbsp; X
+                                {string} &nbsp; X
                               </span>
                             </div>
                           );
