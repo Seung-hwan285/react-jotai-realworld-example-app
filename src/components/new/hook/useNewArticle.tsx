@@ -1,9 +1,9 @@
 import React, { startTransition, useState } from 'react';
 import { useAtom } from 'jotai';
-import { NewArticle, newArticleAtom } from '../../../lib/jotai/article';
+import { newArticleAtom } from '../../../lib/jotai/article';
 import { useNavigate } from 'react-router-dom';
 import { ArticlesAPI } from '../../../lib/utils/request/articles';
-import { Tag } from '../../../lib/utils/type/article';
+import { ArticleInput, Tag } from '../../../lib/utils/type/article';
 
 function useNewArticle() {
   const [newArticle, setNewArticle] = useAtom(newArticleAtom);
@@ -19,7 +19,7 @@ function useNewArticle() {
     const { name, value } = e.target;
 
     startTransition(() => {
-      setNewArticle((prev: NewArticle) => ({
+      setNewArticle((prev: ArticleInput) => ({
         ...prev,
         [name]: value,
       }));
