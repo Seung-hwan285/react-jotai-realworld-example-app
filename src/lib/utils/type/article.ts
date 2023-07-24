@@ -58,6 +58,16 @@ export type PropsLoading = {
   user: AuthUser;
 };
 
+export type Body = {
+  body: string;
+};
+
+export type ArticleInput = {
+  title: string;
+  description: string;
+  body: string;
+};
+
 export type PropsArray = PropsWithArticles;
 export type BodyTags = PropsTag;
 export type NewArticle = newArticle;

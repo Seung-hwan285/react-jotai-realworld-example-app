@@ -1,19 +1,11 @@
 import { atom } from 'jotai';
-export type Body = {
-  body: string;
-};
-
-export type NewArticle = {
-  title: string;
-  description: string;
-  body: string;
-};
+import { ArticleInput, Body } from '../utils/type/article';
 
 export const bodyAtom = atom<Body>({
   body: '',
 });
 
-export const newArticleAtom = atom<NewArticle>({
+export const newArticleAtom = atom<ArticleInput>({
   title: '',
   description: '',
   body: '',

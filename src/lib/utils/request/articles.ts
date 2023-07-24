@@ -136,7 +136,7 @@ export const ArticlesAPI = {
     };
   },
 
-  favortie: async (slug: string) => {
+  favorite: async (slug: string) => {
     try {
       const result = await axiosInterceptor.post(
         `/api/articles/${slug}/favorite`,
