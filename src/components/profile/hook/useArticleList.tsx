@@ -21,19 +21,16 @@ function useArticleList({ data }: PropsData) {
   };
 
   const handleFavoriteClick = async (slug: string) => {
-    try {
-      if (!disabled) {
-        setCount((prev: number) => prev + 1);
-        await favoriteCount(slug);
-        setDisAbled(true);
-      }
-      if (!!disabled) {
-        setCount((prev: number) => prev - 1);
-        await cancelCount(slug);
-        setDisAbled(false);
-      }
-    } catch (err) {
-      console.error(err);
+    if (!disabled) {
+      setDisAbled(true);
+      setCount((prev: number) => prev + 1);
+      await favoriteCount(slug);
+    }
+
+    if (!!disabled) {
+      setDisAbled(false);
+      setCount((prev: number) => prev - 1);
+      await cancelCount(slug);
     }
   };
 
