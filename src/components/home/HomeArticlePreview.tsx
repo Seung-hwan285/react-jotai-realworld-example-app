@@ -43,11 +43,11 @@ function HomeArticleList({ slug, data }: PropsData) {
 }
 
 function HomeArticleBody() {
-  const [refresh, setRefresh] = useAtom(refreshAtom);
+  const [refressh, setRefresh] = useAtom(refreshAtom);
   const [data] = useAtom(asyncArticleAtom);
 
   useEffect(() => {
-    setRefresh(!refresh);
+    setRefresh(!refressh);
   }, []);
 
   return (
