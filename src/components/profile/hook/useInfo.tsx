@@ -10,14 +10,18 @@ function useProfileInfo() {
 
   const [feed, setFeed] = useState('my');
 
-  const handleFeedClick = (feed: string) => {
+  const handleFeedClick = (clickedFeed: string) => {
     setPending(true);
 
-    if (feed === 'my') {
+    if (clickedFeed === 'my') {
       setFeed('my');
     }
-    if (feed === 'favorite') {
+    if (clickedFeed === 'favorite') {
       setFeed('favorite');
+    }
+
+    if (clickedFeed === feed) {
+      setPending(false);
     }
   };
 

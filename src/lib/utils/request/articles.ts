@@ -1,7 +1,8 @@
 import { axiosInterceptor } from '../../axios/interceptor';
 import { isResponse } from '../type-guard/auth';
 import { AxiosResponse, InternalAxiosRequestConfig } from 'axios';
-import { NewArticle } from '../type/article';
+import { NewArticle, Tag } from '../type/article';
+import { FeedAndTag } from '../../jotai/article';
 
 export const ArticlesAPI = {
   getUserArticles: async (author: string): Promise<AxiosResponse<any>> => {
@@ -18,6 +19,7 @@ export const ArticlesAPI = {
     } catch (err) {
       console.error(err);
     }
+
     return {
       data: null,
       status: 500,
@@ -79,7 +81,6 @@ export const ArticlesAPI = {
         `/api/articles/${slug}/comments`,
       );
 
-      console.log(result);
       if (isResponse(result)) {
         if (result.status === 200) {
           return result;
@@ -176,10 +177,75 @@ export const ArticlesAPI = {
         JSON.stringify({ article: bodyArticle }),
       );
 
+      console.log(result);
+      if (isResponse(result)) {
+        if (result.status === 201) {
+          return result;
+        }
+      }
+    } catch (err) {
+      console.error(err);
+    }
+    return {
+      data: null,
+      status: 500,
+      statusText: 'server error',
+      headers: {},
+      config: {} as InternalAxiosRequestConfig,
+    };
+  },
+
+  getTagArticles: async (tag: string): Promise<AxiosResponse<any>> => {
+    try {
+      const result = await axiosInterceptor.get(`/api/articles?tag=${tag}`);
+
       if (isResponse(result)) {
         if (result.status === 200) {
           return result;
         }
+      }
+      console.log(result);
+    } catch (err) {
+      console.error(err);
+    }
+
+    return {
+      data: null,
+      status: 500,
+      statusText: 'server error',
+      headers: {},
+      config: {} as InternalAxiosRequestConfig,
+    };
+  },
+
+  getAllArticle: async (): Promise<AxiosResponse<any>> => {
+    try {
+      const result = await axiosInterceptor.get(`/api/articles?offset=0`);
+
+      if (isResponse(result)) {
+        if (result.status === 200) {
+          return result;
+        }
+      }
+    } catch (err) {
+      console.error(err);
+    }
+
+    return {
+      data: null,
+      status: 500,
+      statusText: 'server error',
+      headers: {},
+      config: {} as InternalAxiosRequestConfig,
+    };
+  },
+
+  getTag: async (): Promise<AxiosResponse<any>> => {
+    try {
+      const result = await axiosInterceptor.get(`/api/tags`);
+
+      if (result.status === 200) {
+        return result;
       }
     } catch (err) {
       console.error(err);

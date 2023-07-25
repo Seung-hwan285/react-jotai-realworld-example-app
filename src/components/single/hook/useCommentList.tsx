@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { getLocalStroage } from '../../../lib/utils/storage';
 import { useAtom } from 'jotai';
-import { readOnlySlug } from '../../../lib/jotai/user';
+import { readOnlySlugAtom } from '../../../lib/jotai/user';
 import { commentList } from '../../../lib/jotai/comment';
 import { CommentAPI } from '../../../lib/utils/request/comment';
 import { Comments, PropsCommnet } from '../../../lib/utils/type/comment';
@@ -9,7 +9,7 @@ import { Comments, PropsCommnet } from '../../../lib/utils/type/comment';
 function useCommentList() {
   const [iconClass, setIconClass] = useState<React.ReactNode>(null);
   const token = getLocalStroage('token');
-  const [slugAtom] = useAtom(readOnlySlug);
+  const [slugAtom] = useAtom(readOnlySlugAtom);
   const [comments, setComments] = useAtom(commentList);
 
   const handleClick = async (id: number) => {

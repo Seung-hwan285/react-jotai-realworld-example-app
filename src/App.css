@@ -22,24 +22,15 @@
   }
 }
 
-.tag-list {
-  display: flex;
-  gap: 10px;
-}
-
 .remove-tag {
   margin-left: 8px;
   cursor: pointer;
 }
 
-.tag {
-  display: flex;
-  align-items: center;
-  background-color: #f2f2f2;
-  color: black;
-  padding: 2px 8px;
-  font-size: 15px;
-  border-radius: 10%;
+.col-md-3 {
+  position: absolute;
+  padding: 20px 100px;
+  left: 63%;
 }
 
 .navbar-ul {

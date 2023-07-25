@@ -4,9 +4,11 @@ import { newArticleAtom } from '../../../lib/jotai/article';
 import { useNavigate } from 'react-router-dom';
 import { ArticlesAPI } from '../../../lib/utils/request/articles';
 import { ArticleInput, Tag } from '../../../lib/utils/type/article';
+import { asyncArticleAtom } from '../../../lib/jotai/async-atom';
 
 function useNewArticle() {
   const [newArticle, setNewArticle] = useAtom(newArticleAtom);
+  // const [asyncArticle, setAsyncArticle] = useAtom<any>(asyncArticleAtom);
 
   const [tags, setTags] = useState<Tag[]>([]);
   const [tag, setTag] = useState('');
@@ -33,7 +35,7 @@ function useNewArticle() {
 
   const handleTagClick = (e: React.KeyboardEvent) => {
     if (e.key === 'Enter') {
-      setTags((prevTag) => [...prevTag, tag.trim() as Tag]);
+      setTags((prevTag) => [...prevTag, tag.trim() as unknown as Tag]);
       setTag('');
     }
   };
@@ -51,7 +53,8 @@ function useNewArticle() {
       body: newArticle.body,
       tags: tags as string[],
     };
-    await ArticlesAPI.createArticle(body);
+    const { data } = await ArticlesAPI.createArticle(body);
+
     return navigate('/');
   };
 
