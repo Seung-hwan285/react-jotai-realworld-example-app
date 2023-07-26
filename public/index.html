@@ -6,20 +6,32 @@
 
     <link
       href="//code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css"
-      rel="stylesheet"
+      rel="preload"
+      as="style"
       type="text/css"
-      media="all"
+      onload="this.onload=null;this.rel='stylesheet'"
     />
+    <noscript
+      ><link
+        rel="stylesheet"
+        href="//code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css"
+    /></noscript>
 
     <link
       rel="stylesheet"
       href="//demo.productionready.io/main.css"
-      media="all"
+      onerror="this.onerror=null;this.href='fallback-url/main.css';"
     />
-    <link rel="stylesheet" href="src/public/index.css" media="all" />
+
+    <link
+      rel="preload"
+      as="style"
+      href="src/public/index.css"
+      onload="this.onload=null;this.rel='stylesheet'"
+    />
+    <noscript><link rel="stylesheet" href="src/public/index.css" /></noscript>
   </head>
   <body>
-    <noscript>You need to enable JavaScript to run this app.</noscript>
     <div id="root"></div>
   </body>
 </html>
