@@ -23,13 +23,13 @@ function ProfileTags({ tags }: PropsTag) {
   );
 }
 
-function ProfileArticleList({ slug, data }: PropsData) {
+function ProfileArticleList({ data }: PropsData) {
   const { count, disabled, handleFavoriteClick, handleClick } = useArticleList({
     data,
   });
 
   return (
-    <div key={slug} className="article-preview">
+    <div key={data.slug} className="article-preview">
       <div className="article-meta">
         <a href="/profile/eric-simons">
           <img src={`${data.author.image}`} alt="Author" />
@@ -67,9 +67,8 @@ function ProfileArticles({ articles }: PropsArray) {
   return (
     <>
       {!!articles &&
-        articles?.map((data: Props) => {
-          // eslint-disable-next-line react/jsx-key
-          return <MemoComponent slug={data.slug} data={data} />;
+        articles?.map((data: Props, idx: number) => {
+          return <MemoComponent key={idx} data={data} />;
         })}
     </>
   );

@@ -1,9 +1,10 @@
 import React from 'react';
+import SettingForm from '../../components/setting/SettingForm';
 
 function SettingPage() {
   return (
     <>
-      <h1>Setting Page</h1>
+      <SettingForm />
     </>
   );
 }

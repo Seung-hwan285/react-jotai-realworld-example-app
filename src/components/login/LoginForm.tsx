@@ -3,7 +3,7 @@ import Button from '../common/Button';
 import useLogin from './hook/useLogin';
 
 function LoginForm() {
-  const { user, handleChange, handleSubmit } = useLogin();
+  const { errorEmail, user, handleChange, handleSubmit } = useLogin();
 
   return (
     <div className="auth-page">
@@ -15,10 +15,6 @@ function LoginForm() {
               <a href="">Have an account?</a>
             </p>
 
-            <ul className="error-messages">
-              {/*<span>{state.isValid ? '' : `${state.error}`}</span>*/}
-            </ul>
-
             <form onSubmit={handleSubmit}>
               <fieldset className="form-group">
                 <input
@@ -29,6 +25,10 @@ function LoginForm() {
                   value={user.email}
                   onChange={handleChange}
                 />
+
+                {errorEmail && (
+                  <span style={{ color: 'red' }}>{errorEmail}</span>
+                )}
               </fieldset>
               <fieldset className="form-group">
                 <input

@@ -12,12 +12,14 @@ export type Login = {
 };
 
 export type UserLoginData = {
+  errorEmail?: string;
   user: Login;
   handleChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
   handleSubmit: () => Promise<void>;
 };
 
 export type UserRegisterData = {
+  errorEmail?: string;
   user: Register;
   handleChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
   handleSubmit: () => Promise<void>;
@@ -41,4 +43,16 @@ export type AuthUser = {
     email: '';
     token: '';
   };
+};
+
+export type Error = {
+  error: string;
+};
+
+export type Setting = {
+  username?: string;
+  bio?: string;
+  email?: string;
+  password?: string;
+  images?: string;
 };

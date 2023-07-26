@@ -3,7 +3,7 @@ import Button from '../common/Button';
 import useRegister from './hook/useRegister';
 
 function RegisterForm() {
-  const { user, handleChange, handleSubmit } = useRegister();
+  const { errorEmail, user, handleChange, handleSubmit } = useRegister();
 
   return (
     <>
@@ -15,10 +15,6 @@ function RegisterForm() {
               <p className="text-xs-center">
                 <a href="">Have an account?</a>
               </p>
-
-              <ul className="error-messages">
-                {/*<span>{state.isValid ? '' : `${state.error}`}</span>*/}
-              </ul>
 
               <form onSubmit={handleSubmit}>
                 <fieldset className="form-group">
@@ -40,6 +36,9 @@ function RegisterForm() {
                     value={user.email}
                     onChange={handleChange}
                   />
+                  {errorEmail && (
+                    <span style={{ color: 'red' }}>{errorEmail}</span>
+                  )}
                 </fieldset>
                 <fieldset className="form-group">
                   <input

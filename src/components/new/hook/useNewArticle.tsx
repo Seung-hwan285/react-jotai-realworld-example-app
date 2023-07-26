@@ -4,11 +4,9 @@ import { newArticleAtom } from '../../../lib/jotai/article';
 import { useNavigate } from 'react-router-dom';
 import { ArticlesAPI } from '../../../lib/utils/request/articles';
 import { ArticleInput, Tag } from '../../../lib/utils/type/article';
-import { asyncArticleAtom } from '../../../lib/jotai/async-atom';
 
 function useNewArticle() {
   const [newArticle, setNewArticle] = useAtom(newArticleAtom);
-  // const [asyncArticle, setAsyncArticle] = useAtom<any>(asyncArticleAtom);
 
   const [tags, setTags] = useState<Tag[]>([]);
   const [tag, setTag] = useState('');

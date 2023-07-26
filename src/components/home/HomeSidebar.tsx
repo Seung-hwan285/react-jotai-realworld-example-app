@@ -21,15 +21,15 @@ function HomeSidebar() {
             {tags &&
               tags?.tags.map((tag: string, idx: number) => {
                 return (
-                  <>
+                  <div key={idx}>
                     <span
                       onClick={() => handleClick(tag)}
-                      key={idx}
                       className="tag-pill tag-default"
+                      key={idx}
                     >
                       {tag}
                     </span>
-                  </>
+                  </div>
                 );
               })}
           </div>

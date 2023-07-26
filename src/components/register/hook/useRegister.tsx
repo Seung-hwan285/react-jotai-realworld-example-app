@@ -1,17 +1,28 @@
 import { useAtom } from 'jotai';
-import { useNavigate } from 'react-router-dom';
-import React, { startTransition } from 'react';
+import React, { startTransition, useState } from 'react';
 import { Register, UserRegisterData } from '../../../lib/utils/type/auth';
 import { authAPI } from '../../../lib/utils/request/auth';
 import { userRegisterStateAtom } from '../../../lib/jotai/user';
 
 function useRegister() {
   const [user, setUser] = useAtom(userRegisterStateAtom);
+  const [errorEmail, setErrorEmail] = useState('');
 
-  const navigate = useNavigate();
+  const isValidEmail = (email: string) => {
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    return emailRegex.test(email);
+  };
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
+
+    if (name === 'email') {
+      if (!isValidEmail(value) && value.length !== 0) {
+        setErrorEmail('Please respect the email format');
+      } else {
+        setErrorEmail('');
+      }
+    }
 
     startTransition(() => {
       setUser((prev: Register) => ({
@@ -26,13 +37,13 @@ function useRegister() {
     const { username, email, password } = user;
     try {
       await authAPI.register(username, email, password);
-      return navigate('/');
     } catch (err) {
       console.error(err);
     }
   };
 
   return {
+    errorEmail,
     user,
     handleChange,
     handleSubmit,

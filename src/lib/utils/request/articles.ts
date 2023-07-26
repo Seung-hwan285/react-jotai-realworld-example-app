@@ -177,7 +177,6 @@ export const ArticlesAPI = {
         JSON.stringify({ article: bodyArticle }),
       );
 
-      console.log(result);
       if (isResponse(result)) {
         if (result.status === 201) {
           return result;
@@ -204,7 +203,6 @@ export const ArticlesAPI = {
           return result;
         }
       }
-      console.log(result);
     } catch (err) {
       console.error(err);
     }
@@ -231,6 +229,32 @@ export const ArticlesAPI = {
       console.error(err);
     }
 
+    return {
+      data: null,
+      status: 500,
+      statusText: 'server error',
+      headers: {},
+      config: {} as InternalAxiosRequestConfig,
+    };
+  },
+
+  updateUser: async (data: any): Promise<AxiosResponse<any>> => {
+    try {
+      console.log(data);
+      const result = await axiosInterceptor.put(
+        `/api/user`,
+        JSON.stringify({ user: data }),
+      );
+      console.log(result);
+
+      if (isResponse(result)) {
+        if (result.status === 200) {
+          return result;
+        }
+      }
+    } catch (err) {
+      console.error(err);
+    }
     return {
       data: null,
       status: 500,

@@ -26,9 +26,13 @@ const isRequest = (config: InternalAxiosRequestConfig) => {
 
   return config;
 };
-const isErrorResponse = (error: AxiosError | Error) => {
+const isErrorResponse = (
+  error: AxiosError | Error,
+  config: InternalAxiosRequestConfig,
+) => {
   if (axios.isAxiosError(error)) {
     const { message } = error;
+    const { url } = config;
     const { status } = (error.response as AxiosResponse) ?? {};
 
     switch (status) {
@@ -37,7 +41,9 @@ const isErrorResponse = (error: AxiosError | Error) => {
         break;
       }
       case 403: {
-        alert(message);
+        if (url === '/api/users/login') {
+          alert('Email or password is incorrect.');
+        }
         break;
       }
       case 404: {
@@ -49,7 +55,9 @@ const isErrorResponse = (error: AxiosError | Error) => {
         break;
       }
       case 422: {
-        alert(message);
+        if (url === '/api/users') {
+          alert('There are duplicate values. Please enter differently');
+        }
         break;
       }
       default: {
@@ -71,8 +79,12 @@ const isResponse = (response: AxiosResponse) => {
 };
 
 const setUpIntercepters = (instance: AxiosInstance) => {
-  instance.interceptors.request.use(isRequest, isErrorResponse);
-  instance.interceptors.response.use(isResponse, isErrorResponse);
+  instance.interceptors.request.use(isRequest, (error) =>
+    isErrorResponse(error, error.config),
+  );
+  instance.interceptors.response.use(isResponse, (error) =>
+    isErrorResponse(error, error.config),
+  );
 
   return instance;
 };

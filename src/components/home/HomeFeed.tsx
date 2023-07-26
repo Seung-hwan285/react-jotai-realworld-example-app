@@ -1,6 +1,7 @@
 import React from 'react';
 import { useAtom } from 'jotai';
 import { articleFeedAtom } from '../../lib/jotai/article';
+
 function HomeFeed() {
   const [feedAtom, setFeed] = useAtom(articleFeedAtom);
 

@@ -20,5 +20,3 @@ export const articleFeedAtom = atom<FeedAndTag>({
   feed: 'global',
   tag: '',
 });
-
-export const articleAtom = atom<any>([]);

@@ -10,7 +10,7 @@ export type Author = {
 export type PropsArticle = Partial<{ article: Props }>;
 
 export type PropsData = Required<{ data: Props }> & {
-  slug?: string;
+  key?: number;
 };
 
 export type Props = Required<{ author: Author }> & {
