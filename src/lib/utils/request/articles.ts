@@ -238,32 +238,6 @@ export const ArticlesAPI = {
     };
   },
 
-  updateUser: async (data: any): Promise<AxiosResponse<any>> => {
-    try {
-      console.log(data);
-      const result = await axiosInterceptor.put(
-        `/api/user`,
-        JSON.stringify({ user: data }),
-      );
-      console.log(result);
-
-      if (isResponse(result)) {
-        if (result.status === 200) {
-          return result;
-        }
-      }
-    } catch (err) {
-      console.error(err);
-    }
-    return {
-      data: null,
-      status: 500,
-      statusText: 'server error',
-      headers: {},
-      config: {} as InternalAxiosRequestConfig,
-    };
-  },
-
   getTag: async (): Promise<AxiosResponse<any>> => {
     try {
       const result = await axiosInterceptor.get(`/api/tags`);

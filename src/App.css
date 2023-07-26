@@ -28,9 +28,24 @@
 }
 
 .col-md-3 {
-  position: absolute;
-  padding: 20px 100px;
-  left: 63%;
+  position: relative;
+  min-height: 1px;
+  padding-right: 15px;
+  padding-left: 15px;
+  flex: 0 0 25%;
+  max-width: 25%;
+}
+
+.tag-list {
+  display: flex;
+  align-items: center;
+  justify-content: start;
+  flex-wrap: wrap;
+}
+
+.tag-items:hover {
+  cursor: pointer;
+  background-color: gray;
 }
 
 .navbar-ul {

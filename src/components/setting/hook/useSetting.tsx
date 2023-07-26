@@ -5,9 +5,10 @@ import { useAtom } from 'jotai';
 import { userSettingState } from '../../../lib/jotai/user';
 import { removeStorage } from '../../../lib/utils/storage';
 import { ArticlesAPI } from '../../../lib/utils/request/articles';
+import { AuthAPI } from '../../../lib/utils/request/auth';
 
 function useSetting() {
-  const history = useNavigate();
+  const navigate = useNavigate();
   const [error, setError] = useState<Error>({ error: '' });
 
   const [state, setState] = useAtom(userSettingState);
@@ -18,7 +19,7 @@ function useSetting() {
   const handleLogout = () => {
     removeStorage();
 
-    return history('/');
+    return navigate('/');
   };
 
   const isValidEmail = (email: string) => {
@@ -61,8 +62,6 @@ function useSetting() {
     });
   };
 
-  const navigate = useNavigate();
-
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
 
@@ -71,7 +70,7 @@ function useSetting() {
       password: state.password,
     };
 
-    const data = await ArticlesAPI.updateUser(bodyData);
+    const data = await AuthAPI.updateUser(bodyData);
 
     if (data) {
       return navigate('/');

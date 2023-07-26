@@ -1,7 +1,7 @@
 import { useAtom } from 'jotai';
 import React, { startTransition, useState } from 'react';
 import { Register, UserRegisterData } from '../../../lib/utils/type/auth';
-import { authAPI } from '../../../lib/utils/request/auth';
+import { AuthAPI } from '../../../lib/utils/request/auth';
 import { userRegisterStateAtom } from '../../../lib/jotai/user';
 
 function useRegister() {
@@ -36,7 +36,7 @@ function useRegister() {
     e.preventDefault();
     const { username, email, password } = user;
     try {
-      await authAPI.register(username, email, password);
+      await AuthAPI.register(username, email, password);
     } catch (err) {
       console.error(err);
     }

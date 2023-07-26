@@ -2,7 +2,7 @@ import { useAtom } from 'jotai';
 import { useNavigate } from 'react-router-dom';
 import React, { startTransition, useState } from 'react';
 import { Login, UserLoginData } from '../../../lib/utils/type/auth';
-import { authAPI } from '../../../lib/utils/request/auth';
+import { AuthAPI } from '../../../lib/utils/request/auth';
 import { userLoginStateAtom } from '../../../lib/jotai/user';
 
 function useLogin() {
@@ -40,7 +40,7 @@ function useLogin() {
     e.preventDefault();
     const { email, password } = user;
 
-    const data = await authAPI.login(email, password);
+    const data = await AuthAPI.login(email, password);
 
     if (!data) {
       return;

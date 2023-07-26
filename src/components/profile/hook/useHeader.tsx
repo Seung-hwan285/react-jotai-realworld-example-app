@@ -2,7 +2,7 @@ import { useAtom } from 'jotai';
 import { userState } from '../../../lib/jotai/user';
 import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { authAPI } from '../../../lib/utils/request/auth';
+import { AuthAPI } from '../../../lib/utils/request/auth';
 
 function useProfileHeader() {
   const [user, setUser] = useAtom(userState);
@@ -11,7 +11,7 @@ function useProfileHeader() {
 
   useEffect(() => {
     const fetchUser = async () => {
-      const { data } = await authAPI.getUser();
+      const { data } = await AuthAPI.getUser();
       setUser(data);
       setLoading(false);
     };

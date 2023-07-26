@@ -2,8 +2,9 @@ import { axiosInterceptor } from '../../axios/interceptor';
 import { setLocalStorage } from '../storage';
 import { isResponse } from '../type-guard/auth';
 import { AxiosResponse, InternalAxiosRequestConfig } from 'axios';
+import { Setting } from '../type/auth';
 
-export const authAPI = {
+export const AuthAPI = {
   login: async (email: string | unknown, password: string | unknown) => {
     try {
       const body = {
@@ -29,7 +30,29 @@ export const authAPI = {
       console.error(err);
     }
   },
+  updateUser: async (data: Setting): Promise<AxiosResponse<any>> => {
+    try {
+      const result = await axiosInterceptor.put(
+        `/api/user`,
+        JSON.stringify({ user: data }),
+      );
 
+      if (isResponse(result)) {
+        if (result.status === 200) {
+          return result;
+        }
+      }
+    } catch (err) {
+      console.error(err);
+    }
+    return {
+      data: null,
+      status: 500,
+      statusText: 'server error',
+      headers: {},
+      config: {} as InternalAxiosRequestConfig,
+    };
+  },
   register: async (
     username: string | unknown,
     email: string | unknown,

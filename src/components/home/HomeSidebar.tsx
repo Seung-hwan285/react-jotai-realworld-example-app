@@ -24,7 +24,7 @@ function HomeSidebar() {
                   <div key={idx}>
                     <span
                       onClick={() => handleClick(tag)}
-                      className="tag-pill tag-default"
+                      className="tag-pill tag-default tag-items"
                       key={idx}
                     >
                       {tag}

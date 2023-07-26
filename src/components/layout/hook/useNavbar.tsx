@@ -1,7 +1,7 @@
 import { useLocation } from 'react-router-dom';
 import { useEffect, useState } from 'react';
 import { getLocalStroage, removeStorage } from '../../../lib/utils/storage';
-import { authAPI } from '../../../lib/utils/request/auth';
+import { AuthAPI } from '../../../lib/utils/request/auth';
 import { useAtom } from 'jotai';
 import { userState } from '../../../lib/jotai/user';
 
@@ -28,7 +28,7 @@ function useNavBar() {
 
     if (isLogged) {
       const fetchUser = async () => {
-        const { data } = await authAPI.getUser();
+        const { data } = await AuthAPI.getUser();
         setUser(data);
       };
       fetchUser();
