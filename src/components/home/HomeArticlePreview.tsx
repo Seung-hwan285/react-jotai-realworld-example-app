@@ -5,17 +5,27 @@ import { Props, PropsData, PropsTag } from '../../lib/utils/type/article';
 import { useLocation } from 'react-router-dom';
 import Button from '../common/Button';
 import HomePagination from './HomePagination';
-import { articleFeedAtom, articleOffsetAtom } from '../../lib/jotai/article';
+import { articleFeedAtom } from '../../lib/jotai/article';
 import useHomeArticleList from './hook/useHomeArticleList';
 
 const FAVORITED_CLASS = 'btn btn-sm btn-primary pull-xs-right';
 const NOT_FAVORITED_CLASS = 'btn btn-sm btn-outline-primary pull-xs-right';
 
 function HomeArticleTags({ tags }: PropsTag) {
+  const [, setTag] = useAtom(articleFeedAtom);
+
+  const handleTagClick = (tag: string) => {
+    setTag({ feed: '', tag: tag });
+  };
+
   return (
     <ul className="tag-list">
       {tags?.map((tag: string, idx: number) => (
-        <li className="tag-default tag-pill tag-outline" key={idx}>
+        <li
+          onClick={() => handleTagClick(tag)}
+          className="tag-default tag-pill tag-outline"
+          key={idx}
+        >
           {tag}
         </li>
       ))}
@@ -52,9 +62,11 @@ function HomeArticleList({ data }: PropsData) {
         <h1>{data.title}</h1>
         <p>{data.description}</p>
         <span>Read more...</span>
-
-        <HomeArticleTags tags={data.tagList} />
       </a>
+
+      <div className="article-tag">
+        <HomeArticleTags tags={data.tagList} />
+      </div>
     </div>
   );
 }
@@ -82,7 +94,7 @@ function HomeArticleBody() {
           {memoizedData.map((data: Props, idx: number) => (
             <HomeArticleList key={idx} data={data} />
           ))}
-          <HomePagination list={mockList} />
+          {!feed.tag && <HomePagination list={mockList} />}
         </>
       )}
     </>

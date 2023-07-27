@@ -19,22 +19,23 @@ function HomePagination({ list }: Pagination) {
   return (
     <nav>
       <ul className="pagination">
-        {list.map((page: number) => {
-          return (
-            <li
-              key={page.toString()}
-              className={`page-item ${isActive === page ? 'active' : ''}`}
-            >
-              <button
-                onClick={() => handleClick(page)}
-                type="button"
-                className="page-link "
+        {!!list &&
+          list.map((page: number) => {
+            return (
+              <li
+                key={page.toString()}
+                className={`page-item ${isActive === page ? 'active' : ''}`}
               >
-                {page}
-              </button>
-            </li>
-          );
-        })}
+                <button
+                  onClick={() => handleClick(page)}
+                  type="button"
+                  className="page-link "
+                >
+                  {page}
+                </button>
+              </li>
+            );
+          })}
       </ul>
     </nav>
   );

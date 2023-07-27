@@ -1,7 +1,6 @@
-import React, { Suspense } from 'react';
+import React from 'react';
 import { Routes, Route } from 'react-router-dom';
 import './App.css';
-import Home from './app/home';
 import RegisterPage from './app/register';
 import Footer from './components/layout/Footer';
 import Navbar from './components/layout/Navbar';
@@ -10,6 +9,7 @@ import ProfilePage from './app/profile';
 import SinglePage from './app/single';
 import NewArticlePage from './app/newArticle';
 import LoginPage from './app/login';
+import HomePage from './app/home';
 
 function App() {
   return (
@@ -19,7 +19,7 @@ function App() {
       </header>
       <main>
         <Routes>
-          <Route path="/" element={<Home />} />
+          <Route path="/" element={<HomePage />} />
           <Route path="/login" element={<LoginPage />} />
           <Route path="/register" element={<RegisterPage />} />
           <Route path="/profile" element={<ProfilePage />} />
