@@ -216,9 +216,9 @@ export const ArticlesAPI = {
     };
   },
 
-  getAllArticle: async (): Promise<AxiosResponse<any>> => {
+  getAllArticle: async (page: number): Promise<AxiosResponse<any>> => {
     try {
-      const result = await axiosInterceptor.get(`/api/articles?offset=0`);
+      const result = await axiosInterceptor.get(`/api/articles?offset=${page}`);
 
       if (isResponse(result)) {
         if (result.status === 200) {

@@ -1,6 +1,6 @@
 import { atom, Getter } from 'jotai';
 import { ArticlesAPI } from '../utils/request/articles';
-import { articleFeedAtom, FeedAndTag } from './article';
+import { articleFeedAtom, articleOffsetAtom, FeedAndTag } from './article';
 import { AuthAPI } from '../utils/request/auth';
 
 export const asyncFavoriteAtom = atom(null, async (set, get, slug: string) => {
@@ -35,19 +35,18 @@ export const atomWithRefresh = <T>(fn: (get: Getter) => T) => {
 
 export const asyncArticleAtom = atomWithRefresh(async (get) => {
   const feedAtom: FeedAndTag = get(articleFeedAtom);
+  const pageAtom = get(articleOffsetAtom);
 
   const feed = feedAtom.feed && feedAtom.tag === '' ? feedAtom.feed : '';
   const tag = feedAtom.tag && feedAtom.feed === '' ? feedAtom.tag : '';
 
   switch (feed) {
     case 'global':
-      const { data } = await ArticlesAPI.getAllArticle();
+      const { data } = await ArticlesAPI.getAllArticle((pageAtom - 1) * 5);
       return data.articles;
-      break;
     case '':
       const { data: tagArticles } = await ArticlesAPI.getTagArticles(tag);
       return tagArticles.articles;
-      break;
 
     default:
       break;

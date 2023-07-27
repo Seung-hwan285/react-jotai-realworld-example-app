@@ -12,7 +12,7 @@ function useHomeArticleList({ data }: PropsData) {
   const history = useNavigate();
 
   const [count, setCount] = useState(data.favoritesCount);
-  const [disabled, setDisAbled] = useState(data.favorited);
+  const [disabled, setDisabled] = useState(data.favorited);
 
   const [, favoriteCount] = useAtom(asyncFavoriteAtom);
   const [, cancelCount] = useAtom(asyncCancelAtom);
@@ -31,15 +31,20 @@ function useHomeArticleList({ data }: PropsData) {
     setIsAuth(isLoggedIn);
   }, []);
 
+  useEffect(() => {
+    setDisabled(data.favorited);
+    setCount(data.favoritesCount);
+  }, [data]);
+
   const handleFavoriteClick = async (slug: string) => {
     if (!disabled) {
-      setDisAbled(true);
+      setDisabled(true);
       setCount((prev: number) => prev + 1);
       await favoriteCount(slug);
     }
 
     if (!!disabled) {
-      setDisAbled(false);
+      setDisabled(false);
       setCount((prev: number) => prev - 1);
       await cancelCount(slug);
     }

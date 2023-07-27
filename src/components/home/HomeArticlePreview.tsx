@@ -1,9 +1,11 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useMemo } from 'react';
 import { useAtom } from 'jotai';
 import { asyncArticleAtom } from '../../lib/jotai/async-atom';
 import { Props, PropsData, PropsTag } from '../../lib/utils/type/article';
 import { useLocation } from 'react-router-dom';
 import Button from '../common/Button';
+import HomePagination from './HomePagination';
+import { articleFeedAtom, articleOffsetAtom } from '../../lib/jotai/article';
 import useHomeArticleList from './hook/useHomeArticleList';
 
 const FAVORITED_CLASS = 'btn btn-sm btn-primary pull-xs-right';
@@ -43,7 +45,7 @@ function HomeArticleList({ data }: PropsData) {
           className={disabled ? FAVORITED_CLASS : NOT_FAVORITED_CLASS}
           // className="btn btn-outline-primary btn-sm pull-xs-right"
         >
-          <i className="ion-heart"></i> {count as number}
+          <i className="ion-heart"></i> {count}
         </Button>
       </div>
       <a onClick={() => handleClick(data.slug)} className="preview-link">
@@ -59,18 +61,30 @@ function HomeArticleList({ data }: PropsData) {
 
 function HomeArticleBody() {
   const [data, refreshPosts] = useAtom(asyncArticleAtom);
+
   const location = useLocation();
+
+  const [feed] = useAtom(articleFeedAtom);
+
   useEffect(() => {
     refreshPosts();
   }, [location.pathname]);
-  const MemoComponent = React.memo(HomeArticleList);
+
+  const mockList = Array.from({ length: 20 }, (val, idx) => idx + 1);
+  const memoizedData = useMemo(() => data || [], [data]);
 
   return (
     <>
-      {data &&
-        data?.map((data: Props, idx: number) => {
-          return <MemoComponent key={idx} data={data} />;
-        })}
+      {feed.feed === 'your' ? (
+        <div className="article-preview">No article are here... yet.</div>
+      ) : (
+        <>
+          {memoizedData.map((data: Props, idx: number) => (
+            <HomeArticleList key={idx} data={data} />
+          ))}
+          <HomePagination list={mockList} />
+        </>
+      )}
     </>
   );
 }

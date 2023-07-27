@@ -20,3 +20,5 @@ export const articleFeedAtom = atom<FeedAndTag>({
   feed: 'global',
   tag: '',
 });
+
+export const articleOffsetAtom = atom(1);
