@@ -20,7 +20,7 @@ function HomePagination({ list }: Pagination) {
   return (
     <nav>
       <ul className="pagination">
-        {isArrayWithItems<number[]>(list) &&
+        {isArrayWithItems<Pagination>(list) &&
           list.map((page: number) => {
             return (
               <li

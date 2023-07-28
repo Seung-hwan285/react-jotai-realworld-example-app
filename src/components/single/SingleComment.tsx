@@ -16,7 +16,7 @@ function SingleCommentList() {
   return (
     <>
       {isArrayWithItems<Comments>(comments.comments) &&
-        comments?.comments?.map((comment: PropsCommnet) => {
+        comments.comments.map((comment: PropsCommnet) => {
           return (
             <div key={comment.id} className="card">
               <div className="card-block">
