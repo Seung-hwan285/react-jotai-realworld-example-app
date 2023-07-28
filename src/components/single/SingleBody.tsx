@@ -4,9 +4,9 @@ import { BodyTags, PropsArticle } from '../../lib/utils/type/article';
 function SingleBodyTags({ tags }: BodyTags) {
   return (
     <ul className="tag-list">
-      {tags?.map((tag: string, idx: number) => {
+      {tags?.map((tag: string) => {
         return (
-          <li key={idx} className="tag-default tag-pill tag-outline">
+          <li key={tag} className="tag-default tag-pill tag-outline">
             {tag}
           </li>
         );

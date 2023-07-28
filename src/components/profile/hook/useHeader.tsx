@@ -1,22 +1,10 @@
 import { useAtom } from 'jotai';
-import { userState } from '../../../lib/jotai/user';
-import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { AuthAPI } from '../../../lib/utils/request/auth';
+import { asyncUserAtom } from '../../../lib/jotai/async-atom';
 
 function useProfileHeader() {
-  const [user, setUser] = useAtom(userState);
-  const [loading, setLoading] = useState(true);
+  const [user] = useAtom(asyncUserAtom);
   const navigate = useNavigate();
-
-  useEffect(() => {
-    const fetchUser = async () => {
-      const { data } = await AuthAPI.getUser();
-      setUser(data);
-      setLoading(false);
-    };
-    fetchUser();
-  }, [setUser]);
 
   const handleSettingClick = () => {
     return navigate('/setting');
@@ -25,7 +13,6 @@ function useProfileHeader() {
   return {
     handleSettingClick,
     user,
-    loading,
   };
 }
 export default useProfileHeader;

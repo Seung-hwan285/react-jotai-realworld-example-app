@@ -1,11 +1,11 @@
 import React from 'react';
-import { useAtom } from 'jotai';
+import { useAtom, useSetAtom } from 'jotai';
 import { asyncTagsAtom } from '../../lib/jotai/async-atom';
 import { articleFeedAtom } from '../../lib/jotai/article';
 
 function HomeSidebar() {
   const [tags] = useAtom(asyncTagsAtom);
-  const [, setTagAtom] = useAtom(articleFeedAtom);
+  const setTagAtom = useSetAtom(articleFeedAtom);
 
   const handleClick = (tag: string) => {
     setTagAtom({ feed: '', tag: tag });
@@ -19,13 +19,12 @@ function HomeSidebar() {
 
           <div className="tag-list">
             {tags &&
-              tags?.tags.map((tag: string, idx: number) => {
+              tags?.tags.map((tag: string) => {
                 return (
-                  <div key={idx}>
+                  <div key={tag}>
                     <span
                       onClick={() => handleClick(tag)}
                       className="tag-pill tag-default tag-items"
-                      key={idx}
                     >
                       {tag}
                     </span>

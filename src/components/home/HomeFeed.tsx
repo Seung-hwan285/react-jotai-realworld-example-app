@@ -34,7 +34,8 @@ function HomeFeed() {
             onClick={() => handleClick('tag')}
             className={`nav-link ${feedAtom.tag !== '' ? 'active' : ''}`}
           >
-            {feedAtom.tag ? `#${feedAtom.tag}` : ''}
+            {feedAtom.tag && <i className="ion-pound" />}
+            {feedAtom.tag}
           </span>
         </li>
       </ul>

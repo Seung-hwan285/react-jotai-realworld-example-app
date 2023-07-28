@@ -1,14 +1,14 @@
 import { ReactNode } from 'react';
+import { AxiosResponse } from 'axios';
 
 type ApiResponse<T> = {
   status: number;
   data: T;
 };
-
-export const isResponse = (res: any): res is ApiResponse<any> => {
+export const isResponse = <T>(res: unknown): res is ApiResponse<T> => {
   return (
-    typeof res?.status === 'number' &&
-    ('data' in res || 'article' in res || 'user' in res || 'comment' in res)
+    typeof (res as AxiosResponse<T>)?.status === 'number' &&
+    'data' in (res as AxiosResponse<T>)
   );
 };
 

@@ -7,10 +7,10 @@ export type Author = {
   username: string;
 };
 
-export type PropsArticle = Partial<{ article: Props }>;
+export type PropsArticle = { article?: Props };
 
 export type PropsData = Required<{ data: Props }> & {
-  key?: number;
+  slug?: string;
 };
 
 export type Props = Required<{ author: Author }> & {
@@ -25,23 +25,23 @@ export type Props = Required<{ author: Author }> & {
   updatedAt: string;
 };
 
-type PropsWithArticles = Partial<{ articles: Props[] }>;
+type PropsWithArticles = { articles?: Props[] };
 
 type newArticle = {
   title: string;
   description: string;
   body: string;
-  tags: string[];
+  tags?: string[];
 };
 
-export type Tag = Partial<{ tag: string }>;
+export type Tag = { tag?: string };
 
 export type PropsFeed = {
   feed: string;
   onClick: (e: string) => void;
 };
 
-export type PropsTag = Partial<{ tags: string[] }>;
+export type PropsTag = { tags: string[] };
 
 export type PropsLoading = Required<{ user: AuthUser }> & {
   loading: boolean;
@@ -59,3 +59,4 @@ export type ArticleInput = Required<Body> & {
 export type PropsArray = PropsWithArticles;
 export type BodyTags = PropsTag;
 export type NewArticle = newArticle;
+export type UpdateArticle = newArticle;

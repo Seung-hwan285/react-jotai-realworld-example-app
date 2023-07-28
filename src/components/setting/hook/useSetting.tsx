@@ -4,7 +4,6 @@ import { Error, Setting } from '../../../lib/utils/type/auth';
 import { useAtom } from 'jotai';
 import { userSettingState } from '../../../lib/jotai/user';
 import { removeStorage } from '../../../lib/utils/storage';
-import { ArticlesAPI } from '../../../lib/utils/request/articles';
 import { AuthAPI } from '../../../lib/utils/request/auth';
 
 function useSetting() {

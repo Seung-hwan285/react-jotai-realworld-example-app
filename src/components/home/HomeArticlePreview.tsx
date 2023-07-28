@@ -1,5 +1,5 @@
 import React, { useEffect, useMemo } from 'react';
-import { useAtom } from 'jotai';
+import { useAtom, useSetAtom } from 'jotai';
 import { asyncArticleAtom } from '../../lib/jotai/async-atom';
 import { Props, PropsData, PropsTag } from '../../lib/utils/type/article';
 import { useLocation } from 'react-router-dom';
@@ -12,7 +12,7 @@ const FAVORITED_CLASS = 'btn btn-sm btn-primary pull-xs-right';
 const NOT_FAVORITED_CLASS = 'btn btn-sm btn-outline-primary pull-xs-right';
 
 function HomeArticleTags({ tags }: PropsTag) {
-  const [, setTag] = useAtom(articleFeedAtom);
+  const setTag = useSetAtom(articleFeedAtom);
 
   const handleTagClick = (tag: string) => {
     setTag({ feed: '', tag: tag });
@@ -20,11 +20,11 @@ function HomeArticleTags({ tags }: PropsTag) {
 
   return (
     <ul className="tag-list">
-      {tags?.map((tag: string, idx: number) => (
+      {tags?.map((tag: string) => (
         <li
           onClick={() => handleTagClick(tag)}
           className="tag-default tag-pill tag-outline"
-          key={idx}
+          key={tag}
         >
           {tag}
         </li>
@@ -72,17 +72,18 @@ function HomeArticleList({ data }: PropsData) {
 }
 
 function HomeArticleBody() {
-  const [data, refreshPosts] = useAtom(asyncArticleAtom);
+  const [data, refreshArticle] = useAtom(asyncArticleAtom);
 
   const location = useLocation();
 
   const [feed] = useAtom(articleFeedAtom);
 
   useEffect(() => {
-    refreshPosts();
+    refreshArticle();
   }, [location.pathname]);
 
   const mockList = Array.from({ length: 20 }, (val, idx) => idx + 1);
+
   const memoizedData = useMemo(() => data || [], [data]);
 
   return (
@@ -91,8 +92,8 @@ function HomeArticleBody() {
         <div className="article-preview">No article are here... yet.</div>
       ) : (
         <>
-          {memoizedData.map((data: Props, idx: number) => (
-            <HomeArticleList key={idx} data={data} />
+          {memoizedData.map((data: Props) => (
+            <HomeArticleList key={data.slug} data={data} />
           ))}
           {!feed.tag && <HomePagination list={mockList} />}
         </>

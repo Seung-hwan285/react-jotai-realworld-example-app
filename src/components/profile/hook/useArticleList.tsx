@@ -11,7 +11,7 @@ function useArticleList({ data }: PropsData) {
   const history = useNavigate();
 
   const [count, setCount] = useState(data.favoritesCount);
-  const [disabled, setDisAbled] = useState(data.favorited);
+  const [disabled, setDisabled] = useState(data.favorited);
 
   const [, favoriteCount] = useAtom(asyncFavoriteAtom);
   const [, cancelCount] = useAtom(asyncCancelAtom);
@@ -22,13 +22,13 @@ function useArticleList({ data }: PropsData) {
 
   const handleFavoriteClick = async (slug: string) => {
     if (!disabled) {
-      setDisAbled(true);
+      setDisabled(true);
       setCount((prev: number) => prev + 1);
       await favoriteCount(slug);
     }
 
     if (!!disabled) {
-      setDisAbled(false);
+      setDisabled(false);
       setCount((prev: number) => prev - 1);
       await cancelCount(slug);
     }

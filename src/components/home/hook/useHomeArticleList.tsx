@@ -1,6 +1,6 @@
 import { useNavigate } from 'react-router-dom';
 import { useEffect, useState } from 'react';
-import { useAtom } from 'jotai';
+import { useAtom, useSetAtom } from 'jotai';
 import {
   asyncCancelAtom,
   asyncFavoriteAtom,
@@ -14,8 +14,8 @@ function useHomeArticleList({ data }: PropsData) {
   const [count, setCount] = useState(data.favoritesCount);
   const [disabled, setDisabled] = useState(data.favorited);
 
-  const [, favoriteCount] = useAtom(asyncFavoriteAtom);
-  const [, cancelCount] = useAtom(asyncCancelAtom);
+  const favoriteCount = useSetAtom(asyncFavoriteAtom);
+  const cancelCount = useSetAtom(asyncCancelAtom);
 
   const handleClick = (slug: string) => {
     history(`/article/${slug}`);

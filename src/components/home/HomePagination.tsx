@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { useAtom } from 'jotai';
 import { articleOffsetAtom } from '../../lib/jotai/article';
+import { isArrayWithItems } from '../../lib/utils/type-guard/data';
 
 type Pagination = {
   list: number[];
@@ -19,7 +20,7 @@ function HomePagination({ list }: Pagination) {
   return (
     <nav>
       <ul className="pagination">
-        {!!list &&
+        {isArrayWithItems<number[]>(list) &&
           list.map((page: number) => {
             return (
               <li

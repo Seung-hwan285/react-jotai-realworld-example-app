@@ -7,6 +7,7 @@ import {
 } from '../../lib/utils/type/article';
 import Button from '../common/Button';
 import useArticleList from './hook/useArticleList';
+import { isArrayWithItems } from '../../lib/utils/type-guard/data';
 
 const FAVORITED_CLASS = 'btn btn-sm btn-primary pull-xs-right';
 const NOT_FAVORITED_CLASS = 'btn btn-sm btn-outline-primary pull-xs-right';
@@ -23,13 +24,13 @@ function ProfileTags({ tags }: PropsTag) {
   );
 }
 
-function ProfileArticleList({ data }: PropsData) {
+function ProfileArticleList({ slug, data }: PropsData) {
   const { count, disabled, handleFavoriteClick, handleClick } = useArticleList({
     data,
   });
 
   return (
-    <div key={data.slug} className="article-preview">
+    <div key={slug} className="article-preview">
       <div className="article-meta">
         <a href="/profile/eric-simons">
           <img src={`${data.author.image}`} alt="Author" />
@@ -43,7 +44,7 @@ function ProfileArticleList({ data }: PropsData) {
           className={disabled ? FAVORITED_CLASS : NOT_FAVORITED_CLASS}
           // className="btn btn-outline-primary btn-sm pull-xs-right"
         >
-          <i className="ion-heart"></i> {count as number}
+          <i className="ion-heart"></i> {count}
         </Button>
       </div>
       <a onClick={() => handleClick(data.slug)} className="preview-link">
@@ -58,17 +59,28 @@ function ProfileArticleList({ data }: PropsData) {
 }
 
 function ProfileArticles({ articles }: PropsArray) {
-  if (!articles) {
-    return null;
-  }
+  const paintNoArticle = (
+    <div>
+      <div className="article-preview">No article are here... yet.</div>
+    </div>
+  );
 
+  if (!articles || articles.length === 0) {
+    return paintNoArticle;
+  }
   const MemoComponent = React.memo(ProfileArticleList);
 
   return (
     <>
-      {!!articles &&
-        articles?.map((data: Props, idx: number) => {
-          return <MemoComponent key={idx} data={data} />;
+      {isArrayWithItems<PropsArray>(articles) &&
+        articles?.map((data: Props) => {
+          return (
+            <>
+              <div key={data.slug}>
+                <MemoComponent slug={data.slug} data={data} />;
+              </div>
+            </>
+          );
         })}
     </>
   );

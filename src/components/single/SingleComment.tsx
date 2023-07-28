@@ -1,15 +1,21 @@
 import React from 'react';
-import { PropsCommentsList, PropsCommnet } from '../../lib/utils/type/comment';
+import {
+  Comments,
+  PropsCommentsList,
+  PropsCommnet,
+} from '../../lib/utils/type/comment';
 import useImageAndText from './hook/useImageAndText';
 import useCommentList from './hook/useCommentList';
 import Button from '../common/Button';
+import { getLocalStroage } from '../../lib/utils/storage';
+import { isArrayWithItems } from '../../lib/utils/type-guard/data';
 
 function SingleCommentList() {
-  const { iconClass, comments, handleClick } = useCommentList();
+  const { username, iconClass, comments, handleClick } = useCommentList();
 
   return (
     <>
-      {!!comments &&
+      {isArrayWithItems<Comments>(comments.comments) &&
         comments?.comments?.map((comment: PropsCommnet) => {
           return (
             <div key={comment.id} className="card">
@@ -32,7 +38,12 @@ function SingleCommentList() {
                   onClick={() => handleClick(comment.id)}
                   className="mod-options"
                 >
-                  {iconClass}
+                  <i
+                    data-set="${id}"
+                    className={`${
+                      comment.author.username === username && iconClass
+                    }`}
+                  />
                 </span>
               </div>
             </div>
@@ -43,7 +54,7 @@ function SingleCommentList() {
 }
 
 function SingleCommentForm({ onSubmit }: PropsCommentsList) {
-  const { imageElement, text, setBody } = useImageAndText();
+  const { author, imageElement, text, setBody } = useImageAndText();
 
   return (
     <>
@@ -60,21 +71,27 @@ function SingleCommentForm({ onSubmit }: PropsCommentsList) {
           />
         </div>
         <div className="card-footer">
-          <img className="comment-author-img" src={imageElement} />
+          <img
+            className="comment-author-img"
+            src={!!author ? author?.image : imageElement}
+          />
           <Button className="btn btn-sm btn-primary">Post Comment</Button>
         </div>
       </form>
+
       <SingleCommentList />
     </>
   );
 }
 
 function SingleComment({ onSubmit }: PropsCommentsList) {
+  const token = getLocalStroage('token');
+
   return (
     <>
       <div className="row">
         <div className="col-xs-12 col-md-8 offset-md-2">
-          <SingleCommentForm onSubmit={onSubmit} />
+          {!!token && <SingleCommentForm onSubmit={onSubmit} />}
         </div>
       </div>
     </>

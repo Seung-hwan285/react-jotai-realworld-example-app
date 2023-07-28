@@ -1,78 +1,64 @@
 import { axiosInterceptor } from '../../axios/interceptor';
 import { isResponse } from '../type-guard/auth';
 import { AxiosResponse, InternalAxiosRequestConfig } from 'axios';
-import { NewArticle, Tag } from '../type/article';
-import { FeedAndTag } from '../../jotai/article';
+import { NewArticle, UpdateArticle } from '../type/article';
+
+const SERVER_ERROR_RESPONSE: AxiosResponse<any> = {
+  data: null,
+  status: 500,
+  statusText: 'server error',
+  headers: {},
+  config: {} as InternalAxiosRequestConfig,
+};
 
 export const ArticlesAPI = {
-  getUserArticles: async (author: string): Promise<AxiosResponse<any>> => {
+  getUserArticles: async (
+    author: string | unknown,
+  ): Promise<AxiosResponse<any>> => {
     try {
       const result = await axiosInterceptor.get(
         `/api/articles?author=${author}&offset=0`,
       );
-
-      if (isResponse(result)) {
-        if (result.status === 200) {
-          return result;
-        }
+      if (isResponse(result) && result.status === 200) {
+        return result;
       }
     } catch (err) {
       console.error(err);
     }
 
-    return {
-      data: null,
-      status: 500,
-      statusText: 'server error',
-      headers: {},
-      config: {} as InternalAxiosRequestConfig,
-    };
+    return SERVER_ERROR_RESPONSE;
   },
 
-  getFavoriteArticles: async (author: string): Promise<AxiosResponse<any>> => {
+  getFavoriteArticles: async (
+    author: string | unknown,
+  ): Promise<AxiosResponse<any>> => {
     try {
       const result = await axiosInterceptor.get(
         `/api/articles?favorited=${author}&offset=0`,
       );
 
-      if (isResponse(result)) {
-        if (result.status === 200) {
-          return result;
-        }
+      if (isResponse(result) && result.status === 200) {
+        return result;
       }
     } catch (err) {
       console.error(err);
     }
 
-    return {
-      data: null,
-      status: 500,
-      statusText: 'server error',
-      headers: {},
-      config: {} as InternalAxiosRequestConfig,
-    };
+    return SERVER_ERROR_RESPONSE;
   },
 
   getSingleArticle: async (slug: string): Promise<AxiosResponse<any>> => {
     try {
       const result = await axiosInterceptor.get(`/api/articles/${slug}`);
 
-      if (isResponse(result)) {
-        if (result.status === 200) {
-          return result;
-        }
+      if (isResponse(result) && result.status === 200) {
+        return result;
       }
     } catch (err) {
       console.error(err);
     }
 
-    return {
-      data: null,
-      status: 500,
-      statusText: 'server error',
-      headers: {},
-      config: {} as InternalAxiosRequestConfig,
-    };
+    return SERVER_ERROR_RESPONSE;
   },
 
   getCommentsFromArticle: async (slug: string): Promise<AxiosResponse<any>> => {
@@ -81,39 +67,45 @@ export const ArticlesAPI = {
         `/api/articles/${slug}/comments`,
       );
 
-      if (isResponse(result)) {
-        if (result.status === 200) {
-          return result;
-        }
-      }
-    } catch (err) {
-      console.error(err);
-    }
-    return {
-      data: null,
-      status: 500,
-      statusText: 'server error',
-      headers: {},
-      config: {} as InternalAxiosRequestConfig,
-    };
-  },
-
-  deleteArticle: async (slug: string): Promise<AxiosResponse<any>> => {
-    try {
-      const result = await axiosInterceptor.delete(`/api/articles/${slug}`);
-      if (result.status === 200) {
+      if (isResponse(result) && result.status === 200) {
         return result;
       }
     } catch (err) {
       console.error(err);
     }
-    return {
-      data: null,
-      status: 500,
-      statusText: 'server error',
-      headers: {},
-      config: {} as InternalAxiosRequestConfig,
-    };
+    return SERVER_ERROR_RESPONSE;
+  },
+
+  deleteArticle: async (slug: string): Promise<AxiosResponse<any>> => {
+    try {
+      const result = await axiosInterceptor.delete(`/api/articles/${slug}`);
+
+      if (isResponse(result) && result.status === 200) {
+        return result;
+      }
+    } catch (err) {
+      console.error(err);
+    }
+    return SERVER_ERROR_RESPONSE;
+  },
+
+  updateArticle: async (
+    slug: string,
+    body: UpdateArticle,
+  ): Promise<AxiosResponse<any>> => {
+    try {
+      const result = await axiosInterceptor.put(
+        `/api/articles/${slug}`,
+        JSON.stringify({ article: body }),
+      );
+
+      if (isResponse(result) && result.status === 200) {
+        return result;
+      }
+    } catch (err) {
+      console.error(err);
+    }
+    return SERVER_ERROR_RESPONSE;
   },
 
   cancelFavorite: async (slug: string) => {
@@ -122,19 +114,13 @@ export const ArticlesAPI = {
         `/api/articles/${slug}/favorite`,
       );
 
-      if (result.status === 200) {
+      if (isResponse(result) && result.status === 200) {
         return result;
       }
     } catch (err) {
       console.error(err);
     }
-    return {
-      data: null,
-      status: 500,
-      statusText: 'server error',
-      headers: {},
-      config: {} as InternalAxiosRequestConfig,
-    };
+    return SERVER_ERROR_RESPONSE;
   },
 
   favorite: async (slug: string) => {
@@ -143,19 +129,13 @@ export const ArticlesAPI = {
         `/api/articles/${slug}/favorite`,
       );
 
-      if (result.status === 200) {
+      if (isResponse(result) && result.status === 200) {
         return result;
       }
     } catch (err) {
       console.error(err);
     }
-    return {
-      data: null,
-      status: 500,
-      statusText: 'server error',
-      headers: {},
-      config: {} as InternalAxiosRequestConfig,
-    };
+    return SERVER_ERROR_RESPONSE;
   },
 
   createArticle: async ({
@@ -177,83 +157,53 @@ export const ArticlesAPI = {
         JSON.stringify({ article: bodyArticle }),
       );
 
-      if (isResponse(result)) {
-        if (result.status === 201) {
-          return result;
-        }
+      if (isResponse(result) && result.status === 200) {
+        return result;
       }
     } catch (err) {
       console.error(err);
     }
-    return {
-      data: null,
-      status: 500,
-      statusText: 'server error',
-      headers: {},
-      config: {} as InternalAxiosRequestConfig,
-    };
+    return SERVER_ERROR_RESPONSE;
   },
 
   getTagArticles: async (tag: string): Promise<AxiosResponse<any>> => {
     try {
       const result = await axiosInterceptor.get(`/api/articles?tag=${tag}`);
 
-      if (isResponse(result)) {
-        if (result.status === 200) {
-          return result;
-        }
+      if (isResponse(result) && result.status === 200) {
+        return result;
       }
     } catch (err) {
       console.error(err);
     }
 
-    return {
-      data: null,
-      status: 500,
-      statusText: 'server error',
-      headers: {},
-      config: {} as InternalAxiosRequestConfig,
-    };
+    return SERVER_ERROR_RESPONSE;
   },
 
   getAllArticle: async (page: number): Promise<AxiosResponse<any>> => {
     try {
       const result = await axiosInterceptor.get(`/api/articles?offset=${page}`);
 
-      if (isResponse(result)) {
-        if (result.status === 200) {
-          return result;
-        }
+      if (isResponse(result) && result.status === 200) {
+        return result;
       }
     } catch (err) {
       console.error(err);
     }
 
-    return {
-      data: null,
-      status: 500,
-      statusText: 'server error',
-      headers: {},
-      config: {} as InternalAxiosRequestConfig,
-    };
+    return SERVER_ERROR_RESPONSE;
   },
 
   getTag: async (): Promise<AxiosResponse<any>> => {
     try {
       const result = await axiosInterceptor.get(`/api/tags`);
 
-      if (result.status === 200) {
+      if (isResponse(result) && result.status === 200) {
         return result;
       }
     } catch (err) {
       console.error(err);
     }
-    return {
-      data: null,
-      status: 500,
-      statusText: 'server error',
-      headers: {},
-      config: {} as InternalAxiosRequestConfig,
-    };
+    return SERVER_ERROR_RESPONSE;
   },
 };

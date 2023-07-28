@@ -6,19 +6,13 @@ import { PropsAuthNavbar } from '../../lib/utils/type/auth';
 function AuthNavbar({ user, isActiveLink }: PropsAuthNavbar) {
   return (
     <>
-      {/*<li className="nav-item">*/}
-      {/*  <Link className={`nav-link`} onClick={onClick} to="/">*/}
-      {/*    Log out*/}
-      {/*  </Link>*/}
-      {/*</li>*/}
-
       <li className="nav-item">
         <Link
           className={`nav-link ${isActiveLink('/new-article') ? 'active' : ''}`}
           to="/new-article"
         >
           <i className="ion-compose" />
-          &nbsp; New Post
+          &nbsp; New Article
         </Link>
       </li>
 

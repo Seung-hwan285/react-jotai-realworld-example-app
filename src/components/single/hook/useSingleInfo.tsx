@@ -27,7 +27,6 @@ function useSingleInfo() {
       const { slug } = slugAtom;
       const { body } = textBodyAtom;
       const { data } = await CommentAPI.createComment(slug, body);
-
       if (data) {
         setComments(({ comments }: Comments) => ({
           comments: [...comments, data.comment],

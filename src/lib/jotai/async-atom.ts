@@ -3,6 +3,7 @@ import { ArticlesAPI } from '../utils/request/articles';
 import { articleFeedAtom, articleOffsetAtom, FeedAndTag } from './article';
 import { AuthAPI } from '../utils/request/auth';
 import { readOnlyAtom } from './user';
+import { isResponseObeject } from '../utils/type-guard/data';
 
 export const asyncFavoriteAtom = atom(null, async (set, get, slug: string) => {
   return await ArticlesAPI.favorite(slug);
@@ -17,10 +18,24 @@ export const asyncTagsAtom = atom(async () => {
   return data;
 });
 
-export const asycnUserAtom = atom(async () => {
+export const asyncUserAtom = atom(async () => {
   const { data } = await AuthAPI.getUser();
-  return data;
+
+  if (!isResponseObeject(data)) return false;
+
+  const { user }: any = data;
+  return user;
 });
+
+export const asyncSingleBannerAtom = atom(
+  null,
+  async (set, get, slugName: string) => {
+    const { data } = await ArticlesAPI.getSingleArticle(slugName);
+
+    if (!isResponseObeject(data)) return false;
+    return data;
+  },
+);
 
 export const atomWithRefresh = <T>(fn: (get: Getter) => T) => {
   const refreshCounter = atom(0);

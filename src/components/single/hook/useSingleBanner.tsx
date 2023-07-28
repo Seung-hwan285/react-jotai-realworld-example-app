@@ -17,7 +17,12 @@ function useSingleBanner() {
     }
   };
 
+  const handleEditClick = (slug: string) => {
+    history(`/edit/${slug}`);
+  };
+
   return {
+    handleEditClick,
     userAtom,
     handleClick,
   };

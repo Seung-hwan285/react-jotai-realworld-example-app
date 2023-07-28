@@ -22,6 +22,7 @@ export type PropsCommentsList = {
 };
 
 export type ImageAndTextData = {
+  author?: Author;
   imageElement?: string;
   text: { body: string };
   setBody: (e: { body: string }) => void;

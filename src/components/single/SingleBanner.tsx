@@ -8,7 +8,7 @@ function SingleBanner({ article }: PropsArticle) {
     return null;
   }
 
-  const { userAtom, handleClick } = useSingleBanner();
+  const { userAtom, handleClick, handleEditClick } = useSingleBanner();
 
   return (
     <>
@@ -35,6 +35,14 @@ function SingleBanner({ article }: PropsArticle) {
                 >
                   <i className="ion-trash-a"></i>
                   &nbsp; Delete Article
+                </Button>
+                &nbsp;&nbsp;
+                <Button
+                  onClick={() => handleEditClick(article.slug)}
+                  className="btn btn-outline-secondary btn-sm"
+                >
+                  <i className="ion-edit"></i>
+                  &nbsp; Edit Article
                 </Button>
                 &nbsp;&nbsp;
                 <Button className="btn btn-sm btn-outline-primary">

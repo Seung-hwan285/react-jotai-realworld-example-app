@@ -1,18 +1,8 @@
 import React from 'react';
-import { Tag } from '../../lib/utils/type/article';
-import useNewArticle from './hook/useNewArticle';
+import useEditArticle from './hook/useEditArticle';
 
-function NewArticleForm() {
-  const {
-    tag,
-    tags,
-    newArticle,
-    handleChange,
-    handleTagClick,
-    handleTagChange,
-    handleSubmit,
-    handleDeleteClick,
-  } = useNewArticle();
+function EditForm() {
+  const { newArticle, handleChange, handleSubmit } = useEditArticle();
 
   return (
     <>
@@ -50,36 +40,9 @@ function NewArticleForm() {
                       name="body"
                       value={newArticle.body}
                       onChange={handleChange}
-                      onKeyPress={handleTagClick}
                     />
                   </fieldset>
-                  <fieldset className="form-group">
-                    <input
-                      type="text"
-                      className="form-control"
-                      placeholder="Enter tags"
-                      name="tagList"
-                      value={tag}
-                      onChange={handleTagChange}
-                      onKeyPress={handleTagClick}
-                    />
-                    <div className="tag-list">
-                      {!!tags &&
-                        tags.map((tag: Tag) => {
-                          const string = tag as string;
-                          return (
-                            <div key={string}>
-                              <span
-                                onClick={() => handleDeleteClick(tag)}
-                                className="tag-pill tag-default"
-                              >
-                                {string} &nbsp; X
-                              </span>
-                            </div>
-                          );
-                        })}
-                    </div>
-                  </fieldset>
+
                   <button
                     onClick={handleSubmit}
                     className="btn btn-lg pull-xs-right btn-primary"
@@ -96,4 +59,4 @@ function NewArticleForm() {
     </>
   );
 }
-export default NewArticleForm;
+export default EditForm;

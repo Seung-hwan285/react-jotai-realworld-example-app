@@ -1,5 +1,9 @@
 import React from 'react';
 
+export type OptionalUtils<T> = {
+  [K in keyof T]?: T[K];
+};
+
 export type Register = {
   username: string;
   email: string;
@@ -11,19 +15,15 @@ export type Login = {
   password: string;
 };
 
-export type UserLoginData = {
+type InitUser<T> = {
   errorEmail?: string;
-  user: Login;
+  user: T;
   handleChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
   handleSubmit: () => Promise<void>;
 };
 
-export type UserRegisterData = {
-  errorEmail?: string;
-  user: Register;
-  handleChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
-  handleSubmit: () => Promise<void>;
-};
+export type UserLoginData = InitUser<Login>;
+export type UserRegisterData = InitUser<Register>;
 
 export type PropsAuthNavbar = {
   user?: AuthUser;
@@ -36,23 +36,23 @@ export type Image = {
 };
 
 export type AuthUser = {
-  user: {
+  user: OptionalUtils<{
     username: '';
     image: '';
     bio: '';
     email: '';
     token: '';
-  };
+  }>;
 };
 
 export type Error = {
   error: string;
 };
 
-export type Setting = {
-  username?: string;
-  bio?: string;
-  email?: string;
-  password?: string;
-  images?: string;
-};
+export type Setting = OptionalUtils<{
+  username: string;
+  bio: string;
+  email: string;
+  password: string;
+  images: string;
+}>;
