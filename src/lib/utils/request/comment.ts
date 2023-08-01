@@ -1,6 +1,7 @@
 import { AxiosResponse, InternalAxiosRequestConfig } from 'axios';
 import { axiosInterceptor } from '../../axios/interceptor';
 import { isResponse } from '../type-guard/auth';
+import { Comments } from '../type/comment';
 
 const SERVER_ERROR_RESPONSE: AxiosResponse<any> = {
   data: null,
@@ -25,7 +26,7 @@ export const CommentAPI = {
         }),
       );
 
-      if (isResponse(result) && result.status === 200) {
+      if (isResponse<Comments>(result) && result.status === 200) {
         return result;
       }
     } catch (err) {

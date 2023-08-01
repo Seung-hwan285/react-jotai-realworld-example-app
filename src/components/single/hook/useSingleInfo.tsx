@@ -51,18 +51,14 @@ function useSingleInfo() {
     setSlug(item);
 
     const fetchArticleAndComment = async () => {
-      try {
-        const [articleResponse, commentsResponse] = await Promise.all([
-          ArticlesAPI.getSingleArticle(slugname),
-          ArticlesAPI.getCommentsFromArticle(slugname),
-        ]);
+      const [articleResponse, commentsResponse] = await Promise.all([
+        ArticlesAPI.getSingleArticle(slugname),
+        ArticlesAPI.getCommentsFromArticle(slugname),
+      ]);
 
-        setSingle(articleResponse.data);
-        setUserImage(articleResponse.data.article.author.image);
-        setComments(commentsResponse.data);
-      } catch (err) {
-        console.error(err);
-      }
+      setSingle(articleResponse.data);
+      setUserImage(articleResponse.data.article.author.image);
+      setComments(commentsResponse.data);
     };
     fetchArticleAndComment();
   }, [location]);

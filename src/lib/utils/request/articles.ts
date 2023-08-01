@@ -1,7 +1,14 @@
 import { axiosInterceptor } from '../../axios/interceptor';
 import { isResponse } from '../type-guard/auth';
 import { AxiosResponse, InternalAxiosRequestConfig } from 'axios';
-import { NewArticle, UpdateArticle } from '../type/article';
+import {
+  NewArticle,
+  PropsArticle,
+  PropsTag,
+  Tag,
+  UpdateArticle,
+} from '../type/article';
+import { Comments } from '../type/comment';
 
 const SERVER_ERROR_RESPONSE: AxiosResponse<any> = {
   data: null,
@@ -19,13 +26,13 @@ export const ArticlesAPI = {
       const result = await axiosInterceptor.get(
         `/api/articles?author=${author}&offset=0`,
       );
-      if (isResponse(result) && result.status === 200) {
+
+      if (isResponse<PropsArticle>(result) && result.status === 200) {
         return result;
       }
     } catch (err) {
       console.error(err);
     }
-
     return SERVER_ERROR_RESPONSE;
   },
 
@@ -37,7 +44,7 @@ export const ArticlesAPI = {
         `/api/articles?favorited=${author}&offset=0`,
       );
 
-      if (isResponse(result) && result.status === 200) {
+      if (isResponse<PropsArticle>(result) && result.status === 200) {
         return result;
       }
     } catch (err) {
@@ -51,7 +58,7 @@ export const ArticlesAPI = {
     try {
       const result = await axiosInterceptor.get(`/api/articles/${slug}`);
 
-      if (isResponse(result) && result.status === 200) {
+      if (isResponse<PropsArticle>(result) && result.status === 200) {
         return result;
       }
     } catch (err) {
@@ -67,12 +74,13 @@ export const ArticlesAPI = {
         `/api/articles/${slug}/comments`,
       );
 
-      if (isResponse(result) && result.status === 200) {
+      if (isResponse<Comments>(result) && result.status === 200) {
         return result;
       }
     } catch (err) {
       console.error(err);
     }
+
     return SERVER_ERROR_RESPONSE;
   },
 
@@ -80,12 +88,13 @@ export const ArticlesAPI = {
     try {
       const result = await axiosInterceptor.delete(`/api/articles/${slug}`);
 
-      if (isResponse(result) && result.status === 200) {
+      if (isResponse<Comments>(result) && result.status === 200) {
         return result;
       }
     } catch (err) {
       console.error(err);
     }
+
     return SERVER_ERROR_RESPONSE;
   },
 
@@ -99,12 +108,13 @@ export const ArticlesAPI = {
         JSON.stringify({ article: body }),
       );
 
-      if (isResponse(result) && result.status === 200) {
+      if (isResponse<PropsArticle>(result) && result.status === 200) {
         return result;
       }
     } catch (err) {
       console.error(err);
     }
+
     return SERVER_ERROR_RESPONSE;
   },
 
@@ -120,6 +130,7 @@ export const ArticlesAPI = {
     } catch (err) {
       console.error(err);
     }
+
     return SERVER_ERROR_RESPONSE;
   },
 
@@ -135,6 +146,7 @@ export const ArticlesAPI = {
     } catch (err) {
       console.error(err);
     }
+
     return SERVER_ERROR_RESPONSE;
   },
 
@@ -157,7 +169,7 @@ export const ArticlesAPI = {
         JSON.stringify({ article: bodyArticle }),
       );
 
-      if (isResponse(result) && result.status === 200) {
+      if (isResponse<PropsArticle>(result) && result.status === 200) {
         return result;
       }
     } catch (err) {
@@ -170,7 +182,7 @@ export const ArticlesAPI = {
     try {
       const result = await axiosInterceptor.get(`/api/articles?tag=${tag}`);
 
-      if (isResponse(result) && result.status === 200) {
+      if (isResponse<PropsArticle>(result) && result.status === 200) {
         return result;
       }
     } catch (err) {
@@ -184,7 +196,7 @@ export const ArticlesAPI = {
     try {
       const result = await axiosInterceptor.get(`/api/articles?offset=${page}`);
 
-      if (isResponse(result) && result.status === 200) {
+      if (isResponse<PropsArticle>(result) && result.status === 200) {
         return result;
       }
     } catch (err) {
@@ -198,7 +210,7 @@ export const ArticlesAPI = {
     try {
       const result = await axiosInterceptor.get(`/api/tags`);
 
-      if (isResponse(result) && result.status === 200) {
+      if (isResponse<PropsTag>(result) && result.status === 200) {
         return result;
       }
     } catch (err) {

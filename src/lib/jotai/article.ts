@@ -1,5 +1,5 @@
 import { atom } from 'jotai';
-import { ArticleInput, Body, Tag } from '../utils/type/article';
+import { ArticleInput, Body } from '../utils/type/article';
 
 export const bodyAtom = atom<Body>({
   body: '',

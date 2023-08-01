@@ -1,9 +1,10 @@
 import React from 'react';
-import useProfileHeader from './hook/useHeader';
-import Button from '../common/Button';
+import { Link } from 'react-router-dom';
+import { useAtom } from 'jotai';
+import { asyncUserAtom } from '../../lib/jotai/async-atom';
 
 function ProfileHeader() {
-  const { handleSettingClick, user } = useProfileHeader();
+  const [user] = useAtom(asyncUserAtom);
 
   return (
     <>
@@ -14,12 +15,12 @@ function ProfileHeader() {
               <img src={`${user?.image}`} className="user-img" />
               <h4>{user?.username}</h4>
               <p>{`${user?.bio}`}</p>
-              <Button
-                onClick={handleSettingClick}
+              <Link
+                to={'/setting'}
                 className="btn btn-sm btn-outline-secondary action-btn"
               >
                 <i className="ion-plus-round"></i> Edit Page {user?.username}
-              </Button>
+              </Link>
             </div>
           </div>
         </div>

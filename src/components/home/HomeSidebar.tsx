@@ -2,6 +2,8 @@ import React from 'react';
 import { useAtom, useSetAtom } from 'jotai';
 import { asyncTagsAtom } from '../../lib/jotai/async-atom';
 import { articleFeedAtom } from '../../lib/jotai/article';
+import { isArrayWithItems } from '../../lib/utils/type-guard/data';
+import { Tag } from '../../lib/utils/type/article';
 
 function HomeSidebar() {
   const [tags] = useAtom(asyncTagsAtom);
@@ -18,8 +20,8 @@ function HomeSidebar() {
           <p>Popular Tags</p>
 
           <div className="tag-list">
-            {tags &&
-              tags?.tags.map((tag: string) => {
+            {isArrayWithItems<Tag>(tags.tags) &&
+              tags.tags.map((tag: string) => {
                 return (
                   <div key={tag}>
                     <span

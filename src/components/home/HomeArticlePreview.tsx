@@ -1,12 +1,13 @@
-import React, { useEffect, useMemo } from 'react';
-import { useAtom, useSetAtom } from 'jotai';
-import { asyncArticleAtom } from '../../lib/jotai/async-atom';
+import React from 'react';
+import { useSetAtom } from 'jotai';
 import { Props, PropsData, PropsTag } from '../../lib/utils/type/article';
-import { useLocation } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import Button from '../common/Button';
 import HomePagination from './HomePagination';
 import { articleFeedAtom } from '../../lib/jotai/article';
 import useHomeArticleList from './hook/useHomeArticleList';
+import { isArrayWithItems } from '../../lib/utils/type-guard/data';
+import useArticleBody from './hook/useAritcleBody';
 
 const FAVORITED_CLASS = 'btn btn-sm btn-primary pull-xs-right';
 const NOT_FAVORITED_CLASS = 'btn btn-sm btn-outline-primary pull-xs-right';
@@ -34,10 +35,9 @@ function HomeArticleTags({ tags }: PropsTag) {
 }
 
 function HomeArticleList({ data }: PropsData) {
-  const { isAuth, count, disabled, handleFavoriteClick, handleClick } =
-    useHomeArticleList({
-      data,
-    });
+  const { isAuth, count, disabled, handleFavoriteClick } = useHomeArticleList({
+    data,
+  });
 
   return (
     <div key={data.slug} className="article-preview">
@@ -58,11 +58,12 @@ function HomeArticleList({ data }: PropsData) {
           <i className="ion-heart"></i> {count}
         </Button>
       </div>
-      <a onClick={() => handleClick(data.slug)} className="preview-link">
+
+      <Link to={`/article/${data.slug}`} className="preview-link">
         <h1>{data.title}</h1>
         <p>{data.description}</p>
         <span>Read more...</span>
-      </a>
+      </Link>
 
       <div className="article-tag">
         <HomeArticleTags tags={data.tagList} />
@@ -72,19 +73,7 @@ function HomeArticleList({ data }: PropsData) {
 }
 
 function HomeArticleBody() {
-  const [data, refreshArticle] = useAtom(asyncArticleAtom);
-
-  const location = useLocation();
-
-  const [feed] = useAtom(articleFeedAtom);
-
-  useEffect(() => {
-    refreshArticle();
-  }, [location.pathname]);
-
-  const mockList = Array.from({ length: 20 }, (val, idx) => idx + 1);
-
-  const memoizedData = useMemo(() => data || [], [data]);
+  const { mockList, data, feed } = useArticleBody();
 
   return (
     <>
@@ -92,9 +81,10 @@ function HomeArticleBody() {
         <div className="article-preview">No article are here... yet.</div>
       ) : (
         <>
-          {memoizedData.map((data: Props) => (
-            <HomeArticleList key={data.slug} data={data} />
-          ))}
+          {isArrayWithItems<Props>(data) &&
+            data.map((data: Props) => (
+              <HomeArticleList key={data.slug} data={data} />
+            ))}
           {!feed.tag && <HomePagination list={mockList} />}
         </>
       )}

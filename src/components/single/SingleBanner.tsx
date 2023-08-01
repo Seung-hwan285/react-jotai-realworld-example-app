@@ -2,13 +2,14 @@ import React from 'react';
 import { PropsArticle } from '../../lib/utils/type/article';
 import useSingleBanner from './hook/useSingleBanner';
 import Button from '../common/Button';
+import { Link } from 'react-router-dom';
 
 function SingleBanner({ article }: PropsArticle) {
   if (!article) {
     return null;
   }
 
-  const { userAtom, handleClick, handleEditClick } = useSingleBanner();
+  const { userAtom, handleClick } = useSingleBanner();
 
   return (
     <>
@@ -37,13 +38,12 @@ function SingleBanner({ article }: PropsArticle) {
                   &nbsp; Delete Article
                 </Button>
                 &nbsp;&nbsp;
-                <Button
-                  onClick={() => handleEditClick(article.slug)}
+                <Link
+                  to={`/edit/${article.slug}`}
                   className="btn btn-outline-secondary btn-sm"
                 >
-                  <i className="ion-edit"></i>
                   &nbsp; Edit Article
-                </Button>
+                </Link>
                 &nbsp;&nbsp;
                 <Button className="btn btn-sm btn-outline-primary">
                   <i className="ion-heart"></i>

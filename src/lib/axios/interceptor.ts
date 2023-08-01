@@ -26,6 +26,7 @@ const isRequest = (config: InternalAxiosRequestConfig) => {
 
   return config;
 };
+
 const isErrorResponse = (
   error: AxiosError | Error,
   config: InternalAxiosRequestConfig,

@@ -7,7 +7,7 @@ import {
 } from '../../lib/utils/type/article';
 import Button from '../common/Button';
 import useArticleList from './hook/useArticleList';
-import { isArrayWithItems } from '../../lib/utils/type-guard/data';
+import { Link } from 'react-router-dom';
 
 const FAVORITED_CLASS = 'btn btn-sm btn-primary pull-xs-right';
 const NOT_FAVORITED_CLASS = 'btn btn-sm btn-outline-primary pull-xs-right';
@@ -25,7 +25,7 @@ function ProfileTags({ tags }: PropsTag) {
 }
 
 function ProfileArticleList({ slug, data }: PropsData) {
-  const { count, disabled, handleFavoriteClick, handleClick } = useArticleList({
+  const { count, disabled, handleFavoriteClick } = useArticleList({
     data,
   });
 
@@ -47,41 +47,38 @@ function ProfileArticleList({ slug, data }: PropsData) {
           <i className="ion-heart"></i> {count}
         </Button>
       </div>
-      <a onClick={() => handleClick(data.slug)} className="preview-link">
+
+      <Link to={`/article/${data.slug}`} className="preview-link">
         <h1>{data.title}</h1>
         <p>{data.description}</p>
         <span>Read more...</span>
 
         <ProfileTags tags={data.tagList} />
-      </a>
+      </Link>
+    </div>
+  );
+}
+
+function NoArticles() {
+  return (
+    <div>
+      <div className="article-preview">No article are here... yet.</div>
     </div>
   );
 }
 
 function ProfileArticles({ articles }: PropsArray) {
-  const paintNoArticle = (
-    <div>
-      <div className="article-preview">No article are here... yet.</div>
-    </div>
-  );
-
-  if (!articles || articles.length === 0) {
-    return paintNoArticle;
-  }
-  const MemoComponent = React.memo(ProfileArticleList);
-
   return (
     <>
-      {isArrayWithItems<PropsArray>(articles) &&
-        articles.map((data: Props) => {
-          return (
-            <>
-              <div key={data.slug}>
-                <MemoComponent slug={data.slug} data={data} />;
-              </div>
-            </>
-          );
-        })}
+      {!articles || articles.length === 0 ? (
+        <NoArticles />
+      ) : (
+        articles.map((data: Props) => (
+          <div key={data.slug}>
+            <ProfileArticleList slug={data.slug} data={data} />
+          </div>
+        ))
+      )}
     </>
   );
 }
