@@ -1,6 +1,7 @@
 import React from 'react';
 import Button from '../common/Button';
 import useRegister from './hook/useRegister';
+import InputField from '../common/InputField';
 
 function RegisterForm() {
   const { errorEmail, user, handleChange, handleSubmit } = useRegister();
@@ -17,39 +18,34 @@ function RegisterForm() {
               </p>
 
               <form onSubmit={handleSubmit}>
-                <fieldset className="form-group">
-                  <input
-                    type="text"
-                    name="username"
-                    className="form-control form-control-lg"
-                    placeholder="UserName"
-                    value={user.username}
-                    onChange={handleChange}
-                  />
-                </fieldset>
-                <fieldset className="form-group">
-                  <input
-                    className="form-control form-control-lg"
-                    type="text"
-                    name="email"
-                    placeholder="email"
-                    value={user.email}
-                    onChange={handleChange}
-                  />
-                  {errorEmail && (
-                    <span style={{ color: 'red' }}>{errorEmail}</span>
-                  )}
-                </fieldset>
-                <fieldset className="form-group">
-                  <input
-                    className="form-control form-control-lg"
-                    type="password"
-                    name="password"
-                    placeholder="Password"
-                    value={user.password}
-                    onChange={handleChange}
-                  />
-                </fieldset>
+                <InputField
+                  type="text"
+                  name="username"
+                  placeholder="Username"
+                  value={user.username}
+                  onChange={handleChange}
+                />
+
+                <InputField
+                  type="text"
+                  name="email"
+                  placeholder="email"
+                  value={user.email}
+                  onChange={handleChange}
+                />
+
+                {errorEmail && (
+                  <span style={{ color: 'red' }}>{errorEmail}</span>
+                )}
+
+                <InputField
+                  type="text"
+                  name="password"
+                  placeholder="password"
+                  value={user.password}
+                  onChange={handleChange}
+                />
+
                 <Button className="btn btn-lg btn-primary pull-xs-right">
                   Sign up
                 </Button>
