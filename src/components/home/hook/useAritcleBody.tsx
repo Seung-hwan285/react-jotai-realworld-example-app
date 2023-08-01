@@ -6,9 +6,7 @@ import { useEffect } from 'react';
 
 function useArticleBody() {
   const [data, refreshArticle] = useAtom(asyncArticleAtom);
-
   const location = useLocation();
-
   const [feed] = useAtom(articleFeedAtom);
 
   useEffect(() => {

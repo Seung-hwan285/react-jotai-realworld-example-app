@@ -178,7 +178,9 @@ export const ArticlesAPI = {
     return SERVER_ERROR_RESPONSE;
   },
 
-  getTagArticles: async (tag: string): Promise<AxiosResponse<any>> => {
+  getTagArticles: async (
+    tag: string | undefined,
+  ): Promise<AxiosResponse<any>> => {
     try {
       const result = await axiosInterceptor.get(`/api/articles?tag=${tag}`);
 

@@ -1,7 +1,7 @@
 import { useLocation } from 'react-router-dom';
 import React, { useEffect, useState } from 'react';
 import { PropsArticle } from '../../../lib/utils/type/article';
-import { useAtom } from 'jotai';
+import { useAtom, useSetAtom } from 'jotai';
 import { commentList } from '../../../lib/jotai/comment';
 import { userImage, userSlug } from '../../../lib/jotai/user';
 import { bodyAtom } from '../../../lib/jotai/article';
@@ -13,9 +13,9 @@ function useSingleInfo() {
   const location = useLocation();
   const [single, setSingle] = useState<PropsArticle>({});
 
-  const [, setComments] = useAtom(commentList);
+  const setComments = useSetAtom(commentList);
+  const setUserImage = useSetAtom(userImage);
 
-  const [, setUserImage] = useAtom(userImage);
   const [slugAtom, setSlug] = useAtom(userSlug);
 
   const [textBodyAtom, setBody] = useAtom(bodyAtom);
@@ -60,6 +60,7 @@ function useSingleInfo() {
       setUserImage(articleResponse.data.article.author.image);
       setComments(commentsResponse.data);
     };
+
     fetchArticleAndComment();
   }, [location]);
 

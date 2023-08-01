@@ -43,8 +43,8 @@ export const asyncArticleAtom = atomWithRefresh(async (get) => {
   const pageAtom = get(articleOffsetAtom);
   const authorAtom = get(readOnlyAtom);
 
-  const feed = feedAtom.feed && feedAtom.tag === '' ? feedAtom.feed : '';
-  const tag = feedAtom.tag && feedAtom.feed === '' ? feedAtom.tag : '';
+  const feed = feedAtom.tag === '' ? feedAtom.feed : '';
+  const tag = feedAtom.feed === '' ? feedAtom.tag : '';
 
   switch (feed) {
     case 'global':

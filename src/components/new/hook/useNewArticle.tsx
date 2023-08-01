@@ -38,8 +38,8 @@ function useNewArticle() {
     }
   };
 
-  const handleDeleteClick = (tagRemove: Tag) => {
-    setTags((prev: Tag[]) => prev.filter((tag: Tag) => tag !== tagRemove));
+  const handleDeleteClick = (tagItem: Tag) => {
+    setTags((prev: Tag[]) => prev.filter((tag: Tag) => tag !== tagItem));
   };
 
   const handleSubmit = async (e: React.FormEvent) => {
@@ -51,8 +51,7 @@ function useNewArticle() {
       body: newArticle.body,
       tags: tags as string[],
     };
-    const { data } = await ArticlesAPI.createArticle(body);
-
+    await ArticlesAPI.createArticle(body);
     return navigate('/');
   };
 

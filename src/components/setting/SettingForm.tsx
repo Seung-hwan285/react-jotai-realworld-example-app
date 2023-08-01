@@ -1,6 +1,7 @@
 import React from 'react';
 import Button from '../common/Button';
 import useSetting from './hook/useSetting';
+import InputField from '../common/InputField';
 
 function SettingForm() {
   const {
@@ -27,56 +28,53 @@ function SettingForm() {
               )}
               <form onSubmit={handleSubmit}>
                 <fieldset>
-                  <fieldset className="form-group">
-                    <input
-                      className="form-control"
-                      type="text"
-                      placeholder="URL of profile picture"
-                      name="images"
-                      onChange={handleChange}
-                    />
-                  </fieldset>
-                  <fieldset className="form-group">
-                    <input
-                      className="form-control form-control-lg"
-                      type="text"
-                      placeholder="Your Name"
-                      name="username"
-                      onChange={handleChange}
-                    />
-                  </fieldset>
+                  <InputField
+                    type="text"
+                    placeholder="URL of profile picture"
+                    name="images"
+                    value={state.images}
+                    onChange={handleChange}
+                  />
+
+                  <InputField
+                    type="text"
+                    placeholder="Your Name"
+                    name="username"
+                    value={state.username}
+                    onChange={handleChange}
+                  />
+
                   <fieldset className="form-group">
                     <textarea
                       className="form-control form-control-lg"
                       rows={8}
                       placeholder="Short bio about you"
                       name="bio"
+                      value={state.bio}
                       onChange={handleChange}
                     ></textarea>
                   </fieldset>
-                  <fieldset className="form-group">
-                    <input
-                      className="form-control form-control-lg"
-                      type="text"
-                      placeholder="Email"
-                      value={state.email}
-                      name="email"
-                      onChange={handleChange}
-                    />
-                  </fieldset>
+
+                  <InputField
+                    type="text"
+                    placeholder="Email"
+                    name="email"
+                    value={state.email}
+                    onChange={handleChange}
+                  />
+
                   {errorEmail && (
                     <span style={{ color: 'red' }}>{errorEmail}</span>
                   )}
-                  <fieldset className="form-group">
-                    <input
-                      className="form-control form-control-lg"
-                      type="password"
-                      name="password"
-                      placeholder="New Password"
-                      value={state.password}
-                      onChange={handleChange}
-                    />
-                  </fieldset>
+
+                  <InputField
+                    type="password"
+                    name="password"
+                    placeholder="New Password"
+                    value={state.password}
+                    onChange={handleChange}
+                  />
+
                   <Button
                     disabled={disabled}
                     className="btn btn-lg btn-primary pull-xs-right"

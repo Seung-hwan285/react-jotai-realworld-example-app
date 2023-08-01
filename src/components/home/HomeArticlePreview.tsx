@@ -53,7 +53,6 @@ function HomeArticleList({ data }: PropsData) {
           disabled={isAuth}
           onClick={() => handleFavoriteClick(data.slug)}
           className={disabled ? FAVORITED_CLASS : NOT_FAVORITED_CLASS}
-          // className="btn btn-outline-primary btn-sm pull-xs-right"
         >
           <i className="ion-heart"></i> {count}
         </Button>

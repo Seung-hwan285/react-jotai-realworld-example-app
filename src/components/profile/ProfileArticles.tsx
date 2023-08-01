@@ -15,11 +15,12 @@ const NOT_FAVORITED_CLASS = 'btn btn-sm btn-outline-primary pull-xs-right';
 function ProfileTags({ tags }: PropsTag) {
   return (
     <ul className="tag-list">
-      {tags.map((tag: string, idx: number) => (
-        <li className="tag-default tag-pill tag-outline" key={idx}>
-          {tag}
-        </li>
-      ))}
+      {!!tags &&
+        tags?.map((tag: string, idx: number) => (
+          <li className="tag-default tag-pill tag-outline" key={idx}>
+            {tag}
+          </li>
+        ))}
     </ul>
   );
 }

@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
 import { getLocalStroage } from '../../../lib/utils/storage';
 import { useAtom } from 'jotai';
 import { readOnlyAtom, readOnlySlugAtom } from '../../../lib/jotai/user';

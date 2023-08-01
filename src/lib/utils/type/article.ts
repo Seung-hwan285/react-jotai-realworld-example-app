@@ -34,14 +34,17 @@ type newArticle = {
   tags?: string[];
 };
 
-export type Tag = { tag?: string };
+export type Tag = { tagItem?: string };
 
 export type PropsFeed = {
   feed: string;
   onClick: (e: string) => void;
 };
 
-export type PropsTag = { tags: string[] };
+export type PropsTag = {
+  tags?: string[];
+  handleDeleteClick?: (e: string | any) => void;
+};
 
 export type PropsLoading = Required<{ user: AuthUser }> & {
   loading: boolean;

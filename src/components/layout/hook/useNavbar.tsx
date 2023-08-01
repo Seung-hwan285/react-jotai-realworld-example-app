@@ -9,7 +9,6 @@ function useNavBar() {
   const location = useLocation();
   const [isLoggedIn, setIsLoggedIn] = useState(false);
 
-  // const [user, setUser] = useState({});
   const [user, setUser] = useAtom(userState);
 
   const isActiveLink = (path: string) => {

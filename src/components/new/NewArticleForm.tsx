@@ -1,6 +1,29 @@
 import React from 'react';
-import { Tag } from '../../lib/utils/type/article';
+import { PropsTag } from '../../lib/utils/type/article';
 import useNewArticle from './hook/useNewArticle';
+import InputField from '../common/InputField';
+import Button from '../common/Button';
+
+function NewArticleTags({ tags, handleDeleteClick }: PropsTag) {
+  return (
+    <div className="tag-list">
+      {!!tags &&
+        tags.map((tag: string) => {
+          const s = tag as string;
+          return (
+            <div key={s}>
+              <span
+                onClick={() => handleDeleteClick?.(tag)}
+                className="tag-pill tag-default"
+              >
+                {s} X
+              </span>
+            </div>
+          );
+        })}
+    </div>
+  );
+}
 
 function NewArticleForm() {
   const {
@@ -22,26 +45,21 @@ function NewArticleForm() {
             <div className="col-md-10 offset-md-1 col-xs-12">
               <form>
                 <fieldset>
-                  <fieldset className="form-group">
-                    <input
-                      type="text"
-                      className="form-control form-control-lg"
-                      placeholder="Article Title"
-                      name="title"
-                      value={newArticle.title}
-                      onChange={handleChange}
-                    />
-                  </fieldset>
-                  <fieldset className="form-group">
-                    <input
-                      type="text"
-                      className="form-control"
-                      placeholder="What's this article about?"
-                      name="description"
-                      value={newArticle.description}
-                      onChange={handleChange}
-                    />
-                  </fieldset>
+                  <InputField
+                    type="text"
+                    placeholder="Article Title"
+                    name="title"
+                    onChange={handleChange}
+                  />
+
+                  <InputField
+                    type="text"
+                    placeholder="What's this article about?"
+                    name="description"
+                    value={newArticle.description}
+                    onChange={handleChange}
+                  />
+
                   <fieldset className="form-group">
                     <textarea
                       className="form-control"
@@ -53,40 +71,28 @@ function NewArticleForm() {
                       onKeyPress={handleTagClick}
                     />
                   </fieldset>
-                  <fieldset className="form-group">
-                    <input
-                      type="text"
-                      className="form-control"
-                      placeholder="Enter tags"
-                      name="tagList"
-                      value={tag}
-                      onChange={handleTagChange}
-                      onKeyPress={handleTagClick}
-                    />
-                    <div className="tag-list">
-                      {!!tags &&
-                        tags.map((tag: Tag) => {
-                          const string = tag as string;
-                          return (
-                            <div key={string}>
-                              <span
-                                onClick={() => handleDeleteClick(tag)}
-                                className="tag-pill tag-default"
-                              >
-                                {string} &nbsp; X
-                              </span>
-                            </div>
-                          );
-                        })}
-                    </div>
-                  </fieldset>
-                  <button
+
+                  <InputField
+                    type="text"
+                    placeholder="Enter tags"
+                    name="tagList"
+                    value={tag}
+                    onChange={handleTagChange}
+                    onKeyPress={handleTagClick}
+                  />
+
+                  <NewArticleTags
+                    tags={tags as string[]}
+                    handleDeleteClick={handleDeleteClick}
+                  />
+
+                  <Button
                     onClick={handleSubmit}
                     className="btn btn-lg pull-xs-right btn-primary"
                     type="button"
                   >
                     Publish Article
-                  </button>
+                  </Button>
                 </fieldset>
               </form>
             </div>

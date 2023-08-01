@@ -19,7 +19,6 @@ function useProfileInfo() {
     if (clickedFeed === 'favorite') {
       setFeed('favorite');
     }
-
     if (clickedFeed === feed) {
       setPending(false);
     }

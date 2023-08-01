@@ -1,6 +1,7 @@
 import React from 'react';
 import Button from '../common/Button';
 import useLogin from './hook/useLogin';
+import InputField from '../common/InputField';
 
 function LoginForm() {
   const { errorEmail, user, handleChange, handleSubmit } = useLogin();
@@ -16,30 +17,24 @@ function LoginForm() {
             </p>
 
             <form onSubmit={handleSubmit}>
-              <fieldset className="form-group">
-                <input
-                  className="form-control form-control-lg"
-                  type="text"
-                  placeholder="Email"
-                  name="email"
-                  value={user.email}
-                  onChange={handleChange}
-                />
+              <InputField
+                type="text"
+                placeholder={'Email'}
+                name="email"
+                value={user.email}
+                onChange={handleChange}
+              />
 
-                {errorEmail && (
-                  <span style={{ color: 'red' }}>{errorEmail}</span>
-                )}
-              </fieldset>
-              <fieldset className="form-group">
-                <input
-                  className="form-control form-control-lg"
-                  type="password"
-                  placeholder="Password"
-                  name="password"
-                  value={user.password}
-                  onChange={handleChange}
-                />
-              </fieldset>
+              {errorEmail && <span style={{ color: 'red' }}>{errorEmail}</span>}
+
+              <InputField
+                type="password"
+                placeholder="Password"
+                name="password"
+                value={user.password}
+                onChange={handleChange}
+              />
+
               <Button className="btn btn-lg btn-primary pull-xs-right">
                 Sign up
               </Button>
