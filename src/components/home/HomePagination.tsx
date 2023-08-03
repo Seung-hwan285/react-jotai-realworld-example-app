@@ -1,20 +1,14 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { useAtom } from 'jotai';
 import { articleOffsetAtom } from '../../lib/jotai/article';
 import { isArrayWithItems } from '../../lib/utils/type-guard/data';
-
-type Pagination = {
-  list: number[];
-};
+import { Pagination } from '../../lib/utils/type/article';
 
 function HomePagination({ list }: Pagination) {
   const [pageAtom, setPageNumber] = useAtom(articleOffsetAtom);
 
-  const [isActive, setIsActive] = useState<number | null>(pageAtom);
-
   const handleClick = (page: number) => {
     setPageNumber(page);
-    setIsActive(page);
   };
 
   return (
@@ -25,7 +19,7 @@ function HomePagination({ list }: Pagination) {
             return (
               <li
                 key={page.toString()}
-                className={`page-item ${isActive === page ? 'active' : ''}`}
+                className={`page-item ${pageAtom === page ? 'active' : ''}`}
               >
                 <button
                   onClick={() => handleClick(page)}

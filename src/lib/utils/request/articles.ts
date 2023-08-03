@@ -5,7 +5,6 @@ import {
   NewArticle,
   PropsArticle,
   PropsTag,
-  Tag,
   UpdateArticle,
 } from '../type/article';
 import { Comments } from '../type/comment';

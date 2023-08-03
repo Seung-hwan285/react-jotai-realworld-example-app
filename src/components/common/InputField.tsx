@@ -1,13 +1,5 @@
 import React from 'react';
-
-type InputField = {
-  type: string;
-  placeholder: string;
-  name: string;
-  value?: string;
-  onChange?: (e: React.ChangeEvent<HTMLInputElement>) => void;
-  onKeyPress?: (e: React.KeyboardEvent) => void;
-};
+import { PropsInputField } from '../../lib/utils/type/auth';
 
 function InputField({
   type,
@@ -16,7 +8,7 @@ function InputField({
   value,
   onChange,
   onKeyPress,
-}: InputField) {
+}: PropsInputField) {
   return (
     <fieldset className="form-group">
       <input

@@ -1,14 +1,5 @@
 import React from 'react';
-
-type PropsButton = {
-  disabled?: boolean;
-  onClick?: (
-    e: React.FormEvent<HTMLButtonElement> | React.MouseEvent<HTMLInputElement>,
-  ) => void;
-  className: string;
-  children?: React.ReactNode;
-  type?: 'button' | 'submit' | 'reset';
-};
+import { PropsButton } from '../../lib/utils/type/auth';
 
 function Button({ disabled, onClick, className, children, type }: PropsButton) {
   const disable = disabled === null || disabled;

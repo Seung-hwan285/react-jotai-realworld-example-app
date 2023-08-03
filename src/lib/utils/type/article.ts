@@ -59,6 +59,10 @@ export type ArticleInput = Required<Body> & {
   description: string;
 };
 
+export type Pagination = {
+  list: number[];
+};
+
 export type PropsArray = PropsWithArticles;
 export type BodyTags = PropsTag;
 export type NewArticle = newArticle;

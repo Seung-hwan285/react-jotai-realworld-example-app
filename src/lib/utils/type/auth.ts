@@ -56,3 +56,22 @@ export type Setting = OptionalUtils<{
   password: string;
   images: string;
 }>;
+
+export type PropsButton = {
+  disabled?: boolean;
+  onClick?: (
+    e: React.FormEvent<HTMLButtonElement> | React.MouseEvent<HTMLInputElement>,
+  ) => void;
+  className: string;
+  children?: React.ReactNode;
+  type?: 'button' | 'submit' | 'reset';
+};
+
+export type PropsInputField = {
+  type: string;
+  placeholder: string;
+  name: string;
+  value?: string;
+  onChange?: (e: React.ChangeEvent<HTMLInputElement>) => void;
+  onKeyPress?: (e: React.KeyboardEvent) => void;
+};
