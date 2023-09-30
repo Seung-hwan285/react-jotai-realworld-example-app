@@ -7,9 +7,18 @@ import { Pagination } from '../../lib/utils/type/article';
 function HomePagination({ list }: Pagination) {
   const [pageAtom, setPageNumber] = useAtom(articleOffsetAtom);
 
+  const queryParams = new URLSearchParams(location.search);
+
   const handleClick = (page: number) => {
     setPageNumber(page);
+    // queryParams.set('page', page);
+    // history({
+    //   search: page,
+    // });
   };
+
+  const currentPage = parseInt(queryParams.get('page') as string) || 1;
+  console.log(currentPage);
 
   return (
     <nav>
